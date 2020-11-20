@@ -1,21 +1,17 @@
-
-
-//WIP NOT FINAL
 public class Solution {
     public int LengthOfLongestSubstring(string s) {
-           Dictionary<char, int> map = new Dictionary<char, int>();
-    if (s == null || s.Length == 0) return 0;
-    if (s.Length == 1) return 1;
-    int rightPointer = 0, leftPointer = rightPointer - 1, answer = 0;
-    while (rightPointer != s.Length) {
-        int previousOccurrence = map[s[rightPointer]]=rightPointer;
-        if (previousOccurrence != null) {
-            leftPointer = Math.Max(leftPointer, previousOccurrence);
+  int n = s.Length;
+        HashSet<char> set1 = new HashSet<char>();
+        int ans = 0, i = 0, j = 0;
+        while(i<n && j<n) {
+            if(!set1.Contains(s[j])) {
+                set1.Add(s[j++]);
+                ans = Math.Max(ans, j - i);
+            } else {
+                set1.Remove(s[i++]);
+            }
         }
-        answer = Math.Max(answer, rightPointer - leftPointer);
-        rightPointer++;
-    }
-    return answer;
+        return ans;
         
     }
 }
