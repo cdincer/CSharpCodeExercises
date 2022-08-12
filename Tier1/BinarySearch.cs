@@ -21,6 +21,14 @@ namespace Tier1
             return 0;
         }
         //Binary Search Template 1
+
+        #region question1
+        /*
+        Given a non-negative integer x, compute and return the square root of x.
+        Since the return type is an integer, the decimal digits are truncated, and only the integer part of the result is returned.
+        Note: You are not allowed to use any built-in exponent function or operator, such as pow(x, 0.5) or x ** 0.5.
+        */
+        #endregion
         public int MySqrt(int x)
         {
             if (x <= 1) return x;
@@ -43,14 +51,11 @@ namespace Tier1
             return start;
         }
 
-        #region question
+        #region question2
         /*
         We are playing the Guess Game. The game is as follows:
-
         I pick a number from 1 to n. You have to guess which number I picked.
-
         Every time you guess wrong, I will tell you whether the number I picked is higher or lower than your guess.
-
         You call a pre-defined API int guess(int num), which returns three possible results:
 
         -1: Your guess is higher than the number I picked (i.e. num > pick).
@@ -76,7 +81,7 @@ namespace Tier1
         }
 
         //Search rotated Array      
-        #region question
+        #region question3
         /*
         There is an integer array nums sorted in ascending order (with distinct values).
         Prior to being passed to your function, nums is possibly rotated at an unknown pivot index k (1 <= k < nums.length) such that the resulting array is:
