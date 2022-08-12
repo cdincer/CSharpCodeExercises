@@ -1,6 +1,6 @@
 using System;
 
-namespace SlidingWindow
+namespace Tier1
 {
     public class SlidingWindow
     {

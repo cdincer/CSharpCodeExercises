@@ -396,3 +396,9 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+bin/Debug/netcoreapp3.1/CSharpCodeExercises.dll
+bin/Debug/netcoreapp3.1/CSharpCodeExercises.exe
+bin/Debug/netcoreapp3.1/CSharpCodeExercises.pdb
+obj/Debug/netcoreapp3.1/CSharpCodeExercises.assets.cache
+obj/Debug/netcoreapp3.1/CSharpCodeExercises.csproj.CoreCompileInputs.cache
+obj/Debug/netcoreapp3.1/CSharpCodeExercises.csproj.FileListAbsolute.txt

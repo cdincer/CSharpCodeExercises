@@ -4,10 +4,11 @@ C:\Users\Can\Documents\Visual Studio Code\CSharpCodeExercises\bin\Debug\netcorea
 C:\Users\Can\Documents\Visual Studio Code\CSharpCodeExercises\bin\Debug\netcoreapp3.1\CSharpCodeExercises.runtimeconfig.dev.json
 C:\Users\Can\Documents\Visual Studio Code\CSharpCodeExercises\bin\Debug\netcoreapp3.1\CSharpCodeExercises.dll
 C:\Users\Can\Documents\Visual Studio Code\CSharpCodeExercises\bin\Debug\netcoreapp3.1\CSharpCodeExercises.pdb
-C:\Users\Can\Documents\Visual Studio Code\CSharpCodeExercises\obj\Debug\netcoreapp3.1\CSharpCodeExercises.csprojAssemblyReference.cache
 C:\Users\Can\Documents\Visual Studio Code\CSharpCodeExercises\obj\Debug\netcoreapp3.1\CSharpCodeExercises.AssemblyInfoInputs.cache
 C:\Users\Can\Documents\Visual Studio Code\CSharpCodeExercises\obj\Debug\netcoreapp3.1\CSharpCodeExercises.AssemblyInfo.cs
 C:\Users\Can\Documents\Visual Studio Code\CSharpCodeExercises\obj\Debug\netcoreapp3.1\CSharpCodeExercises.csproj.CoreCompileInputs.cache
 C:\Users\Can\Documents\Visual Studio Code\CSharpCodeExercises\obj\Debug\netcoreapp3.1\CSharpCodeExercises.dll
 C:\Users\Can\Documents\Visual Studio Code\CSharpCodeExercises\obj\Debug\netcoreapp3.1\CSharpCodeExercises.pdb
 C:\Users\Can\Documents\Visual Studio Code\CSharpCodeExercises\obj\Debug\netcoreapp3.1\CSharpCodeExercises.genruntimeconfig.cache
+C:\Users\Can\Documents\Visual Studio Code\CSharpCodeExercises\obj\Debug\netcoreapp3.1\CSharpCodeExercises.csproj.AssemblyReference.cache
+C:\Users\Can\Documents\Visual Studio Code\CSharpCodeExercises\obj\Debug\netcoreapp3.1\CSharpCodeExercises.GeneratedMSBuildEditorConfig.editorconfig

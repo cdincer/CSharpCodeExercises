@@ -1,4 +1,5 @@
 ﻿using System;
+using Tier1;
 
 namespace CSharpCodeExercises
 {
@@ -7,7 +8,10 @@ namespace CSharpCodeExercises
         //My first new project
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            BinarySearch newB = new BinarySearch();
+            int[] nums = new int[] { 4, 5, 6, 7, 0, 1, 2 };
+            int target = 0;
+            newB.SearchRotatedArray(nums, target);
         }
     }
 }
