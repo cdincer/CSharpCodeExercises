@@ -27,6 +27,7 @@ namespace Tier1
         Given a non-negative integer x, compute and return the square root of x.
         Since the return type is an integer, the decimal digits are truncated, and only the integer part of the result is returned.
         Note: You are not allowed to use any built-in exponent function or operator, such as pow(x, 0.5) or x ** 0.5.
+        https://leetcode.com/problems/sqrtx/
         */
         #endregion
         public int MySqrt(int x)
@@ -64,6 +65,7 @@ namespace Tier1
 
          Return the number that I picked.
          Math.abs spots below replaced a special API on leetcode,it returns a guess that I can't replicate here.
+         https://leetcode.com/problems/guess-number-higher-or-lower/solution/
         */
         #endregion
         public int GuessNumber(int n)
@@ -89,6 +91,7 @@ namespace Tier1
         For example, [0,1,2,4,5,6,7] might be rotated at pivot index 3 and become [4,5,6,7,0,1,2].
         Given the array nums after the possible rotation and an integer target, return the index of target if it is in nums, or -1 if it is not in nums.
         You must write an algorithm with O(log n) runtime complexity.
+        https://leetcode.com/problems/search-in-rotated-sorted-array/
         */
         #endregion
         public int SearchRotatedArray(int[] nums, int target)

@@ -5,14 +5,13 @@ namespace CSharpCodeExercises
 {
     class Program
     {
-        //My first new project
         static void Main(string[] args)
         {
             BinarySearch newB = new BinarySearch();
             int[] nums = new int[] { 4, 5, 6, 7, 0, 1, 2 };
             int target = 0;
             //newB.SearchRotatedArray(nums, target);
-            newB.MySqrt(8);
+            newB.MySqrt(25);
         }
     }
 }
