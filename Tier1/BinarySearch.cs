@@ -25,16 +25,14 @@ namespace Tier1
 
             return 0;
         }
-        //Binary Search Template 1
-
-        #region question1
+        //Tier 1
+        #region Find Square Root
         /*
         Given a non-negative integer x, compute and return the square root of x.
         Since the return type is an integer, the decimal digits are truncated, and only the integer part of the result is returned.
         Note: You are not allowed to use any built-in exponent function or operator, such as pow(x, 0.5) or x ** 0.5.
         https://leetcode.com/problems/sqrtx/
         */
-        #endregion
         public int MySqrt(int x)
         {
             if (x <= 1) return x;
@@ -56,8 +54,8 @@ namespace Tier1
 
             return start;
         }
-
-        #region question2
+        #endregion
+        #region Guess Number
         /*
         We are playing the Guess Game. The game is as follows:
         I pick a number from 1 to n. You have to guess which number I picked.
@@ -72,7 +70,6 @@ namespace Tier1
          Math.abs spots below replaced a special API on leetcode,it returns a guess that I can't replicate here.
          https://leetcode.com/problems/guess-number-higher-or-lower/solution/
         */
-        #endregion
         public int GuessNumber(int n)
         {
             int left = 0;
@@ -86,9 +83,8 @@ namespace Tier1
             }
             return 0;
         }
-
-        //Search rotated Array      
-        #region question3
+        #endregion
+        #region Search rotated Array      
         /*
         There is an integer array nums sorted in ascending order (with distinct values).
         Prior to being passed to your function, nums is possibly rotated at an unknown pivot index k (1 <= k < nums.length) such that the resulting array is:
@@ -98,7 +94,6 @@ namespace Tier1
         You must write an algorithm with O(log n) runtime complexity.
         https://leetcode.com/problems/search-in-rotated-sorted-array/
         */
-        #endregion
         public int SearchRotatedArray(int[] nums, int target)
         {
             int lo = 0, hi = nums.Length - 1;
@@ -125,9 +120,9 @@ namespace Tier1
             }
             return -1;
         }
-
+        #endregion
         //Tier 2
-
+        #region First Bad Version
         /*
         You are a product manager and currently leading a team to develop a new product. Unfortunately, the latest version of your product fails the quality check. 
         Since each version is developed based on the previous version, all the versions after a bad version are also bad.
@@ -155,7 +150,8 @@ namespace Tier1
             }
             return start;
         }
-
+        #endregion
+        #region  Find Peak Element
         /*
         A peak element is an element that is strictly greater than its neighbors.
         Given a 0-indexed integer array nums, find a peak element, and return its index. If the array contains multiple peaks, return the index to any of the peaks.
@@ -171,7 +167,6 @@ namespace Tier1
         Explanation: Your function can return either index number 1 where the peak element is 2, or index number 5 where the peak element is 6. 
         https://leetcode.com/problems/find-peak-element/solution/
         */
-
         public int FindPeakElement(int[] nums)
         {
             int l = 0, r = nums.Length - 1;
@@ -185,7 +180,8 @@ namespace Tier1
             }
             return l;
         }
-
+        #endregion
+        #region FindMinInASortedArray
         /*
          Suppose an array of length n sorted in ascending order is rotated between 1 and n times. For example, the array nums = [0,1,2,4,5,6,7] might become:
 
@@ -199,8 +195,6 @@ namespace Tier1
         You must write an algorithm that runs in O(log n) time.
             https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/
         */
-
-
         public int FindMin(int[] nums)
         {
             // If the list has just one element then return that element.
@@ -261,7 +255,32 @@ namespace Tier1
             return Int32.MaxValue;
 
         }
-
-
+        #endregion
+        //Tier 3
+        #region Search for a Range
+        /*
+        Given an array of integers nums sorted in non-decreasing order, 
+        find the starting and ending position of a given target value.
+        If target is not found in the array, return [-1, -1].
+        You must write an algorithm with O(log n) runtime complexity.
+        Example 1:
+        Input: nums = [5,7,7,8,8,10], target = 8
+        Output: [3,4]
+        Example 2:
+        Input: nums = [5,7,7,8,8,10], target = 6
+        Output: [-1,-1]
+        Example 3:
+        Input: nums = [], target = 0
+        Output: [-1,-1]
+        https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/
+        Extra test cases:
+        [5,7,7,8,8,10]
+        8
+        []
+        0
+        [5,7,7,8,8,10]
+        6      
+        */
+        #endregion
     }
 }
