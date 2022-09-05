@@ -25,6 +25,7 @@ namespace Tier1
 
             return 0;
         }
+        #region Template 1
         //Tier 1
         #region Find Square Root
         /*
@@ -121,6 +122,8 @@ namespace Tier1
             return -1;
         }
         #endregion
+        #endregion Template 1
+        #region Template 2
         //Tier 2
         #region First Bad Version
         /*
@@ -256,6 +259,8 @@ namespace Tier1
 
         }
         #endregion
+        #endregion Template 2
+        #region Template 3
         //Tier 3
         #region Search for a Range
         /*
@@ -281,6 +286,58 @@ namespace Tier1
         [5,7,7,8,8,10]
         6      
         */
+        public int[] SearchRange(int[] nums, int target)
+        {
+            int[] result = new int[2];
+            result[0] = SearchFirst(nums, target);
+            result[1] = SearchLast(nums, target);
+            return result;
+        }
+
+        private int SearchFirst(int[] nums, int target)
+        {
+            int idx = -1;
+            int start = 0;
+            int end = nums.Length - 1;
+
+            while (start <= end)
+            {
+                int mid = (start + end) / 2;
+                if (nums[mid] >= target)
+                {
+                    end = mid - 1;
+                }
+                else
+                {
+                    start = mid + 1;
+                }
+                if (nums[mid] == target) idx = mid;
+            }
+            return idx;
+        }
+
+        private int SearchLast(int[] nums, int target)
+        {
+            int idx = -1;
+            int start = 0;
+            int end = nums.Length - 1;
+
+            while (start <= end)
+            {
+                int mid = (start + end) / 2;
+                if (nums[mid] <= target)
+                {
+                    start = mid + 1;
+                }
+                else
+                {
+                    end = mid - 1;
+                }
+                if (nums[mid] == target) idx = mid;
+            }
+            return idx;
+        }
         #endregion
+        #endregion Template 3 
     }
 }
