@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace Tier1
 {
@@ -337,6 +338,79 @@ namespace Tier1
             }
             return idx;
         }
+        #endregion
+        #region  Find K Closest Elements
+        /*
+        Given a sorted integer array arr, two integers k and x, return the k closest integers to x in the array. The result should also be sorted in ascending order.
+        An integer a is closer to x than an integer b if:
+
+            |a - x| < |b - x|, or
+            |a - x| == |b - x| and a < b
+
+        Example 1:
+
+        Input: arr = [1,2,3,4,5], k = 4, x = 3
+        Output: [1,2,3,4]
+
+        Example 2:
+
+        Input: arr = [1,2,3,4,5], k = 4, x = -1
+        Output: [1,2,3,4]
+
+        https://leetcode.com/problems/find-k-closest-elements/
+        */
+        public IList<int> FindClosestElements(int[] arr, int k, int x)
+        {
+            return FindClosestElementsSlidingWindow(arr, k, x);
+        }
+
+        private IList<int> FindClosestElementsBinarySerach(int[] arr, int k, int x)
+        {
+            var left = 0;
+            var right = arr.Length - k;
+
+            while (left < right)
+            {
+                var median = left + (right - left) / 2;
+
+                var distanceFromFirstToTarget = x - arr[median];
+                var distanceFromLiastToTarget = arr[median + k] - x;
+
+                if (distanceFromFirstToTarget > distanceFromLiastToTarget)
+                    left = median + 1;
+                else
+                    right = median;
+            }
+
+            var result = new List<int>(k);
+
+            for (var i = left; i < left + k; i++)
+                result.Add(arr[i]);
+
+            return result;
+        }
+
+        private IList<int> FindClosestElementsSlidingWindow(int[] arr, int k, int x)
+        {
+            var left = 0;
+            var right = arr.Length - 1;
+
+            while (right - left >= k)
+            {
+                if (Math.Abs(arr[left] - x) > Math.Abs(arr[right] - x))
+                    left++;
+                else
+                    right--;
+            }
+
+            var result = new List<int>(k);
+
+            for (var i = left; i < left + k; i++)
+                result.Add(arr[i]);
+
+            return result;
+        }
+
         #endregion
         #endregion Template 3 
     }
