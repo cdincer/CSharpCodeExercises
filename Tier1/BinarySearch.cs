@@ -364,7 +364,8 @@ namespace Tier1
             return FindClosestElementsSlidingWindow(arr, k, x);
         }
 
-        private IList<int> FindClosestElementsBinarySerach(int[] arr, int k, int x)
+        //200ms,374ms,385ms submissions 
+        private IList<int> FindClosestElementsBinarySearch(int[] arr, int k, int x)
         {
             var left = 0;
             var right = arr.Length - k;
@@ -389,7 +390,7 @@ namespace Tier1
 
             return result;
         }
-
+        //200ms,347ms,341ms submissions
         private IList<int> FindClosestElementsSlidingWindow(int[] arr, int k, int x)
         {
             var left = 0;
