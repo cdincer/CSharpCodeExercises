@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 namespace Tier1
 {
+    //https://leetcode.com/explore/learn/card/binary-search/
     public class BinarySearch
     {
         /*
@@ -26,8 +27,9 @@ namespace Tier1
 
             return 0;
         }
+        //Template 1
         #region Template 1
-        //Tier 1
+
         #region Find Square Root
         /*
         Given a non-negative integer x, compute and return the square root of x.
@@ -124,8 +126,8 @@ namespace Tier1
         }
         #endregion
         #endregion Template 1
+        //Template 2
         #region Template 2
-        //Tier 2
         #region First Bad Version
         /*
         You are a product manager and currently leading a team to develop a new product. Unfortunately, the latest version of your product fails the quality check. 
@@ -261,8 +263,8 @@ namespace Tier1
         }
         #endregion
         #endregion Template 2
+        //Template 3
         #region Template 3
-        //Tier 3
         #region Search for a Range
         /*
         Given an array of integers nums sorted in non-decreasing order, 
