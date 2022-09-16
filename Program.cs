@@ -7,13 +7,13 @@ namespace CSharpCodeExercises
     {
         static void Main(string[] args)
         {
-            BinarySearch newB = new BinarySearch();
+            ArrayAndString newB = new ArrayAndString();
             int[] nums = new int[] { 4, 5, 6, 7, 0, 1, 2 };
-            int[] numsOrg = new int[] { 0, 1, 2, 4, 5, 6, 7 };
+            int[] numsOrg = new int[] { 1, 9 };
 
             int target = 0;
             //newB.SearchRotatedArray(nums, target);
-            newB.BinarySearchOriginal(numsOrg, 5);
+            newB.PlusOne(numsOrg);
         }
     }
 }
