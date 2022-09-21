@@ -202,7 +202,7 @@ namespace Tier1
                 1 <= m * n <= 104
                 -105 <= mat[i][j] <= 105
 
-        https://leetcode.com/problems/diagonal-traverse/solution/
+        https://leetcode.com/problems/diagonal-traverse/
         */
         public int[] FindDiagonalOrder(int[][] mat)
         {
@@ -213,17 +213,17 @@ namespace Tier1
             }
 
             // Variables to track the size of the matrix
-            int N = mat.Length;
-            int M = mat[0].Length;
+            int xLength = mat.Length;
+            int yLength = mat[0].Length;
 
             // The two arrays as explained in the algorithm
-            int[] result = new int[N * M];
-            int k = 0;
+            int[] result = new int[xLength * yLength];
+            int resultLocationCounter = 0;
             List<int> intermediate = new List<int>();
 
             // We have to go over all the elements in the first
             // row and the last column to cover all possible diagonals
-            for (int d = 0; d < N + M - 1; d++)
+            for (int mover = 0; mover < xLength + yLength - 1; mover++)
             {
 
                 // Clear the intermediate array every time we start
@@ -233,89 +233,35 @@ namespace Tier1
                 // We need to figure out the "head" of this diagonal
                 // The elements in the first row and the last column
                 // are the respective heads.
-                int r = d < M ? 0 : d - M + 1;
-                int c = d < M ? d : M - 1;
+                int rowHead = mover < yLength ? 0 : mover - yLength + 1;
+                int columnHead = mover < yLength ? mover : yLength - 1;
 
                 // Iterate until one of the indices goes out of scope
                 // Take note of the index math to go down the diagonal
-                while (r < N && c > -1)
+                while (rowHead < xLength && columnHead > -1)
                 {
 
-                    intermediate.Add(mat[r][c]);
-                    ++r;
-                    --c;
+                    intermediate.Add(mat[rowHead][columnHead]);
+                    ++rowHead;
+                    --columnHead;
                 }
 
                 // Reverse even numbered diagonals. The
                 // article says we have to reverse odd 
                 // numbered articles but here, the numbering
                 // is starting from 0 :P
-                if (d % 2 == 0)
+                if (mover % 2 == 0)
                 {
                     intermediate.Reverse();
                 }
 
                 for (int i = 0; i < intermediate.Count; i++)
                 {
-                    result[k++] = intermediate[i];
+                    result[resultLocationCounter++] = intermediate[i];
                 }
             }
             return result;
 
-        }
-        public int[] FindDiagonalOrderV2(int[][] mat)
-        {
-            //No jagged arrays,so its fine.
-            int m = mat.Length;
-            int n = mat[0].Length;
-            int row = 0;
-            int col = 0;
-            int idx = 0;
-            bool goingUp = true;
-            int[] result = new int[m * n];
-
-
-            while (idx < m * n)
-            {
-                result[idx++] = mat[row][col];
-
-                if (goingUp)
-                {
-                    row--; col++;
-                }
-                else
-                {
-                    row++; col--;
-                }
-
-                if (row >= m)
-                {
-                    row--;
-                    col += 2;
-                    goingUp ^= true;
-                }
-
-                if (col >= n)
-                {
-                    col--;
-                    row += 2;
-                    goingUp ^= true;
-                }
-
-                if (row < 0)
-                {
-                    row = 0;
-                    goingUp ^= true;
-                }
-
-                if (col < 0)
-                {
-                    col = 0;
-                    goingUp ^= true;
-                }
-            }
-
-            return result;
         }
         #endregion
         #endregion
