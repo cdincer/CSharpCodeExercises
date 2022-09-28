@@ -10,15 +10,14 @@ namespace CSharpCodeExercises
             ArrayAndString newB = new ArrayAndString();
             int[] nums = new int[] { 4, 5, 6, 7, 0, 1, 2 };
             int[] numsOrg = new int[] { 1, 9 };
-            int[][] jaggedArray2 = new int[][]
+            int[][] jaggedArray = new int[][]
             {
-            new int[] { 1, 2, 3 },
-            new int[] { 4, 5, 6 },
-            new int[] { 7, 8, 9 }
+            new int[] {1,2,3,4,5},
+            new int[] {6,7,8,9,10},
+            new int[] {11,12,13,14,15},
+            new int[] {16,17,18,19,20},
             };
-            int target = 0;
-            //newB.SearchRotatedArray(nums, target);
-            newB.FindDiagonalOrder(jaggedArray2);
+            newB.FindDiagonalOrder(jaggedArray);
         }
     }
 }
