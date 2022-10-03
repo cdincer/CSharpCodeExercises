@@ -228,17 +228,17 @@ namespace Tier1
             }
 
             // Variables to track the size of the matrix
-            int xLength = mat.Length;
-            int yLength = mat[0].Length;
+            int rowLength = mat.Length;
+            int columnLength = mat[0].Length;
 
             // The two arrays as explained in the algorithm
-            int[] result = new int[xLength * yLength];
+            int[] result = new int[rowLength * columnLength];
             int resultLocationCounter = 0;
             List<int> intermediate = new List<int>();
 
             // We have to go over all the elements in the first
             // row and the last column to cover all possible diagonals
-            for (int mover = 0; mover < xLength + yLength - 1; mover++)
+            for (int mover = 0; mover < rowLength + columnLength - 1; mover++)
             {
 
                 // Clear the intermediate array every time we start
@@ -248,12 +248,12 @@ namespace Tier1
                 // We need to figure out the "head" of this diagonal
                 // The elements in the first row and the last column
                 // are the respective heads.
-                int rowHead = mover < yLength ? 0 : mover - yLength + 1;
-                int columnHead = mover < yLength ? mover : yLength - 1;
+                int rowHead = mover < columnLength ? 0 : mover - columnLength + 1;
+                int columnHead = mover < columnLength ? mover : columnLength - 1;
 
                 // Iterate until one of the indices goes out of scope
                 // Take note of the index math to go down the diagonal
-                while (rowHead < xLength && columnHead > -1)
+                while (rowHead < rowLength && columnHead > -1)
                 {
 
                     intermediate.Add(mat[rowHead][columnHead]);
