@@ -204,13 +204,13 @@ namespace Tier1
         https://leetcode.com/problems/diagonal-traverse/
 
         Test cases for VSCode:
-         int[][] jaggedArray = new int[][]
+         int[][] twoDArray = new int[][]
             {
             new int[] { 1, 2, 3 },
             new int[] { 4, 5, 6 },
             new int[] { 7, 8, 9 }
             };
-         int[][] jaggedArray = new int[][]
+         int[][] twoDArray = new int[][]
             {
             new int[] {1,2,3,4,5},
             new int[] {6,7,8,9,10},
@@ -282,6 +282,21 @@ namespace Tier1
         /*
         Given an m x n matrix, return all elements of the matrix in spiral order.
         https://leetcode.com/problems/spiral-matrix/description/
+
+             Test cases for VSCode:
+         int[][] twoDArray = new int[][]
+            {
+            new int[] { 1, 2, 3 },
+            new int[] { 4, 5, 6 },
+            new int[] { 7, 8, 9 }
+            };
+         int[][] twoDArray = new int[][]
+            {
+            new int[] {1,2,3,4,5},
+            new int[] {6,7,8,9,10},
+            new int[] {11,12,13,14,15},
+            new int[] {16,17,18,19,20},
+            };
         */
         public IList<int> SpiralOrder(int[][] matrix)
         {
@@ -296,22 +311,22 @@ namespace Tier1
             {
                 switch (dir)
                 {
-                    case 0: //RIGHT
+                    case 0: //MOVE RIGHT
                         for (int col = startCol; col <= endCol; col++)
                             result.Add(matrix[startRow][col]);
                         startRow++;
                         break;
-                    case 1: //DOWN
+                    case 1: //MOVE DOWN
                         for (int row = startRow; row <= endRow; row++)
                             result.Add(matrix[row][endCol]);
                         endCol--;
                         break;
-                    case 2://LEFT
+                    case 2://MOVE LEFT
                         for (int col = endCol; col >= startCol; col--)
                             result.Add(matrix[endRow][col]);
                         endRow--;
                         break;
-                    case 3://UP
+                    case 3://MOVE UP
                         for (int row = endRow; row >= startRow; row--)
                             result.Add(matrix[row][startCol]);
                         startCol++;
@@ -324,7 +339,7 @@ namespace Tier1
         #endregion
         #endregion
 
-    
+
 
     }
 }
