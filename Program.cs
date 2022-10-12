@@ -17,7 +17,7 @@ namespace CSharpCodeExercises
             new int[] {11,12,13,14,15},
             new int[] {16,17,18,19,20},
             };
-            newB.SpiralOrder(twoDArray);
+            newB.Generate(5);
         }
     }
 }

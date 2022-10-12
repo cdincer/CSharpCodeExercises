@@ -337,6 +337,32 @@ namespace Tier1
             return result;
         }
         #endregion
+        #region Pascal's Triangle
+        /*
+        Given an integer numRows, return the first numRows of Pascal's triangle.
+
+        In Pascal's triangle, each number is the sum of the two numbers directly above it as shown:
+        https://leetcode.com/problems/pascals-triangle/description/
+        */
+        public IList<IList<int>> Generate(int numRows)
+        {
+
+            int[][] answer = new int[numRows][];
+
+            for (int i = 0; i < numRows; i++)
+            {
+                answer[i] = new int[i + 1];
+                answer[i][0] = answer[i][i] = 1;
+                for (int j = 1; j < i; j++)
+                {
+                    answer[i][j] = answer[i - 1][j] + answer[i - 1][j - 1];
+                }
+            }
+
+            return answer;
+        }
+        #endregion
+
         #endregion
 
 
