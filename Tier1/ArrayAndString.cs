@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace Tier1
 {
@@ -362,9 +363,53 @@ namespace Tier1
             return answer;
         }
         #endregion
-
         #endregion
+        #region Strings
 
+        #region AddBinary
+        /*
+        Given two binary strings a and b, return their sum as a binary string.
+        Example 1:
+        Input: a = "11", b = "1"
+        Output: "100"
+        Example 2:
+        Input: a = "1010", b = "1011"
+        Output: "10101"
+
+        Constraints:
+
+        1 <= a.length, b.length <= 104
+        a and b consist only of '0' or '1' characters.
+        Each string does not contain leading zeros except for the zero itself.
+        Extra Test Case:
+        "10100000100100110110010000010101111011011001101110111111111101000000101111001110001111100001101"
+        "110101001011101110001111100110001010100001101011101010000011011011001011101111001100000011011110011"
+
+        */
+        public string AddBinary(string a, string b)
+        {
+            StringBuilder result = new(); //C# has immutability string builder goes.
+            //two pointers starting from the back, just think of adding two regular ints from you add from back
+            int i = a.Length - 1;
+            int j = b.Length - 1;
+            int carry = 0;
+
+            while (i >= 0 || j >= 0 || carry > 0) //Carry check here instead of at the end
+            {
+                int sum = carry; //if there is a carry from the last addition, add it to carry 
+                int aValue = i >= 0 ? a[i--] - '0' : 0;  //we subtract '0' to get the int value of the char from the ascii
+                int bValue = j >= 0 ? b[j--] - '0' : 0;
+
+                sum += aValue + bValue;
+                result.Insert(0, sum % 2);  //if sum==2 or sum==0 append 0 cause 1+1=0 in this case as this is base 2 (just like 1+9 is 0 if adding ints in columns)
+                carry = sum / 2; //if sum==2 we have a carry, else no carry 1/2 rounds down to 0 in integer arithematic
+            }
+
+            return result.ToString();
+
+        }
+        #endregion
+        #endregion
 
 
     }
