@@ -411,6 +411,53 @@ namespace Tier1
         #endregion
         #endregion
 
+        #region Implement strStr()
+        /*
+        Given two strings needle and haystack, return the index of the first occurrence of needle in haystack, or -1 if needle is not part of haystack.
+   
+        Example 1:
+
+        Input: haystack = "sadbutsad", needle = "sad"
+        Output: 0
+        Explanation: "sad" occurs at index 0 and 6.
+        The first occurrence is at index 0, so we return 0.
+
+        Example 2:
+
+        Input: haystack = "leetcode", needle = "leeto"
+        Output: -1
+        Explanation: "leeto" did not occur in "leetcode", so we return -1.
+       
+        Constraints:
+
+            1 <= haystack.length, needle.length <= 104
+            haystack and needle consist of only lowercase English characters.
+
+        https://leetcode.com/problems/find-the-index-of-the-first-occurrence-in-a-string/solutions/
+        Leetcode test cases
+        "sadbutsad"
+        "sad"
+        "leetcodesadbutleetomeeto"
+        "leeto"
+        "a"
+        "a"
+        "abc"
+        "c"
+        "leetcode"
+        "leeto"
+        */
+        public int StrStr(string haystack, string needle)
+        {
+            for (int i = 0; i < haystack.Length - needle.Length + 1; i++)
+            {
+                if (haystack.Substring(i, needle.Length) == needle)
+                {
+                    return i;
+                }
+            }
+            return -1;
+        }
+        #endregion
 
     }
 }
