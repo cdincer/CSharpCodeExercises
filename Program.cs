@@ -22,8 +22,8 @@ namespace CSharpCodeExercises
             ValidParentheses can1 = new ValidParentheses();
             List<int> items = new List<int>();
             items.ToArray().ToString();
-            string actualResult = newB.AddBinary("10100000100100110110010000010101111011011001101110111111111101000000101111001110001111100001101", "110101001011101110001111100110001010100001101011101010000011011011001011101111001100000011011110011");
-            Console.WriteLine(actualResult);
+            newB.LongestCommonPrefix(new string[] { "ab", "a" });
+            Console.WriteLine("");
         }
     }
 }
