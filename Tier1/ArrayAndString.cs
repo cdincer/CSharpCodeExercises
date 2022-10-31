@@ -508,7 +508,50 @@ namespace Tier1
         }
         #endregion
         #endregion
+        #region Two-pointer Technique
+        #region Reverse String
+        /*
+        Write a function that reverses a string. The input string is given as an array of characters s.
+
+        You must do this by modifying the input array in-place with O(1) extra memory.
+
+        
+
+        Example 1:
+
+        Input: s = ["h","e","l","l","o"]
+        Output: ["o","l","l","e","h"]
+
+        Example 2:
+
+        Input: s = ["H","a","n","n","a","h"]
+        Output: ["h","a","n","n","a","H"]
+
+        
+
+        Constraints:
+
+            1 <= s.length <= 105
+            s[i] is a printable ascii character.
 
 
+        */
+        public void ReverseString(char[] s)
+        {
+
+            int e = s.Length - 1;
+            for (int b = 0; b < s.Length / 2; b++)
+            {
+                char temp = s[b];
+                s[b] = s[e];
+                s[e] = temp;
+                e--;
+            }
+        }
+        #endregion
+        #region Array Partition I
+
+        #endregion
+        #endregion
     }
 }
