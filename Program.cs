@@ -22,7 +22,7 @@ namespace CSharpCodeExercises
             ValidParentheses can1 = new ValidParentheses();
             List<int> items = new List<int>();
             items.ToArray().ToString();
-            newB.LongestCommonPrefix(new string[] { "ab", "a" });
+            newB.RemoveElement(new int[] { 0, 1, 2, 2, 3, 0, 4, 2 }, 2);
             Console.WriteLine("");
         }
     }

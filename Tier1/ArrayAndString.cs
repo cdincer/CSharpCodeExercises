@@ -652,6 +652,26 @@ namespace Tier1
             return new int[] { i + 1, j + 1 };
         }
         #endregion
+        #region Remove Element
+        /*
+        [2,2,3]
+        2
+        */
+        public int RemoveElement(int[] nums, int val)
+        {
+            int k = 0;
+            for (int i = 0; i < nums.Length; ++i)
+            {
+                if (nums[i] != val)
+                {
+                    nums[k] = nums[i];
+                    k++;
+                }
+            }
+            return k;
+        }
+
+        #endregion
         #endregion
     }
 }
