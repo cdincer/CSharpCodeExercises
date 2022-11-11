@@ -507,8 +507,10 @@ namespace Tier1
             return strs[0];
         }
         #endregion
+
         #endregion
         #region Two-pointer Technique
+
         #region Reverse String
         /*
         Write a function that reverses a string. The input string is given as an array of characters s.
@@ -549,6 +551,7 @@ namespace Tier1
             }
         }
         #endregion
+
         #region Array Partition I
         /*
         Given an integer array nums of 2n integers, group these integers into n pairs (a1, b1), (a2, b2), ..., (an, bn) such that the sum of min(ai, bi) for all i is maximized. Return the maximized sum.
@@ -652,6 +655,7 @@ namespace Tier1
             return new int[] { i + 1, j + 1 };
         }
         #endregion
+
         #region Remove Element
         /*
         [2,2,3]
@@ -672,6 +676,87 @@ namespace Tier1
         }
 
         #endregion
+
+        #region MaxConsecutiveOnes
+        /*
+        Given a binary array nums, return the maximum number of consecutive 1's in the array.
+        
+        Example 1:
+
+        Input: nums = [1,1,0,1,1,1]
+        Output: 3
+        Explanation: The first two digits or the last three digits are consecutive 1s. The maximum number of consecutive 1s is 3.
+
+        Example 2:
+
+        Input: nums = [1,0,1,1,0,1]
+        Output: 2
+       
+        Constraints:
+
+            1 <= nums.length <= 105
+            nums[i] is either 0 or 1.
+
+        https://leetcode.com/problems/max-consecutive-ones/description/
+        */
+        public int FindMaxConsecutiveOnes(int[] nums)
+        {
+            int k = 0;
+            int l = 0;
+            for (int i = 0; i < nums.Length; i++)
+            {
+                if (nums[i] == 1)
+                {
+                    k++;
+                }
+                else
+                {
+                    l = Math.Max(k, l);
+                    k = 0;
+                }
+            }
+            l = Math.Max(k, l);
+
+            return l;
+        }
+        #endregion
+
+        #region Minimum Size Subarray Sum
+        /*
+        Given an array of positive integers nums and a positive integer target, return the minimal length of a subarray whose sum is greater than or equal to target. If there is no such subarray, return 0 instead.
+ 
+        Example 1:
+
+        Input: target = 7, nums = [2,3,1,2,4,3]
+        Output: 2
+        Explanation: The subarray [4,3] has the minimal length under the problem constraint.
+
+        Example 2:
+
+        Input: target = 4, nums = [1,4,4]
+        Output: 1
+
+        Example 3:
+
+        Input: target = 11, nums = [1,1,1,1,1,1,1,1]
+        Output: 0
+
+        
+
+        Constraints:
+
+            1 <= target <= 109
+            1 <= nums.length <= 105
+            1 <= nums[i] <= 104
+        
+        Follow up: If you have figured out the O(n) solution, try coding another solution of which the time complexity is O(n log(n)).
+        https://leetcode.com/problems/minimum-size-subarray-sum/description/
+
+        Sample test:
+        [12,28,83,4,25,26,25,2,25,25,25,12] Expected out come:8
+        */
+        #endregion
+
         #endregion
     }
 }
