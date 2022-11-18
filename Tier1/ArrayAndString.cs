@@ -806,10 +806,30 @@ namespace Tier1
         https://leetcode.com/problems/minimum-size-subarray-sum/description/
 
         Sample test:
-        [12,28,83,4,25,26,25,2,25,25,25,12] Expected out come:8
+        213
+        [12,28,83,4,25,26,25,2,25,25,25,12]Expected out come:8
         */
         #endregion
+        public int MinSubArrayLen(int target, int[] nums)
+        {
+            int i = 0;
+            int j = 0;
+            int min = int.MaxValue;
+            int sum = 0;
 
+            while (j < nums.Length)
+            {
+                sum += nums[j];
+                while (target <= sum)
+                {
+                    min = Math.Min(min, j - i + 1);
+                    sum -= nums[i];
+                    i++;
+                }
+                j++;
+            }
+            return min == int.MaxValue ? 0 : min;
+        }
         #endregion
     }
 }
