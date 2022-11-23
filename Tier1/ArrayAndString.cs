@@ -833,7 +833,6 @@ namespace Tier1
 
         #endregion
         #region Conclusion
-
         #region RotateArray
         /*
           Rotate Array
@@ -884,7 +883,43 @@ namespace Tier1
             }
         }
         #endregion
+        #region Pascal's Triangle II
+        /*
+        Given an integer rowIndex, return the rowIndexth (0-indexed) row of the Pascal's triangle.
 
+        In Pascal's triangle, each number is the sum of the two numbers directly above it as shown:
+        https://leetcode.com/problems/pascals-triangle-ii/description/
+        Runtime:96 ms Beats:93.12%
+        */
+
+        public IList<int> GetRow(int rowIndex)
+        {
+            List<int> MyList = new List<int>();
+            int[][] myArray = new int[rowIndex + 1][];
+
+            if (rowIndex == 0)
+            {
+                MyList.Add(1);
+                return MyList;
+            }
+            for (int r = 0; r < rowIndex + 1; r++)
+            {
+                myArray[r] = new int[r + 1];
+                myArray[r][0] = myArray[r][r] = 1;
+                for (int c = 1; c < r; c++)
+                {
+                    myArray[r][c] = myArray[r - 1][c] + myArray[r - 1][c - 1];
+                }
+            }
+
+            for (int i = 0; i < myArray[rowIndex].Length; i++)
+            {
+                MyList.Add(myArray[rowIndex][i]);
+            }
+            return MyList;
+        }
+
+        #endregion
         #endregion
 
     }

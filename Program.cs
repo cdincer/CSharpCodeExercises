@@ -22,7 +22,7 @@ namespace CSharpCodeExercises
             ValidParentheses can1 = new ValidParentheses();
             List<int> items = new List<int>();
             items.ToArray().ToString();
-            newB.Rotate(new int[] { 1, 2, 3, 4, 5, 6, 7 }, 3);
+            newB.GetRow(3);
             Console.WriteLine("");
         }
     }
