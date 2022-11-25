@@ -22,8 +22,8 @@ namespace CSharpCodeExercises
             ValidParentheses can1 = new ValidParentheses();
             List<int> items = new List<int>();
             items.ToArray().ToString();
-            newB.GetRow(3);
-            Console.WriteLine("");
+            string returned = newB.ReverseWords("  hello world  ");
+            Console.ReadLine();
         }
     }
 }

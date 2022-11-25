@@ -888,6 +888,30 @@ namespace Tier1
         Given an integer rowIndex, return the rowIndexth (0-indexed) row of the Pascal's triangle.
 
         In Pascal's triangle, each number is the sum of the two numbers directly above it as shown:
+
+        Example 1:
+
+        Input: rowIndex = 3
+        Output: [1,3,3,1]
+
+        Example 2:
+
+        Input: rowIndex = 0
+        Output: [1]
+
+        Example 3:
+
+        Input: rowIndex = 1
+        Output: [1,1]
+
+         
+
+        Constraints:
+
+            0 <= rowIndex <= 33
+
+        
+        Follow up: Could you optimize your algorithm to use only O(rowIndex) extra space?
         https://leetcode.com/problems/pascals-triangle-ii/description/
         Runtime:96 ms Beats:93.12%
         */
@@ -919,6 +943,127 @@ namespace Tier1
             return MyList;
         }
 
+        #endregion
+        #region Reverse Words in a String
+        /*
+        Given an input string s, reverse the order of the words.
+
+        A word is defined as a sequence of non-space characters. The words in s will be separated by at least one space.
+
+        Return a string of the words in reverse order concatenated by a single space.
+
+        Note that s may contain leading or trailing spaces or multiple spaces between two words. The returned string should only have a single space separating the words. Do not include any extra spaces.
+
+         
+
+        Example 1:
+
+        Input: s = "the sky is blue"
+        Output: "blue is sky the"
+
+        Example 2:
+
+        Input: s = "  hello world  "
+        Output: "world hello"
+        Explanation: Your reversed string should not contain leading or trailing spaces.
+
+        Example 3:
+
+        Input: s = "a good   example"
+        Output: "example good a"
+        Explanation: You need to reduce multiple spaces between two words to a single space in the reversed string.
+
+         
+
+        Constraints:
+
+            1 <= s.length <= 104
+            s contains English letters (upper-case and lower-case), digits, and spaces ' '.
+            There is at least one word in s.
+
+         
+
+        Follow-up: If the string data type is mutable in your language, can you solve it in-place with O(1) extra space?
+
+        https://leetcode.com/problems/reverse-words-in-a-string/
+        Runtime:77 ms Beats:97.68% Memory:38.6 MB Beats:14.99%
+        */
+        public string ReverseWords(string s)
+        {
+
+            string[] Items = s.Split(" ");
+            StringBuilder item = new StringBuilder();
+
+            for (int i = Items.Length - 1; i > 0; i--)
+            {
+                if (!String.IsNullOrWhiteSpace(Items[i]))
+                    item.Append(Items[i] + " ");
+            }
+
+            if (!String.IsNullOrWhiteSpace(Items[0]))
+                item.Append(Items[0]);
+
+            if (item[item.Length - 1] == ' ')
+            {
+                item.Remove(item.Length - 1, 1);
+            }
+
+            return item.ToString();
+        }
+        #endregion
+        #region Reverse Words in a String III
+        /*
+        Given a string s, reverse the order of characters in each word within a sentence while still preserving whitespace and initial word order.
+       
+        Example 1:
+
+        Input: s = "Let's take LeetCode contest"
+        Output: "s'teL ekat edoCteeL tsetnoc"
+
+        Example 2:
+
+        Input: s = "God Ding"
+        Output: "doG gniD"
+
+         
+
+        Constraints:
+
+            1 <= s.length <= 5 * 104
+            s contains printable ASCII characters.
+            s does not contain any leading or trailing spaces.
+            There is at least one word in s.
+            All the words in s are separated by a single space.
+
+        https://leetcode.com/problems/reverse-words-in-a-string-iii/description/
+        Runtime:130 ms Beats:74.40% Memory:42.1 MB Beats:43.79%
+        */
+        public string ReverseWordsIII(string s)
+        {
+            char[] items = s.ToCharArray();
+            Array.Reverse(items);
+            StringBuilder answer = new StringBuilder();
+            for (int i = 0; i < items.Length; i++)
+            {
+                answer.Append(items[i]);
+            }
+            //"tsetnoc edoCteeL ekat s'teL"
+            //split these items have these elements
+            string straightItems = answer.ToString();
+            string[] straightArray = straightItems.Split(" ");
+            answer.Clear();
+            for (int i = straightArray.Length - 1; i >= 0; i--)
+            {
+                answer.Append(straightArray[i] + " ");
+            }
+
+            if (answer[answer.Length - 1] == ' ')
+            {
+                answer.Remove(answer.Length - 1, 1);
+            }
+
+            return answer.ToString();
+        }
         #endregion
         #endregion
 
