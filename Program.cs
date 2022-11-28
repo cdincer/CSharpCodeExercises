@@ -22,7 +22,7 @@ namespace CSharpCodeExercises
             ValidParentheses can1 = new ValidParentheses();
             List<int> items = new List<int>();
             items.ToArray().ToString();
-            string returned = newB.ReverseWords("  hello world  ");
+            int returned = newB.RemoveDuplicates(new int[] { 1, 1, 1 });
             Console.ReadLine();
         }
     }
