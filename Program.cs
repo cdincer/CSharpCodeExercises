@@ -22,7 +22,7 @@ namespace CSharpCodeExercises
             ValidParentheses can1 = new ValidParentheses();
             List<int> items = new List<int>();
             items.ToArray().ToString();
-            int returned = newB.RemoveDuplicates(new int[] { 1, 1, 1 });
+            newB.MoveZeroes(new int[] { 0, 1, 0, 3, 12 });
             Console.ReadLine();
         }
     }
