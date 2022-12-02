@@ -1,25 +1,27 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Can\\Documents\\Visual Studio Code\\CSharpCodeExercises\\CSharpCodeExercises.csproj": {}
+    "c:\\Users\\Can\\Documents\\Visual Studio Code\\CSharpCodeExercises\\CSharpCodeExercises.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Can\\Documents\\Visual Studio Code\\CSharpCodeExercises\\CSharpCodeExercises.csproj": {
+    "c:\\Users\\Can\\Documents\\Visual Studio Code\\CSharpCodeExercises\\CSharpCodeExercises.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Can\\Documents\\Visual Studio Code\\CSharpCodeExercises\\CSharpCodeExercises.csproj",
+        "projectUniqueName": "c:\\Users\\Can\\Documents\\Visual Studio Code\\CSharpCodeExercises\\CSharpCodeExercises.csproj",
         "projectName": "CSharpCodeExercises",
-        "projectPath": "C:\\Users\\Can\\Documents\\Visual Studio Code\\CSharpCodeExercises\\CSharpCodeExercises.csproj",
+        "projectPath": "c:\\Users\\Can\\Documents\\Visual Studio Code\\CSharpCodeExercises\\CSharpCodeExercises.csproj",
         "packagesPath": "C:\\Users\\Can\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Can\\Documents\\Visual Studio Code\\CSharpCodeExercises\\obj\\",
+        "outputPath": "c:\\Users\\Can\\Documents\\Visual Studio Code\\CSharpCodeExercises\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Can\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\Can\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp6.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -52,7 +54,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
         }
       }
     }
