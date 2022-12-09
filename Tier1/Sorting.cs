@@ -162,7 +162,8 @@ namespace CSharpCodeExercises.Tier1
         Input: head = [-1,5,3,4,0]
         Output: [-1,0,3,4,5]
 
-         
+         //4,2,1,3 For Testing with classes above.(Code below cannot be used with C# standard LinkedList)
+        head = new ListNode(4, new ListNode(2, new ListNode(1, new ListNode(3))));
 
         Constraints:
 
