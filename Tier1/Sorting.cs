@@ -173,7 +173,6 @@ namespace CSharpCodeExercises.Tier1
 
         https://leetcode.com/problems/insertion-sort-list/solutions/
         */
-        #endregion
         public class ListNode
         {
             public int val;
@@ -213,6 +212,77 @@ namespace CSharpCodeExercises.Tier1
             return dummy.next;
 
         }
+        #endregion
+        #region Sort an Array -- Heap Sort
+        /*
+        Given an array of integers nums, sort the array in ascending order and return it.
+
+        You must solve the problem without using any built-in functions in O(nlog(n)) time complexity and with the smallest space complexity possible.
+
+         
+
+        Example 1:
+
+        Input: nums = [5,2,3,1]
+        Output: [1,2,3,5]
+        Explanation: After sorting the array, the positions of some numbers are not changed (for example, 2 and 3), while the positions of other numbers are changed (for example, 1 and 5).
+
+        Example 2:
+
+        Input: nums = [5,1,1,2,0,0]
+        Output: [0,0,1,1,2,5]
+        Explanation: Note that the values of nums are not necessairly unique.
+
+         
+
+        Constraints:
+
+            1 <= nums.length <= 5 * 104
+            -5 * 104 <= nums[i] <= 5 * 104
+        https://leetcode.com/problems/sort-an-array/
+        */
+        public int[] SortArray(int[] arr)
+        {
+            // Mutates elements in lst by utilizing the heap data structure
+            for (int i = arr.Length / 2 - 1; i >= 0; i--)
+            {
+                maxHeapify(arr, arr.Length, i);
+            }
+
+            for (int i = arr.Length - 1; i > 0; i--)
+            {
+                // swap last element with first element
+                int temp = arr[i];
+                arr[i] = arr[0];
+                arr[0] = temp;
+                // note that we reduce the heap size by 1 every iteration
+                maxHeapify(arr, i, 0);
+            }
+            return arr;
+        }
+
+        private void maxHeapify(int[] arr, int heapSize, int index)
+        {
+            int left = 2 * index + 1;
+            int right = 2 * index + 2;
+            int largest = index;
+            if (left < heapSize && arr[left] > arr[largest])
+            {
+                largest = left;
+            }
+            if (right < heapSize && arr[right] > arr[largest])
+            {
+                largest = right;
+            }
+            if (largest != index)
+            {
+                int temp = arr[index];
+                arr[index] = arr[largest];
+                arr[largest] = temp;
+                maxHeapify(arr, heapSize, largest);
+            }
+        }
+        #endregion
         #endregion
     }
 }
