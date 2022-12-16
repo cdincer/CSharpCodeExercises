@@ -283,6 +283,110 @@ namespace CSharpCodeExercises.Tier1
             }
         }
         #endregion
+        #region Kth Largest Element in an Array -- Heap Sort
+        /*
+        Given an integer array nums and an integer k, return the kth largest element in the array.
+
+        Note that it is the kth largest element in the sorted order, not the kth distinct element.
+
+        You must solve it in O(n) time complexity.
+
+         
+
+        Example 1:
+
+        Input: nums = [3,2,1,5,6,4], k = 2
+        Output: 5
+
+        Example 2:
+
+        Input: nums = [3,2,3,1,2,4,5,5,6], k = 4
+        Output: 4
+
+         
+
+        Constraints:
+
+            1 <= k <= nums.length <= 105
+            -104 <= nums[i] <= 104
+
+        https://leetcode.com/problems/kth-largest-element-in-an-array/description/
+        */
+        public int FindKthLargest(int[] nums, int k)
+        {
+            int start = 0, end = nums.Length - 1, index = nums.Length - k;
+            while (start < end)
+            {
+                int pivot = partion(nums, start, end);
+                if (pivot < index) start = pivot + 1;
+                else if (pivot > index) end = pivot - 1;
+                else return nums[pivot];
+            }
+            return nums[start];
+        }
+
+        private int partion(int[] nums, int start, int end)
+        {
+            int pivot = start, temp;
+            while (start <= end)
+            {
+                while (start <= end && nums[start] <= nums[pivot]) start++;
+                while (start <= end && nums[end] > nums[pivot]) end--;
+                if (start > end) break;
+                temp = nums[start];
+                nums[start] = nums[end];
+                nums[end] = temp;
+            }
+            temp = nums[end];
+            nums[end] = nums[pivot];
+            nums[pivot] = temp;
+            return end;
+        }
+        #endregion
+        #region Sort Colors -- Counting Sort
+        /*
+        Same as Sort Colors above,this time using counting sort .
+        */
+        public void SortColorsCounting(int[] nums)
+        {
+
+            // Sorts an array of integers (handles shifting of integers to range 0 to K)
+            int shift = nums.Min();
+            int K = nums.Max() - shift;
+            int[] counts = new int[K + 1];
+            foreach (int elem in nums)
+            {
+                counts[elem - shift] += 1;
+            }
+            // we now overwrite our original counts with the starting index
+            // of each element in the final sorted array
+            int startingIndex = 0;
+            for (int i = 0; i < K + 1; i++)
+            {
+                int count = counts[i];
+                counts[i] = startingIndex;
+                startingIndex += count;
+            }
+
+            int[] sortedArray = new int[nums.Length];
+            foreach (int elem in nums)
+            {
+                sortedArray[counts[elem - shift]] = elem;
+                // since we have placed an item in index counts[elem], we need to
+                // increment counts[elem] index by 1 so the next duplicate element
+                // is placed in appropriate index
+                counts[elem - shift] += 1;
+            }
+
+            // common practice to copy over sorted list into original arr
+            // it's fine to just return the sortedArray at this point as well
+            for (int i = 0; i < nums.Length; i++)
+            {
+                nums[i] = sortedArray[i];
+            }
+
+        }
+        #endregion
         #endregion
     }
 }
