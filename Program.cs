@@ -23,7 +23,7 @@ namespace CSharpCodeExercises
             ValidParentheses can1 = new ValidParentheses();
             List<int> items = new List<int>();
             items.ToArray().ToString();
-            newB.HeightChecker(new int[] { 1, 1, 4, 2, 1, 3 });
+            newB.SortColorsCounting(new int[] { 5, 4, 5, 5, 1, 1, 3 });
             Console.ReadLine();
         }
     }

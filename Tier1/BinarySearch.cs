@@ -157,7 +157,7 @@ namespace Tier1
             return start;
         }
         #endregion
-        #region  Find Peak Element
+        #region Find Peak Element
         /*
         A peak element is an element that is strictly greater than its neighbors.
         Given a 0-indexed integer array nums, find a peak element, and return its index. If the array contains multiple peaks, return the index to any of the peaks.
@@ -341,7 +341,7 @@ namespace Tier1
             return idx;
         }
         #endregion
-        #region  Find K Closest Elements
+        #region Find K Closest Elements
         /*
         Given a sorted integer array arr, two integers k and x, return the k closest integers to x in the array. The result should also be sorted in ascending order.
         An integer a is closer to x than an integer b if:
