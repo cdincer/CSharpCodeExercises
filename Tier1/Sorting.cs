@@ -429,24 +429,22 @@ namespace CSharpCodeExercises.Tier1
         */
         public IList<IList<int>> MinimumAbsDifference(int[] arr)
         {
-
+            List<IList<int>> result = new List<IList<int>>();
+            int minDiff = int.MaxValue;
             Array.Sort(arr);
-            IList<IList<int>> myItems = new List<IList<int>>();
-            int min = Int32.MaxValue;
-
             for (int i = 0; i < arr.Length - 1; i++)
             {
-                if (Math.Abs(arr[i + 1] - arr[i]) <= min)
+                minDiff = Math.Min(minDiff, Math.Abs(arr[i] - arr[i + 1]));
+            }
+            for (int i = 0; i < arr.Length - 1; i++)
+            {
+                var diff = Math.Abs(arr[i] - arr[i + 1]);
+                if (diff == minDiff)
                 {
-                    List<int> ToAdd = new List<int>();
-                    ToAdd.Add(arr[i]);
-                    ToAdd.Add(arr[i + 1]);
-                    myItems.Add(ToAdd);
-                    min = Math.Abs(arr[i + 1] - arr[i]);
+                    result.Add(new List<int>() { arr[i], arr[i + 1] });
                 }
             }
-
-            return myItems;
+            return result;
         }
         #endregion
         #endregion
