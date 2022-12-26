@@ -497,9 +497,18 @@ namespace CSharpCodeExercises.Tier1
             queries[i].length == 2
             1 <= ki <= nums.length
             1 <= trimi <= nums[i].length
-
+        C# Test Case:
+        SmallestTrimmedNumbers(new string[] { "102","473","251","814" },new int[][] { new int[]{1,1},new int[]{2,3},new int[]{4,2},new int[]{1,2}});
+        SmallestTrimmedNumbers(new string[] { "24", "37", "96", "04" }, new int[][] { new int[] { 2, 1 }, new int[] { 2, 2 } });
                 
         https://leetcode.com/problems/query-kth-smallest-trimmed-number/description/
+
+        Failed Case 1:
+        ["64333639502","65953866768","17845691654","87148775908","58954177897","70439926174","48059986638","47548857440","18418180516","06364956881","01866627626","36824890579","14672385151","71207752868"]
+        [[9,4],[6,1],[3,8],[12,9],[11,4],[4,9],[2,7],[10,3],[13,1],[13,1],[6,1],[5,10]]
+        Failed Case 2:
+        ["325240361872","440618160237","785744447413","820980201297","470082520306","874146483840","425300857082","088636787077","813218016629","459000328006","188683382600"]
+        [[6,7],[4,4],[1,8],[11,10],[4,8],[11,6],[1,1],[3,1],[11,10]]
         */
 
 
@@ -509,25 +518,42 @@ namespace CSharpCodeExercises.Tier1
 
             for (int i = 0; i < queries.Length; i++)
             {
-                Results[i] = ItemCutter(nums,queries[i][0],queries[i][1]);
+                Results[i] = ItemCutter(nums, queries[i][0], queries[i][1]);
             }
-            return new int[] { 111 };
+            return Results;
 
         }
-        public int ItemCutter(string[] nums,int IndexToSeek,int DigitsToCut)
-        {   int min =Int16.MaxValue;
-            int[] newArray = new int[nums.Length];
-            for(int i=0;i<nums.Length;i++)
+        public int ItemCutter(string[] nums, int IndexToSeek, int DigitsToCut)
+        {
+            Dictionary<long, long> items = new Dictionary<long, long>();
+            int result = 0;
+            long min = long.MaxValue;
+            long[] newArray = new long[nums.Length];
+            for (int i = 0; i < nums.Length; i++)
             {
                 StringBuilder ItemProcesser = new StringBuilder();
-                ItemProcesser.Append(nums[i],nums[i].Length-DigitsToCut,DigitsToCut);
-                newArray[i] = int.Parse(ItemProcesser.ToString());
+                ItemProcesser.Append(nums[i], nums[i].Length - DigitsToCut, DigitsToCut);
+                newArray[i] = long.Parse(ItemProcesser.ToString());
+                items.Add(i, long.Parse(ItemProcesser.ToString()));
             }
-            min = newArray[IndexToSeek];
-            return min;
+            IndexToSeek--;
+            Array.Sort(newArray);
+
+            Dictionary<long, long> Medium = new Dictionary<long, long>();
+            var Medium2 = items.Where(x => x.Value == newArray[IndexToSeek]).ToDictionary(s => s.Key, s => s);
+
+            if (Medium2.Count() == 1)
+            {
+                result = (int)Medium2.First().Key;
+            }
+            else
+            {
+                result = (int)Medium2.Last().Key;
+            }
+
+
+            return result;
         }
-        //2 loops. 1 to go through all of the queries. This is in SmallestTrimmedNumbers
-        //Second loop to do what ? every time go through the whole array and use queries trimmer number and smallest index finder. return a number to add.
         #endregion
 
         #endregion

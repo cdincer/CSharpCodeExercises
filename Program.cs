@@ -23,7 +23,7 @@ namespace CSharpCodeExercises
             ValidParentheses can1 = new ValidParentheses();
             List<int> items = new List<int>();
             items.ToArray().ToString();
-            newB.SmallestTrimmedNumbers(new string[] { "102","473","251","814" },new int[][] { new int[]{1,1},new int[]{2,3},new int[]{4,2},new int[]{1,2}});
+            newB.SmallestTrimmedNumbers(new string[] { "24", "37", "96", "04" }, new int[][] { new int[] { 2, 1 }, new int[] { 2, 2 } });
             Console.ReadLine();
         }
     }
