@@ -517,58 +517,73 @@ namespace CSharpCodeExercises.Tier1
         [[1,1],[2,2],[3,3],[4,4],[5,5],[6,6],[7,7],[8,8],[9,9],[10,10],[11,11],[12,12],[13,13],[14,14],[15,15],[16,16],[17,17],[18,18],[19,19],[20,20],[21,21],[22,22],[23,23],[24,24],[25,25],[26,26],[27,27],[28,28],[29,29],[30,30],[31,31],[32,32],[33,33],[34,34],[35,35],[36,36],[37,37],[38,38],[39,39],[40,40],[41,41],[42,42],[43,43],[44,44],[45,45],[46,46],[47,47],[48,48],[49,49],[50,50],[51,51],[52,52],[53,53],[54,54],[55,55],[56,56],[57,57],[58,58],[59,59],[60,60],[61,61],[62,62],[63,63],[64,64],[65,65],[66,66],[67,67],[68,68],[69,69],[70,70],[71,71],[72,72],[73,73],[74,74],[75,75],[76,76],[77,77],[78,78],[79,79],[80,80],[81,81],[82,82],[83,83],[84,84],[85,85],[86,86],[87,87],[88,88],[89,89],[90,90],[91,91],[92,92],[93,93],[94,94],[95,95],[96,96],[97,97],[98,98],[99,99],[100,100]]
         */
 
-        int NUM_DIGITS = 10;
 
-
-    public void countingSort(string[] arr, int placeVal) {
-        // Sorts an array of integers where minimum value is 0 and maximum value is K
-        int[] counts = new int[100];
-
-        foreach (string elem in arr) {
-            int current = int.Parse(elem) / placeVal;
-            counts[current % NUM_DIGITS] += 1;
+        //Begin
+        public int[] SmallestTrimmedNumbers(string[] nums, int[][] queries) {
+        //Radix sort
+        int[] result = new int[queries.Length];
+        for (int i = 0; i < queries.Length; i++) {
+            result[i] = RadixSort(nums, queries[i][1], queries[i][0]);
+        }
+        
+        return result;
+    }
+    
+    //Middle
+    private int RadixSort(string[] nums, int trim, int k) {
+        string[] sorted = new string[nums.Length];
+        nums.CopyTo(sorted, 0);
+        
+        int[] origIndices = new int[nums.Length];
+        
+        for (int i = 0; i < nums.Length; i++) {
+            origIndices[i] = i;
         }
 
-        // we now overwrite our original counts with the starting index
-        // of each digit in our group of digits
+        
+        for (int i = 1; i <= trim; i++) {
+            sorted = RadixSortPrivate(sorted, i, origIndices);
+        }
+        
+        return origIndices[k-1];
+    }
+    
+    //End Processing
+    private string[] RadixSortPrivate(string[] nums, int rightIndex, int[] origIndices) {
+        int[] counts = new int[10];
+        int offset = nums[0].Length - rightIndex;
+
+        //Create counts
+        for (int i = 0; i < nums.Length; i++) {
+            int val = nums[i][offset] - '0';
+            ++counts[val];
+        }
+        
+        //Update counts with starting indices
         int startingIndex = 0;
-        for (int i = 0; i < counts.Length; i++) {
-            int count = counts[i];
+        for (int i = 0; i < 10; i++) {
+            int thisCount = counts[i];
             counts[i] = startingIndex;
-            startingIndex += count;
+            startingIndex += thisCount;
+        }
+        
+        //Use started indices to create sorted array
+        string[] sortedArray = new string[nums.Length];
+        int[] sortedIndices = new int[nums.Length];
+        for (int i = 0; i < nums.Length; i++) {
+            int val = nums[i][offset] - '0';
+            sortedArray[counts[val]] = nums[i];
+            sortedIndices[counts[val]] = origIndices[i];
+            ++counts[val];
         }
 
-        int[] sortedArray = new int[arr.Length];
-        foreach (string elem in arr){
-            int current =int.Parse(elem) / placeVal;
-            sortedArray[counts[current % NUM_DIGITS]] = int.Parse(elem);
-            // since we have placed an item in index mCounts[current % NUM_DIGITS],
-            // we need to increment mCounts[current % NUM_DIGITS] index by 1 so the
-            // next duplicate digit is placed in appropriate index
-            counts[current % NUM_DIGITS] += 1;
+        for (int i = 0; i < nums.Length; i++) {
+            origIndices[i] = sortedIndices[i];
         }
 
-        // common practice to copy over sorted list into original arr
-        // it's fine to just return the sortedArray at this point as well
-        for (int i = 0; i < arr.Length; i++) {
-            arr[i] = sortedArray[i].ToString();
-        }
+        return sortedArray;
     }
 
-    public void radixSort(string[] arr) {
-        int maxElem = int.MinValue;
-         foreach (string elem in arr) {
-            if (int.Parse(elem) > maxElem) {
-                maxElem = int.Parse(elem);
-            }
-        }
-
-        int placeVal = 1;
-        while (maxElem / placeVal > 0) {
-            countingSort(arr, placeVal);
-            placeVal *= 10;
-        }
-    }
         #endregion
 
         #endregion
