@@ -622,70 +622,44 @@ namespace CSharpCodeExercises.Tier1
 
         https://leetcode.com/problems/maximum-gap/description/
         */
+
+        public int MaximumGap(int[] nums)
+        {
+            if (nums.Length < 2) return 0;
+            int digit = 1;
+            foreach (int n in nums) digit = Math.Max(digit, (int)Math.Floor(Math.Log10(n) + 1));
+
+            for (int i = 1; i <= digit; i++) nums = CountingSort(nums, i);
+
+            int maxD = int.MinValue;
+            for (int i = 1; i < nums.Length; i++) maxD = Math.Max(maxD, nums[i] - nums[i - 1]);
+
+            return maxD;
+        }
+
+        private int[] CountingSort(int[] nums, int digit)
+        {
+            List<int>[] idx = new List<int>[10];
+            for (int i = 0; i < idx.Length; i++)
+            {
+                idx[i] = new List<int>();
+            }
+
+            foreach (int n in nums)
+            {
+                int d1 = (int)Math.Pow(10, digit);
+                int d2 = (int)Math.Pow(10, digit - 1);
+                int tmp = n % d1 / d2;
+                idx[tmp].Add(n);
+            }
+
+            List<int> ret = new List<int>();
+            for (int i = 0; i < idx.Length; i++) ret.AddRange(idx[i]);
+
+            return ret.ToArray();
+
+        }
         #endregion
-
-        int NUM_DIGITS = 10;
-
-        public void countingSort(int[] arr, int placeVal)
-        {
-            // Sorts an array of integers where minimum value is 0 and maximum value is K
-            int K = 10000;//Hardcoded because of our problem.
-            int[] counts = new int[K];
-
-            foreach (int elem in arr)
-            {
-                int current = elem / placeVal;
-                counts[current % NUM_DIGITS] += 1;
-            }
-
-            // we now overwrite our original counts with the starting index
-            // of each digit in our group of digits
-            int startingIndex = 0;
-            for (int i = 0; i < counts.Length; i++)
-            {
-                int count = counts[i];
-                counts[i] = startingIndex;
-                startingIndex += count;
-            }
-
-            int[] sortedArray = new int[arr.Length];
-            foreach (int elem in arr)
-            {
-                int current = elem / placeVal;
-                sortedArray[counts[current % NUM_DIGITS]] = elem;
-                // since we have placed an item in index mCounts[current % NUM_DIGITS],
-                // we need to increment mCounts[current % NUM_DIGITS] index by 1 so the
-                // next duplicate digit is placed in appropriate index
-                counts[current % NUM_DIGITS] += 1;
-            }
-
-            // common practice to copy over sorted list into original arr
-            // it's fine to just return the sortedArray at this point as well
-            for (int i = 0; i < arr.Length; i++)
-            {
-                arr[i] = sortedArray[i];
-            }
-        }
-
-        public void radixSort(int[] arr)
-        {
-            int maxElem = int.MinValue;
-            foreach (int elem in arr)
-            {
-                if (elem > maxElem)
-                {
-                    maxElem = elem;
-                }
-            }
-
-            int placeVal = 1;
-            while (maxElem / placeVal > 0)
-            {
-                countingSort(arr, placeVal);
-                placeVal *= 10;
-            }
-        }
-
         #endregion
     }
 }
