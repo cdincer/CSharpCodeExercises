@@ -620,6 +620,11 @@ namespace CSharpCodeExercises.Tier1
             1 <= nums.length <= 105
             0 <= nums[i] <= 109
 
+        Leetcode Test Cases:
+        [3,6,9,1]
+        [1,10000000]
+        [1,1,1,1,1,5,5,5,5,5]
+
         https://leetcode.com/problems/maximum-gap/description/
         */
 
@@ -660,6 +665,85 @@ namespace CSharpCodeExercises.Tier1
 
         }
         #endregion
+        #region Top K Frequent Elements - Bucket Sort
+        /*
+        Given an integer array nums and an integer k, return the k most frequent elements. You may return the answer in any order.
+
+         
+
+        Example 1:
+
+        Input: nums = [1,1,1,2,2,3], k = 2
+        Output: [1,2]
+
+        Example 2:
+
+        Input: nums = [1], k = 1
+        Output: [1]
+
+         
+
+        Constraints:
+
+            1 <= nums.length <= 105
+            -104 <= nums[i] <= 104
+            k is in the range [1, the number of unique elements in the array].
+            It is guaranteed that the answer is unique.
+
+         
+
+        Follow up: Your algorithm's time complexity must be better than O(n log n), where n is the array's size.
+
+
+        https://leetcode.com/problems/top-k-frequent-elements/description/
+        */
+        #endregion
+        public void bucketSort(int[] arr, int K)
+        {
+            List<List<int>> buckets = new List<List<int>>();
+            int shift = arr.Min();
+            int maxValue = arr.Max() - shift;
+            // place elements into buckets
+            double bucketSize = (double)maxValue / K;
+            if (bucketSize < 1)
+            {
+                bucketSize = 1.0;
+            }
+            foreach (int elem in arr)
+            {
+                // same as K * arr[i] / max(lst)
+                int index = (int)(elem - shift) / (int)bucketSize;
+                if (index == K)
+                {
+                    // put the max value in the last bucket
+                    buckets[K - 1].Add(elem);
+                }
+                else
+                {
+                    buckets[index].Add(elem);
+                }
+            }
+
+            // sort individual buckets
+            foreach (List<int> bucket in buckets)
+            {
+                bucket.Sort();
+            }
+
+            // convert sorted buckets into final output
+            List<int> sortedList = new List<int>();
+            foreach (List<int> bucket in buckets)
+            {
+                sortedList.AddRange(bucket);
+            }
+
+            // perfectly fine to just return sortedList here
+            // but common practice is to mutate original array with sorted elements
+            for (int i = 0; i < arr.Length; i++)
+            {
+                arr[i] = sortedList[i];
+            }
+        }
         #endregion
     }
 }
