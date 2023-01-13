@@ -693,56 +693,86 @@ namespace CSharpCodeExercises.Tier1
          
 
         Follow up: Your algorithm's time complexity must be better than O(n log n), where n is the array's size.
-
+        [1,1,1,2,2,2,3,3,4,5,5,5,5] k=3
 
         https://leetcode.com/problems/top-k-frequent-elements/description/
         */
         #endregion
-        public void bucketSort(int[] arr, int K)
+        //My solution
+        public int[] TopKFrequent(int[] nums, int k)
         {
-            List<List<int>> buckets = new List<List<int>>();
-            int shift = arr.Min();
-            int maxValue = arr.Max() - shift;
-            // place elements into buckets
-            double bucketSize = (double)maxValue / K;
-            if (bucketSize < 1)
+            int[] arr = nums;
+            int K = k;
+            Dictionary<int, int> countOfElements = new Dictionary<int, int>();
+
+            foreach (int item in arr)
             {
-                bucketSize = 1.0;
-            }
-            foreach (int elem in arr)
-            {
-                // same as K * arr[i] / max(lst)
-                int index = (int)(elem - shift) / (int)bucketSize;
-                if (index == K)
+                if (!countOfElements.ContainsKey(item))
                 {
-                    // put the max value in the last bucket
-                    buckets[K - 1].Add(elem);
+                    countOfElements.Add(item, 1);
                 }
                 else
                 {
-                    buckets[index].Add(elem);
+                    int temp = 0;
+                    countOfElements.TryGetValue(item, out temp);
+                    countOfElements.Remove(item);
+                    temp++;
+                    countOfElements.Add(item, temp);
                 }
             }
 
-            // sort individual buckets
-            foreach (List<int> bucket in buckets)
+            int[] ItemsToReturn = new int[K];
+
+            int s = 0;
+            foreach (var item in countOfElements.OrderByDescending(r => r.Value).Take(K))
             {
-                bucket.Sort();
+                ItemsToReturn[s] = item.Key;
+                s++;
             }
 
-            // convert sorted buckets into final output
-            List<int> sortedList = new List<int>();
-            foreach (List<int> bucket in buckets)
+            return ItemsToReturn;
+        }
+        //Random solution with priority queue
+        public int[] TopKFrequentV2(int[] nums, int k)
+        {
+            var histogram = new Dictionary<int, int>();
+
+            for (var x = 0; x < nums.Length; x++)
             {
-                sortedList.AddRange(bucket);
+                var count = 1;
+                if (histogram.TryGetValue(nums[x], out var number) == true)
+                {
+                    count = number + 1;
+                }
+
+                histogram[nums[x]] = count;
             }
 
-            // perfectly fine to just return sortedList here
-            // but common practice is to mutate original array with sorted elements
-            for (int i = 0; i < arr.Length; i++)
+            var q = new PriorityQueue<int, int>();
+
+            foreach (var kv in histogram)
             {
-                arr[i] = sortedList[i];
+                q.Enqueue(kv.Key, kv.Value);
+
+                // Keep the queue to the depth of k
+                // Removing the last item from the queue will
+                // leave only the most frequent
+                if (q.Count > k)
+                {
+                    q.Dequeue();
+                }
             }
+
+            var result = new int[k];
+            var resultIndex = 0;
+
+            // select the top k items, once the remaining have been trimmed
+            while (q.Count > 0)
+            {
+                result[resultIndex++] = q.Dequeue();
+            }
+
+            return result;
         }
         #endregion
     }
