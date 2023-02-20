@@ -445,17 +445,27 @@ namespace Tier1
 
         Follow up: A linked list can be reversed either iteratively or recursively. Could you implement both?
         Solution below is inspired by Recursion1 card,Swapchar solution.
+        Test Cases For Visual Studio:
+        ListNode2 head = new ListNode2(1, new ListNode2(2, new ListNode2(3, new ListNode2(4,new ListNode2(5)))));
         */
-        public ListNode ReverseList(ListNode head)
+        public class ListNode2 {
+        public int val;
+        public ListNode2 next;
+        public ListNode2(int val=0, ListNode2 next=null) {
+            this.val = val;
+            this.next = next;
+        }
+  }
+        public ListNode2 ReverseList(ListNode2 head)
         {
             return reverseListInt(head, null);
         }
 
-        private ListNode reverseListInt(ListNode head, ListNode newHead)
+        private ListNode2 reverseListInt(ListNode2 head, ListNode2 newHead)
         {
             if (head == null)
                 return newHead;
-            ListNode next = head.next;
+            ListNode2 next = head.next;
             head.next = newHead;
             return reverseListInt(next, head);
         }
