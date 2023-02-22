@@ -470,7 +470,55 @@ namespace Tier1
             return reverseListInt(next, head);
         }
         #endregion
+        #region Remove Linked List Elements
+        /*
+        Given the head of a linked list and an integer val, remove all the nodes of the linked list that has Node.val == val, and return the new head.
+       
+        Example 1:
 
+        Input: head = [1,2,6,3,4,5,6], val = 6
+        Output: [1,2,3,4,5]
+
+        Example 2:
+
+        Input: head = [], val = 1
+        Output: []
+
+        Example 3:
+
+        Input: head = [7,7,7,7], val = 7
+        Output: []
+
+        
+
+        Constraints:
+
+            The number of nodes in the list is in the range [0, 104].
+            1 <= Node.val <= 50
+            0 <= val <= 50
+
+
+        https://leetcode.com/problems/remove-linked-list-elements/
+        */
+        public ListNode2 RemoveElements(ListNode2 head, int val) {
+
+        ListNode2 dummy = new ListNode2(), node = dummy;
+        
+        while(head != null)
+        {
+            if(head.val != val)
+            {
+                dummy.next = head;
+                dummy = dummy.next;
+            }
+            else if(head.val == val && head.next == null)//last node needs to be deleted if head.val == val
+                dummy.next = null;
+            head = head.next;
+        }
+        
+        return node.next;
+    }
+        #endregion
         #endregion
     }
 }
