@@ -697,7 +697,6 @@ namespace CSharpCodeExercises.Tier1
 
         https://leetcode.com/problems/top-k-frequent-elements/description/
         */
-        #endregion
         //My solution
         public int[] TopKFrequent(int[] nums, int k)
         {
@@ -773,6 +772,44 @@ namespace CSharpCodeExercises.Tier1
             }
 
             return result;
+        }
+        #endregion
+        #endregion
+        #region Extra Sorting Variants
+        //Usage:QuickSort(nums, 0, nums.Length - 1);
+        private void QuickSort(int[] nums, int left, int right)
+        {
+            if (left < right)
+            {
+                int pivotIndex = Partition(nums, left, right);
+                QuickSort(nums, left, pivotIndex - 1);
+                QuickSort(nums, pivotIndex + 1, right);
+            }
+        }
+
+        private int Partition(int[] nums, int left, int right)
+        {
+            int pivot = nums[right];
+            int pivotIndex = left;
+
+            for (int i = left; i < right; i++)
+            {
+                if (nums[i] <= pivot)
+                {
+                    Swap(nums, i, pivotIndex);
+                    pivotIndex++;
+                }
+            }
+
+            Swap(nums, pivotIndex, right);
+            return pivotIndex;
+        }
+
+        private void Swap(int[] nums, int i, int j)
+        {
+            int temp = nums[i];
+            nums[i] = nums[j];
+            nums[j] = temp;
         }
         #endregion
     }
