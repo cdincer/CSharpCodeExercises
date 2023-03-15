@@ -448,14 +448,16 @@ namespace Tier1
         Test Cases For Visual Studio:
         ListNode2 head = new ListNode2(1, new ListNode2(2, new ListNode2(3, new ListNode2(4,new ListNode2(5)))));
         */
-        public class ListNode2 {
-        public int val;
-        public ListNode2 next;
-        public ListNode2(int val=0, ListNode2 next=null) {
-            this.val = val;
-            this.next = next;
+        public class ListNode2
+        {
+            public int val;
+            public ListNode2 next;
+            public ListNode2(int val = 0, ListNode2 next = null)
+            {
+                this.val = val;
+                this.next = next;
+            }
         }
-  }
         public ListNode2 ReverseList(ListNode2 head)
         {
             return reverseListInt(head, null);
@@ -500,25 +502,83 @@ namespace Tier1
 
         https://leetcode.com/problems/remove-linked-list-elements/
         */
-        public ListNode2 RemoveElements(ListNode2 head, int val) {
-
-        ListNode2 dummy = new ListNode2(), node = dummy;
-        
-        while(head != null)
+        public ListNode2 RemoveElements(ListNode2 head, int val)
         {
-            if(head.val != val)
+
+            ListNode2 dummy = new ListNode2(), node = dummy;
+
+            while (head != null)
             {
-                dummy.next = head;
-                dummy = dummy.next;
+                if (head.val != val)
+                {
+                    dummy.next = head;
+                    dummy = dummy.next;
+                }
+                else if (head.val == val && head.next == null)//last node needs to be deleted if head.val == val
+                    dummy.next = null;
+                head = head.next;
             }
-            else if(head.val == val && head.next == null)//last node needs to be deleted if head.val == val
-                dummy.next = null;
-            head = head.next;
+
+            return node.next;
         }
-        
-        return node.next;
-    }
         #endregion
+        #region Odd-Even Linked List
+        /*
+        Given the head of a singly linked list, group all the nodes with odd indices together followed by the nodes with even indices, and return the reordered list.
+
+        The first node is considered odd, and the second node is even, and so on.
+
+        Note that the relative order inside both the even and odd groups should remain as it was in the input.
+
+        You must solve the problem in O(1) extra space complexity and O(n) time complexity.
+
+                
+
+        Example 1:
+
+        Input: head = [1,2,3,4,5]
+        Output: [1,3,5,2,4]
+
+        Example 2:
+
+        Input: head = [2,1,3,5,6,4,7]
+        Output: [2,3,6,7,1,5,4]
+
+        
+
+        Constraints:
+
+        The number of nodes in the linked list is in the range [0, 104].
+        -106 <= Node.val <= 106
+
+
+        https://leetcode.com/problems/odd-even-linked-list/description/
+        */
+        public ListNode OddEvenList(ListNode head)
+        {
+            if (head == null) return null;
+            ListNode odd = head;
+            ListNode even = head.next;
+            ListNode evenHead = head.next;
+            // `even != null` rules out the list of only 1 node
+            // `even.next != null` rules out the list of only 2 nodes
+            while (even != null && even.next != null)
+            {
+                // Put odd to the odd list
+                odd.next = odd.next.next;
+
+                // Put even to the even list
+                even.next = even.next.next;
+
+                // Move the pointer to the next odd/even
+                odd = odd.next;
+                even = even.next;
+            }
+            odd.next = evenHead;
+            return head;
+        }
+        #endregion
+
         #endregion
     }
 }
