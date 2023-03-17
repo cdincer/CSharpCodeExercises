@@ -578,7 +578,57 @@ namespace Tier1
             return head;
         }
         #endregion
+        #region Palindrome Linked List
+        /*
+        Given the head of a singly linked list, return true if it is a
+        palindrome
+        or false otherwise.
 
+        
+
+        Example 1:
+
+        Input: head = [1,2,2,1]
+        Output: true
+
+        Example 2:
+
+        Input: head = [1,2]
+        Output: false
+
+        
+
+        Constraints:
+
+            The number of nodes in the list is in the range [1, 105].
+            0 <= Node.val <= 9
+
+        Performance for code below(My solution)
+        Runtime: 239 ms Beats 85.63% -- Memory:61.6 MB Beats 48.44%
+        Follow up: Could you do it in O(n) time and O(1) space?
+        https://leetcode.com/problems/palindrome-linked-list/description/
+        */
+        public bool IsPalindrome(ListNode head)
+        {
+            List<int> Items = new List<int>();
+            while (head != null)
+            {
+                Items.Add(head.val);
+                head = head.next;
+            }
+            int front = 0;
+            int back = Items.Count - 1;
+            while (front < back)
+            {
+                if (Items[front] != Items[back])
+                    return false;
+
+                front++;
+                back--;
+            }
+            return true;
+        }
+        #endregion
         #endregion
     }
 }
