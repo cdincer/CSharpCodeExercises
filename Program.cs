@@ -21,8 +21,8 @@ namespace CSharpCodeExercises
             new int[] {16,17,18,19,20},
             };
             LinkedList test = new LinkedList();
-            ListNode2 head = new ListNode2(1, new ListNode2(2, new ListNode2(3, new ListNode2(4,new ListNode2(5)))));
-            test.ReverseList(head);
+            ListNode2 head = new ListNode2(1, new ListNode2(2, new ListNode2(3, new ListNode2(4, new ListNode2(5)))));
+            test.RotateRight(head, 2);
             Console.ReadLine();
         }
     }

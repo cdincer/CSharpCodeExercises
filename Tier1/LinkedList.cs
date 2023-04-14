@@ -969,12 +969,12 @@ namespace Tier1
 
         https://leetcode.com/problems/rotate-list/
         */
-        public ListNode RotateRight(ListNode head, int k)
+        public ListNode2 RotateRight(ListNode2 head, int k)
         {
             if (head == null || head.next == null) return head;
-            ListNode dummy = new ListNode(0);
+            ListNode2 dummy = new ListNode2(0);
             dummy.next = head;
-            ListNode fast = dummy, slow = dummy;
+            ListNode2 fast = dummy, slow = dummy;
 
             int i;
             for (i = 0; fast.next != null; i++)//Get the total length 
