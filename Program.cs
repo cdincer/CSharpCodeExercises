@@ -22,16 +22,8 @@ namespace CSharpCodeExercises
             new int[] {16,17,18,19,20},
             };
             //ListNode2 head = new ListNode2(1, new ListNode2(2, new ListNode2(3, new ListNode2(4, new ListNode2(5)))));
-            MyHashMap myTestHashMap = new MyHashMap();
-            myTestHashMap.put(Int32.Parse("105"), 1);
-            myTestHashMap.put(Int32.Parse("104"), 2);
-            myTestHashMap.put(Int32.Parse("111"), 3);
-            myTestHashMap.put(Int32.Parse("55"), 22);
-            myTestHashMap.put(Int32.Parse("77"), 22222);
-
-            Console.WriteLine("1111");
-            Console.WriteLine(myTestHashMap.get(int.Parse("55")));
-            Console.ReadLine();
+            Hashtable myTestHashMap = new Hashtable();
+            myTestHashMap.TwoSum(new int[] { 44, 21, 33, 6666, 1, 4, 10000, 1, 1, 1, 1, 7, 1, 1, 1, 1, 1 }, 11);
         }
     }
 }
