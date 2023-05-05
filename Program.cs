@@ -24,7 +24,7 @@ namespace CSharpCodeExercises
             //ListNode2 head = new ListNode2(1, new ListNode2(2, new ListNode2(3, new ListNode2(4, new ListNode2(5)))));
             Hashtable myTestHashMap = new Hashtable();
             //myTestHashMap.TwoSum(new int[] { 44, 21, 33, 6666, 1, 4, 10000, 1, 1, 1, 1, 7, 1, 1, 1, 1, 1 }, 11);
-            myTestHashMap.IsIsomorphic("egg", "add");
+            myTestHashMap.FindRestaurant(new string[] { "Shogun", "Piatti", "Tapioca Express", "Burger King", "KFC" }, new string[] { "Piatti", "The Grill at Torrey Pines", "Hungry Hunter Steakhouse", "Shogun" });
 
         }
     }
