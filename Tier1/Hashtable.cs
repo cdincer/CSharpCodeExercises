@@ -734,6 +734,71 @@ namespace Tier1
             return false;
         }
         #endregion
+        #region Loger Rate Limiter
+        /*
+        Locked behind Premium
+        https://leetcode.com/problems/logger-rate-limiter/
+        */
+        #endregion
+        #endregion
+        #region Practical Application - Design the Key
+        #region Group Anagrams
+        /*
+        Given an array of strings strs, group the anagrams together. You can return the answer in any order.
+
+        An Anagram is a word or phrase formed by rearranging the letters of a different word or phrase, typically using all the original letters exactly once.
+
+        Example 1:
+
+        Input: strs = ["eat","tea","tan","ate","nat","bat"]
+        Output: [["bat"],["nat","tan"],["ate","eat","tea"]]
+
+        Example 2:
+
+        Input: strs = [""]
+        Output: [[""]]
+
+        Example 3:
+
+        Input: strs = ["a"]
+        Output: [["a"]]
+
+        Constraints:
+
+            1 <= strs.length <= 104
+            0 <= strs[i].length <= 100
+            strs[i] consists of lowercase English letters.
+        Extra test case:
+        ["",""] Expected:[["",""]]
+        */
+        public IList<IList<string>> GroupAnagrams(string[] strs)
+        {
+            Dictionary<string, List<string>> groups = new Dictionary<string, List<string>>();
+            foreach (string str in strs)
+            {
+                char[] count = new char[26];
+                foreach (char c in str)
+                {
+                    count[c - 'a']++;
+                }
+                var temp = new String(count);
+                if (!groups.ContainsKey(temp))
+                {
+                    groups.Add(temp, new List<string>() { str });
+                }
+                else
+                {
+                    groups[temp].Add(str);
+                }
+            }
+            IList<IList<string>> list = new List<IList<string>>();
+            foreach (var item in groups.Values)
+            {
+                list.Add(item);
+            }
+            return list;
+        }
+        #endregion
         #endregion
         #endregion
     }
