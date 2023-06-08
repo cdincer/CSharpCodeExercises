@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace Tier1
 {   //https://leetcode.com/explore/learn/card/hash-table/
@@ -934,6 +935,119 @@ namespace Tier1
             return id;
         }
         #endregion
+        #endregion
+        #region Conclusion
+        #region  Jewels and Stones
+        /*
+        You're given strings jewels representing the types of stones that are jewels, and stones representing the stones you have. Each character in stones is a type of stone you have. You want to know how many of the stones you have are also jewels.
+
+        Letters are case sensitive, so "a" is considered a different type of stone from "A".
+
+        
+
+        Example 1:
+
+        Input: jewels = "aA", stones = "aAAbbbb"
+        Output: 3
+
+        Example 2:
+
+        Input: jewels = "z", stones = "ZZ"
+        Output: 0
+
+        
+
+        Constraints:
+
+            1 <= jewels.length, stones.length <= 50
+            jewels and stones consist of only English letters.
+            All the characters of jewels are unique.
+
+
+        https://leetcode.com/problems/jewels-and-stones/
+        */
+        public int NumJewelsInStones(string jewels, string stones)
+        {
+
+            Dictionary<char, int> keeper = new Dictionary<char, int>();
+
+            for (int i = 0; i < jewels.Length; i++)
+            {
+                keeper.Add(jewels[i], 0);
+            }
+
+            for (int i = 0; i < stones.Length; i++)
+            {
+                if (keeper.ContainsKey(stones[i]))
+                {
+                    keeper[stones[i]]++;
+                }
+            }
+
+            int total = 0;
+            foreach (int result in keeper.Values)
+            {
+                total += result;
+            }
+
+            return total;
+        }
+        #endregion
+        #region  Longest Substring Without Repeating Characters
+        /*
+        Given a string s, find the length of the longest substring without repeating characters.
+
+        Example 1:
+
+        Input: s = "abcabcbb"
+        Output: 3
+        Explanation: The answer is "abc", with the length of 3.
+
+        Example 2:
+
+        Input: s = "bbbbb"
+        Output: 1
+        Explanation: The answer is "b", with the length of 1.
+
+        Example 3:
+
+        Input: s = "pwwkew"
+        Output: 3
+        Explanation: The answer is "wke", with the length of 3.
+        Notice that the answer must be a substring, "pwke" is a subsequence and not a substring.
+
+        Constraints:
+
+            0 <= s.length <= 5 * 104
+            s consists of English letters, digits, symbols and spaces.
+
+        Test Case:
+        "aab"
+        "dvdf"
+        "pwwkew"
+        "bbbbb"
+        "abcabcbb"
+        Solution below is literally sliding window with a hashmap twist. Official solution that can be found under : Approach 3: Sliding Window Optimized
+        https://leetcode.com/problems/longest-substring-without-repeating-characters/description/
+        */
+        public int LengthOfLongestSubstring(string s)
+        {
+            int n = s.Length, ans = 0;
+            Dictionary<char, int> map = new Dictionary<char, int>(); // current index of character
+                                                                     // try to extend the range [i, j]
+            for (int j = 0, i = 0; j < n; j++)
+            {
+                if (map.ContainsKey(s[j]))
+                {
+                    i = Math.Max(map[s[j]], i);
+                }
+                ans = Math.Max(ans, j - i + 1);
+                map[s[j]] = j + 1;
+            }
+            return ans;
+        }
+        #endregion
+
         #endregion
         #endregion
     }
