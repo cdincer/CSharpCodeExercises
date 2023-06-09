@@ -1047,6 +1047,129 @@ namespace Tier1
             return ans;
         }
         #endregion
+        #region Top K Frequent Elements
+        /*
+        Given an integer array nums and an integer k, return the k most frequent elements. You may return the answer in any order.
+
+        
+
+        Example 1:
+
+        Input: nums = [1,1,1,2,2,3], k = 2
+        Output: [1,2]
+
+        Example 2:
+
+        Input: nums = [1], k = 1
+        Output: [1]
+
+        
+
+        Constraints:
+
+            1 <= nums.length <= 105
+            -104 <= nums[i] <= 104
+            k is in the range [1, the number of unique elements in the array].
+            It is guaranteed that the answer is unique.
+
+        
+
+        Follow up: Your algorithm's time complexity must be better than O(n log n), where n is the array's size.
+
+        https://leetcode.com/problems/top-k-frequent-elements/description/
+        Custom Solution Below.
+        */
+        public int[] TopKFrequent(int[] nums, int k)
+        {
+            int[] topEl = new int[k];
+            Dictionary<int, int> keeper = new Dictionary<int, int>();
+
+            for (int i = 0; i < nums.Length; i++)
+            {
+                if (!keeper.ContainsKey(nums[i]))
+                {
+                    keeper.Add(nums[i], 1);
+                }
+                else
+                {
+                    keeper[nums[i]]++;
+                }
+            }
+            int breaker = 0;
+            int counter = 0;
+            foreach (KeyValuePair<int, int> item in keeper.OrderByDescending(key => key.Value))
+            {
+                topEl[counter] = item.Key;
+                breaker++;
+                counter++;
+                if (breaker == k)
+                    break;
+            }
+            return topEl;
+        }
+        #endregion
+        #region 4Sum II
+        /*
+        Given four integer arrays nums1, nums2, nums3, and nums4 all of length n, return the number of tuples (i, j, k, l) such that:
+
+            0 <= i, j, k, l < n
+            nums1[i] + nums2[j] + nums3[k] + nums4[l] == 0
+
+        Example 1:
+
+        Input: nums1 = [1,2], nums2 = [-2,-1], nums3 = [-1,2], nums4 = [0,2]
+        Output: 2
+        Explanation:
+        The two tuples are:
+        1. (0, 0, 0, 1) -> nums1[0] + nums2[0] + nums3[0] + nums4[1] = 1 + (-2) + (-1) + 2 = 0
+        2. (1, 1, 0, 0) -> nums1[1] + nums2[1] + nums3[0] + nums4[0] = 2 + (-1) + (-1) + 0 = 0
+
+        Example 2:
+
+        Input: nums1 = [0], nums2 = [0], nums3 = [0], nums4 = [0]
+        Output: 1
+
+        
+
+        Constraints:
+
+            n == nums1.length
+            n == nums2.length
+            n == nums3.length
+            n == nums4.length
+            1 <= n <= 200
+            -228 <= nums1[i], nums2[i], nums3[i], nums4[i] <= 228
+
+        Test Case:
+        [-1,-1]
+        [-1,1]
+        [-1,1]
+        [1,-1]
+        https://leetcode.com/problems/4sum-ii/description
+        */
+        public int FourSumCount(int[] nums1, int[] nums2, int[] nums3, int[] nums4)
+        {
+            Dictionary<int, int> keeper = new Dictionary<int, int>();
+
+            foreach (int k in nums3)
+            {
+                foreach (int l in nums4)
+                {
+                    keeper[k + l] = keeper.GetValueOrDefault(k + l, 0) + 1;
+                }
+            }
+            int count = 0;
+
+            foreach (int i in nums1)
+            {
+                foreach (int j in nums2)
+                {
+                    count += keeper.GetValueOrDefault(-(i + j), 0);
+                }
+            }
+            return count;
+        }
+        #endregion
 
         #endregion
         #endregion
