@@ -1208,6 +1208,12 @@ namespace Tier1
             There will be at least one element in the data structure when getRandom is called.
 
         https://leetcode.com/problems/insert-delete-getrandom-o1/
+
+        Explanation for solution below:
+        The List is used to store numbers and serve the getRandom() method. The Map contains the mapping between the value and its index in the ArrayList. 
+        The Map helps to check whether a value is already inserted or not. The main trick is when you remove a value. 
+        ArrayList's remove method is O(n) if you remove from random location. To overcome that, we swap the values between (randomIndex, lastIndex) and always remove the entry from the end of the list. 
+        After the swap, you need to update the new index of the swapped value (which was previously at the end of the list) in the map.
         */
         public class RandomizedSet
         {
