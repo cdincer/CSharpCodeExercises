@@ -48,11 +48,46 @@ namespace Tier2
 
         https://leetcode.com/problems/binary-tree-preorder-traversal/description/
         */
-        public IList<int> PreorderTraversal(TreeNode root)
-        {
-            List<int> Numbers = new List<int>();
+        private List<int> answer = new();
 
-            return Numbers;
+        private void dfs(TreeNode node)
+        {
+            if (node == null)
+            {
+                return;
+            }
+            // Visit the root first, then the left subtree, then the right subtree.
+            answer.Add(node.val);
+            dfs(node.left);
+            dfs(node.right);
+        }
+
+        public List<int> PreorderTraversal(TreeNode root)
+        {
+            dfs(root);
+            return answer;
+        }
+        //Iterative Approach
+        public IList<int> PreorderTraversal2(TreeNode root)
+        {
+            List<int> answer = new();
+            Stack<TreeNode> stack = new();
+            stack.Push(root);
+
+            // Note that we add currNode's right child to the stack first.
+            while (stack.Count != 0)
+            {
+                TreeNode currNode = stack.Peek();
+                stack.Pop();
+                if (currNode != null)
+                {
+                    answer.Add(currNode.val);
+                    stack.Push(currNode.right);
+                    stack.Push(currNode.left);
+                }
+            }
+
+            return answer;
         }
         #endregion
         #endregion 
