@@ -154,6 +154,75 @@ namespace Tier2
             return res;
         }
         #endregion
+        #region Binary Tree Postorder Traversal
+        /*
+        Given the root of a binary tree, return the postorder traversal of its nodes' values.
+
+        Example 1:
+
+        Input: root = [1,null,2,3]
+        Output: [3,2,1]
+
+        Example 2:
+
+        Input: root = []
+        Output: []
+
+        Example 3:
+
+        Input: root = [1]
+        Output: [1]
+
+        
+
+        Constraints:
+
+            The number of the nodes in the tree is in the range [0, 100].
+            -100 <= Node.val <= 100
+
+        
+        Follow up: Recursive solution is trivial, could you do it iteratively?
+        https://leetcode.com/problems/binary-tree-postorder-traversal/
+        */
+        private IList<int> pot = new List<int>();
+
+        public IList<int> PostorderTraversal(TreeNode root)
+        {
+            helper(root);
+            return pot;
+        }
+
+        public void helper(TreeNode root)
+        {
+            if (root != null)
+            {
+                helper(root.left);
+                helper(root.right);
+                pot.Add(root.val);
+            }
+        }
+        //Iterative
+        public IList<int> PostorderTraversal2(TreeNode root)
+        {
+            var stack = new Stack<TreeNode>();
+            stack.Push(root);
+
+            var resultStack = new Stack<int>();
+
+            while (stack.Count > 0)
+            {
+                var current = stack.Pop();
+                if (current != null)
+                {
+                    resultStack.Push(current.val);
+                    stack.Push(current.left);
+                    stack.Push(current.right);
+                }
+            }
+
+            return resultStack.ToList();
+        }
+        #endregion
         #endregion
     }
 }
