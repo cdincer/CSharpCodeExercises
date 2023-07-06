@@ -356,7 +356,90 @@ namespace Tier2
         [2,3,3,4,5,5,4,null,null,8,9,null,null,9,8]
         [2,3,3,5,5,5,5,null,null,8,9,null,null,9,8]
         [1,2,2,null,3,3]
+        Custom Solution Below:
+        Runtime: 86 ms Beats 99.4% Memory: 42 MB Beats 7.39%
         */
+        #region  My Solution
+        public class MyNode
+        {
+            public int val;
+            public int left;
+            public int right;
+            public int currdepth;
+            public int nextdepth;
+            public string location;
+            public MyNode(int val = 0, int left = 0, int right = 0, int currdepth = 0, int nextdepth = 0, string location = "")
+            {
+                this.val = val;
+                this.left = left;
+                this.right = right;
+                this.currdepth = currdepth;
+                this.nextdepth = nextdepth;
+                this.location = location;
+            }
+        }
+        List<MyNode> items = new List<MyNode>();
+        public bool IsSymmetric(TreeNode root)
+        {
+            dfs(root, "root", 1);
+            foreach (MyNode item in items)
+            {
+                Console.WriteLine(" main value " + item.val +
+                    " left value " + item.left +
+                    " right value " + item.right +
+                    " currentdepth " + item.currdepth +
+                    " nextdepth " + item.nextdepth
+                );
+                if (item.currdepth != 1)
+                {
+                    string direction = item.location == "left" ? "right" : "left";
+                    MyNode searchResults = items.Find(x => x.left == item.right
+                             && x.right == item.left
+                             && x.currdepth == item.currdepth
+                             && x.nextdepth == item.nextdepth
+                             && x.val == item.val
+                             && x.location == direction);
+                    if (searchResults == null)
+                    {
+                        return false;
+                    }
+                }
+
+            }
+            //put the depth,branch,value
+            //find the opposite depth,branch,value.
+            //erase both.
+            //at the end if count is more than 0 cut its false.
+            return true;
+        }
+
+        public void dfs(TreeNode root, string location, int depth)
+        {
+            if (root == null) return;
+            dfs(root.left, "left", depth + 1);
+            dfs(root.right, "right", depth + 1);
+
+            int branch1 = root.left != null ? root.left.val : 0;
+            int branch2 = root.right != null ? root.right.val : 0;
+
+            items.Add(new MyNode(root.val, branch1, branch2, depth, depth + 1, location));
+        }
+        #endregion
+        #region  Optimum Short Solution
+        public bool IsSymmetric2(TreeNode root) => CheckSymetry(root?.left, root?.right);
+
+        private bool CheckSymetry(TreeNode left, TreeNode right)
+        {
+            if (left == null || right == null)
+                return left?.val == right?.val;
+            if (left.val != right.val)
+                return false;
+
+            return CheckSymetry(left.left, right.right) && CheckSymetry(left.right, right.left);
+        }
+
+        #endregion
+
         #endregion
         #endregion
     }
