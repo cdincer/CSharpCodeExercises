@@ -24,8 +24,8 @@ namespace CSharpCodeExercises
             //ListNode2 head = new ListNode2(1, new ListNode2(2, new ListNode2(3, new ListNode2(4, new ListNode2(5)))));
             BinaryTree binaryTree = new BinaryTree();
             //myTestHashMap.TwoSum(new int[] { 44, 21, 33, 6666, 1, 4, 10000, 1, 1, 1, 1, 7, 1, 1, 1, 1, 1 }, 11);
-            TreeNode Biggest = binaryTree.BuildTree(new int[] {9,3,15,20,7},new int[] {9,15,7,20,3});
-            Console.WriteLine(Biggest);
+            // TreeNode Biggest = binaryTree.BuildTree(new int[] {9,3,15,20,7},new int[] {9,15,7,20,3});
+            Console.WriteLine();
 
         }
     }
