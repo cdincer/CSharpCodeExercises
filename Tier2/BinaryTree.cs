@@ -222,7 +222,7 @@ namespace Tier2
 
             return resultStack.ToList();
         }
-        #endregion
+        #endregion        
         #region Binary Tree Level Order Traversal
         /*
         Given the root of a binary tree, return the level order traversal of its nodes' values. (i.e., from left to right, level by level).
@@ -287,6 +287,8 @@ namespace Tier2
             return result;
         }
         #endregion
+        #endregion
+        #region Solve Problems Recursively
         #region Maximum Depth of Binary Tree
         /*
         Given the root of a binary tree, return its maximum depth.
@@ -517,5 +519,44 @@ namespace Tier2
         }
         #endregion
         #endregion
+        #region Conclusion
+        #region Construct Binary Tree from Inorder and Postorder Traversal
+        /*
+        Given two integer arrays inorder and postorder where inorder is the inorder traversal of a binary tree and postorder is the postorder traversal of the same tree, construct and return the binary tree.        
+
+            Example 1:
+
+            Input: inorder = [9,3,15,20,7], postorder = [9,15,7,20,3]
+            Output: [3,9,20,null,null,15,7]
+
+            Example 2:
+
+            Input: inorder = [-1], postorder = [-1]
+            Output: [-1]
+
+            
+
+            Constraints:
+
+            1 <= inorder.length <= 3000
+            postorder.length == inorder.length
+            -3000 <= inorder[i], postorder[i] <= 3000
+            inorder and postorder consist of unique values.
+            Each value of postorder also appears in inorder.
+            inorder is guaranteed to be the inorder traversal of the tree.
+            postorder is guaranteed to be the postorder traversal of the tree.
+            Test Cases:
+            [9,3,15,20,7]
+            [9,15,7,20,3]
+            https://leetcode.com/problems/construct-binary-tree-from-inorder-and-postorder-traversal/
+        */
+        // public TreeNode BuildTree(int[] inorder, int[] postorder)
+        // {
+        
+        // }
+        #endregion
+
+        #endregion
+
     }
 }
