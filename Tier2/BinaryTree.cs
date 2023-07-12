@@ -571,7 +571,230 @@ namespace Tier2
             return Build(inorder, postorder);
         }
         #endregion
+        #region Construct Binary Tree from Preorder and Inorder Traversal
+        /*
+        Given two integer arrays preorder and inorder where preorder is the preorder traversal of a binary tree and inorder is the inorder traversal of the same tree, construct and return the binary tree.
 
+        Example 1:
+
+        Input: preorder = [3,9,20,15,7], inorder = [9,3,15,20,7]
+        Output: [3,9,20,null,null,15,7]
+
+        Example 2:
+
+        Input: preorder = [-1], inorder = [-1]
+        Output: [-1]
+
+        Constraints:
+
+            1 <= preorder.length <= 3000
+            inorder.length == preorder.length
+            -3000 <= preorder[i], inorder[i] <= 3000
+            preorder and inorder consist of unique values.
+            Each value of inorder also appears in preorder.
+            preorder is guaranteed to be the preorder traversal of the tree.
+            inorder is guaranteed to be the inorder traversal of the tree.
+
+
+        https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/description/
+        Influenced by Inorder and Postorder binary tree build code changing execution order and limit spans.
+        */
+
+        public TreeNode BuildTree2(int[] preorder, int[] inorder)
+        {
+
+            TreeNode? Build(Span<int> preorder, Span<int> inorder)
+            {
+                if (preorder.IsEmpty || inorder.IsEmpty)
+                {
+                    return null;
+                }
+
+                var pos = inorder.IndexOf(preorder[0]);
+                return new TreeNode(preorder[0])
+                {
+                    left = Build(preorder[1..(pos + 1)], inorder[..(pos)]),
+                    right = Build(preorder[(pos + 1)..], inorder[(pos + 1)..])
+                };
+            }
+
+            return Build(preorder, inorder);
+        }
+        #endregion
+        #region Populating Next Right Pointers in Each Node
+        /*
+        You are given a perfect binary tree where all leaves are on the same level, and every parent has two children. The binary tree has the following definition:
+
+        struct Node {
+        int val;
+        Node *left;
+        Node *right;
+        Node *next;
+        }
+
+        Populate each next pointer to point to its next right node. If there is no next right node, the next pointer should be set to NULL.
+
+        Initially, all next pointers are set to NULL.
+
+        
+
+        Example 1:
+
+        Input: root = [1,2,3,4,5,6,7]
+        Output: [1,#,2,3,#,4,5,6,7,#]
+        Explanation: Given the above perfect binary tree (Figure A), your function should populate each next pointer to point to its next right node, just like in Figure B. The serialized output is in level order as connected by the next pointers, with '#' signifying the end of each level.
+
+        Example 2:
+
+        Input: root = []
+        Output: []
+
+        
+
+        Constraints:
+
+        The number of nodes in the tree is in the range [0, 212 - 1].
+        -1000 <= Node.val <= 1000
+        https://leetcode.com/problems/populating-next-right-pointers-in-each-node/
+        */
+
+        /*
+        You are given a perfect binary tree where all leaves are on the same level, and every parent has two children. The binary tree has the following definition:
+
+        struct Node {
+        int val;
+        Node *left;
+        Node *right;
+        Node *next;
+        }
+
+        Populate each next pointer to point to its next right node. If there is no next right node, the next pointer should be set to NULL.
+
+        Initially, all next pointers are set to NULL.
+
+        
+
+        Example 1:
+
+        Input: root = [1,2,3,4,5,6,7]
+        Output: [1,#,2,3,#,4,5,6,7,#]
+        Explanation: Given the above perfect binary tree (Figure A), your function should populate each next pointer to point to its next right node, just like in Figure B. The serialized output is in level order as connected by the next pointers, with '#' signifying the end of each level.
+
+        Example 2:
+
+        Input: root = []
+        Output: []
+
+        https://leetcode.com/problems/populating-next-right-pointers-in-each-node/
+        */
+        public class Node2
+        {
+            public int val;
+            public Node2 left;
+            public Node2 right;
+            public Node2 next;
+
+            public Node2() { }
+
+            public Node2(int _val)
+            {
+                val = _val;
+            }
+
+            public Node2(int _val, Node2 _left, Node2 _right, Node2 _next)
+            {
+                val = _val;
+                left = _left;
+                right = _right;
+                next = _next;
+            }
+        }
+        //Custom solution
+        public Node2 Connect(Node2 root)
+        {
+            IList<IList<Node2>> results = new List<IList<Node2>>();
+            if (root == null)
+                return root;
+
+
+            Queue<Node2> mes = new Queue<Node2>();
+            mes.Enqueue(root);
+
+
+            while (mes.Count > 0)
+            {
+                List<Node2> res = new List<Node2>();
+                int counter = mes.Count();
+                for (int i = 0; i < counter; i++)
+                {
+                    Node2 curr = mes.Peek();
+                    mes.Dequeue();
+
+                    if (curr.left != null)
+                        mes.Enqueue(curr.left);
+
+                    if (curr.right != null)
+                        mes.Enqueue(curr.right);
+
+                    res.Add(curr);
+                }
+                results.Add(res);
+            }
+
+
+            foreach (List<Node2> item in results)
+            {
+                Node2 connect = item.First();
+                item.Remove(connect);
+                foreach (Node2 link in item)
+                {
+                    connect.next = link;
+                    connect = link;
+                }
+
+            }
+
+            Node2 member = root;
+
+            return member;
+        }
+        
+        //Simplified version of my traversal solution.
+        public Node2 Connect2(Node2 root)
+        {
+            if (root == null)
+                return null;
+
+            Queue<Node2> q = new Queue<Node2>();
+            q.Enqueue(root);
+
+            while (q.Count > 0)
+            {
+                int count = q.Count;
+                Node2 prev = null;
+
+                for (int i = 0; i < count; i++)
+                {
+                    Node2 node = q.Dequeue();
+
+                    if (prev != null)
+                        prev.next = node;
+
+                    prev = node;
+
+                    if (node.left != null)
+                        q.Enqueue(node.left);
+
+                    if (node.right != null)
+                        q.Enqueue(node.right);
+                }
+            }
+
+            return root;
+
+        }
+
+        #endregion
         #endregion
 
     }
