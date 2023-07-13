@@ -758,7 +758,7 @@ namespace Tier2
 
             return member;
         }
-        
+
         //Simplified version of my traversal solution.
         public Node2 Connect2(Node2 root)
         {
@@ -795,6 +795,104 @@ namespace Tier2
         }
 
         #endregion
+        #region Populating Next Right Pointers in Each Node II
+        /*
+        Given a binary tree
+
+        struct Node {
+        int val;
+        Node *left;
+        Node *right;
+        Node *next;
+        }
+
+        Populate each next pointer to point to its next right node. If there is no next right node, the next pointer should be set to NULL.
+
+        Initially, all next pointers are set to NULL.
+
+        
+
+        Example 1:
+
+        Input: root = [1,2,3,4,5,null,7]
+        Output: [1,#,2,3,#,4,5,7,#]
+        Explanation: Given the above binary tree (Figure A), your function should populate each next pointer to point to its next right node, just like in Figure B. The serialized output is in level order as connected by the next pointers, with '#' signifying the end of each level.
+
+        Example 2:
+
+        Input: root = []
+        Output: []
+
+        
+
+        Constraints:
+
+            The number of nodes in the tree is in the range [0, 6000].
+            -100 <= Node.val <= 100
+
+        
+
+        Follow-up:
+
+            You may only use constant extra space.
+            The recursive approach is fine. You may assume implicit stack space does not count as extra space for this problem.
+
+
+        https://leetcode.com/problems/populating-next-right-pointers-in-each-node-ii/description/
+        
+        Same solution as above,just with non-perfect binary tree.
+        */
+        public Node2 Connect3(Node2 root)
+        {
+            IList<IList<Node2>> results = new List<IList<Node2>>();
+            if (root == null)
+                return root;
+
+
+            Queue<Node2> mes = new Queue<Node2>();
+            mes.Enqueue(root);
+
+
+            while (mes.Count > 0)
+            {
+                List<Node2> res = new List<Node2>();
+                int counter = mes.Count();
+                for (int i = 0; i < counter; i++)
+                {
+                    Node2 curr = mes.Peek();
+                    mes.Dequeue();
+
+                    if (curr.left != null)
+                        mes.Enqueue(curr.left);
+
+                    if (curr.right != null)
+                        mes.Enqueue(curr.right);
+
+                    res.Add(curr);
+                }
+                results.Add(res);
+            }
+
+
+            foreach (List<Node2> item in results)
+            {
+                Node2 connect = item.First();
+                item.Remove(connect);
+                foreach (Node2 link in item)
+                {
+                    connect.next = link;
+                    connect = link;
+                }
+
+            }
+
+            Node2 member = root;
+
+            return member;
+        }
+        #endregion
+
+
         #endregion
 
     }

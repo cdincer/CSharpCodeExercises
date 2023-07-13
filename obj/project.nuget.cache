@@ -1,8 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "RsT/UNkV13ni8kyUxMbGUJtM+UDvwGZVowYedBp8LDlxuYYmJIFk8UvDtZtOU69T0E4MzC5LpQakAJCHN65MIA==",
+  "dgSpecHash": "ePBJNM2ijKTz1N9gm+yF07/qedrkId6S6qHQ7SioLPR4OiMs7IXH/jKVutW+oJWXlflFPFNoRIwxyxRZK5Q0cw==",
   "success": true,
   "projectFilePath": "c:\\Users\\Can\\Documents\\Visual Studio Code\\CSharpCodeExercises\\CSharpCodeExercises.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\Can\\.nuget\\packages\\microsoft.netcore.app.ref\\6.0.20\\microsoft.netcore.app.ref.6.0.20.nupkg.sha512",
+    "C:\\Users\\Can\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\6.0.20\\microsoft.windowsdesktop.app.ref.6.0.20.nupkg.sha512",
+    "C:\\Users\\Can\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\6.0.20\\microsoft.aspnetcore.app.ref.6.0.20.nupkg.sha512",
+    "C:\\Users\\Can\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\6.0.20\\microsoft.netcore.app.host.win-x64.6.0.20.nupkg.sha512"
+  ],
   "logs": []
 }
