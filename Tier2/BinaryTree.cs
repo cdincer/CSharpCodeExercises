@@ -932,34 +932,28 @@ namespace Tier2
         5
         4
         */
-        public TreeNode smallest = new TreeNode(99999);
-
         public TreeNode LowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q)
         {
-
-            return helper(root, p, q);
-        }
-        public TreeNode helper(TreeNode node, TreeNode check1, TreeNode check2)
-        {
-            if (node == null)
-                return null;
-
-            if (node.left == check1 || node.left == check2)
+            if (root == null || root == p || root == q)
             {
-                if (smallest.val > node.val)
-                    smallest = node;
+                return root;
             }
 
+            TreeNode left = LowestCommonAncestor(root.left, p, q);
+            TreeNode right = LowestCommonAncestor(root.right, p, q);
 
-            if (node.right == check1 || node.right == check2)
+            if (left != null && right != null)
             {
-                if (smallest.val > node.val)
-                    smallest = node;
+                return root;
             }
-            helper(node.left, check1, check2);
-            helper(node.right, check1, check2);
-
-            return smallest;
+            else if (left != null)
+            {
+                return left;
+            }
+            else
+            {
+                return right;
+            }
         }
         #endregion
 
