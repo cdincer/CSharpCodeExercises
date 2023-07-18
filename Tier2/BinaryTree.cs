@@ -956,7 +956,82 @@ namespace Tier2
             }
         }
         #endregion
+        #region Serialize and Deserialize Binary Tree
+        /*
+        Serialization is the process of converting a data structure or object into a sequence of bits so that it can be stored in a file or memory buffer, or transmitted across a network connection link to be reconstructed later in the same or another computer environment.
 
+        Design an algorithm to serialize and deserialize a binary tree. There is no restriction on how your serialization/deserialization algorithm should work. You just need to ensure that a binary tree can be serialized to a string and this string can be deserialized to the original tree structure.
+
+        Clarification: The input/output format is the same as how LeetCode serializes a binary tree(*). You do not necessarily need to follow this format, so please be creative and come up with different approaches yourself.
+        *https://support.leetcode.com/hc/en-us/articles/360011883654-What-does-1-null-2-3-mean-in-binary-tree-representation-
+        
+
+        Example 1:
+
+        Input: root = [1,2,3,null,null,4,5]
+        Output: [1,2,3,null,null,4,5]
+
+        Example 2:
+
+        Input: root = []
+        Output: []
+
+        
+
+        Constraints:
+
+            The number of nodes in the tree is in the range [0, 104].
+            -1000 <= Node.val <= 1000
+
+
+        https://leetcode.com/problems/serialize-and-deserialize-binary-tree/
+        */
+        // Encodes a tree to a single string.
+        public string serialize(TreeNode root)
+        {
+            if (root == null) return "null";
+            return root.val + " " + serialize(root.left) + " " + serialize(root.right);
+        }
+
+        // Decodes your encoded data to tree.
+        public TreeNode deserialize(string data)
+        {
+            List<TreeNode> list = new List<TreeNode>();
+
+            if (data == "null") return null;
+
+            string[] words = data.Split(' ');
+            TreeNode root = new TreeNode(Convert.ToInt32(words[0]));
+            list.Add(root);
+
+            bool goLeft = true;
+            for (int i = 1; i < words.Count(); ++i)
+            {
+                if (words[i] == "null")
+                {
+                    if (goLeft) goLeft = false;
+                    else list.RemoveAt(list.Count() - 1);
+                }
+                else
+                {
+                    TreeNode node = new TreeNode(Convert.ToInt32(words[i]));
+                    if (goLeft)
+                    {
+                        list[list.Count() - 1].left = node;
+                    }
+                    else
+                    {
+                        list[list.Count() - 1].right = node;
+                        list.RemoveAt(list.Count() - 1);
+                    }
+                    list.Add(node);
+                    goLeft = true;
+                }
+            }
+
+            return root;
+        }
+        #endregion
         #endregion
 
     }
