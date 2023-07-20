@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using static Tier2.BinaryTree;
 
@@ -44,53 +45,75 @@ namespace CSharpCodeExercises.Tier2
         [2,2,2]
         [0]
         [1,null,1]
+        [5,4,6,null,null,3,7]
+        [0,null,1]
+        [3,1,5,0,2,4,6,null,null,null,3]
+        [3,1,5,0,2,4,6]
+        [24,-60,null,-60,-6]
+        [-2147483648,null,2147483647,-2147483648]
         https://leetcode.com/problems/validate-binary-search-tree/
+        First Solution below is custom and mine.
+        Just mix inorder traversal for checking links below 
+        and using list to check descending order and comparing with root.
+        Runtime:103ms Beats 77.85%of users with C# 
+        Memory:42.64mb Beats 30.02%of users with C#
         */
         List<TreeNode> items = new();
+        bool result = true;
         public bool IsValidBST(TreeNode root)
         {
             if (root.left == null && root.right == null)
                 return true;
 
-            BuildTree(root);
+            bool check = BuildTree(root);
 
-            int leftSide = 0;
-            int rightSide = 0;
+            if (!check)
+                return false;
+
             bool CrossOver = false;
             for (int i = 0; i < items.Count() - 1; i++)
             {
                 if (items[i].val > items[i + 1].val)
                     return false;
 
+                if (!CrossOver && root.val <= items[i].val && items[i] != root)
+                    return false;
+
+                if (CrossOver && root.val >= items[i].val && items[i] != root)
+                    return false;
+
                 if (items[i] == root)
                 {
                     CrossOver = true;
-                }
-
-                if (!CrossOver)
-                {
-                    leftSide += items[i].val;
-                }
-                else
-                {
-                    rightSide += items[i].val;
+                    continue;
                 }
             }
-
-            if (leftSide > rightSide || leftSide == rightSide)
-                return false;
 
             return true;
         }
 
-        public void BuildTree(TreeNode root)
+        public bool BuildTree(TreeNode root)
         {
             if (root == null)
-                return;
+                return false;
+
+            if (root.left != null && (root.val < root.left.val || root.val == root.left.val))
+            {
+                result = false;
+                return result;
+            }
+
+            if (root.right != null && (root.val > root.right.val || root.val == root.right.val))
+            {
+                result = false;
+                return result;
+            }
 
             BuildTree(root.left);
             items.Add(root);
             BuildTree(root.right);
+
+            return result;
         }
         #endregion
         #endregion
