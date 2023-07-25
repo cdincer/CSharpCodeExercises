@@ -256,37 +256,25 @@ namespace CSharpCodeExercises.Tier2
         https://leetcode.com/problems/search-in-a-binary-search-tree/
         Test Case:
         [18,2,22,null,null,null,63,null,84,null,null]
-        63  
+        63
+        [4,2,7,1,3]
+        5
         */
-        TreeNode myNode = new TreeNode();
         public TreeNode SearchBST(TreeNode root, int val)
         {
-
-            if (root == null)
-                return null;
-
+            if (root == null) return null;
             if (root.val == val)
             {
-                myNode.val = root.val;
-                myNode.left = root.left;
-                myNode.right = root.right;
-                return myNode;
+                return root;
             }
-
-            if (root.left != null && root.left.val <= val)
+            if (val > root.val)
             {
-                SearchBST(root.right, val);
+                return SearchBST(root.right, val);
             }
-
-            if (root.right != null && root.right.val >= val)
+            else
             {
-                SearchBST(root.left, val);
+                return SearchBST(root.left, val);
             }
-
-            if (myNode.left == null && myNode.right == null)
-                return null;
-
-            return myNode;
         }
         #endregion
 
