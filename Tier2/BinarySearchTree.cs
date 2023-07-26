@@ -315,12 +315,17 @@ namespace CSharpCodeExercises.Tier2
         Extra Test Case:
         [55,28,92,26,43,null,null,null,null,null,null]
         1
-        Failed test case for code below:(Custom solution WIP)
         []
         5
+        Stats for custom solution below:
+        Runtime:98ms Beats 100.00% of users with C#
+        Memory: 51.12mb Beats 95.81%of users with C#
         */
         public TreeNode InsertIntoBST(TreeNode root, int val)
         {
+            if (root == null)
+                return null;
+
             TreeBuilder(root, val);
             return root;
         }
