@@ -315,6 +315,9 @@ namespace CSharpCodeExercises.Tier2
         Extra Test Case:
         [55,28,92,26,43,null,null,null,null,null,null]
         1
+        Failed test case for code below:(Custom solution WIP)
+        []
+        5
         */
         public TreeNode InsertIntoBST(TreeNode root, int val)
         {
@@ -327,11 +330,11 @@ namespace CSharpCodeExercises.Tier2
             if (root == null)
                 return null;
 
-            if (val < root.val && root.left != null && root.left.val < val)
+            if (val < root.val && root.left != null)
             {
                 return TreeBuilder(root.left, val);
             }
-            else if (val > root.val && root.right != null && root.right.val > val)
+            else if (val > root.val && root.right != null)
             {
                 return TreeBuilder(root.right, val);
             }
