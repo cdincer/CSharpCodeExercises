@@ -278,7 +278,7 @@ namespace CSharpCodeExercises.Tier2
             }
         }
         #endregion
-        #region  Insert into a Binary Search Tree
+        #region Insert into a Binary Search Tree
         /*
         You are given the root node of a binary search tree (BST) and a value to insert into the tree. Return the root node of the BST after the insertion. It is guaranteed that the new value does not exist in the original BST.
 
@@ -324,7 +324,7 @@ namespace CSharpCodeExercises.Tier2
         public TreeNode InsertIntoBST(TreeNode root, int val)
         {
             if (root == null)
-                return null;
+                return new TreeNode(val);
 
             TreeBuilder(root, val);
             return root;
@@ -353,6 +353,80 @@ namespace CSharpCodeExercises.Tier2
             }
 
             return null;
+        }
+        #endregion
+        #region Delete Node in a BST
+        /*
+        1. If the target node has no child, we can simply remove the node.
+        2. If the target node has one child, we can use its child to replace itself.
+        3. If the target node has two children, replace the node with its in-order successor or predecessor node and delete that node.
+
+        Given a root node reference of a BST and a key, delete the node with the given key in the BST. Return the root node reference (possibly updated) of the BST.
+
+        Basically, the deletion can be divided into two stages:
+
+            Search for a node to remove.
+            If the node is found, delete the node.
+
+        Example 1:
+
+        Input: root = [5,3,6,2,4,null,7], key = 3
+        Output: [5,4,6,2,null,null,7]
+        Explanation: Given key to delete is 3. So we find the node with value 3 and delete it.
+        One valid answer is [5,4,6,2,null,null,7], shown in the above BST.
+        Please notice that another valid answer is [5,2,6,null,4,null,7] and it's also accepted.
+
+        Example 2:
+
+        Input: root = [5,3,6,2,4,null,7], key = 0
+        Output: [5,3,6,2,4,null,7]
+        Explanation: The tree does not contain a node with value = 0.
+
+        Example 3:
+
+        Input: root = [], key = 0
+        Output: []
+
+        
+
+        Constraints:
+
+            The number of nodes in the tree is in the range [0, 104].
+            -105 <= Node.val <= 105
+            Each node has a unique value.
+            root is a valid binary search tree.
+            -105 <= key <= 105
+
+        https://leetcode.com/problems/delete-node-in-a-bst/
+        */
+        public TreeNode DeleteNode(TreeNode root, int key)
+        {
+            if (root == null)
+                return new TreeNode(key);
+
+            TreeBuilder2(root, key);
+            return root;
+        }
+
+        public TreeNode TreeBuilder2(TreeNode root, int key)
+        {
+
+            if (key < root.val && root.left != null)
+            {
+                return TreeBuilder2(root.left, key);
+            }
+            else if (key > root.val && root.right != null)
+            {
+                return TreeBuilder2(root.right, key);
+            }
+            else if (root.val == key && root.right != null)
+            {
+                root.val = root.right.val;
+                TreeNode newRight = root.right != null ? root.right : null;
+                root.right = newRight;
+                return root;
+            }
+            return root;
         }
         #endregion
         #endregion
