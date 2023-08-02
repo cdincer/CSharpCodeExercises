@@ -4,6 +4,12 @@ namespace Tier1
 {
     public class SlidingWindow
     {
+
+        /*
+        Questions related to Sliding Window:
+        https://leetcode.com/problems/count-complete-subarrays-in-an-array/description/
+        */
+
         /*
         Given a string s, find the length of the longest substring without repeating characters.
         *Example 1
