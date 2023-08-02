@@ -398,35 +398,72 @@ namespace CSharpCodeExercises.Tier2
             -105 <= key <= 105
 
         https://leetcode.com/problems/delete-node-in-a-bst/
+
+        Explanation:
+        Steps:
+
+        Recursively find the node that has the same value as the key, while setting the left/right nodes equal to the returned subtree
+        Once the node is found, have to handle the below 4 cases
+
+        1)node doesn't have left or right - return null
+        2)node only has left subtree- return the left subtree
+        3)node only has right subtree- return the right subtree
+        4)node has both left and right - find the minimum value in the right subtree, set that value to the currently found node, then recursively delete the minimum value in the right subtree
+
+        Test Cases:
+        [1]
+        0
+        */
+
+        /*
+        Unknown source solution: extra info for recursions effect on runtime and memory
+         Runtime:(Info for runtime even with 3 recursive endings)
+        Details:98ms Beats 75.59%of users with C# Memory: 44.70m bBeats 19.25% of users with C#
         */
         public TreeNode DeleteNode(TreeNode root, int key)
         {
+            //1
             if (root == null)
-                return new TreeNode(key);
+            {
+                return null;
+            }
 
-            TreeBuilder2(root, key);
+            //4
+            if (key < root.val)
+            {
+                root.left = DeleteNode(root.left, key);
+            }
+            else if (key > root.val)
+            {
+                root.right = DeleteNode(root.right, key);
+            }
+            else
+            {
+                //2
+                if (root.left == null)
+                {
+                    return root.right;
+                }
+                //3
+                else if (root.right == null)
+                {
+                    return root.left;
+                }
+                //4
+                TreeNode minNode = findMin(root.right);
+                root.val = minNode.val;
+                root.right = DeleteNode(root.right, root.val);
+            }
             return root;
         }
 
-        public TreeNode TreeBuilder2(TreeNode root, int key)
+        public TreeNode findMin(TreeNode node)
         {
-
-            if (key < root.val && root.left != null)
+            while (node.left != null)
             {
-                return TreeBuilder2(root.left, key);
+                node = node.left;
             }
-            else if (key > root.val && root.right != null)
-            {
-                return TreeBuilder2(root.right, key);
-            }
-            else if (root.val == key && root.right != null)
-            {
-                root.val = root.right.val;
-                TreeNode newRight = root.right != null ? root.right : null;
-                root.right = newRight;
-                return root;
-            }
-            return root;
+            return node;
         }
         #endregion
         #endregion
