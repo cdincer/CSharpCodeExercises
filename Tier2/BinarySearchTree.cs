@@ -509,7 +509,44 @@ namespace CSharpCodeExercises.Tier2
 
 
         https://leetcode.com/problems/kth-largest-element-in-a-stream/description/
+
+        Extra Testcase:
+        ["KthLargest","add"] //Test case from leetcode conclusion section page.
+        [[4,[5,2,6,1,7,4]],[3]]
         */
+        //Generic PriorityQueue(Heap implementation of C#)
+        public class KthLargest1
+        {
+            private PriorityQueue<int, int> _first = new PriorityQueue<int, int>();
+            private int KthElements = 0;
+
+            public KthLargest1(int k, int[] nums)
+            {
+                KthElements = k;
+                foreach (var num in nums)
+                {
+                    AddNew(num);
+                }
+            }
+
+            public int Add(int val)
+            {
+                AddNew(val);
+                return _first.Peek();
+            }
+
+            private void AddNew(int val)
+            {
+                if (_first.Count < KthElements)
+                {
+                    _first.Enqueue(val, val);
+                    return;
+                }
+
+                _first.Enqueue(val, val);
+                _first.Dequeue();
+            }
+        }
         #endregion
         #endregion
     }
