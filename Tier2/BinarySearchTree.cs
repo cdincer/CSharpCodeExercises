@@ -511,8 +511,8 @@ namespace CSharpCodeExercises.Tier2
         https://leetcode.com/problems/kth-largest-element-in-a-stream/description/
 
         Extra Testcase:
-        ["KthLargest","add"] //Test case from leetcode conclusion section page.
-        [[4,[5,2,6,1,7,4]],[3]]
+        ["KthLargest","add"] //Test case from leetcode conclusion section page. //Expected Return is 4
+        [[4,[5,2,6,1,7,4]],[3]] 
         */
         //Generic PriorityQueue(Heap implementation of C#)
         public class KthLargest1
@@ -546,6 +546,67 @@ namespace CSharpCodeExercises.Tier2
                 _first.Enqueue(val, val);
                 _first.Dequeue();
             }
+        }
+
+        //Editorial Conclusion Solution mentioned here: https://leetcode.com/explore/learn/card/introduction-to-data-structure-binary-search-tree/142/conclusion/1009/
+        //Stats for it
+        //Runtime: 414ms Beats 16.96%of users with C# -- Memory: 61.61mb Beats 8.04% of users with C#
+        public class KthLargest2
+        {
+            TreeNode root { get; set; }
+            int k;
+            public KthLargest2(int k, int[] nums)
+            {
+                this.k = k;
+                foreach (int number in nums)
+                {
+                    root = Add(root, number);
+                }
+            }
+
+            public int Add(int val)
+            {
+                root = Add(root, val);
+                return findKthLargest();
+            }
+
+            private TreeNode Add(TreeNode root, int val)
+            {
+                if (root == null) return new TreeNode(val);
+                root.count++;
+                if (val < root.val) root.left = Add(root.left, val);
+                else root.right = Add(root.right, val);
+
+                return root;
+            }
+
+            public int findKthLargest()
+            {
+                int count = k;
+                TreeNode walker = root;
+
+                while (count > 0)
+                {
+                    int pos = 1 + (walker.right != null ? walker.right.count : 0);
+                    if (count == pos) break;
+                    if (count > pos)
+                    {
+                        count -= pos;
+                        walker = walker.left;
+                    }
+                    else if (count < pos)
+                        walker = walker.right;
+                }
+                return walker.val;
+            }
+
+            public class TreeNode
+            {
+                public int val, count = 1;
+                public TreeNode left, right;
+                public TreeNode(int v) { val = v; }
+            }
+
         }
         #endregion
         #endregion
