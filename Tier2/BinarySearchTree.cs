@@ -668,6 +668,164 @@ namespace CSharpCodeExercises.Tier2
             }
         }
         #endregion
+
+
+        #region Contains Duplicate III
+        /*
+        You are given an integer array nums and two integers indexDiff and valueDiff.
+
+        Find a pair of indices (i, j) such that:
+
+            i != j,
+            abs(i - j) <= indexDiff.
+            abs(nums[i] - nums[j]) <= valueDiff, and
+
+        Return true if such pair exists or false otherwise.
+
+        Example 1:
+
+        Input: nums = [1,2,3,1], indexDiff = 3, valueDiff = 0
+        Output: true
+        Explanation: We can choose (i, j) = (0, 3).
+        We satisfy the three conditions:
+        i != j --> 0 != 3
+        abs(i - j) <= indexDiff --> abs(0 - 3) <= 3
+        abs(nums[i] - nums[j]) <= valueDiff --> abs(1 - 1) <= 0
+
+        Example 2:
+
+        Input: nums = [1,5,9,1,5,9], indexDiff = 2, valueDiff = 3
+        Output: false
+        Explanation: After trying all the possible pairs (i, j), we cannot satisfy the three conditions, so we return false.
+
+        
+
+        Constraints:
+
+            2 <= nums.length <= 105
+            -109 <= nums[i] <= 109
+            1 <= indexDiff <= nums.length
+            0 <= valueDiff <= 109
+
+        Converted Java code below(Editorial solution is only available to subscribers):
+        Stats On 10th Of August 2023:
+        Runtime 215ms Beats 96.30% of users with C# Memory 51.79mb  100.00%of users with C#
+
+        https://leetcode.com/problems/contains-duplicate-iii/description/
+        */
+        public class TreeNodeD
+        {
+            public long val;
+            public TreeNodeD left;
+            public TreeNodeD right;
+            public TreeNodeD(long x)
+            {
+                val = x;
+            }
+        }
+        public TreeNodeD add(TreeNodeD root, TreeNodeD nNode)
+        {
+            if (root == null)
+            {
+                return nNode;
+            }
+            else if (root.val < nNode.val)
+            {
+                root.right = add(root.right, nNode);
+            }
+            else
+            {
+                root.left = add(root.left, nNode);
+            }
+            return root;
+        }
+
+        public TreeNodeD delete(TreeNodeD root, TreeNodeD dNode)
+        {
+            if (root == null)
+            {
+                return null;
+            }
+            else if (root.val < dNode.val)
+            {
+                root.right = delete(root.right, dNode);
+                return root;
+            }
+            else if (root.val > dNode.val)
+            {
+                root.left = delete(root.left, dNode);
+                return root;
+            }
+            else if (root == dNode)
+            {
+                if (dNode.left == null && dNode.right == null) return null;
+                else if (dNode.left != null && dNode.right == null) return dNode.left;
+                else if (dNode.right != null && dNode.left == null) return dNode.right;
+                else
+                {
+                    TreeNode p = dNode.right;
+                    while (p.left != null) p = p.left;
+                    dNode.right = delete(dNode.right, p);
+                    p.left = dNode.left;
+                    p.right = dNode.right;
+                    return p;
+                }
+            }
+            else
+            {
+                return root;
+            }
+        }
+
+        public bool search(TreeNodeD root, long val, int t)
+        {
+            if (root == null)
+            {
+                return false;
+            }
+            else if (Math.Abs((root.val - val)) <= t)
+            {
+                return true;
+            }
+            else if ((root.val - val) > t)
+            {
+                return search(root.left, val, t);
+            }
+            else
+            {
+                return search(root.right, val, t);
+            }
+        }
+
+
+
+        public bool ContainsNearbyAlmostDuplicate(int[] nums, int indexDiff, int valueDiff)
+        {
+            if (indexDiff < 1 || valueDiff < 0 || nums.Length <= 1)
+            {
+                return false;
+            }
+            int len = nums.Length;
+            TreeNodeD[] map = new TreeNode[len];
+            map[0] = new TreeNodeD((long)nums[0]);
+            TreeNodeD root = null;
+            root = add(root, map[0]);
+            for (int i = 1; i < len; i++)
+            {
+                if (search(root, (long)nums[i], valueDiff))
+                {
+                    return true;
+                }
+                map[i] = new TreeNodeD((long)nums[i]);
+                if (i - indexDiff >= 0)
+                {
+                    root = delete(root, map[i - indexDiff]);
+                }
+                root = add(root, map[i]);
+            }
+            return false;
+        }
+        #endregion
         #endregion
     }
 }
