@@ -763,7 +763,7 @@ namespace CSharpCodeExercises.Tier2
                 else if (dNode.right != null && dNode.left == null) return dNode.right;
                 else
                 {
-                    TreeNode p = dNode.right;
+                    TreeNodeD p = dNode.right;
                     while (p.left != null) p = p.left;
                     dNode.right = delete(dNode.right, p);
                     p.left = dNode.left;
@@ -777,23 +777,23 @@ namespace CSharpCodeExercises.Tier2
             }
         }
 
-        public bool search(TreeNodeD root, long val, int t)
+        public bool search(TreeNodeD root, long val, int valueDiff)
         {
             if (root == null)
             {
                 return false;
             }
-            else if (Math.Abs((root.val - val)) <= t)
+            else if (Math.Abs((root.val - val)) <= valueDiff)
             {
                 return true;
             }
-            else if ((root.val - val) > t)
+            else if ((root.val - val) > valueDiff)
             {
-                return search(root.left, val, t);
+                return search(root.left, val, valueDiff);
             }
             else
             {
-                return search(root.right, val, t);
+                return search(root.right, val, valueDiff);
             }
         }
 
@@ -806,7 +806,7 @@ namespace CSharpCodeExercises.Tier2
                 return false;
             }
             int len = nums.Length;
-            TreeNodeD[] map = new TreeNode[len];
+            TreeNodeD[] map = new TreeNodeD[len];
             map[0] = new TreeNodeD((long)nums[0]);
             TreeNodeD root = null;
             root = add(root, map[0]);
