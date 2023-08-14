@@ -709,7 +709,7 @@ namespace CSharpCodeExercises.Tier2
 
         Converted Java code below(Editorial solution is only available to subscribers):
         Stats On 10th Of August 2023:
-        Runtime 215ms Beats 96.30% of users with C# Memory 51.79mb  100.00%of users with C#
+        Runtime 215ms Beats 96.30% of users with C# Memory 51.79mb  100.00% of users with C#
 
         https://leetcode.com/problems/contains-duplicate-iii/description/
         */
@@ -740,6 +740,9 @@ namespace CSharpCodeExercises.Tier2
             return root;
         }
 
+        //This problem requires us to maintain a tree of IndexDiff size
+        //That's why we delete the tree members after that.
+        //We want to have a certain size that can be queried for value ranges.
         public TreeNodeD delete(TreeNodeD root, TreeNodeD dNode)
         {
             if (root == null)
@@ -797,8 +800,6 @@ namespace CSharpCodeExercises.Tier2
             }
         }
 
-
-
         public bool ContainsNearbyAlmostDuplicate(int[] nums, int indexDiff, int valueDiff)
         {
             if (indexDiff < 1 || valueDiff < 0 || nums.Length <= 1)
@@ -825,6 +826,28 @@ namespace CSharpCodeExercises.Tier2
             }
             return false;
         }
+
+        //Alternative solution without binary search tree
+        private SortedSet<long> neighbours = new();
+
+        public bool ContainsNearbyAlmostDuplicate2(int[] nums, int indexDiff, int valueDiff)
+        {
+
+            for (int i = 0; i < nums.Length; i++)
+            {
+                if (neighbours.GetViewBetween(Convert.ToInt64(nums[i]) - valueDiff, Convert.ToInt64(nums[i]) + valueDiff).Any())
+                    return true;
+
+                neighbours.Add(nums[i]);
+
+                if (i >= indexDiff)
+                    neighbours.Remove(nums[i - indexDiff]);
+            }
+
+            return false;
+        }
+
+
         #endregion
         #endregion
     }
