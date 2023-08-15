@@ -668,8 +668,6 @@ namespace CSharpCodeExercises.Tier2
             }
         }
         #endregion
-
-
         #region Contains Duplicate III
         /*
         You are given an integer array nums and two integers indexDiff and valueDiff.
@@ -711,6 +709,11 @@ namespace CSharpCodeExercises.Tier2
         Stats On 10th Of August 2023:
         Runtime 215ms Beats 96.30% of users with C# Memory 51.79mb  100.00% of users with C#
 
+        Extra test case:
+        [1,5,9,1,5,9]
+        2
+        3
+        [Output:true]
         https://leetcode.com/problems/contains-duplicate-iii/description/
         */
         public class TreeNodeD
@@ -847,8 +850,109 @@ namespace CSharpCodeExercises.Tier2
             return false;
         }
 
-
         #endregion
+        #region Balanced Binary Tree
+        /*
+        Given a binary tree, determine if it is height-balanced .
+
+        Example 1:
+
+        Input: root = [3,9,20,null,null,15,7]
+        Output: true
+
+        Example 2:
+
+        Input: root = [1,2,2,3,3,null,null,4,4]
+        Output: false
+
+        Example 3:
+
+        Input: root = []
+        Output: true
+
+        Constraints:
+
+            The number of nodes in the tree is in the range [0, 5000].
+            -104 <= Node.val <= 104
+
+        "A height-balanced binary tree is a binary tree in 
+        which the depth of the two subtrees of every node never differs by more than one"
+        https://leetcode.com/problems/balanced-binary-tree/
+        */
+        private bool res = true;
+        public bool IsBalanced(TreeNode root)
+        {
+
+            //if the root is null return true since it has a height of 0
+            if (root == null)
+            {
+                return true;
+            }
+
+            //Depth first search starting from the root with a height of 0
+            DFS(root, 0);
+
+            return res;
+        }
+
+        private int DFS(TreeNode node, int h)
+        {
+
+            // if the node is null return 0
+            if (node == null)
+                return 0;
+
+            // declare left and right heights
+            int lh = DFS(node.left, h + 1),
+            rh = DFS(node.right, h + 1);
+
+            // if the differences between the two is greater than one response = false.
+            if (Math.Abs(lh - rh) > 1)
+                res = false;
+
+            //return max height + 1
+            return Math.Max(lh, rh) + 1;
+        }
+        #endregion
+        #region  Convert Sorted Array to Binary Search Tree
+        /*
+        Given an integer array nums where the elements are sorted in ascending order, convert it to a
+        height-balanced
+        binary search tree.
+
+        Example 1:
+
+        Input: nums = [-10,-3,0,5,9]
+        Output: [0,-3,9,-10,null,5]
+        Explanation: [0,-10,5,null,-3,null,9] is also accepted:
+
+        Example 2:
+
+        Input: nums = [1,3]
+        Output: [3,1]
+        Explanation: [1,null,3] and [3,1] are both height-balanced BSTs.
+
+        "A height-balanced binary tree is a binary tree in which the 
+        depth of the two subtrees of every node never differs by more than one."
+
+        https://leetcode.com/problems/convert-sorted-array-to-binary-search-tree/
+        */
+        public TreeNode SortedArrayToBST(int[] nums)
+        {
+            return CreateNode(0, nums.Length - 1);
+
+            TreeNode CreateNode(int left, int right)
+            {
+                if (left > right)
+                {
+                    return null;
+                }
+                int mid = left + (right - left) / 2;
+                return new TreeNode(nums[mid], CreateNode(left, mid - 1), CreateNode(mid + 1, right));
+            }
+        }
+        #endregion
+
         #endregion
     }
 }
