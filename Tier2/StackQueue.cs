@@ -52,82 +52,52 @@ namespace CSharpCodeExercises.Tier2
         Extra Test Case:
         ["MyCircularQueue","enQueue","Rear","Rear","deQueue","enQueue","Rear","deQueue","Front","deQueue","deQueue","deQueue"]
         [[6],[6],[],[],[],[5],[],[],[],[],[],[]]
+        ["MyCircularQueue","enQueue","enQueue","deQueue","enQueue","deQueue","enQueue","deQueue","enQueue","deQueue", "Front"]
+        [[2],[1],[2],[],[3],[],[3],[],[3],[],[]]
+        ["MyCircularQueue","enQueue","enQueue","Front","enQueue","deQueue","enQueue","enQueue","Rear","isEmpty","Front","deQueue"]
+        [[2],[8],[8],[],[4],[],[1],[1],[],[],[],[]]
+        ["MyCircularQueue","enQueue","enQueue","enQueue","enQueue","Front","isFull","deQueue","enQueue","Front"]
+        [[1],[1],[2],[3],[4],[],[],[],[4],[]]
          https://leetcode.com/problems/design-circular-queue/description/
         */
         public class MyCircularQueue
         {
-
-            private int[] data { get; set; }
-            // a pointer to indicate the start position
-            private int head;
-            private int tail;
-            private int itemCount;
+            int[] q;
+            int front = 0;
+            int rear = -1;
+            int count = 0;
 
             public MyCircularQueue(int k)
             {
-                data = new int[k];
-                head = 0;
-                tail = 0;
-                itemCount = 0;
+                q = new int[k];
             }
 
             public bool EnQueue(int value)
             {
-                if (itemCount == data.Length)
-                {
-                    return false;
-                }
-                else if (tail == data.Length)
-                {
-                    tail = 0;
-                }
-
-                data[tail] = value;
-                tail++;
-                itemCount++;
-
-
+                if (IsFull()) return false;
+                count++;
+                rear = (rear + 1) % q.Length;
+                q[rear] = value;
                 return true;
             }
 
             public bool DeQueue()
             {
-                if (itemCount <= 0)
-                {
-                    return false;
-                }
-                head++;
-                itemCount--;
+                if (IsEmpty()) return false;
+                count--;
+                front = (front + 1) % q.Length;
                 return true;
             }
 
-            public int Front()
-            {
-                return data[head];
-            }
+            public int Front() => IsEmpty() ? -1 : q[front];
 
-            public int Rear()
-            {
-                return data[tail - 1];
-            }
+            public int Rear() => IsEmpty() ? -1 : q[rear];
 
-            public bool IsEmpty()
-            {
+            public bool IsEmpty() => count == 0;
 
-                if (itemCount == 0)
-                    return true;
-
-                return false;
-            }
-
-            public bool IsFull()
-            {
-                if (itemCount == data.Length)
-                    return true;
-
-                return false;
-            }
+            public bool IsFull() => count == q.Length;
         }
+
         #endregion
 
         #endregion

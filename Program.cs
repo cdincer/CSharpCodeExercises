@@ -23,7 +23,7 @@ namespace CSharpCodeExercises
             new int[] {16,17,18,19,20},
             };
 
-            Console.WriteLine("Finished");
+            Console.ReadLine();
         }
     }
 
