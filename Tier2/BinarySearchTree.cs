@@ -843,7 +843,7 @@ namespace CSharpCodeExercises.Tier2
 
                 neighbours.Add(nums[i]);
 
-                if (i >= indexDiff)
+                if (i >= indexDiff) //Delete to maintain the size and make it easy to search especially in larger numbers.
                     neighbours.Remove(nums[i - indexDiff]);
             }
 

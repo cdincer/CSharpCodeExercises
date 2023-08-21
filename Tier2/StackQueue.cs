@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace CSharpCodeExercises.Tier2
@@ -107,7 +108,8 @@ namespace CSharpCodeExercises.Tier2
         Given an m x n 2D binary grid grid which represents a map of '1's (land) and '0's (water), return the number of islands.
 
         An island is surrounded by water and is formed by connecting adjacent lands horizontally or vertically. 
-        You may assume all four edges of the grid are all surrounded by water.
+        You may assume all four edges of the grid are all surrounded by water. 
+        No diagonal connections ! That's why second one is 3 islands.
 
         Example 1:
 
@@ -142,6 +144,54 @@ namespace CSharpCodeExercises.Tier2
         //Templates in the link below which is in java supposed to solve this problem.
         //https://leetcode.com/explore/learn/card/queue-stack/231/practical-application-queue/1372/
 
+        //Like many questions in Stack/Queue card many solutions are hidden by paywall.
+        //This and many others will be from random sources.
+        /* C# Test Cases:
+            char[][] grid1 = new char[][]
+            {
+             new char[]{'1','1','1','1','0'},
+             new char[]{'1','1','0','1','0'},
+             new char[]{'1','1','0','0','0'},
+             new char[]{'0','0','0','0','0'},
+            };
+        */
+        public int NumIslands(char[][] grid)
+        {
+            int result = 0;
+            int[] dx = new int[] { 1, -1, 0, 0 },
+                  dy = new int[] { 0, 0, 1, -1 };
+
+            for (int i = 0; i < grid.Length; i++)
+                for (int j = 0; j < grid[0].Length; j++)
+                    if (grid[i][j] == '1')
+                    {
+                        result++;
+
+                        Queue<int[]> queue = new Queue<int[]>();
+
+                        queue.Enqueue(new int[] { i, j });
+                        grid[i][j] = 'N';
+
+                        while (queue.Count > 0)
+                        {
+                            int[] cur = queue.Dequeue();
+
+                            for (int k = 0; k < 4; k++)
+                            {
+                                int newX = cur[0] + dx[k],
+                                    newY = cur[1] + dy[k];
+                                Console.WriteLine("Moved to with newX"+ newX+" Moved to with newY "+newY);
+                                if (newX > -1 && newX < grid.Length && newY > -1 && newY < grid[0].Length && grid[newX][newY] != 'N' && grid[newX][newY] != '0')
+                                {
+                                    queue.Enqueue(new int[] { newX, newY });
+                                    grid[newX][newY] = 'N';
+                                }
+                            }
+                        }
+                    }
+
+            return result;
+        }
 
         #endregion
         #endregion
