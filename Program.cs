@@ -31,7 +31,7 @@ namespace CSharpCodeExercises
              new char[]{'0','0','0','0','0'},
             };
             StackQueue islands = new();
-            islands.NumIslands(grid1);
+            islands.OpenLock(new string[] { "8887", "8889", "8878", "8898", "8788", "8988", "7888", "9888" }, "8888");
             Console.ReadLine();
         }
     }
