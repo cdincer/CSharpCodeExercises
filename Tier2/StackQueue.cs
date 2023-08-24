@@ -155,7 +155,10 @@ namespace CSharpCodeExercises.Tier2
              new char[]{'1','1','0','0','0'},
              new char[]{'0','0','0','0','0'},
             };
-        */
+
+            Adding for perspective(August 24,2023) Even with O(n) runtime 
+            Runtime:88 ms Beats 99.90% Memory: 51.7 MB Beats: 25.61%
+            */
         public int NumIslands(char[][] grid)
         {
             int result = 0;
@@ -241,6 +244,16 @@ namespace CSharpCodeExercises.Tier2
         We can think of this problem as a shortest path problem on a graph: there are `10000` nodes (strings `'0000'` to `'9999'`), 
         and there is an edge between two nodes if they differ in one digit, 
         that digit differs by 1 (wrapping around, so `'0'` and `'9'` differ by 1), and if *both* nodes are not in `deadends`.
+        Test Cases For Easy Copy/Paste
+        ["0201","0101","0102","1212","2002"]
+        "0202"
+        ["8888"]
+        "0009"
+        ["8887","8889","8878","8898","8788","8988","7888","9888"]
+        "8888"
+        ["0000"]
+        "8888"
+        
         */
         public int OpenLock(string[] deadends, string target)
         {
@@ -266,7 +279,6 @@ namespace CSharpCodeExercises.Tier2
                     string node = queue.Dequeue();
                     if (node == target)
                         return rounds;
-
 
                     //each char can increase 1 or decrease 1;
                     //if 0 decrease 1 it will become 9;
@@ -305,6 +317,62 @@ namespace CSharpCodeExercises.Tier2
             }
 
             return -1;
+        }
+        #endregion
+        #region Perfect Squares
+        /*
+        Given an integer n, return the least number of perfect square numbers that sum to n.
+        A perfect square is an integer that is the square of an integer; in other words, it is the product of some integer with itself. For example, 1, 4, 9, and 16 are perfect squares while 3 and 11 are not.
+
+        Example 1:
+
+        Input: n = 12
+        Output: 3
+        Explanation: 12 = 4 + 4 + 4.
+
+        Example 2:
+
+        Input: n = 13
+        Output: 2
+        Explanation: 13 = 4 + 9.
+
+        Constraints:
+
+            1 <= n <= 10^4
+
+        https://leetcode.com/problems/perfect-squares/
+        */
+        public int NumSquares(int n)
+        {
+            var squareNumbers = new List<int>();
+            for (int i = 1; i * i <= n; i++)
+                squareNumbers.Add(i * i);
+
+            var q = new Queue<int>();
+            q.Enqueue(n);
+
+            int level = 0;
+            while (q.Count > 0)
+            {
+                level++;
+                var nq = new Queue<int>();
+                while (q.Count > 0)
+                {
+                    int rem = q.Dequeue();
+                    foreach (int square in squareNumbers)
+                    {
+                        if (rem == square)
+                            return level;
+                        else if (rem < square)
+                            break;
+                        else
+                            nq.Enqueue(rem - square);
+                    }
+                }
+                q = nq;
+            }
+
+            return level;
         }
         #endregion
         #endregion
