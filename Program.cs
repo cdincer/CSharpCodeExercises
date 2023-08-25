@@ -5,6 +5,7 @@ using CSharpCodeExercises.Tier2;
 using Leetcode;
 using Tier1;
 using Tier2;
+using static CSharpCodeExercises.Tier2.StackQueue;
 using static Tier2.BinaryTree;
 
 namespace CSharpCodeExercises
@@ -31,8 +32,13 @@ namespace CSharpCodeExercises
              new char[]{'0','0','0','0','0'},
             };
             StackQueue islands = new();
-            islands.OpenLock(new string[] { "8887", "8889", "8878", "8898", "8788", "8988", "7888", "9888" }, "8888");
-            Console.ReadLine();
+            MinStack asd = new MinStack();
+            asd.Push(-2);
+            asd.Push(0);
+            asd.Push(-3);
+            asd.Pop();
+            Console.WriteLine(" aaaaa");
+
         }
     }
 
