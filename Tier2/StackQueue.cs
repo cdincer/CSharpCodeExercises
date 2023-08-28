@@ -482,6 +482,134 @@ namespace CSharpCodeExercises.Tier2
             }
         }
         #endregion
+        #region Valid Parentheses
+        /*
+        Given a string s containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.
+
+        An input string is valid if:
+
+            Open brackets must be closed by the same type of brackets.
+            Open brackets must be closed in the correct order.
+            Every close bracket has a corresponding open bracket of the same type.
+
+        Example 1:
+
+        Input: s = "()"
+        Output: true
+
+        Example 2:
+
+        Input: s = "()[]{}"
+        Output: true
+
+        Example 3:
+
+        Input: s = "(]"
+        Output: false
+
+        Constraints:
+
+            1 <= s.length <= 104
+            s consists of parentheses only '()[]{}'.
+
+        https://leetcode.com/problems/valid-parentheses/
+        Test Cases:
+         "]"
+        "){"
+        "()[]{}"
+        "(]"
+        */
+        //No official solution it's behind paywall.
+        public bool IsValid1(string s)
+        {
+            Stack<char> items = new Stack<char>();
+
+            if (s.Length == 1 || s.Length == 0)
+                return false;
+
+            for (int i = 0; i < s.Length; i++)
+            {
+                char TobeUsed = 'a';
+                switch (s[i])
+                {
+                    case '[':
+                        items.Push(']');
+                        break;
+                    case '(':
+                        items.Push(')');
+                        break;
+                    case '{':
+                        items.Push('}');
+                        break;
+                    case ']':
+                        if (items.Count > 0)
+                            TobeUsed = items.Pop();
+                        else
+                            return false;
+
+                        if (TobeUsed != s[i])
+                            return false;
+                        break;
+                    case ')':
+                        if (items.Count > 0)
+                            TobeUsed = items.Pop();
+                        else
+                            return false;
+
+                        if (TobeUsed != s[i])
+                            return false;
+                        break;
+                    case '}':
+                        if (items.Count > 0)
+                            TobeUsed = items.Pop();
+                        else
+                            return false;
+
+                        if (TobeUsed != s[i])
+                            return false;
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            if (items.Count > 0)
+                return false;
+
+            return true;
+        }
+        //Faster cleaner option
+        public bool IsValid2(string s)
+        {
+            Stack<char> stack = new Stack<char>();
+            Dictionary<char, char> dict = new Dictionary<char, char>()
+        {
+            { '(', ')' },
+            { '[', ']' },
+            { '{', '}' },
+        };
+
+            foreach (var c in s)
+            {
+                if (c == ')' || c == ']' || c == '}')
+                {
+                    if (stack.Count > 0 && dict[stack.Peek()] != c || stack.Count == 0)
+                    {
+                        return false;
+                    }
+
+                    stack.Pop();
+                }
+                else
+                {
+                    stack.Push(c);
+                }
+            }
+
+            return stack.Count == 0;
+        }
+        #endregion
+
         #endregion
         #endregion
     }
