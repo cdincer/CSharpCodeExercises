@@ -377,7 +377,6 @@ namespace CSharpCodeExercises.Tier2
         #endregion
         #endregion
         #region Stack: Last-in-first-out Data Structure
-
         #region Min Stack
         /*
         Design a stack that supports push, pop, top, and retrieving the minimum element in constant time.
@@ -609,7 +608,55 @@ namespace CSharpCodeExercises.Tier2
             return stack.Count == 0;
         }
         #endregion
+        #region Daily Temperatures
+        /*
+        Given an array of integers temperatures represents the daily temperatures, return an array answer such that answer[i] is the number of days you have to wait after the ith day to get a warmer temperature. 
+        If there is no future day for which this is possible, keep answer[i] == 0 instead.
 
+        Example 1:
+
+        Input: temperatures = [73,74,75,71,69,72,76,73]
+        Output: [1,1,4,2,1,1,0,0]
+
+        Example 2:
+
+        Input: temperatures = [30,40,50,60]
+        Output: [1,1,1,0]
+
+        Example 3:
+
+        Input: temperatures = [30,60,90]
+        Output: [1,1,0]
+
+        Constraints:
+
+            1 <= temperatures.length <= 105
+            30 <= temperatures[i] <= 100
+
+        https://leetcode.com/problems/daily-temperatures/
+        */
+        public int[] DailyTemperatures(int[] T)
+        {
+            if (T == null || T.Length == 0)
+                return new int[] { };
+
+            Stack<int[]> stack = new Stack<int[]>();
+            int[] result = new int[T.Length];
+
+            for (int i = 0; i < T.Length; i++)
+            {
+                while (stack.Count > 0 && stack.Peek()[0] < T[i])
+                {
+                    result[stack.Peek()[1]] = i - stack.Peek()[1];
+                    stack.Pop();
+                }
+
+                stack.Push(new int[] { T[i], i });
+            }
+
+            return result;
+        }
+        #endregion
         #endregion
         #endregion
     }
