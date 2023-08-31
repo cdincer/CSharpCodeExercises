@@ -185,7 +185,12 @@ namespace CSharpCodeExercises.Tier2
                                 int newX = cur[0] + dx[k],
                                     newY = cur[1] + dy[k];
                                 Console.WriteLine("Moved to with newX" + newX + " Moved to with newY " + newY);
-                                if (newX > -1 && newX < grid.Length && newY > -1 && newY < grid[0].Length && grid[newX][newY] != 'N' && grid[newX][newY] != '0')
+                                if (newX > -1
+                                 && newX < grid.Length
+                                 && newY > -1
+                                 && newY < grid[0].Length
+                                 && grid[newX][newY] != 'N'
+                                 && grid[newX][newY] != '0')
                                 {
                                     queue.Enqueue(new int[] { newX, newY });
                                     grid[newX][newY] = 'N';
@@ -764,6 +769,63 @@ namespace CSharpCodeExercises.Tier2
             return items.Pop();
         }
         #endregion
+        #endregion
+        #region Stack and DFS
+        /*
+        Depth-First Search template for Stack. It was offered as a solution for the upcoming problems.
+        https://leetcode.com/explore/learn/card/queue-stack/232/practical-application-stack/1384/
+        */
+
+        /*
+        Number of Islands Stack Version
+        Like the previous ones the official solution is behind a paywall.
+        As a result,I had to look through submissions. Not a single promising one.
+        Some of them looked like the Queue version solution. So I just mine to Stack.
+        A bit slower but still works. At best it's stat was like below:
+        For 2023-08-31 
+        Runtime: 107 ms Beats: 80.28% Memory: 52.3 MB Beats: 23.13%
+        */
+        public int NumIslandsStack(char[][] grid)
+        {
+            int[] dx = new int[] { 1, -1, 0, 0 };
+            int[] dy = new int[] { 0, 0, 1, -1 };
+            int NumOfIslands = -1;
+            for (int i = 0; i < grid.Length; i++)
+                for (int j = 0; j < grid[0].Length; j++)
+                {
+                    if (grid[i][j] == '1')
+                    {
+                        NumOfIslands++;
+                        Stack<int[]> visited = new Stack<int[]>();
+                        visited.Push(new int[] { i, j });
+
+                        grid[i][j] = 'N';
+
+                        while (visited.Count > 0)
+                        {
+                            int[] current = visited.Pop();
+                            for (int k = 0; k < 4; k++)
+                            {
+                                int newX = current[0] + dx[k];
+                                int newY = current[1] + dy[k];
+                                if (newX > -1
+                                   && newX < grid.Length
+                                   && newY > -1
+                                   && newY < grid[0].Length
+                                   && grid[newX][newY] == '1')
+                                {
+                                    visited.Push(new int[] { newX, newY });
+                                    grid[newX][newY] = 'N';
+                                }
+                            }
+                        }
+
+                    }
+
+                }
+
+            return NumOfIslands + 1;
+        }
         #endregion
         #endregion
     }
