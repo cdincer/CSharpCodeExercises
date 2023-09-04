@@ -869,11 +869,19 @@ namespace CSharpCodeExercises.Tier2
 
         Constraints:
 
-            The number of nodes in the graph is in the range [0, 100].
-            1 <= Node.val <= 100
-            Node.val is unique for each node.
-            There are no repeated edges and no self-loops in the graph.
-            The Graph is connected and all nodes can be visited starting from the given node.
+        The number of nodes in the graph is in the range [0, 100].
+        1 <= Node.val <= 100
+        Node.val is unique for each node.
+        There are no repeated edges and no self-loops in the graph.
+        The Graph is connected and all nodes can be visited starting from the given node.
+
+        C# Only Test Case Equal to First Graph shown on page:
+        Node nodeOne = new Node(1);Node nodeTwo = new Node(2);
+        Node nodeThree = new Node(3);Node nodeFour = new Node(4);
+        nodeOne.neighbors.Add(nodeTwo);nodeOne.neighbors.Add(nodeFour);
+        nodeTwo.neighbors.Add(nodeOne);nodeTwo.neighbors.Add(nodeThree);
+        nodeThree.neighbors.Add(nodeTwo);nodeThree.neighbors.Add(nodeFour);
+        nodeFour.neighbors.Add(nodeOne);nodeFour.neighbors.Add(nodeThree);
 
         https://leetcode.com/problems/clone-graph/
         */
