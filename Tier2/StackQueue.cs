@@ -920,7 +920,8 @@ namespace CSharpCodeExercises.Tier2
                 neighbors = node.neighbors == null ? null : new List<Node>(node.neighbors.Count)
             };
 
-            var map = new Dictionary<Node, Node>();
+            var map = new Dictionary<Node, Node>(); //Maintain a list to not work on duplicated items 
+                                                    //and use their neighbours.
             var stack = new Stack<Node>();
             stack.Push(node);
             map.Add(node, resut);
@@ -928,7 +929,7 @@ namespace CSharpCodeExercises.Tier2
             while (stack.Count > 0)
             {
                 var item = stack.Pop();
-                var clone = map[item];
+                var clone = map[item]; // Match original and the brand new one.
                 if (item.neighbors != null)
                     foreach (var child in item.neighbors)
                     {
@@ -939,10 +940,11 @@ namespace CSharpCodeExercises.Tier2
                                 val = child.val,
                                 neighbors = child.neighbors == null ? null : new List<Node>(child.neighbors.Count)
                             };
-                            map.Add(child, cc);
-                            stack.Push(child);
+                            //Keep inserting here to only put unique ones in Stack and maintain our unique list in dictionary.
+                            map.Add(child, cc); //Add the originals and the brand new ones for processing.
+                            stack.Push(child); //Push the originals here and to use them next.
                         }
-                        clone.neighbors.Add(cc);
+                        clone.neighbors.Add(cc); // Fill up the neighbors here using the stack original ones.
                     }
             }
 
