@@ -28,9 +28,9 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Users\\Can\\Source\\Repos\\CSharpMicroservices2\\packages": {},
         "https://api.nuget.org/v3/index.json": {},
-        "https://nuget.pkg.github.com/BackboneCan/index.json": {}
+        "https://nuget.pkg.github.com/BackboneCan/index.json": {},
+        "https://nuget.pkg.github.com/TemplatePlayJ/index.json": {}
       },
       "frameworks": {
         "net6.0": {
