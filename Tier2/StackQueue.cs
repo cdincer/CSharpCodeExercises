@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using static Tier2.BinaryTree;
 
 namespace CSharpCodeExercises.Tier2
@@ -1110,7 +1111,7 @@ namespace CSharpCodeExercises.Tier2
         ["MyQueue","push","pop","push","peek"]
         [[],[1],[],[2],[]]
         */
-        //Custom solution below crappiest push I have ever written even with that stats are like below. 
+        //Custom solution below, crappiest push I have ever written even with the stats are like below. 
         //It appears this is nearly equal to first editorial solution.
         //C# Runtime: 96 ms Beats: 87.76% Memory:40.4 MB Beats: 92.95%
 
@@ -1188,6 +1189,193 @@ namespace CSharpCodeExercises.Tier2
             }
         }
         #endregion
+        #region Implement Stack using Queues
+        /*
+        Implement a last-in-first-out (LIFO) stack using only two queues. The implemented stack should support all the functions of a normal stack (push, top, pop, and empty).
+
+        Implement the MyStack class:
+
+            void push(int x) Pushes element x to the top of the stack.
+            int pop() Removes the element on the top of the stack and returns it.
+            int top() Returns the element on the top of the stack.
+            boolean empty() Returns true if the stack is empty, false otherwise.
+
+        Notes:
+
+            You must use only standard operations of a queue, which means that only push to back, peek/pop from front, size and is empty operations are valid.
+            Depending on your language, the queue may not be supported natively. You may simulate a queue using a list or deque (double-ended queue) as long as you use only a queue's standard operations.
+
+        Example 1:
+
+        Input
+        ["MyStack", "push", "push", "top", "pop", "empty"]
+        [[], [1], [2], [], [], []]
+        Output
+        [null, null, null, 2, 2, false]
+
+        Explanation
+        MyStack myStack = new MyStack();
+        myStack.push(1);
+        myStack.push(2);
+        myStack.top(); // return 2
+        myStack.pop(); // return 2
+        myStack.empty(); // return False
+
+        
+
+        Constraints:
+
+            1 <= x <= 9
+            At most 100 calls will be made to push, pop, top, and empty.
+            All the calls to pop and top are valid.
+
+        
+
+        Follow-up: Can you implement the stack using only one queue?
+        https://leetcode.com/problems/implement-stack-using-queues/description/
+        Extra test case:
+        ["MyStack","push","push","pop","top"]
+        [[],[1],[2],[],[]]
+        */
+        //Custom solution below goes between 94-105 ms for best time stats are below.
+        //Runtime:94 ms Beats: 88.85% Memory:40.9 MB Beats:13.89%
+        public class MyStack
+        {
+            public Queue<int> queue1 { get; set; }
+            public Queue<int> queue2 { get; set; }
+            public int realtop { get; set; }
+
+            public MyStack()
+            {
+                queue1 = new Queue<int>();
+                queue2 = new Queue<int>();
+                realtop = 0;
+            }
+
+            public void Push(int x)
+            {
+                realtop = x;
+                queue1.Enqueue(x);
+            }
+
+            public int Pop()
+            {
+                int backuptop = 0;
+                while (queue1.Count > 0)
+                {
+                    int deQueued = queue1.Dequeue();
+                    if (deQueued != realtop)
+                        queue2.Enqueue(deQueued);
+                }
+
+                while (queue2.Count > 0)
+                {
+                    if (queue2.Count == 1)
+                    {
+                        backuptop = queue2.Peek();
+                    }
+                    int deQueued = queue2.Dequeue();
+                    if (deQueued != realtop)
+                        queue1.Enqueue(deQueued);
+                }
+                int oldrealtop = realtop;
+                realtop = backuptop;
+                return oldrealtop;
+            }
+
+            public int Top()
+            {
+                return realtop;
+            }
+
+            public bool Empty()
+            {
+                if (queue1.Count == 0)
+                    return true;
+
+                return false;
+            }
+        }
+        #endregion
+        #region  Decode String
+        /*
+        Given an encoded string, return its decoded string.
+        The encoding rule is: k[encoded_string], where the encoded_string inside the square brackets is being repeated exactly k times. Note that k is guaranteed to be a positive integer.
+        You may assume that the input string is always valid; there are no extra white spaces, square brackets are well-formed, etc. 
+        Furthermore, you may assume that the original data does not contain any digits and that digits are only for those repeat numbers, k. 
+        For example, there will not be input like 3a or 2[4].
+        The test cases are generated so that the length of the output will never exceed 105.
+
+        Example 1:
+
+        Input: s = "3[a]2[bc]"
+        Output: "aaabcbc"
+
+        Example 2:
+
+        Input: s = "3[a2[c]]"
+        Output: "accaccacc"
+
+        Example 3:
+
+        Input: s = "2[abc]3[cd]ef"
+        Output: "abcabccdcdcdef"
+
+        Constraints:
+
+            1 <= s.length <= 30
+            s consists of lowercase English letters, digits, and square brackets '[]'.
+            s is guaranteed to be a valid input.
+            All the integers in s are in the range [1, 300].
+            https://leetcode.com/problems/decode-string/
+        */
+        public string DecodeString(string s)
+        {
+            string result = "";
+            Stack<string> items = new Stack<string>();
+            Stack<int> amounts = new Stack<int>();
+            for (int i = 0; i < s.Length; i++)
+            {
+                if (char.IsDigit(s[i]))
+                {
+                    amounts.Push(int.Parse(s[i].ToString()));
+                }
+            }
+            StringBuilder between = new StringBuilder();
+            bool tripBegin = false;
+            for (int i = 0; i < s.Length; i++)
+            {
+                if (s[i] == '[' || s[i] == ']')
+                {
+                    if (between.Length > 0)
+                    {
+                        items.Push(between.ToString());
+                        between.Clear();
+                    }
+                }
+
+                if (char.IsLetter(s[i]))
+                    between.Append(s[i]);
+            }
+
+            between.Clear();
+            while (items.Count > 0)
+            {
+                string curr = items.Pop();
+                int loop = amounts.Pop();
+                int index = 0;
+                while (loop > index)
+                {
+                    between.Append(curr);
+                    index++;
+                }
+            }
+            Console.WriteLine(between.ToString());
+
+            return result;
+        }
+        #endregion
+
         #endregion
 
         #endregion

@@ -32,14 +32,14 @@ namespace CSharpCodeExercises
              new char[]{'0','0','0','0','0'},
             };
             StackQueue islands = new();
-            Node nodeOne = new Node(1);Node nodeTwo = new Node(2);
-            Node nodeThree = new Node(3);Node nodeFour = new Node(4);
-            nodeOne.neighbors.Add(nodeTwo);nodeOne.neighbors.Add(nodeFour);
-            nodeTwo.neighbors.Add(nodeOne);nodeTwo.neighbors.Add(nodeThree);
-            nodeThree.neighbors.Add(nodeTwo);nodeThree.neighbors.Add(nodeFour);
-            nodeFour.neighbors.Add(nodeOne);nodeFour.neighbors.Add(nodeThree);
+            Node nodeOne = new Node(1); Node nodeTwo = new Node(2);
+            Node nodeThree = new Node(3); Node nodeFour = new Node(4);
+            nodeOne.neighbors.Add(nodeTwo); nodeOne.neighbors.Add(nodeFour);
+            nodeTwo.neighbors.Add(nodeOne); nodeTwo.neighbors.Add(nodeThree);
+            nodeThree.neighbors.Add(nodeTwo); nodeThree.neighbors.Add(nodeFour);
+            nodeFour.neighbors.Add(nodeOne); nodeFour.neighbors.Add(nodeThree);
 
-            islands.CloneGraph(nodeOne);
+            islands.DecodeString("3[a2[c]]");
             Console.WriteLine(" aaaaa");
 
         }
