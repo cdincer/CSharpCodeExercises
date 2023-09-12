@@ -1307,17 +1307,14 @@ namespace CSharpCodeExercises.Tier2
         The test cases are generated so that the length of the output will never exceed 105.
 
         Example 1:
-
         Input: s = "3[a]2[bc]"
         Output: "aaabcbc"
 
         Example 2:
-
         Input: s = "3[a2[c]]"
         Output: "accaccacc"
 
         Example 3:
-
         Input: s = "2[abc]3[cd]ef"
         Output: "abcabccdcdcdef"
 
@@ -1329,50 +1326,74 @@ namespace CSharpCodeExercises.Tier2
             All the integers in s are in the range [1, 300].
             https://leetcode.com/problems/decode-string/
         */
+
         public string DecodeString(string s)
         {
-            string result = "";
-            Stack<string> items = new Stack<string>();
-            Stack<int> amounts = new Stack<int>();
-            for (int i = 0; i < s.Length; i++)
+            var repeat = 0;
+            var sb = new StringBuilder(s.Length);
+            var st = new Stack<(int start, int repeat)>();
+
+            foreach (var c in s)
             {
-                if (char.IsDigit(s[i]))
+                if (c == '[')
                 {
-                    amounts.Push(int.Parse(s[i].ToString()));
+                    st.Push((sb.Length, repeat));
+                    repeat = 0;
                 }
-            }
-            StringBuilder between = new StringBuilder();
-            bool tripBegin = false;
-            for (int i = 0; i < s.Length; i++)
-            {
-                if (s[i] == '[' || s[i] == ']')
+                else if (c == ']')
                 {
-                    if (between.Length > 0)
+                    var (start, times) = st.Pop();
+
+                    for (var length = sb.Length - start; times > 1; times--)
                     {
-                        items.Push(between.ToString());
-                        between.Clear();
+                        sb.Append(sb, start, length);
                     }
                 }
-
-                if (char.IsLetter(s[i]))
-                    between.Append(s[i]);
-            }
-
-            between.Clear();
-            while (items.Count > 0)
-            {
-                string curr = items.Pop();
-                int loop = amounts.Pop();
-                int index = 0;
-                while (loop > index)
+                else if (Char.IsDigit(c))
                 {
-                    between.Append(curr);
-                    index++;
+                    repeat = 10 * repeat + (c - '0');
+                }
+                else
+                {
+                    sb.Append(c);
                 }
             }
-            Console.WriteLine(between.ToString());
 
-            return result;
+            return sb.ToString();
+        }
+        public string DecodeStringWIP(string s)
+        {
+            Stack<string> temporary = new();
+            List<string> filteredOut = new();
+            StringBuilder appender = new();
+
+            for (int i = 0; i < s.Length; i++)
+            {
+                if (char.IsDigit(s[i]) || char.IsLetter(s[i]))
+                {
+                    string toPush = "";
+                    if (temporary.Count > 0)
+                    {
+                        toPush = temporary.Pop();
+                    }
+                    toPush += s[i];
+                    temporary.Push(toPush);
+                }
+                else if (s[i] == ']')
+                {
+                    while (temporary.Count > 0)
+                    {
+                        appender.Append(temporary.Pop());
+                    }
+                    Console.WriteLine(appender.ToString());
+                    filteredOut.Add(appender.ToString());
+                    appender.Clear();
+                }
+            }
+
+
+
+            return "";
         }
         #endregion
 

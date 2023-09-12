@@ -38,8 +38,8 @@ namespace CSharpCodeExercises
             nodeTwo.neighbors.Add(nodeOne); nodeTwo.neighbors.Add(nodeThree);
             nodeThree.neighbors.Add(nodeTwo); nodeThree.neighbors.Add(nodeFour);
             nodeFour.neighbors.Add(nodeOne); nodeFour.neighbors.Add(nodeThree);
-
-            islands.DecodeString("3[a2[c]]");
+            Console.WriteLine("for 3[a2[c]] " + islands.DecodeString("3[a2[c]]"));
+            Console.WriteLine("for 2[abc]3[cd]ef " + islands.DecodeString("2[abc]3[cd]ef"));
             Console.WriteLine(" aaaaa");
 
         }
