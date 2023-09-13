@@ -1318,6 +1318,7 @@ namespace CSharpCodeExercises.Tier2
         Input: s = "2[abc]3[cd]ef"
         Output: "abcabccdcdcdef"
 
+     
         Constraints:
 
             1 <= s.length <= 30
@@ -1325,12 +1326,16 @@ namespace CSharpCodeExercises.Tier2
             s is guaranteed to be a valid input.
             All the integers in s are in the range [1, 300].
             https://leetcode.com/problems/decode-string/
+        
+        Extra Test Case:
+        //Great way to show why is repeat multiplied with 10 every time we see a digit.
+        "100[leetcode]"
         */
 
         public string DecodeString(string s)
         {
             var repeat = 0;
-            var sb = new StringBuilder(s.Length);
+            var sb = new StringBuilder();
             var st = new Stack<(int start, int repeat)>();
 
             foreach (var c in s)
@@ -1347,6 +1352,7 @@ namespace CSharpCodeExercises.Tier2
                     for (var length = sb.Length - start; times > 1; times--)
                     {
                         sb.Append(sb, start, length);
+                        Console.WriteLine(sb.ToString());
                     }
                 }
                 else if (Char.IsDigit(c))
@@ -1361,40 +1367,7 @@ namespace CSharpCodeExercises.Tier2
 
             return sb.ToString();
         }
-        public string DecodeStringWIP(string s)
-        {
-            Stack<string> temporary = new();
-            List<string> filteredOut = new();
-            StringBuilder appender = new();
 
-            for (int i = 0; i < s.Length; i++)
-            {
-                if (char.IsDigit(s[i]) || char.IsLetter(s[i]))
-                {
-                    string toPush = "";
-                    if (temporary.Count > 0)
-                    {
-                        toPush = temporary.Pop();
-                    }
-                    toPush += s[i];
-                    temporary.Push(toPush);
-                }
-                else if (s[i] == ']')
-                {
-                    while (temporary.Count > 0)
-                    {
-                        appender.Append(temporary.Pop());
-                    }
-                    Console.WriteLine(appender.ToString());
-                    filteredOut.Add(appender.ToString());
-                    appender.Clear();
-                }
-            }
-
-
-
-            return "";
-        }
         #endregion
 
         #endregion
