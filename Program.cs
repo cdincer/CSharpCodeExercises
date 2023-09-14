@@ -24,24 +24,14 @@ namespace CSharpCodeExercises
             new int[] {16,17,18,19,20},
             };
 
-            char[][] grid1 = new char[][]
+            int[][] grid1 = new int[][]
             {
-             new char[]{'1','1','1','1','0'},
-             new char[]{'1','1','0','1','0'},
-             new char[]{'1','1','0','0','0'},
-             new char[]{'0','0','0','0','0'},
+             new int[]{1,1,1},
+             new int[]{1,1,0},
+             new int[]{1,0,1}
             };
             StackQueue islands = new();
-            Node nodeOne = new Node(1); Node nodeTwo = new Node(2);
-            Node nodeThree = new Node(3); Node nodeFour = new Node(4);
-            nodeOne.neighbors.Add(nodeTwo); nodeOne.neighbors.Add(nodeFour);
-            nodeTwo.neighbors.Add(nodeOne); nodeTwo.neighbors.Add(nodeThree);
-            nodeThree.neighbors.Add(nodeTwo); nodeThree.neighbors.Add(nodeFour);
-            nodeFour.neighbors.Add(nodeOne); nodeFour.neighbors.Add(nodeThree);
-            Console.WriteLine("for 3[a2[c]] " + islands.DecodeString("3[a2[c]]"));
-            Console.WriteLine("for 2[abc]3[cd]ef " + islands.DecodeString("2[abc]3[cd]ef"));
-            Console.WriteLine(" aaaaa");
-
+            islands.FloodFill(grid1, 1, 1, 2);
         }
     }
 
