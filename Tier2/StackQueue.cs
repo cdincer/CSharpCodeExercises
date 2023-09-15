@@ -1372,7 +1372,8 @@ namespace CSharpCodeExercises.Tier2
         /*
          Flood Fill
 
-        A different version of connecting islands.
+        ***Personal Note: A different version of connecting islands. Took the cue from there.
+        ***Used the same technique for custom solution below.
         An image is represented by an m x n integer grid image where image[i][j] represents the pixel value of the image.
         You are also given three integers sr, sc, and color. You should perform a flood fill on the image starting from the pixel image[sr][sc].
 
@@ -1400,6 +1401,11 @@ namespace CSharpCodeExercises.Tier2
             0 <= image[i][j], color < 216
             0 <= sr < m
             0 <= sc < n
+        Extra Test Case:
+        [[0,0,0],[0,0,0]]
+        1
+        0
+        2
 
         C# Test Case:
             int[][] grid1 = new int[][]
@@ -1410,6 +1416,11 @@ namespace CSharpCodeExercises.Tier2
             };
             https://leetcode.com/problems/flood-fill/description/
         */
+
+
+        //Note for solution below: Official solution uses "built in stack"
+        //As a result you would be just using recursion which is not useful that much.
+        //Just wrote my solution based on Number of Islands
         public int[][] FloodFill(int[][] image, int sr, int sc, int color)
         {
 
@@ -1418,39 +1429,120 @@ namespace CSharpCodeExercises.Tier2
             int[] dy = new int[] { 0, 0, 1, -1 };
 
             int TargetColor = image[sr][sc];
-            for (int i = sr; i < image.Length; i++)
-                for (int y = sc; y < image[0].Length; y++)
+            int i = sr; int y = sc;
+
+            if (image[i][y] == TargetColor)
+            {
+                ourq.Enqueue((i, y));
+                image[i][y] = color;
+                while (ourq.Count > 0)
                 {
-                    if (image[i][y] == TargetColor)
+                    (int BcurrX, int BcurrY) = ourq.Dequeue();
+                    for (int k = 0; k < 4; k++)
                     {
-                        ourq.Enqueue((i, y));
-                        image[i][y] = color;
-                        while (ourq.Count > 0)
+                        int currX = dx[k] + BcurrX;
+                        int currY = dy[k] + BcurrY;
+                        if (currX < image.Length && currY < image[0].Length &&
+                           currX > -1 && currY > -1 && image[currX][currY] == TargetColor && image[currX][currY] != color)
                         {
-                            (int BcurrX, int BcurrY) = ourq.Dequeue();
+                            Console.WriteLine($"currX {currX} currY {currY}");
+                            image[currX][currY] = color;
+                            ourq.Enqueue((currX, currY));
+                        }
+                    }
+                }
+            }
+
+            return image;
+        }
+        #endregion
+        #region 01 Matrix
+        /*
+        Given an m x n binary matrix mat, return the distance of the nearest 0 for each cell.
+        The distance between two adjacent cells is 1.
+
+        Example 1:
+
+        Input: mat = [[0,0,0],[0,1,0],[0,0,0]]
+        Output: [[0,0,0],[0,1,0],[0,0,0]]
+
+        Example 2:
+
+        Input: mat = [[0,0,0],[0,1,0],[1,1,1]]
+        Output: [[0,0,0],[0,1,0],[1,2,1]]
+
+        Constraints:
+
+            m == mat.length
+            n == mat[i].length
+            1 <= m, n <= 104
+            1 <= m * n <= 104
+            mat[i][j] is either 0 or 1.
+            There is at least one 0 in mat.
+
+            Extra Test Case:
+            [[0,0,0],[0,1,0],[1,1,1]]
+
+        https://leetcode.com/problems/01-matrix/
+        */
+        public int[][] UpdateMatrix(int[][] mat)
+        {
+            int[][] result = new int[mat.Length][];
+            int[] dx = { -1, 1, 0, 0 };
+            int[] dy = { 0, 0, -1, 1 };
+            Queue<(int sX, int Sy)> st = new Queue<(int sX, int Sy)>();
+
+            for (int i = 0; i < mat.Length; i++)
+            {
+                result[i] = new int[mat[0].Length];
+                for (int y = 0; y < mat[0].Length; y++)
+                {
+
+                    int distance = 1;
+                    if (mat[i][y] == 0)
+                    {
+                        result[i][y] = 0;
+                    }
+                    else
+                    {
+                        st.Enqueue((i, y));
+                        while (st.Count > 0)
+                        {
+                            (int stX, int stY) = st.Dequeue();
                             for (int k = 0; k < 4; k++)
                             {
-                                int currX = dx[k] + BcurrX;
-                                int currY = dy[k] + BcurrY;
-
-
-                                //Console.WriteLine($"currX: {currX} currY: {currY}");
-
-
-                                if (currX < image.Length && currY < image.Length &&
-                                   currX > -1 && currY > -1 && image[currX][currY] == TargetColor)
+                                int currX = dx[k] + stX;
+                                int currY = dy[k] + stY;
+                                if (currX < mat.Length
+                                    && currY < mat[0].Length
+                                    && currX > -1 && currY > -1
+                                    && mat[currX][currY] != 0)
                                 {
 
-                                    Console.WriteLine($"Inside currX: {currX} currY: {currY}");
-                                    image[currX][currY] = color;
-                                    ourq.Enqueue((currX, currY));
+
+                                    st.Enqueue((currX, currY));
+                                    distance++;
                                 }
+                                else if (currX < mat.Length
+                                    && currY < mat[0].Length
+                                    && currX > -1 && currY > -1
+                                    && mat[currX][currY] == 0)
+                                {
+                                    if (result[i][y] == 0)
+                                    {
+                                        result[i][y] = distance;
+                                    }
+                                    st.Clear();
+                                    break;
+                                }
+
                             }
                         }
                     }
                 }
+            }
+            return result;
 
-            return image;
         }
         #endregion
         #endregion
