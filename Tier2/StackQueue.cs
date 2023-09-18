@@ -1482,6 +1482,29 @@ namespace CSharpCodeExercises.Tier2
 
             Extra Test Case:
             [[0,0,0],[0,1,0],[1,1,1]]
+            [[1,0,1,1,0,0,1,0,0,1],[0,1,1,0,1,0,1,0,1,1],[0,0,1,0,1,0,0,1,0,0],[1,0,1,0,1,1,1,1,1,1],[0,1,0,1,1,0,0,0,0,1],[0,0,1,0,1,1,1,0,1,0],[0,1,0,1,0,1,0,0,1,1],[1,0,0,0,1,1,1,1,0,1],[1,1,1,1,1,1,1,0,1,0],[1,1,1,1,0,1,0,0,1,1]]
+        
+        C# Test Case:
+            int[][] grid1 = new int[][]
+            {
+             new int[]{0,0,0},
+             new int[]{0,1,0},
+             new int[]{1,1,1}
+            };
+
+            int[][] grid1 = new int[][]
+            {
+                new int[] {1,0,1,1,0,0,1,0,0,1},
+                new int[] {0,1,1,0,1,0,1,0,1,1},
+                new int[] {0,0,1,0,1,0,0,1,0,0},
+                new int[] {1,0,1,0,1,1,1,1,1,1},
+                new int[] {0,1,0,1,1,0,0,0,0,1},
+                new int[] {0,0,1,0,1,1,1,0,1,0},
+                new int[] {0,1,0,1,0,1,0,0,1,1},
+                new int[] {1,0,0,0,1,1,1,1,0,1},
+                new int[] {1,1,1,1,1,1,1,0,1,0},
+                new int[] {1,1,1,1,0,1,0,0,1,1}
+            };
 
         https://leetcode.com/problems/01-matrix/
         */
@@ -1490,6 +1513,7 @@ namespace CSharpCodeExercises.Tier2
             int[][] result = new int[mat.Length][];
             int[] dx = { -1, 1, 0, 0 };
             int[] dy = { 0, 0, -1, 1 };
+            HashSet<(int x, int y)> visited = new HashSet<(int x, int y)>();
             Queue<(int sX, int Sy)> st = new Queue<(int sX, int Sy)>();
 
             for (int i = 0; i < mat.Length; i++)
@@ -1497,7 +1521,11 @@ namespace CSharpCodeExercises.Tier2
                 result[i] = new int[mat[0].Length];
                 for (int y = 0; y < mat[0].Length; y++)
                 {
-
+                    visited.Clear();
+                    if (i == 9)
+                    {
+                        Console.WriteLine("stop here");
+                    }
                     int distance = 1;
                     if (mat[i][y] == 0)
                     {
@@ -1505,6 +1533,10 @@ namespace CSharpCodeExercises.Tier2
                     }
                     else
                     {
+                        if (i == 9 && y == 0)
+                        {
+                            Console.WriteLine("stop here");
+                        }
                         st.Enqueue((i, y));
                         while (st.Count > 0)
                         {
@@ -1513,15 +1545,19 @@ namespace CSharpCodeExercises.Tier2
                             {
                                 int currX = dx[k] + stX;
                                 int currY = dy[k] + stY;
+
+                                if (i == 9)
+                                {
+                                    Console.WriteLine($"currX: {currX}  currY:{currY}");
+                                }
                                 if (currX < mat.Length
                                     && currY < mat[0].Length
                                     && currX > -1 && currY > -1
-                                    && mat[currX][currY] != 0)
+                                    && mat[currX][currY] != 0 && !visited.Contains((currX, currY)))
                                 {
-
-
                                     st.Enqueue((currX, currY));
-                                    distance++;
+                                    visited.Add((currX, currY));
+
                                 }
                                 else if (currX < mat.Length
                                     && currY < mat[0].Length
@@ -1530,19 +1566,25 @@ namespace CSharpCodeExercises.Tier2
                                 {
                                     if (result[i][y] == 0)
                                     {
-                                        result[i][y] = distance;
+                                        if (currY == y)
+                                        {
+                                            result[i][y] = Math.Abs(currX - i);
+                                        }
+                                        else if (currX == i)
+                                        {
+                                            result[i][y] = Math.Abs(currY - y);
+                                        }
                                     }
                                     st.Clear();
                                     break;
                                 }
-
                             }
+                            distance++;
                         }
                     }
                 }
             }
             return result;
-
         }
         #endregion
         #endregion
