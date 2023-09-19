@@ -1586,6 +1586,48 @@ namespace CSharpCodeExercises.Tier2
             }
             return result;
         }
+        public int[][] UpdateMatrix2(int[][] mat)
+        {
+            int rl = mat.Length;
+            int cl = mat[0].Length;
+
+            Queue<(int r, int c)> q = new Queue<(int, int)>();
+            for (int i = 0; i < rl; i++)
+            {
+                for (int j = 0; j < cl; j++)
+                {
+                    if (mat[i][j] == 0)
+                    {
+                        q.Enqueue((i, j));
+                    }
+                }
+            }
+            int[] rx = new int[] { 0, -1, 0, 1 };
+            int[] cx = new int[] { -1, 0, 1, 0 };
+            bool[,] visited = new bool[rl, cl];
+            while (q.Count > 0)
+            {
+                int r = q.Peek().r;
+                int c = q.Peek().c;
+                q.Dequeue();
+                if (visited[r, c]) continue;
+                visited[r, c] = true;
+                int min = (int)1e9;
+                for (int i = 0; i < rx.Length; i++)
+                {
+                    int rr = rx[i] + r;
+                    int cc = cx[i] + c;
+                    if (rr >= rl || cc >= cl || rr < 0 || cc < 0) continue;
+                    if (visited[rr, cc])
+                        min = Math.Min(mat[rr][cc], min);
+                    q.Enqueue((rr, cc));
+                }
+                if (mat[r][c] != 0)
+                    mat[r][c] += min;
+            }
+
+            return mat;
+        }
         #endregion
         #endregion
 
