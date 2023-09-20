@@ -1483,7 +1483,7 @@ namespace CSharpCodeExercises.Tier2
             Extra Test Case:
             [[0,0,0],[0,1,0],[1,1,1]]
             [[1,0,1,1,0,0,1,0,0,1],[0,1,1,0,1,0,1,0,1,1],[0,0,1,0,1,0,0,1,0,0],[1,0,1,0,1,1,1,1,1,1],[0,1,0,1,1,0,0,0,0,1],[0,0,1,0,1,1,1,0,1,0],[0,1,0,1,0,1,0,0,1,1],[1,0,0,0,1,1,1,1,0,1],[1,1,1,1,1,1,1,0,1,0],[1,1,1,1,0,1,0,0,1,1]]
-        
+            [[0],[0],[0],[0],[0]]
         C# Test Case:
             int[][] grid1 = new int[][]
             {
@@ -1510,120 +1510,42 @@ namespace CSharpCodeExercises.Tier2
         */
         public int[][] UpdateMatrix(int[][] mat)
         {
-            int[][] result = new int[mat.Length][];
-            int[] dx = { -1, 1, 0, 0 };
-            int[] dy = { 0, 0, -1, 1 };
-            HashSet<(int x, int y)> visited = new HashSet<(int x, int y)>();
-            Queue<(int sX, int Sy)> st = new Queue<(int sX, int Sy)>();
-
-            for (int i = 0; i < mat.Length; i++)
-            {
-                result[i] = new int[mat[0].Length];
-                for (int y = 0; y < mat[0].Length; y++)
-                {
-                    visited.Clear();
-                    if (i == 9)
-                    {
-                        Console.WriteLine("stop here");
-                    }
-                    int distance = 1;
-                    if (mat[i][y] == 0)
-                    {
-                        result[i][y] = 0;
-                    }
-                    else
-                    {
-                        if (i == 9 && y == 0)
-                        {
-                            Console.WriteLine("stop here");
-                        }
-                        st.Enqueue((i, y));
-                        while (st.Count > 0)
-                        {
-                            (int stX, int stY) = st.Dequeue();
-                            for (int k = 0; k < 4; k++)
-                            {
-                                int currX = dx[k] + stX;
-                                int currY = dy[k] + stY;
-
-                                if (i == 9)
-                                {
-                                    Console.WriteLine($"currX: {currX}  currY:{currY}");
-                                }
-                                if (currX < mat.Length
-                                    && currY < mat[0].Length
-                                    && currX > -1 && currY > -1
-                                    && mat[currX][currY] != 0 && !visited.Contains((currX, currY)))
-                                {
-                                    st.Enqueue((currX, currY));
-                                    visited.Add((currX, currY));
-
-                                }
-                                else if (currX < mat.Length
-                                    && currY < mat[0].Length
-                                    && currX > -1 && currY > -1
-                                    && mat[currX][currY] == 0)
-                                {
-                                    if (result[i][y] == 0)
-                                    {
-                                        if (currY == y)
-                                        {
-                                            result[i][y] = Math.Abs(currX - i);
-                                        }
-                                        else if (currX == i)
-                                        {
-                                            result[i][y] = Math.Abs(currY - y);
-                                        }
-                                    }
-                                    st.Clear();
-                                    break;
-                                }
-                            }
-                            distance++;
-                        }
-                    }
-                }
-            }
-            return result;
-        }
-        public int[][] UpdateMatrix2(int[][] mat)
-        {
             int rl = mat.Length;
             int cl = mat[0].Length;
 
-            Queue<(int r, int c)> q = new Queue<(int, int)>();
+            Queue<(int r, int c)> myqueue = new Queue<(int, int)>();
             for (int i = 0; i < rl; i++)
             {
                 for (int j = 0; j < cl; j++)
                 {
                     if (mat[i][j] == 0)
                     {
-                        q.Enqueue((i, j));
+                        myqueue.Enqueue((i, j));
                     }
                 }
             }
             int[] rx = new int[] { 0, -1, 0, 1 };
             int[] cx = new int[] { -1, 0, 1, 0 };
             bool[,] visited = new bool[rl, cl];
-            while (q.Count > 0)
+            while (myqueue.Count > 0)
             {
-                int r = q.Peek().r;
-                int c = q.Peek().c;
-                q.Dequeue();
-                if (visited[r, c]) continue;
-                visited[r, c] = true;
-                int min = (int)1e9;
+                int deqR = myqueue.Peek().r;
+                int deqC = myqueue.Peek().c;
+                myqueue.Dequeue();
+                if (visited[deqR, deqC]) continue;
+                visited[deqR, deqC] = true;
+                int min = int.MaxValue;
                 for (int i = 0; i < rx.Length; i++)
                 {
-                    int rr = rx[i] + r;
-                    int cc = cx[i] + c;
-                    if (rr >= rl || cc >= cl || rr < 0 || cc < 0) continue;
-                    if (visited[rr, cc])
-                        min = Math.Min(mat[rr][cc], min);
-                    q.Enqueue((rr, cc));
+                    int currR = rx[i] + deqR;
+                    int currC = cx[i] + deqC;
+                    if (currR >= rl || currC >= cl || currR < 0 || currC < 0) continue;
+                    if (visited[currR, currC])
+                        min = Math.Min(mat[currR][currC], min);
+                    myqueue.Enqueue((currR, currC));
                 }
-                if (mat[r][c] != 0)
-                    mat[r][c] += min;
+                if (mat[deqR][deqC] != 0)
+                    mat[deqR][deqC] += min;
             }
 
             return mat;
