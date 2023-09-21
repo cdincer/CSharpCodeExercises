@@ -1551,6 +1551,121 @@ namespace CSharpCodeExercises.Tier2
             return mat;
         }
         #endregion
+        #region Keys and Rooms
+        /*
+        There are n rooms labeled from 0 to n - 1 and all the rooms are locked except for room 0. Your goal is to visit all the rooms. However, you cannot enter a locked room without having its key.
+        When you visit a room, you may find a set of distinct keys in it. Each key has a number on it, denoting which room it unlocks, and you can take all of them with you to unlock the other rooms.
+        Given an array rooms where rooms[i] is the set of keys that you can obtain if you visited room i, return true if you can visit all the rooms, or false otherwise.
+
+        Example 1:
+        Input: rooms = [[1],[2],[3],[]]
+        Output: true
+        Explanation: 
+        We visit room 0 and pick up key 1.
+        We then visit room 1 and pick up key 2.
+        We then visit room 2 and pick up key 3.
+        We then visit room 3.
+        Since we were able to visit every room, we return true.
+
+        Example 2:
+        Input: rooms = [[1,3],[3,0,1],[2],[0]]
+        Output: false
+        Explanation: We can not enter room number 2 since the only key that unlocks it is in that room.
+
+        Constraints:
+
+            n == rooms.length
+            2 <= n <= 1000
+            0 <= rooms[i].length <= 1000
+            1 <= sum(rooms[i].length) <= 3000
+            0 <= rooms[i][j] < n
+            All the values of rooms[i] are unique.
+
+        https://leetcode.com/problems/keys-and-rooms/description/
+        Extra Test Case For Easy Copy Paste (Last 2 are 64th and 66th test cases):
+[[1],[2],[3],[]]
+[[1,3],[3,0,1],[2],[0]]
+[[13],[15,29,22],[5,18,9],[7],[27],[27],[6,28],[26],[34],[1,44,11],[8,36],[17,35],[11,45,46,10,49],[19,38,47,39],[20,30],[34],[32,31],[25,19,21,29],[36],[],[38],[2,13,17,47],[12],[49,46],[],[40],[],[39,16,24],[24,41],[14,3,40],[14,43],[],[3,20,23],[37,48],[6,10],[26,1,4],[],[41,45],[23,33],[],[22,18,37],[4,33,43],[28,31,42],[30,48],[16,35],[5,8,44],[2,25],[9,21,42],[7,12,32],[]]
+[[87],[33],[16,82,7,41],[],[55,29],[12],[3,84,28,56,66],[],[44,72],[78],[67,90],[30,81,88],[2,70,77],[23,27],[26],[25,48],[19,38,58,39,70],[51],[8,92,43],[],[24],[],[69,79,36,61],[95],[85],[21,28,62,66,73],[36,53,35,52],[14,34],[20,49],[4],[40,51,96],[74,76],[13,71,80,81],[42,97,31,68],[],[18,46,83,91],[15],[9],[22],[47,54],[65,98,34],[31],[9,18,55,94],[57],[45,77,32],[32,25],[24,59,14,42,63],[37,75,98],[5,20,99,30],[15,76,96],[83,89,12,46],[65,71],[10],[8,45,58],[10,49,89],[26,27,78,1,38,50],[],[],[23,62],[57],[85],[13,53],[93,4,40],[91,82,99],[50],[],[],[64,2,11,37],[88],[29,43],[11],[93,95],[],[35],[73,92],[63,80],[39],[1,60,86,5],[],[41,56,47],[54],[33,44,97],[3,48,86],[19],[87],[6,52],[75,84],[90,16],[94,21,79],[67],[61,64],[],[],[17,59],[17],[68],[72,6],[7],[74],[22,60]]*/
+        public bool CanVisitAllRooms(IList<IList<int>> rooms)
+        {
+            int CanBeVisited = rooms.Count;
+            int WeVisited = 0;
+            HashSet<int> keys = new HashSet<int>();
+            HashSet<int> visited = new HashSet<int>();
+            Queue<int> UnavailableRooms = new Queue<int>();
+            Queue<int> LastPassRooms = new();
+
+
+            if (rooms.Count > 0)
+            {
+                if (rooms[0].Count > 0)
+                {
+                    foreach (int zeroRoomKey in rooms[0])
+                    {
+                        keys.Add(zeroRoomKey);
+                    }
+                }
+            }
+
+            for (int i = 1; i < rooms.Count; i++)
+            {
+                if (keys.Contains(i) || rooms[i].Count == 0)
+                {
+                    foreach (int zeroRoomKey in rooms[i])
+                    {
+                        keys.Add(zeroRoomKey);
+                    }
+                    WeVisited++;
+                }
+                else
+                {
+                    UnavailableRooms.Enqueue(i);
+                }
+            }
+
+            while (UnavailableRooms.Count > 0)
+            {
+                int RoomToLookKeysFor = UnavailableRooms.Dequeue();
+                if (keys.Contains(RoomToLookKeysFor) && !visited.Contains(RoomToLookKeysFor))
+                {
+                    visited.Add(RoomToLookKeysFor);
+                    foreach (int zeroRoomKey in rooms[RoomToLookKeysFor])
+                    {
+                        keys.Add(zeroRoomKey);
+                    }
+                    WeVisited++;
+                }
+                else
+                {
+                    LastPassRooms.Enqueue(RoomToLookKeysFor);
+                }
+            }
+
+            while (LastPassRooms.Count > 0)
+            {
+                int RoomToLookKeysFor = LastPassRooms.Dequeue();
+                if (keys.Contains(RoomToLookKeysFor) && !visited.Contains(RoomToLookKeysFor))
+                {
+                    visited.Add(RoomToLookKeysFor);
+                    foreach (int zeroRoomKey in rooms[RoomToLookKeysFor])
+                    {
+                        keys.Add(zeroRoomKey);
+                    }
+                    WeVisited++;
+                }
+            }
+            keys.Remove(0);
+            Console.WriteLine("amountToBeVisited is " + CanBeVisited);
+            Console.WriteLine("amountWeVisited is " + WeVisited);
+            Console.WriteLine("key count is " + keys.Count);
+
+            if (keys.Count == CanBeVisited - 1)
+                return true;
+
+            return false;
+        }
+        #endregion
         #endregion
 
         #endregion
