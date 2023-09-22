@@ -24,10 +24,10 @@ namespace CSharpCodeExercises.Tier2
             MyCircularQueue(k) Initializes the object with the size of the queue to be k.
             int Front() Gets the front item from the queue. If the queue is empty, return -1.
             int Rear() Gets the last item from the queue. If the queue is empty, return -1.
-            boolean enQueue(int value) Inserts an element into the circular queue. Return true if the operation is successful.
-            boolean deQueue() Deletes an element from the circular queue. Return true if the operation is successful.
-            boolean isEmpty() Checks whether the circular queue is empty or not.
-            boolean isFull() Checks whether the circular queue is full or not.
+            bool enQueue(int value) Inserts an element into the circular queue. Return true if the operation is successful.
+            bool deQueue() Deletes an element from the circular queue. Return true if the operation is successful.
+            bool isEmpty() Checks whether the circular queue is empty or not.
+            bool isFull() Checks whether the circular queue is full or not.
 
         You must solve the problem without using the built-in queue data structure in your programming language. 
 
@@ -1071,7 +1071,7 @@ namespace CSharpCodeExercises.Tier2
             void push(int x) Pushes element x to the back of the queue.
             int pop() Removes the element from the front of the queue and returns it.
             int peek() Returns the element at the front of the queue.
-            boolean empty() Returns true if the queue is empty, false otherwise.
+            bool empty() Returns true if the queue is empty, false otherwise.
 
         Notes:
 
@@ -1198,7 +1198,7 @@ namespace CSharpCodeExercises.Tier2
             void push(int x) Pushes element x to the top of the stack.
             int pop() Removes the element on the top of the stack and returns it.
             int top() Returns the element on the top of the stack.
-            boolean empty() Returns true if the stack is empty, false otherwise.
+            bool empty() Returns true if the stack is empty, false otherwise.
 
         Notes:
 
@@ -1582,89 +1582,51 @@ namespace CSharpCodeExercises.Tier2
             All the values of rooms[i] are unique.
 
         https://leetcode.com/problems/keys-and-rooms/description/
-        Extra Test Case For Easy Copy Paste (Last 2 are 64th and 66th test cases):
+        Extra Test Case For Easy Copy Paste (Last 2 are 64th and 66th test cases) 
+        Don't add indentation, it messes up things when copy/pasting to leetcode:
 [[1],[2],[3],[]]
 [[1,3],[3,0,1],[2],[0]]
 [[13],[15,29,22],[5,18,9],[7],[27],[27],[6,28],[26],[34],[1,44,11],[8,36],[17,35],[11,45,46,10,49],[19,38,47,39],[20,30],[34],[32,31],[25,19,21,29],[36],[],[38],[2,13,17,47],[12],[49,46],[],[40],[],[39,16,24],[24,41],[14,3,40],[14,43],[],[3,20,23],[37,48],[6,10],[26,1,4],[],[41,45],[23,33],[],[22,18,37],[4,33,43],[28,31,42],[30,48],[16,35],[5,8,44],[2,25],[9,21,42],[7,12,32],[]]
-[[87],[33],[16,82,7,41],[],[55,29],[12],[3,84,28,56,66],[],[44,72],[78],[67,90],[30,81,88],[2,70,77],[23,27],[26],[25,48],[19,38,58,39,70],[51],[8,92,43],[],[24],[],[69,79,36,61],[95],[85],[21,28,62,66,73],[36,53,35,52],[14,34],[20,49],[4],[40,51,96],[74,76],[13,71,80,81],[42,97,31,68],[],[18,46,83,91],[15],[9],[22],[47,54],[65,98,34],[31],[9,18,55,94],[57],[45,77,32],[32,25],[24,59,14,42,63],[37,75,98],[5,20,99,30],[15,76,96],[83,89,12,46],[65,71],[10],[8,45,58],[10,49,89],[26,27,78,1,38,50],[],[],[23,62],[57],[85],[13,53],[93,4,40],[91,82,99],[50],[],[],[64,2,11,37],[88],[29,43],[11],[93,95],[],[35],[73,92],[63,80],[39],[1,60,86,5],[],[41,56,47],[54],[33,44,97],[3,48,86],[19],[87],[6,52],[75,84],[90,16],[94,21,79],[67],[61,64],[],[],[17,59],[17],[68],[72,6],[7],[74],[22,60]]*/
+[[87],[33],[16,82,7,41],[],[55,29],[12],[3,84,28,56,66],[],[44,72],[78],[67,90],[30,81,88],[2,70,77],[23,27],[26],[25,48],[19,38,58,39,70],[51],[8,92,43],[],[24],[],[69,79,36,61],[95],[85],[21,28,62,66,73],[36,53,35,52],[14,34],[20,49],[4],[40,51,96],[74,76],[13,71,80,81],[42,97,31,68],[],[18,46,83,91],[15],[9],[22],[47,54],[65,98,34],[31],[9,18,55,94],[57],[45,77,32],[32,25],[24,59,14,42,63],[37,75,98],[5,20,99,30],[15,76,96],[83,89,12,46],[65,71],[10],[8,45,58],[10,49,89],[26,27,78,1,38,50],[],[],[23,62],[57],[85],[13,53],[93,4,40],[91,82,99],[50],[],[],[64,2,11,37],[88],[29,43],[11],[93,95],[],[35],[73,92],[63,80],[39],[1,60,86,5],[],[41,56,47],[54],[33,44,97],[3,48,86],[19],[87],[6,52],[75,84],[90,16],[94,21,79],[67],[61,64],[],[],[17,59],[17],[68],[72,6],[7],[74],[22,60]
+        C# Test Case:
+        int[][] lockedrooms2 = new int[][]{new int[] {1,3},new int[] {3,0,1},new int[] {2},new int[] {0}};
+        int[][] LockedRooms = new int[][]{
+        new int[] {87},new int[] {33},new int[] {16,82,7,41},new int[] {},
+        new int[] {55,29},new int[] {12},new int[] {3,84,28,56,66},
+        new int[] {},new int[] {44,72},new int[] {78},new int[] {67,90},
+        new int[] {30,81,88},new int[] {2,70,77},new int[] {23,27},
+        new int[] {26},new int[] {25,48},new int[] {19,38,58,39,70},
+        new int[] {51},new int[] {8,92,43},new int[] {},
+        new int[] {24},new int[] {},new int[] {69,79,36,61},
+        new int[] {95},new int[] {85},new int[] {21,28,62,66,73},new int[] {36,53,35,52},new int[] {14,34},new int[] {20,49},new int[] {4},new int[] {40,51,96},new int[] {74,76},new int[] {13,71,80,81},new int[] {42,97,31,68},new int[] {},new int[] {18,46,83,91},new int[] {15},new int[] {9},new int[] {22},new int[] {47,54},new int[] {65,98,34},new int[] {31},new int[] {9,18,55,94},new int[] {57},new int[] {45,77,32},new int[] {32,25},new int[] {24,59,14,42,63},new int[] {37,75,98},new int[] {5,20,99,30},new int[] {15,76,96},new int[] {83,89,12,46},new int[] {65,71},new int[] {10},new int[] {8,45,58},new int[] {10,49,89},new int[] {26,27,78,1,38,50},new int[] {},new int[] {},new int[] {23,62},new int[] {57},new int[] {85},new int[] {13,53},new int[] {93,4,40},new int[] {91,82,99},new int[] {50},new int[] {},new int[] {},new int[] {64,2,11,37},new int[] {88},new int[] {29,43},new int[] {11},new int[] {93,95},new int[] {},new int[] {35},new int[] {73,92},new int[] {63,80},new int[] {39},new int[] {1,60,86,5},new int[] {},new int[] {41,56,47},new int[] {54},new int[] {33,44,97},new int[] {3,48,86},new int[] {19},new int[] {87},new int[] {6,52},new int[] {75,84},new int[] {90,16},new int[] {94,21,79},new int[] {67},new int[] {61,64},new int[] {},new int[] {},new int[] {17,59},new int[] {17},new int[] {68},new int[] {72,6},new int[] {7},new int[] {74},new int[] {22,60}
+        };
+*/
+        //Official Solution
         public bool CanVisitAllRooms(IList<IList<int>> rooms)
         {
-            int CanBeVisited = rooms.Count;
-            int WeVisited = 0;
-            HashSet<int> keys = new HashSet<int>();
-            HashSet<int> visited = new HashSet<int>();
-            Queue<int> UnavailableRooms = new Queue<int>();
-            Queue<int> LastPassRooms = new();
+            bool[] visited = new bool[rooms.Count];
+            visited[0] = true;
+            Stack<int> rtbs = new();
+            rtbs.Push(0);
 
-
-            if (rooms.Count > 0)
-            {
-                if (rooms[0].Count > 0)
-                {
-                    foreach (int zeroRoomKey in rooms[0])
-                    {
-                        keys.Add(zeroRoomKey);
+            //At the beginning, we have a todo list "stack" of keys to use.
+            //'visited' represents at some point we have entered this room.
+            while (rtbs.Count > 0)
+            { // While we have keys...
+                int currSearched = rtbs.Pop(); // Get the next key 'node'
+                foreach (int key in rooms[currSearched]) // For every key in room # 'node'...
+                    if (!visited[key])
+                    { // ...that hasn't been used yet
+                        visited[key] = true; // mark that we've entered the room
+                        rtbs.Push(key); // add the key to the todo list
                     }
-                }
             }
 
-            for (int i = 1; i < rooms.Count; i++)
-            {
-                if (keys.Contains(i) || rooms[i].Count == 0)
-                {
-                    foreach (int zeroRoomKey in rooms[i])
-                    {
-                        keys.Add(zeroRoomKey);
-                    }
-                    WeVisited++;
-                }
-                else
-                {
-                    UnavailableRooms.Enqueue(i);
-                }
-            }
-
-            while (UnavailableRooms.Count > 0)
-            {
-                int RoomToLookKeysFor = UnavailableRooms.Dequeue();
-                if (keys.Contains(RoomToLookKeysFor) && !visited.Contains(RoomToLookKeysFor))
-                {
-                    visited.Add(RoomToLookKeysFor);
-                    foreach (int zeroRoomKey in rooms[RoomToLookKeysFor])
-                    {
-                        keys.Add(zeroRoomKey);
-                    }
-                    WeVisited++;
-                }
-                else
-                {
-                    LastPassRooms.Enqueue(RoomToLookKeysFor);
-                }
-            }
-
-            while (LastPassRooms.Count > 0)
-            {
-                int RoomToLookKeysFor = LastPassRooms.Dequeue();
-                if (keys.Contains(RoomToLookKeysFor) && !visited.Contains(RoomToLookKeysFor))
-                {
-                    visited.Add(RoomToLookKeysFor);
-                    foreach (int zeroRoomKey in rooms[RoomToLookKeysFor])
-                    {
-                        keys.Add(zeroRoomKey);
-                    }
-                    WeVisited++;
-                }
-            }
-            keys.Remove(0);
-            Console.WriteLine("amountToBeVisited is " + CanBeVisited);
-            Console.WriteLine("amountWeVisited is " + WeVisited);
-            Console.WriteLine("key count is " + keys.Count);
-
-            if (keys.Count == CanBeVisited - 1)
-                return true;
-
-            return false;
+            foreach (bool v in visited)  // if any room hasn't been visited, return false
+                if (!v) return false;
+            return true;
         }
+
         #endregion
         #endregion
 
