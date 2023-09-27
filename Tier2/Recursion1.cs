@@ -18,6 +18,19 @@ namespace Tier2
                 this.next = next;
             }
         }
+        //For using with Search In A Binary Tree
+        public class TreeNode {
+        public int val;
+        public TreeNode left;
+        public TreeNode right;
+        public TreeNode(int val=0, TreeNode left=null, TreeNode right=null) {
+        this.val = val;
+        this.left = left;
+        this.right = right;
+        }
+        }
+        #region Recursion 1
+        #region Recurrence Relation
         #region Reverse String
         /*
         Write a function that reverses a string. The input string is given as an array of characters s.
@@ -143,6 +156,105 @@ namespace Tier2
             oldhead = oldhead.next;
             return recReverseList(oldhead, newNode);
         }
+        #endregion
+        #region Search In A Binary Tree
+        /*
+        You are given the root of a binary search tree (BST) and an integer val.
+
+        Find the node in the BST that the node's value equals val and return the subtree rooted with that node. If such a node does not exist, return null.
+
+        Example 1:
+
+        Input: root = [4,2,7,1,3], val = 2
+        Output: [2,1,3]
+
+        Example 2:
+
+        Input: root = [4,2,7,1,3], val = 5
+        Output: []
+
+        Constraints:
+
+            The number of nodes in the tree is in the range [1, 5000].
+            1 <= Node.val <= 107
+            root is a binary search tree.
+            1 <= val <= 107
+
+        https://leetcode.com/problems/search-in-a-binary-search-tree/
+        */
+        //Same as Binary Tree solution no official solution for this one.
+            public TreeNode SearchBST(TreeNode root, int val) {
+        if(root == null || root.val == val)
+            return root;
+        
+        if(root.val < val)
+        {
+            root = SearchBST(root.right,val);
+        }
+        else
+        {
+              root = SearchBST(root.left,val);
+        }
+        
+        return root;
+        }
+        #endregion
+        #region Pascal's Triangle II
+        /*
+        Given an integer rowIndex, return the rowIndexth (0-indexed) row of the Pascal's triangle.
+        In Pascal's triangle, each number is the sum of the two numbers directly above it as shown:
+
+        Example 1:
+
+        Input: rowIndex = 3
+        Output: [1,3,3,1]
+
+        Example 2:
+
+        Input: rowIndex = 0
+        Output: [1]
+
+        Example 3:
+
+        Input: rowIndex = 1
+        Output: [1,1]
+
+
+        Constraints:
+
+            0 <= rowIndex <= 33
+
+        Follow up: Could you optimize your algorithm to use only O(rowIndex) extra space?
+        https://leetcode.com/problems/pascals-triangle-ii/description/
+        */
+        //Official solution locked behind a paywall so this will do.
+        public IList<int> GetRow(int rowIndex)
+        {
+            // base case 
+            if (rowIndex == 0)
+                return new List<int>() { 1 };
+
+            if (rowIndex == 1)
+                return new List<int>() { 1, 1 };
+
+            var lastRow = GetRow(rowIndex - 1);
+
+            // current row starts with 1
+            List<int> res = new List<int>() { 1 };
+
+            // current row should have 1+lastRow.count
+            for (int i = 1; i < lastRow.Count; i++)
+            {
+                res.Add(lastRow[i - 1] + lastRow[i]);
+            }
+
+            // current row ends with 1
+            res.Add(1);
+
+            return res;
+        }
+        #endregion
+        #endregion
         #endregion
     }
 }
