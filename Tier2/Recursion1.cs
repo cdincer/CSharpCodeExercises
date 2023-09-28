@@ -19,15 +19,17 @@ namespace Tier2
             }
         }
         //For using with Search In A Binary Tree
-        public class TreeNode {
-        public int val;
-        public TreeNode left;
-        public TreeNode right;
-        public TreeNode(int val=0, TreeNode left=null, TreeNode right=null) {
-        this.val = val;
-        this.left = left;
-        this.right = right;
-        }
+        public class TreeNode
+        {
+            public int val;
+            public TreeNode left;
+            public TreeNode right;
+            public TreeNode(int val = 0, TreeNode left = null, TreeNode right = null)
+            {
+                this.val = val;
+                this.left = left;
+                this.right = right;
+            }
         }
         #region Recursion 1
         #region Recurrence Relation
@@ -183,20 +185,21 @@ namespace Tier2
         https://leetcode.com/problems/search-in-a-binary-search-tree/
         */
         //Same as Binary Tree solution no official solution for this one.
-            public TreeNode SearchBST(TreeNode root, int val) {
-        if(root == null || root.val == val)
+        public TreeNode SearchBST(TreeNode root, int val)
+        {
+            if (root == null || root.val == val)
+                return root;
+
+            if (root.val < val)
+            {
+                root = SearchBST(root.right, val);
+            }
+            else
+            {
+                root = SearchBST(root.left, val);
+            }
+
             return root;
-        
-        if(root.val < val)
-        {
-            root = SearchBST(root.right,val);
-        }
-        else
-        {
-              root = SearchBST(root.left,val);
-        }
-        
-        return root;
         }
         #endregion
         #region Pascal's Triangle II
@@ -252,6 +255,61 @@ namespace Tier2
             res.Add(1);
 
             return res;
+        }
+        #endregion
+        #endregion
+        #region Memoization 
+        #region Fibonacci Number
+        /*
+        The Fibonacci numbers, commonly denoted F(n) form a sequence, called the Fibonacci sequence, such that each number is the sum of the two preceding ones, starting from 0 and 1. That is,
+        F(0) = 0, F(1) = 1
+        F(n) = F(n - 1) + F(n - 2), for n > 1.
+
+        Given n, calculate F(n).
+
+        Example 1:
+        Input: n = 2
+        Output: 1
+        Explanation: F(2) = F(1) + F(0) = 1 + 0 = 1.
+
+        Example 2:
+        Input: n = 3
+        Output: 2
+        Explanation: F(3) = F(2) + F(1) = 1 + 1 = 2.
+
+        Example 3:
+        Input: n = 4
+        Output: 3
+        Explanation: F(4) = F(3) + F(2) = 2 + 1 = 3.
+
+        Constraints:
+            0 <= n <= 30
+
+        https://leetcode.com/problems/fibonacci-number/
+        */
+        //Official solution locked behind a paywall.
+        public Dictionary<int, int> memValue = new();
+        public int totalAmount = 0;
+        public int Fib(int n)
+        {
+            if (memValue.ContainsKey(n))
+            {
+                return memValue[n];
+            }
+            int result = 0;
+
+            if (n < 2)
+            {
+                result = n;
+            }
+            else
+            {
+                result = Fib(n - 1) + Fib(n - 2);
+            }
+
+            memValue.Add(n, result);
+
+            return result;
         }
         #endregion
         #endregion
