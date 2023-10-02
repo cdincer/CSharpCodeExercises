@@ -365,6 +365,83 @@ namespace Tier2
         }
         #endregion
         #endregion
+        #region Complexity Analysis
+        #region Maximum Depth of Binary Tree
+        /*
+        Given the root of a binary tree, return its maximum depth.
+
+        A binary tree's maximum depth is the number of nodes along the longest path from the root node down to the farthest leaf node.
+
+        Example 1:
+
+        Input: root = [3,9,20,null,null,15,7]
+        Output: 3
+
+        Example 2:
+
+        Input: root = [1,null,2]
+        Output: 2
+
+        Constraints:
+
+            The number of nodes in the tree is in the range [0, 104].
+            -100 <= Node.val <= 100
+
+        https://leetcode.com/problems/maximum-depth-of-binary-tree/
+        */
+        int megadepth = 0;
+        public int MaxDepth(TreeNode root) {
+            int depth = 1;
+        
+            dfs(root,depth);
+            return megadepth;
+        }
+        
+        public void dfs(TreeNode root, int depth)
+        {
+            if(root == null)
+                return;
+            
+            if(depth > megadepth)
+                megadepth = depth;
+            
+            dfs(root.left,depth+1);
+            dfs(root.right,depth+1);       
+        }
+        #endregion
+        #region Pow(x,n)
+        /*
+        Implement pow(x, n), which calculates x raised to the power n (i.e., xn).
+
+        Example 1:
+        Input: x = 2.00000, n = 10
+        Output: 1024.00000
+
+        Example 2:
+        Input: x = 2.10000, n = 3
+        Output: 9.26100
+
+        Example 3:
+        Input: x = 2.00000, n = -2
+        Output: 0.25000
+        Explanation: 2-2 = 1/22 = 1/4 = 0.25
+
+        Constraints:
+
+            -100.0 < x < 100.0
+            -231 <= n <= 231-1
+            n is an integer.
+            Either x is not zero or n > 0.
+            -104 <= xn <= 104
+
+
+        https://leetcode.com/problems/powx-n/
+        Extra test case:
+        0.00001
+        2147483647
+        */
+        #endregion
+        #endregion
         #endregion
     }
 }
