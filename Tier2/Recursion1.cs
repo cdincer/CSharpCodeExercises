@@ -390,23 +390,24 @@ namespace Tier2
         https://leetcode.com/problems/maximum-depth-of-binary-tree/
         */
         int megadepth = 0;
-        public int MaxDepth(TreeNode root) {
+        public int MaxDepth(TreeNode root)
+        {
             int depth = 1;
-        
-            dfs(root,depth);
+
+            dfs(root, depth);
             return megadepth;
         }
-        
+
         public void dfs(TreeNode root, int depth)
         {
-            if(root == null)
+            if (root == null)
                 return;
-            
-            if(depth > megadepth)
+
+            if (depth > megadepth)
                 megadepth = depth;
-            
-            dfs(root.left,depth+1);
-            dfs(root.right,depth+1);       
+
+            dfs(root.left, depth + 1);
+            dfs(root.right, depth + 1);
         }
         #endregion
         #region Pow(x,n)
@@ -437,9 +438,32 @@ namespace Tier2
 
         https://leetcode.com/problems/powx-n/
         Extra test case:
+        291th out of 306 test case
         0.00001
         2147483647
+        1.00000
+        -2147483648
+        0.44528
+        0
         */
+        //No official solution as a result no way to see how Tail Recursion would effect this.
+        public double MyPow(double x, int n)
+        {
+            long N = n;
+            if (N == 0) return 1;
+            if (N < 0)
+            {
+                x = 1 / x;
+                N = -N;
+            }
+            return CalculatePow(x, N);
+        }
+        private double CalculatePow(double x, long n)
+        {
+            if (n == 1) return x;
+            double halfPow = CalculatePow(x, n / 2);
+            return n % 2 == 0 ? halfPow * halfPow : halfPow * halfPow * x;
+        }
         #endregion
         #endregion
         #endregion
