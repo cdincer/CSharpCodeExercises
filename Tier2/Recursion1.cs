@@ -466,6 +466,99 @@ namespace Tier2
         }
         #endregion
         #endregion
+        #region Conclusion
+        #region  Merge Two Sorted Lists
+        /*
+        You are given the heads of two sorted linked lists list1 and list2.
+        Merge the two lists into one sorted list. The list should be made by splicing together the nodes of the first two lists.
+        Return the head of the merged linked list.
+  
+        Example 1:
+        Input: list1 = [1,2,4], list2 = [1,3,4]
+        Output: [1,1,2,3,4,4]
+
+        Example 2:
+        Input: list1 = [], list2 = []
+        Output: []
+
+        Example 3:
+        Input: list1 = [], list2 = [0]
+        Output: [0]
+
+        Constraints:
+
+            The number of nodes in both lists is in the range [0, 50].
+            -100 <= Node.val <= 100
+            Both list1 and list2 are sorted in non-decreasing order.
+
+        https://leetcode.com/problems/merge-two-sorted-lists/
+        */
+        //No official solution so stuck with the one below.
+        public ListNode MergeTwoLists(ListNode list1, ListNode list2)
+        {
+
+            if (list1 == null)
+                return list2;
+
+            if (list2 == null)
+                return list1;
+
+            ListNode mergehead;
+
+            if (list1.val < list2.val)
+            {
+                mergehead = list1;
+                mergehead.next = MergeTwoLists(list1.next, list2);
+            }
+            else
+            {
+                mergehead = list2;
+                mergehead.next = MergeTwoLists(list1, list2.next);
+            }
+
+            return mergehead;
+        }
+        #endregion
+        #region K-th Symbol in Grammar
+        /*
+        We build a table of n rows (1-indexed). We start by writing 0 in the 1st row.
+        Now in every subsequent row, we look at the previous row and replace each occurrence of 0 with 01, and each occurrence of 1 with 10.
+        For example, for n = 3, the 1st row is 0, the 2nd row is 01, and the 3rd row is 0110.
+        Given two integer n and k, return the kth (1-indexed) symbol in the nth row of a table of n rows.
+
+        Example 1:
+
+        Input: n = 1, k = 1
+        Output: 0
+        Explanation: row 1: 0
+
+        Example 2:
+        Input: n = 2, k = 1
+        Output: 0
+        Explanation: 
+        row 1: 0
+        row 2: 01
+
+        Example 3:
+        Input: n = 2, k = 2
+        Output: 1
+        Explanation: 
+        row 1: 0
+        row 2: 01
+
+        Constraints:
+
+            1 <= n <= 30
+            1 <= k <= 2n - 1
+
+        Extra Test Case:
+        30
+        434991989
+        
+        https://leetcode.com/problems/k-th-symbol-in-grammar/
+        */
+        #endregion
+        #endregion
         #endregion
     }
 }
