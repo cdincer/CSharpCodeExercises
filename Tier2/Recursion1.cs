@@ -585,6 +585,63 @@ namespace Tier2
             return depthFirstSearch(n, k, 0);
         }
         #endregion
+        #region Unique Binary Search Trees II
+        /*
+        Given an integer n, return all the structurally unique BST's (binary search trees), which has exactly n nodes of unique values from 1 to n. Return the answer in any order.
+
+        Example 1:
+        Input: n = 3
+        Output: [[1,null,2,null,3],[1,null,3,2],[2,1,3],[3,1,null,null,2],[3,2,null,1]]
+
+        Example 2:
+        Input: n = 1
+        Output: [[1]]
+
+        Constraints:
+
+            1 <= n <= 8
+
+        https://leetcode.com/problems/unique-binary-search-trees-ii/description/
+        */
+        //Official solution below converted from Java.
+        public List<TreeNode> allPossibleBST(int start, int end,Dictionary<KeyValuePair<int, int>, List<TreeNode>> memo)
+        {
+            List<TreeNode> res = new();
+            if (start > end)
+            {
+                res.Add(null);
+                return res;
+            }
+            if (memo.ContainsKey(new KeyValuePair<int, int>(start, end)))
+            {
+                return memo[new KeyValuePair<int, int>(start, end)];
+            }
+            // Iterate through all values from start to end to construct left and right subtree recursively.
+            for (int i = start; i <= end; ++i)
+            {
+                List<TreeNode> leftSubTrees = allPossibleBST(start, i - 1, memo);
+                List<TreeNode> rightSubTrees = allPossibleBST(i + 1, end, memo);
+
+                // Loop through all left and right subtrees and connect them to ith root.
+                foreach (TreeNode left in leftSubTrees)
+                {
+                    foreach (TreeNode right in rightSubTrees)
+                    {
+                        TreeNode root = new TreeNode(i, left, right);
+                        res.Add(root);
+                    }
+                }
+            }
+            memo.Add(new KeyValuePair<int, int>(start, end), res);
+            return res;
+        }
+
+        public List<TreeNode> GenerateTrees(int n)
+        {
+            Dictionary<KeyValuePair<int, int>, List<TreeNode>> memo = new();
+            return allPossibleBST(1, n, memo);
+        }
+        #endregion
         #endregion
         #endregion
     }
