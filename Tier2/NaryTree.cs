@@ -1,7 +1,29 @@
+using System.Collections.Generic;
+
 namespace CSharpCodeExercises.Tier2
 {
     public class NaryTree
     {
+        //Required Data Structure for exercises
+        public class Node
+        {
+            public int val;
+            public IList<Node> children;
+
+            public Node() { }
+
+            public Node(int _val)
+            {
+                val = _val;
+            }
+
+            public Node(int _val, IList<Node> _children)
+            {
+                val = _val;
+                children = _children;
+            }
+        }
+
         #region Traversal
         #region N-ary Tree Preorder Traversal
         /*
@@ -28,6 +50,47 @@ namespace CSharpCodeExercises.Tier2
         [] 38th test case out of 39.
         https://leetcode.com/problems/n-ary-tree-preorder-traversal/
         */
+
+        //Official solutions for traversal are behind the paywall. All of them.
+        List<int> myList = new();
+
+        public IList<int> Preorder(Node root)
+        {
+            if (root == null)
+                return null;
+
+            if (!myList.Contains(root.val))
+                myList.Add(root.val);
+
+            foreach (Node passing in root.children)
+            {
+                myList.Add(passing.val);
+                if (passing.children != null)
+                {
+                    Preorder(passing);
+                }
+            }
+            return myList;
+        }
+        public IList<int> PreorderIterative(Node root)
+        {
+            IList<int> r = new List<int>();
+            Stack<Node> st = new Stack<Node>();
+            st.Push(root);
+
+            while (st.Count > 0)
+            {
+                Node cr = st.Pop();
+                if (cr != null)
+                {
+                    r.Add(cr.val);
+                    IList<Node> temp = cr.children;
+                    for (int i = temp.Count - 1; i >= 0; i--)
+                        st.Push(temp[i]);
+                }
+            }
+            return r;
+        }
         #endregion
         #endregion
     }
