@@ -92,6 +92,82 @@ namespace CSharpCodeExercises.Tier2
             return r;
         }
         #endregion
+        #region N-ary Tree Postorder Traversal
+        /*
+        Given the root of an n-ary tree, return the postorder traversal of its nodes' values.
+
+        Nary-Tree input serialization is represented in their level order traversal. Each group of children is separated by the null value (See examples)
+        Example 1:
+        Input: root = [1,null,3,2,4,null,5,6]
+        Output: [5,6,3,2,4,1]
+
+        Example 2:
+        Input: root = [1,null,2,3,4,5,null,null,6,7,null,8,null,9,10,null,null,11,null,12,null,13,null,null,14]
+        Output: [2,6,14,11,7,3,12,8,4,13,9,10,5,1]
+
+        Constraints:
+            The number of nodes in the tree is in the range [0, 104].
+            0 <= Node.val <= 104
+            The height of the n-ary tree is less than or equal to 1000.
+
+        Follow up: Recursive solution is trivial, could you do it iteratively?
+        https://leetcode.com/problems/n-ary-tree-postorder-traversal/description/
+        */
+        //Both of the solutions below belong to me.
+        List<int> myList2 = new();
+        public IList<int> Postorder(Node root)
+        {
+            postrecur(root);
+            return myList2;
+        }
+
+        public void postrecur(Node root)
+        {
+            if (root == null)
+                return;
+
+            if (root.children != null)
+            {
+                for (int i = 0; i < root.children.Count; i++)
+                {
+                    Postorder(root.children[i]);
+                }
+            }
+
+            myList2.Add(root.val);
+        }
+        //Iterative
+        public IList<int> Postorder2(Node root)
+        {
+            List<int> myList = new();
+            Stack<Node> myStack = new();
+            Stack<Node> reverseStack = new();
+
+            if (root == null)
+                return myList;
+
+            myStack.Push(root);
+            while (myStack.Count > 0)
+            {
+                Node currNode = myStack.Pop();
+                reverseStack.Push(currNode);
+                for (int i = 0; i < currNode.children.Count; i++)
+                {
+                    myStack.Push(currNode.children[i]);
+                }
+            }
+
+            while (reverseStack.Count > 0)
+            {
+                Node currNode = reverseStack.Pop();
+                myList.Add(currNode.val);
+            }
+
+            return myList;
+        }
+
+
+        #endregion
         #endregion
     }
 }
