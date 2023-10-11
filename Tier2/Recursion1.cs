@@ -297,7 +297,6 @@ namespace Tier2
                 return memValue[n];
             }
             int result = 0;
-
             if (n < 2)
             {
                 result = n;
