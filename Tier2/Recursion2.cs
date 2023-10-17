@@ -200,6 +200,43 @@ namespace Tier2
 
         https://leetcode.com/problems/search-a-2d-matrix-ii/
         */
+        public bool SearchMatrix(int[][] matrix, int target)
+        {
+            if (matrix == null)
+                return false;
+            int m = matrix.Length;
+            int n = matrix[0].Length;
+            if (n == 0 && m == 0)
+                return false;
+            return BinarySearch(matrix, target, 0, m - 1, 0, n - 1);
+        }
+
+        bool BinarySearch(int[][] matrix, int target,
+        int min_i, int max_i,
+        int min_j, int max_j)
+        {
+            if (min_i > max_i)
+                return false;
+            if (min_j > max_j)
+                return false;
+            int i = (min_i + max_i) / 2;
+            int j = (min_j + max_j) / 2;
+
+            int value = matrix[i][j];
+            if (value == target)
+                return true;
+            else if (value < target)
+            {
+                return 
+                   BinarySearch(matrix, target, min_i, max_i, j + 1, max_j)
+                || BinarySearch(matrix, target, i + 1, max_i, min_j, j);
+            }
+            else
+            {
+                return BinarySearch(matrix, target, min_i, max_i, min_j, j - 1)
+                || BinarySearch(matrix, target, min_i, i - 1, j, max_j);
+            }
+        }
         #endregion
         #endregion
     }
