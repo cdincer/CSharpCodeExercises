@@ -48,7 +48,6 @@ namespace Tier2
             return i;
         }
         #endregion
-
         #region Divide and Conquer
         #region Sort an Array
         /*
@@ -227,7 +226,7 @@ namespace Tier2
                 return true;
             else if (value < target)
             {
-                return 
+                return
                    BinarySearch(matrix, target, min_i, max_i, j + 1, max_j)
                 || BinarySearch(matrix, target, i + 1, max_i, min_j, j);
             }
@@ -235,6 +234,47 @@ namespace Tier2
             {
                 return BinarySearch(matrix, target, min_i, max_i, min_j, j - 1)
                 || BinarySearch(matrix, target, min_i, i - 1, j, max_j);
+            }
+        }
+        #endregion
+        #endregion
+        #region Backtracking
+        #region N-Queens II
+        public int TotalNQueens(int n)
+        {
+            int[] queens = new int[n];
+            int[] columns = new int[n];
+            int[] diagonals1 = new int[2 * n - 1];
+            int[] diagonals2 = new int[2 * n - 1];
+            int count = 0;
+
+            TotalNQueensHelper(n, 0, queens, columns, diagonals1, diagonals2, ref count);
+
+            return count;
+        }
+
+        private void TotalNQueensHelper(int n, int row, int[] queens, int[] columns, int[] diagonals1, int[] diagonals2, ref int count)
+        {
+            if (row == n)
+            {
+                count++;
+                return;
+            }
+
+            for (int col = 0; col < n; col++)
+            {
+                if (columns[col] == 0 && diagonals1[row + col] == 0 && diagonals2[row - col + n - 1] == 0)
+                {
+                    queens[row] = col;
+                    columns[col] = 1;
+                    diagonals1[row + col] = 1;
+                    diagonals2[row - col + n - 1] = 1;
+                    TotalNQueensHelper(n, row + 1, queens, columns, diagonals1, diagonals2, ref count);
+                    queens[row] = -1;
+                    columns[col] = 0;
+                    diagonals1[row + col] = 0;
+                    diagonals2[row - col + n - 1] = 0;
+                }
             }
         }
         #endregion

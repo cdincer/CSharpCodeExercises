@@ -47,9 +47,9 @@ namespace CSharpCodeExercises
              };
 
             StackQueue islands = new();
-           Recursion2 myclass = new();
+            Recursion2 myclass = new();
 
-           myclass.qSort(nums,0,nums.Length  - 1);
+            myclass.TotalNQueens(4);
         }
     }
 
