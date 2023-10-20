@@ -49,7 +49,7 @@ namespace CSharpCodeExercises
             StackQueue islands = new();
             Recursion2 myclass = new();
 
-            myclass.TotalNQueens(4);
+            myclass.TotalNQueens(3);
         }
     }
 

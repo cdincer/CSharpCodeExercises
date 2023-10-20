@@ -240,20 +240,38 @@ namespace Tier2
         #endregion
         #region Backtracking
         #region N-Queens II
+        /*
+        The n-queens puzzle is the problem of placing n queens on an n x n chessboard such that no two queens attack each other.
+        Given an integer n, return the number of distinct solutions to the n-queens puzzle.
+
+        Example 1:
+        Input: n = 4
+        Output: 2
+        Explanation: There are two distinct solutions to the 4-queens puzzle as shown.
+
+        Example 2:
+        Input: n = 1
+        Output: 1
+
+        Constraints:
+
+            1 <= n <= 9
+
+        https://leetcode.com/problems/n-queens-ii/
+        */
         public int TotalNQueens(int n)
         {
-            int[] queens = new int[n];
             int[] columns = new int[n];
             int[] diagonals1 = new int[2 * n - 1];
             int[] diagonals2 = new int[2 * n - 1];
             int count = 0;
 
-            TotalNQueensHelper(n, 0, queens, columns, diagonals1, diagonals2, ref count);
+            TotalNQueensHelper(n, 0, columns, diagonals1, diagonals2, ref count);
 
             return count;
         }
 
-        private void TotalNQueensHelper(int n, int row, int[] queens, int[] columns, int[] diagonals1, int[] diagonals2, ref int count)
+        private void TotalNQueensHelper(int n, int row, int[] columns, int[] diagonals1, int[] diagonals2, ref int count)
         {
             if (row == n)
             {
@@ -265,12 +283,10 @@ namespace Tier2
             {
                 if (columns[col] == 0 && diagonals1[row + col] == 0 && diagonals2[row - col + n - 1] == 0)
                 {
-                    queens[row] = col;
                     columns[col] = 1;
                     diagonals1[row + col] = 1;
                     diagonals2[row - col + n - 1] = 1;
-                    TotalNQueensHelper(n, row + 1, queens, columns, diagonals1, diagonals2, ref count);
-                    queens[row] = -1;
+                    TotalNQueensHelper(n, row + 1, columns, diagonals1, diagonals2, ref count);
                     columns[col] = 0;
                     diagonals1[row + col] = 0;
                     diagonals2[row - col + n - 1] = 0;
