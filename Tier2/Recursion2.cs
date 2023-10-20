@@ -294,6 +294,57 @@ namespace Tier2
             }
         }
         #endregion
+        #region Sudoku Solver
+       public void SolveSudoku(char[][] board)
+        {
+
+            solver(board);
+        }
+
+        public bool solver(char[][] board)
+        {
+            for (int i = 0; i < board.Length; i++)
+            {
+                for (int j = 0; j < board[0].Length; j++)
+                {
+                    if (board[i][j] == '.')
+                    {
+                        for (char replacement = '1'; replacement <= '9'; replacement++)
+                        {
+                            if (isValid(i, j, board, replacement))
+                            {
+                                board[i][j] = replacement;
+                                if (solver(board))
+                                {
+                                    return true;
+                                }
+                                else
+                                {
+                                    board[i][j] = '.';
+                                }
+                            }
+                        }
+                        return false;
+                    }
+                }
+            }
+
+            return true;
+        }
+
+        public bool isValid(int row, int col, char[][] board, char replacement)
+        {
+            for (int i = 0; i < board.Length; i++)
+            {
+                if (board[i][col] != '.' && board[i][col] == replacement) return false;
+                if (board[row][i] != '.' && board[row][i] == replacement) return false;
+                if (board[3 * (row / 3) + i / 3][3 * (col / 3) + i % 3] != '.' &&
+                   board[3 * (row / 3) + i / 3][3 * (col / 3) + i % 3] == replacement) return false;
+            }
+            return true;
+        }
+        #endregion
         #endregion
     }
+ 
 }
