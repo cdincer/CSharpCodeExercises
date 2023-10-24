@@ -295,7 +295,7 @@ namespace Tier2
         }
         #endregion
         #region Sudoku Solver
-       public void SolveSudoku(char[][] board)
+        public void SolveSudoku(char[][] board)
         {
 
             solver(board);
@@ -348,8 +348,32 @@ namespace Tier2
         /*
         https://leetcode.com/problems/combinations/
         */
+        public IList<IList<int>> Combine(int n, int k)
+        {
+
+            List<IList<int>> returned = new();
+            List<int> comb = new();
+            combiner(returned, comb, 1, n, k);
+            return returned;
+        }
+
+        public void combiner(IList<IList<int>> returned, List<int> comb, int start, int n, int k)
+        {
+            if (k == 0)
+            {
+                returned.Add(new List<int>(comb));
+                return;
+            }
+
+            for (int i = start; i <= n; i++)
+            {
+                comb.Add(i);
+                combiner(returned, comb, i + 1, n, k - 1);
+                comb.RemoveAt(comb.Count - 1);
+            }
+        }
         #endregion
         #endregion
     }
- 
+
 }
