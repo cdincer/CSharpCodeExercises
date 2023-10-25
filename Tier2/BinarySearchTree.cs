@@ -227,7 +227,7 @@ namespace CSharpCodeExercises.Tier2
         #endregion
         #region Basic Operations in BST
 
-        #region  Search in a Binary Search Tree
+        #region Search in a Binary Search Tree
         /*
         You are given the root of a binary search tree (BST) and an integer val.
 
@@ -470,7 +470,7 @@ namespace CSharpCodeExercises.Tier2
         #endregion
         #endregion
         #region Conclusion
-        #region  Kth Largest Element in a Stream
+        #region Kth Largest Element in a Stream
         /*
         Design a class to find the kth largest element in a stream. Note that it is the kth largest element in the sorted order, not the kth distinct element.
 
