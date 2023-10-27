@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using static Tier2.BinaryTree;
 
 namespace Tier2
@@ -394,13 +395,112 @@ namespace Tier2
         #endregion
         #region Same Tree
         /*
+        Given the roots of two binary trees p and q, write a function to check if they are the same or not.
+        Two binary trees are considered the same if they are structurally identical, and the nodes have the same value.
+
+        Example 1:
+        Input: p = [1,2,3], q = [1,2,3]
+        Output: true
+
+        Example 2:
+        Input: p = [1,2], q = [1,null,2]
+        Output: false
+
+        Example 3:
+        Input: p = [1,2,1], q = [1,1,2]
+        Output: false
+
+        Constraints:
+            The number of nodes in both trees is in the range [0, 100].
+            -104 <= Node.val <= 104
 
         Extra Test Case:
         [1,2]
         [1,null,2]
         */
+        public bool IsSameTree(TreeNode p, TreeNode q)
+        {
+
+            return opener(p, q);
+        }
+
+        public bool opener(TreeNode p, TreeNode q)
+        {
+
+            if (p == null && q == null)
+                return true;
+
+            if (p?.val != q?.val)
+                return false;
+
+            bool leftTree = opener(p.left, q.left);
+            bool rightTree = opener(p.right, q.right);
+
+            return leftTree && rightTree;
+        }
         #endregion
-        
+        #region Generate Paranthesis
+        /*
+        https://leetcode.com/problems/generate-parentheses/
+        */
+        public IList<string> GenerateParenthesis(int n)
+        {
+            List<string> lister = new();
+            StringBuilder prototype = new();
+            int start = 0;
+            int b = n * 2;
+            int level = n * 2;
+            generator(lister, prototype, start, b, level);
+            return lister;
+        }
+
+        public void generator(List<string> lister, StringBuilder prototype, int start, int n, int level)
+        {
+
+            if (level == 0 && verifier(prototype))
+            {
+                lister.Add(prototype.ToString());
+                return;
+            }
+
+            for (int i = start; i < n; i++)
+            {
+                prototype.Append('(');
+                generator(lister, prototype, i + 1, n, level - 1);
+                prototype.Length--;
+                prototype.Append(')');
+                generator(lister, prototype, i + 1, n, level - 1);
+                prototype.Length--;
+            }
+        }
+
+        public bool verifier(StringBuilder prototype)
+        {
+            Stack<char> verification = new();
+
+            for (int i = 0; i < prototype.Length; i++)
+            {
+                if (prototype[i] == '(')
+                {
+                    verification.Push(')');
+                }
+                else
+                {
+                    if (verification.Count == 0)
+                    {
+                        return false;
+                    }
+                    verification.Pop();
+                }
+            }
+
+            if (verification.Count != 0)
+            {
+                return false;
+            }
+            return true;
+        }
+        #endregion
         #endregion
     }
 
