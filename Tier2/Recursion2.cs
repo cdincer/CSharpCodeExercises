@@ -393,6 +393,10 @@ namespace Tier2
             }
         }
         #endregion
+        #endregion
+        #region Recursion to Iteration
+        //First two problems below don't have official solutions for iterative approach
+        //As a result just solved them recursively.
         #region Same Tree
         /*
         Given the roots of two binary trees p and q, write a function to check if they are the same or not.
@@ -441,6 +445,19 @@ namespace Tier2
         #endregion
         #region Generate Paranthesis
         /*
+        Given n pairs of parentheses, write a function to generate all combinations of well-formed parentheses.
+
+        Example 1:
+        Input: n = 3
+        Output: ["((()))","(()())","(())()","()(())","()()()"]
+
+        Example 2:
+        Input: n = 1
+        Output: ["()"]
+
+        Constraints:
+            1 <= n <= 8
+
         https://leetcode.com/problems/generate-parentheses/
         */
         public IList<string> GenerateParenthesis(int n)
@@ -501,7 +518,12 @@ namespace Tier2
             return true;
         }
         #endregion
+        /*
+        Binary Tree Inorder Traversal -- This problem is solved in BinaryTree part iteratively.
+        Binary Tree Level Order Traversal -- This problem is solved in BinaryTree part iteratively.
+        */
         #endregion
+    
     }
 
 }
