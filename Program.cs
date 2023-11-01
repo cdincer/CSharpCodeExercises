@@ -23,7 +23,6 @@ namespace CSharpCodeExercises
             new int[] {11,12,13,14,15},
             new int[] {16,17,18,19,20},
             };
-
             int[][] LockedRooms = new int[][]{
           new int[] {87},new int[] {33},new int[] {16,82,7,41},new int[] {},new int[] {55,29},new int[] {12},new int[] {3,84,28,56,66},new int[] {},new int[] {44,72},new int[] {78},new int[] {67,90},new int[] {30,81,88},new int[] {2,70,77},new int[] {23,27},new int[] {26},new int[] {25,48},new int[] {19,38,58,39,70},new int[] {51},new int[] {8,92,43},new int[] {},new int[] {24},new int[] {},new int[] {69,79,36,61},new int[] {95},new int[] {85},new int[] {21,28,62,66,73},new int[] {36,53,35,52},new int[] {14,34},new int[] {20,49},new int[] {4},new int[] {40,51,96},new int[] {74,76},new int[] {13,71,80,81},new int[] {42,97,31,68},new int[] {},new int[] {18,46,83,91},new int[] {15},new int[] {9},new int[] {22},new int[] {47,54},new int[] {65,98,34},new int[] {31},new int[] {9,18,55,94},new int[] {57},new int[] {45,77,32},new int[] {32,25},new int[] {24,59,14,42,63},new int[] {37,75,98},new int[] {5,20,99,30},new int[] {15,76,96},new int[] {83,89,12,46},new int[] {65,71},new int[] {10},new int[] {8,45,58},new int[] {10,49,89},new int[] {26,27,78,1,38,50},new int[] {},new int[] {},new int[] {23,62},new int[] {57},new int[] {85},new int[] {13,53},new int[] {93,4,40},new int[] {91,82,99},new int[] {50},new int[] {},new int[] {},new int[] {64,2,11,37},new int[] {88},new int[] {29,43},new int[] {11},new int[] {93,95},new int[] {},new int[] {35},new int[] {73,92},new int[] {63,80},new int[] {39},new int[] {1,60,86,5},new int[] {},new int[] {41,56,47},new int[] {54},new int[] {33,44,97},new int[] {3,48,86},new int[] {19},new int[] {87},new int[] {6,52},new int[] {75,84},new int[] {90,16},new int[] {94,21,79},new int[] {67},new int[] {61,64},new int[] {},new int[] {},new int[] {17,59},new int[] {17},new int[] {68},new int[] {72,6},new int[] {7},new int[] {74},new int[] {22,60}
          };
@@ -61,8 +60,9 @@ namespace CSharpCodeExercises
 			new char []{'.','.','.','4','1','9','.','.','5'},
 			new char []{'.','.','.','.','8','.','.','7','9'}
             };
+            int[] histogramExample = new int[] { 2,1,5,6,2,3 };
 
-            myclass.SolveSudoku(mySudoku);
+            myclass.LargestRectangleArea(histogramExample);
         }
     }
 
