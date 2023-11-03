@@ -61,8 +61,8 @@ namespace CSharpCodeExercises
 			new char []{'.','.','.','.','8','.','.','7','9'}
             };
             int[] histogramExample = new int[] { 2,1,5,6,2,3 };
-
-            myclass.LargestRectangleArea(histogramExample);
+            int[] Permutations = new int[] {1,2,3};
+            myclass.Permute(Permutations);
         }
     }
 
