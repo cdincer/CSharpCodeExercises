@@ -612,6 +612,41 @@ namespace Tier2
             }
         }
         #endregion
+        #region Letter Combinations of a Phone Number
+        public IList<string> LetterCombinations(string digits)
+        {
+            List<string> result = new();
+            int start = 0;
+            int cycle = digits.Length;
+            StringBuilder processed = new();
+            opener(result, digits, 0, cycle, processed);
+
+            return result;
+        }
+
+        public void opener(List<string> result, string digits, int start, int cycle, StringBuilder processed)
+        {
+            if (cycle == 0 && processed.Length == digits.Length)
+            {
+                result.Add(processed.ToString());
+                return;
+            }
+            else
+            {
+                for (int i = start; i < digits.Length; i++)
+                {
+                    for (int j = 0; j < 3; j++)
+                    {
+                        int ActualValue = (digits[i] - '0' - 2) * 2;
+                        char letter = (char)((digits[i] - '0') + 95 + j + ActualValue);
+                        processed.Append(letter);
+                        opener(result, digits, start + 1, cycle - 1, processed);
+                        processed.Length--;
+                    }
+                }
+            }
+        }
+        #endregion
         #endregion
     }
 
