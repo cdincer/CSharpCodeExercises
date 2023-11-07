@@ -612,39 +612,63 @@ namespace Tier2
             }
         }
         #endregion
-        #region Letter Combinations of a Phone Number
+        #region Letter Combinations of a Phone Number 
+        /*
+        Given a string containing digits from 2-9 inclusive, return all possible letter combinations that the number could represent.Return the answer in any order.
+        A mapping of digits to letters (just like on the telephone buttons) is given below.Note that 1 does not map to any letters.
+
+        (Table below replaces the picture for instructions)
+        2 = abc
+        3 = def
+        4 = ghi
+        5 = jkl
+        6 = mno
+        7 = pqrs
+        8 = tuv
+        9 = wxyz
+
+        Example 1:
+        Input: digits = "23"
+        Output: ["ad","ae","af","bd","be","bf","cd","ce","cf"]
+
+        Example 2:
+        Input: digits = ""
+        Output: []
+
+        Example 3:
+        Input: digits = "2"
+        Output: ["a","b","c"]
+
+
+        https://leetcode.com/problems/letter-combinations-of-a-phone-number/
+        */
         public IList<string> LetterCombinations(string digits)
         {
-            List<string> result = new();
-            int start = 0;
-            int cycle = digits.Length;
-            StringBuilder processed = new();
-            opener(result, digits, 0, cycle, processed);
-
-            return result;
+            IList<string> res = new List<string>();
+            if (digits == null || digits.Length == 0)
+                return res;
+            string[] map = new string[]
+            {
+            "", "", "abc", "def", "ghi", "jkl", "mno", "pqrs","tuv", "wxyz"
+            };
+            FindCombinations(digits, 0, map, res, "");
+            return res;
         }
 
-        public void opener(List<string> result, string digits, int start, int cycle, StringBuilder processed)
+        private void FindCombinations(string digits, int index, string[] map, IList<string> res, string current)
         {
-            if (cycle == 0 && processed.Length == digits.Length)
+            if (index == digits.Length)
             {
-                result.Add(processed.ToString());
+                res.Add(current);
                 return;
             }
-            else
+
+            string chars = map[int.Parse(digits[index].ToString())];
+            foreach (char c in chars)
             {
-                for (int i = start; i < digits.Length; i++)
-                {
-                    for (int j = 0; j < 3; j++)
-                    {
-                        int ActualValue = (digits[i] - '0' - 2) * 2;
-                        char letter = (char)((digits[i] - '0') + 95 + j + ActualValue);
-                        processed.Append(letter);
-                        opener(result, digits, start + 1, cycle - 1, processed);
-                        processed.Length--;
-                    }
-                }
+                FindCombinations(digits, index + 1, map, res, current + c);
             }
+            return;
         }
         #endregion
         #endregion
