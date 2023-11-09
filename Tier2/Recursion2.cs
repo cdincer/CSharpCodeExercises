@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using static Tier2.BinaryTree;
 
@@ -699,68 +700,71 @@ namespace Tier2
 
         https://leetcode.com/problems/the-skyline-problem/
         */
-        public IList<IList<int>> GetSkylinePrototype(int[][] buildings)
+        //No official solution and no recursion related solution
+        public IList<IList<int>> GetSkyline(int[][] buildings)
         {
-            List<int[]> highpoints = new List<int[]>(); //first for beginning //second for height
-            List<IList<int>> results = new();
-            //element 1, beginning
-            //element 2, end
-            //element 3, height
-            int ArraySize = 0;
+            var height = new List<IList<int>>();
+            // collect all vertical building edges
             for (int i = 0; i < buildings.Length; i++)
             {
-                ArraySize = Math.Max(ArraySize, buildings[i][1]);
+                // left building edge (make it NEGATIVE so we can identify it first)
+                height.Add(new int[] { buildings[i][0], -buildings[i][2] });
+                // right building edge
+                height.Add(new int[] { buildings[i][1], buildings[i][2] });
             }
-
-            int[] skyLine = new int[ArraySize];
-            for (int i = 0; i < buildings.Length; i++)
+            height.Sort((a, b) =>
             {
-                int start = buildings[i][0];
-                int length = start + (buildings[i][1] - buildings[i][0]);
-                int height = buildings[i][2];
-                if (height != 0)
-                    for (int j = start; j < length; j++)
-                    {
-                        if (skyLine[j] < height)
-                        {
-                            skyLine[j] = height;
-                        }
-                        else if (skyLine[j] > height)
-                        {
-                            continue;
-                        }
-                    }
-            }
-
-            int newStart = 0;
-            int newEnd = 0;
-            int newHeight = 0;
-
-            for (int i = 0; i < skyLine.Length - 1; i++)
-            {
-                if (skyLine[i] != skyLine[i + 1])
+                // sort by vertical building edge order
+                if (a[0] != b[0])
                 {
-                    newEnd = i;
-                    newHeight = skyLine[i];
-                    List<int> temporary = new();
-                    temporary.Add(newStart);
-                    temporary.Add(newHeight);
+                    return a[0].CompareTo(b[0]);
+                }
+                // if 2 building share an edge
+                // let shorter buildings go first
+                // let left buiding edge go first (because it is negative)
+                return a[1].CompareTo(b[1]);
+            });
+            var result = new List<IList<int>>();
+            // note that the dictionary is MAX heap so that the first is the tallest/currently
+            var sd = new SortedDictionary<int, int>(Comparer<int>.Create((a, b) => -a.CompareTo(b)));
 
-                    //smaller
-                    if (skyLine[i] < skyLine[i + 1])
+            sd.Add(0, 0);
+            var pre = 0;
+            // for each buiding edge in order left to right
+            foreach (var h in height)
+            {
+                // if this is left edge
+                if (h[1] < 0)
+                {
+                    // store height in dictionary as positive (reverse negative)
+                    if (!sd.ContainsKey(-h[1]))
                     {
-                        results.Add(new List<int>(temporary));
-                         newStart = i + 1;
-                       
+                        sd[-h[1]] = 0;
                     }
-                    else
+                    // increment for that height
+                    sd[-h[1]]++;
+                }
+                else // if this is right edge
+                {
+                    // the height must already been registered so decrement it
+                    sd[h[1]]--;
+                    // remove it for already passed any with that height
+                    if (sd[h[1]] <= 0)
                     {
-                        results.Add(new List<int>(temporary));
+                        sd.Remove(h[1]);
                     }
                 }
+
+                // get the tallest so far
+                int cur = sd.First().Key;
+                if (pre != cur)
+                {
+                    // record it
+                    result.Add(new int[] { h[0], cur });
+                    pre = cur;
+                }
             }
-            results.RemoveAt(0);
-            return results;
+            return result;
         }
         #endregion
         #endregion
