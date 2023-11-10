@@ -714,14 +714,14 @@ namespace Tier2
             }
             height.Sort((a, b) =>
             {
-                // sort by vertical building edge order
+                // sort by starting point
                 if (a[0] != b[0])
                 {
                     return a[0].CompareTo(b[0]);
                 }
-                // if 2 building share an edge
+                // if two buildings share an starting point
                 // let shorter buildings go first
-                // let left buiding edge go first (because it is negative)
+                // let the building with earlier or negative value go first.
                 return a[1].CompareTo(b[1]);
             });
             var result = new List<IList<int>>();
