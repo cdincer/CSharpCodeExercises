@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using CSharpCodeExercises.Tier1;
 using CSharpCodeExercises.Tier2;
+using CSharpCodeExercises.Tier3;
 using Leetcode;
 using Tier1;
 using Tier2;
@@ -47,7 +48,7 @@ namespace CSharpCodeExercises
 
             StackQueue islands = new();
             Recursion2 myclass = new();
-
+            Graph myGraph = new();
             char[][] mySudoku = new char[][]
             {
             new char[] {'5','3','.','.','7','.','.','.','.'},
@@ -61,16 +62,13 @@ namespace CSharpCodeExercises
             new char []{'.','.','.','.','8','.','.','7','9'}
             };
             int[] histogramExample = new int[] { 2, 1, 5, 6, 2, 3 };
-            int[] Permutations = new int[] { 1, 2, 3 };
-            int[][] buildings = new int[][]
+              int[][] provinces = new int[][]
             {
-            new int[] {2,9,10},
-            new int[] {3,7,15},
-            new int[] {5,12,12},
-            new int[] {15,20,10},
-             new int[] {19,24,8},
+            new int[] {1,1,0},
+            new int[] {1,1,0},
+            new int[] {0,0,1}
             };
-            myclass.GetSkyline(buildings);
+            myGraph.FindCircleNum(provinces);
         }
     }
 
