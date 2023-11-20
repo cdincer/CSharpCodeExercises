@@ -15,6 +15,7 @@ namespace CSharpCodeExercises
     {
         static void Main(string[] args)
         {
+            #region Array Examples
             int[] nums = new int[] { 4, 5, 6, 7, 0, 1, 2 };
             int[] numsOrg = new int[] { 1, 9 };
             int[][] twoDArray = new int[][]
@@ -62,13 +63,21 @@ namespace CSharpCodeExercises
             new char []{'.','.','.','.','8','.','.','7','9'}
             };
             int[] histogramExample = new int[] { 2, 1, 5, 6, 2, 3 };
-              int[][] provinces = new int[][]
-            {
+            int[][] provinces = new int[][]
+          {
             new int[] {1,1,0},
             new int[] {1,1,0},
             new int[] {0,0,1}
-            };
-            myGraph.FindCircleNum(provinces);
+          };
+            #endregion
+            #region List Examples
+            List<IList<int>> pairs = new();
+            pairs.Add(new List<int>() { 0, 3 });
+            pairs.Add(new List<int>() { 1, 2 });
+            pairs.Add(new List<int>() { 0, 2 });
+
+            #endregion
+            myGraph.SmallestStringWithSwaps("dcab", pairs);
         }
     }
 
