@@ -72,12 +72,21 @@ namespace CSharpCodeExercises
             #endregion
             #region List Examples
             List<IList<int>> pairs = new();
-            pairs.Add(new List<int>() { 0, 3 });
-            pairs.Add(new List<int>() { 1, 2 });
-            pairs.Add(new List<int>() { 0, 2 });
+            pairs.Add(new List<int>() {8,6 });
+            pairs.Add(new List<int>() {3,4 });
+            pairs.Add(new List<int>() {5,2 });
+            pairs.Add(new List<int>() {5,5 });
+            pairs.Add(new List<int>() {3,5 });
+            pairs.Add(new List<int>() {7,10 });
+            pairs.Add(new List<int>() {6,0 });
+            pairs.Add(new List<int>() {10,0 });
+            pairs.Add(new List<int>() {7,1 });
+            pairs.Add(new List<int>() {4,8 });
+            pairs.Add(new List<int>() {6,2 });
 
+            string stringSorted = "vbjjxgdfnru";
             #endregion
-            myGraph.SmallestStringWithSwaps("dcab", pairs);
+            myGraph.SmallestStringWithSwaps(stringSorted, pairs);
         }
     }
 

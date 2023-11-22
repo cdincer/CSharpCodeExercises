@@ -130,7 +130,28 @@ namespace CSharpCodeExercises.Tier3
         [[8,6],[3,4],[5,2],[5,5],[3,5],[7,10],[6,0],[10,0],[7,1],[4,8],[6,2]]
         "tklkxyizmlqf"
         [[2,10],[3,5],[8,11],[1,2],[10,6],[4,1],[1,10],[5,8],[8,3],[10,4],[7,3],[10,11]]
+        #region C# List Examples
+        List<IList<int>> pairs1 = new();
+        pairs1.Add(new List<int>() { 0, 3 });
+        pairs1.Add(new List<int>() { 1, 2 });
+        pairs1.Add(new List<int>() { 0, 2 });
+        string stringSorted1 = "dcab";
+        List<IList<int>> pairs2 = new();
+        pairs2.Add(new List<int>() { 8, 6 });
+        pairs2.Add(new List<int>() { 3, 4 });
+        pairs2.Add(new List<int>() { 5, 2 });
+        pairs2.Add(new List<int>() { 5, 5 });
+        pairs2.Add(new List<int>() { 3, 5 });
+        pairs2.Add(new List<int>() { 7, 10 });
+        pairs2.Add(new List<int>() { 6, 0 });
+        pairs2.Add(new List<int>() { 10, 0 });
+        pairs2.Add(new List<int>() { 7, 1 });
+        pairs2.Add(new List<int>() { 4, 8 });
+        pairs2.Add(new List<int>() { 6, 2 });
+        string stringSorted2 = "vbjjxgdfnru";
+        #endregion
         */
+
         public string SmallestStringWithSwaps(string s, IList<IList<int>> pairs)
         {
             var parentMap = new Dictionary<int, int>();
