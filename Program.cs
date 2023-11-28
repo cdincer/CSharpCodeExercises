@@ -71,22 +71,20 @@ namespace CSharpCodeExercises
           };
             #endregion
             #region List Examples
-            List<IList<int>> pairs = new();
-            pairs.Add(new List<int>() {8,6 });
-            pairs.Add(new List<int>() {3,4 });
-            pairs.Add(new List<int>() {5,2 });
-            pairs.Add(new List<int>() {5,5 });
-            pairs.Add(new List<int>() {3,5 });
-            pairs.Add(new List<int>() {7,10 });
-            pairs.Add(new List<int>() {6,0 });
-            pairs.Add(new List<int>() {10,0 });
-            pairs.Add(new List<int>() {7,1 });
-            pairs.Add(new List<int>() {4,8 });
-            pairs.Add(new List<int>() {6,2 });
+         List<IList<string>> equations = new();
+        equations.Add(new List<string>() {"a","b"});
+        equations.Add(new List<string>() {"b","c" });
+        double[] values = new [] {2.0,3.0};
+        List<IList<string>> queries = new();
+        queries.Add(new List<string>() {"a","c" });
+        queries.Add(new List<string>() {"b","a" });
+        queries.Add(new List<string>() {"a","e" });
+        queries.Add(new List<string>() {"a","a" });
+        queries.Add(new List<string>() {"x","x" });
 
             string stringSorted = "vbjjxgdfnru";
             #endregion
-            myGraph.SmallestStringWithSwaps(stringSorted, pairs);
+            myGraph.CalcEquation(equations, values,queries);
         }
     }
 

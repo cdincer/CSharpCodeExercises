@@ -253,7 +253,9 @@ namespace CSharpCodeExercises.Tier3
             double[] results = new double[queries.Count];
             Dictionary<string, List<Tuple<string, double>>> dict = new Dictionary<string, List<Tuple<string, double>>>();
             HashSet<string> pairs = new HashSet<string>();
-
+            //Create our own division results list for every known division for that character.
+            //For divided and the divider. equations[i][0] and equations[i][1] respectively.
+            //Using these values as edges between vertices do DFS.
             for (int i = 0; i < equations.Count; i++)
             {
                 if (!dict.ContainsKey(equations[i][0]))
