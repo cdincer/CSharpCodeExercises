@@ -4,6 +4,7 @@ using CSharpCodeExercises.Tier1;
 using CSharpCodeExercises.Tier2;
 using CSharpCodeExercises.Tier3;
 using Leetcode;
+using Neetcode150;
 using Tier1;
 using Tier2;
 using static CSharpCodeExercises.Tier2.StackQueue;
@@ -17,7 +18,7 @@ namespace CSharpCodeExercises
         {
             #region Array Examples
             int[] nums = new int[] { 4, 5, 6, 7, 0, 1, 2 };
-            int[] numsOrg = new int[] { 1, 9 };
+            int[] numsOrg = new int[] { 3,2,4 };
             int[][] twoDArray = new int[][]
             {
             new int[] {1,2,3,4,5},
@@ -71,20 +72,22 @@ namespace CSharpCodeExercises
           };
             #endregion
             #region List Examples
-         List<IList<string>> equations = new();
-        equations.Add(new List<string>() {"a","b"});
-        equations.Add(new List<string>() {"b","c" });
-        double[] values = new [] {2.0,3.0};
-        List<IList<string>> queries = new();
-        queries.Add(new List<string>() {"a","c" });
-        queries.Add(new List<string>() {"b","a" });
-        queries.Add(new List<string>() {"a","e" });
-        queries.Add(new List<string>() {"a","a" });
-        queries.Add(new List<string>() {"x","x" });
+            List<IList<string>> equations = new();
+            equations.Add(new List<string>() { "a", "b" });
+            equations.Add(new List<string>() { "b", "c" });
+            double[] values = new[] { 2.0, 3.0 };
+            List<IList<string>> queries = new();
+            queries.Add(new List<string>() { "a", "c" });
+            queries.Add(new List<string>() { "b", "a" });
+            queries.Add(new List<string>() { "a", "e" });
+            queries.Add(new List<string>() { "a", "a" });
+            queries.Add(new List<string>() { "x", "x" });
 
             string stringSorted = "vbjjxgdfnru";
             #endregion
-            myGraph.CalcEquation(equations, values,queries);
+        
+        ArraysHashing myArray = new ();
+        myArray.GroupAnagrams( new string[] {"eat","tea","tan","ate","nat","bat"});
         }
     }
 
