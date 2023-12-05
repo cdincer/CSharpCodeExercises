@@ -18,7 +18,7 @@ namespace CSharpCodeExercises
         {
             #region Array Examples
             int[] nums = new int[] { 4, 5, 6, 7, 0, 1, 2 };
-            int[] numsOrg = new int[] { 3,2,4 };
+            int[] numsOrg = new int[] { 0,3,7,2,5,8,4,6,0,1 };
             int[][] twoDArray = new int[][]
             {
             new int[] {1,2,3,4,5},
@@ -85,9 +85,8 @@ namespace CSharpCodeExercises
 
             string stringSorted = "vbjjxgdfnru";
             #endregion
-        
-        ArraysHashing myArray = new ();
-        myArray.GroupAnagrams( new string[] {"eat","tea","tan","ate","nat","bat"});
+
+            ArraysHashing myArray = new();
         }
     }
 
