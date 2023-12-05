@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 
 namespace Neetcode150
 {
@@ -203,31 +204,82 @@ namespace Neetcode150
         }
         #endregion
         #region Group Anagrams
+        /*
+        Given an array of strings strs, group the anagrams together. You can return the answer in any order.
+        An Anagram is a word or phrase formed by rearranging the letters of a different word or phrase, typically using all the original letters exactly once.
 
+        Example 1:
+
+        Input: strs = ["eat","tea","tan","ate","nat","bat"]
+        Output: [["bat"],["nat","tan"],["ate","eat","tea"]]
+
+        Example 2:
+
+        Input: strs = [""]
+        Output: [[""]]
+
+        Example 3:
+
+        Input: strs = ["a"]
+        Output: [["a"]]
+
+        
+
+        Constraints:
+
+            1 <= strs.length <= 104
+            0 <= strs[i].length <= 100
+            strs[i] consists of lowercase English letters.
+
+
+        https://leetcode.com/problems/group-anagrams/
+        */
         public IList<IList<string>> GroupAnagrams(string[] strs)
         {
             Dictionary<string, List<string>> sorted = new();
             for (int i = 0; i < strs.Length; i++)
             {
 
-                 char[] CurrentArray =strs[i].ToCharArray();
-                 Array.Sort(CurrentArray);
-                 if(!sorted.ContainsKey(CurrentArray.ToString()))
-                 {
-                    sorted.Add(CurrentArray.ToString() , new List<string>{strs[i]});
-                 }
-                 else
-                 {
-                    sorted[CurrentArray.ToString()].Add(strs[i]);
-                 }
-                 
+                char[] CurrentArray = strs[i].ToCharArray();
+                Array.Sort(CurrentArray);
+                if (!sorted.ContainsKey(new string(CurrentArray)))
+                {
+                    sorted.Add(new string(CurrentArray), new List<string> { strs[i] });
+                }
+                else
+                {
+                    sorted[new string(CurrentArray)].Add(strs[i]);
+                }
+
             }
             List<IList<string>> toR = new();
-            foreach(KeyValuePair<string,List<string>> element in sorted)
+            foreach (KeyValuePair<string, List<string>> element in sorted)
             {
                 toR.Add(element.Value);
             }
             return toR;
+        }
+        //
+        public IList<IList<string>> GroupAnagramsNeet(string[] strs)
+        {
+            var groups = new Dictionary<string, IList<string>>();
+
+            foreach (string s in strs)
+            {
+                char[] hash = new char[26];
+                foreach (char c in s)
+                {
+                    hash[c - 'a']++;
+                }
+
+                string key = new string(hash);
+                if (!groups.ContainsKey(key))
+                {
+                    groups[key] = new List<string>();
+                }
+                groups[key].Add(s);
+            }
+            return groups.Values.ToImmutableList();
         }
         #endregion
     }
