@@ -484,8 +484,43 @@ namespace Neetcode150
         https://leetcode.com/problems/longest-consecutive-sequence/
         Extra Test Case:
         [1,2,0,1]
+        []
         */
 
+        //Best time 152 ms
+        public int LongestConsecutive(int[] nums)
+        {
+            HashSet<int> keeper = new HashSet<int>();
+            //Array.Sort(nums);
+
+            if (nums.Length < 2)
+                return nums.Length;
+
+            for (int i = 0; i < nums.Length; i++)
+            {
+                keeper.Add(nums[i]);
+            }
+
+            int longestChain = 0;
+            int currentChain = 1;
+            foreach (var element in keeper)
+            {
+                int itemToLookFor = element - 1;
+                if (keeper.Contains(itemToLookFor))
+                {
+                    currentChain++;
+                }
+                else
+                {
+                    longestChain = Math.Max(longestChain, currentChain);
+                    currentChain = 1;
+                }
+            }
+            longestChain = Math.Max(longestChain, currentChain);
+
+            return longestChain;
+        }
+        //Best time 139 ms
         public int LongestConsecutiveNeet(int[] nums)
         {
             if (nums.Length < 2) return nums.Length;
