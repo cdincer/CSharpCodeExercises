@@ -83,11 +83,11 @@ namespace CSharpCodeExercises
             queries.Add(new List<string>() { "a", "a" });
             queries.Add(new List<string>() { "x", "x" });
 
-            string stringSorted = "vbjjxgdfnru";
+            string stringSorted = "0P";
             #endregion
 
-            ArraysHashing myArray = new();
-            myArray.LongestConsecutive(nums);
+            TwoPointers myArray = new();
+            myArray.IsPalindrome(stringSorted);
         }
     }
 
