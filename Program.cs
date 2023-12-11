@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using CSharpCodeExercises.Tier1;
+﻿using System.Collections.Generic;
 using CSharpCodeExercises.Tier2;
 using CSharpCodeExercises.Tier3;
-using Leetcode;
 using Neetcode150;
-using Tier1;
 using Tier2;
-using static CSharpCodeExercises.Tier2.StackQueue;
-using static Tier2.BinaryTree;
 
 namespace CSharpCodeExercises
 {
