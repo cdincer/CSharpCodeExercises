@@ -11,7 +11,7 @@ namespace CSharpCodeExercises
         static void Main(string[] args)
         {
             #region Array Examples
-            int[] nums = new int[] { -1,0,1,2,-1,-4 };
+            int[] nums = new int[] { 1,8,6,2,5,4,8,3,7 };
             int[] numsOrg = new int[] { 0, 3, 7, 2, 5, 8, 4, 6, 0, 1 };
             int[][] twoDArray = new int[][]
             {
@@ -81,7 +81,7 @@ namespace CSharpCodeExercises
             #endregion
 
             TwoPointers myArray = new();
-            myArray.ThreeSum(nums);
+            myArray.MaxArea(nums);
         }
     }
 
