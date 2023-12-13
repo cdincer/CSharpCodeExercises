@@ -273,5 +273,88 @@ namespace Neetcode150
             return MaxVolume;
         }
         #endregion
+        #region Trapping Rain Water
+        /*
+        https://leetcode.com/problems/trapping-rain-water/
+        */
+        public int Trap(int[] height)
+        {
+            int left = 0;
+            int right = 0;
+            bool[] visited = new bool[height.Length];
+            List<catcher> myl = new();
+
+            if (height.Length > 1)
+                right = 1;
+
+
+            if (height[0] == 0 && height.Length > 2)
+            {
+                left = 1;
+                right = 2;
+            }
+            else if (height[0] == 0 && height.Length == 1)
+            {
+                return 0;
+            }
+            int currentHeight = 0;
+            catcher newmint = new();
+
+            while (left < height.Length && right < height.Length - 1)
+            {
+                currentHeight = Math.Max(currentHeight, height[left]);
+                newmint.sp = left;
+                newmint.sph = height[left];
+
+                if (height[left] > height[right])
+                {
+                    newmint.ep = right;
+                    newmint.eph = height[right];
+                    left = right;
+                    right++;
+                    newmint.width = 1;
+                    myl.Add(newmint);
+                    newmint = new();
+
+                }
+                else if (height[left] < height[right])
+                {
+                    newmint.ep = right;
+                    newmint.eph = height[right];
+                    left = right;
+                    right++;
+                    newmint.width = 1;
+                    myl.Add(newmint);
+                    newmint = new();
+                }
+
+                if (left == right)
+                    right++;
+
+                if (newmint.ep == -1)
+                    newmint.ep = right;
+            }
+            
+            int sum = 0;
+            foreach (catcher catched in myl)
+            {
+                sum = sum + (catched.width * Math.Min(catched.sph, catched.eph));
+                Console.WriteLine("sp " + catched.sp + " ep " + catched.ep + " width " + catched.width);
+            }
+
+            return sum;
+        }
+
+        public class catcher
+        {
+            public int sp { get; set; } = -1;
+            public int sph { get; set; } = -1;
+            public int ep { get; set; } = -1;
+            public int eph { get; set; } = -1;
+            public int width { get; set; } = 1;
+        }
+
+
+        #endregion
     }
 }
