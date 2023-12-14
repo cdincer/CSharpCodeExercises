@@ -11,7 +11,7 @@ namespace CSharpCodeExercises
         static void Main(string[] args)
         {
             #region Array Examples
-            int[] nums = new int[] { 0,1,0,2,1,0,1,3,2,1,2,1 };
+            int[] nums = new int[] { 0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1 };
             int[] numsOrg = new int[] { 0, 3, 7, 2, 5, 8, 4, 6, 0, 1 };
             int[][] twoDArray = new int[][]
             {
@@ -81,7 +81,7 @@ namespace CSharpCodeExercises
             #endregion
 
             TwoPointers myArray = new();
-            myArray.Trap(nums);
+            myArray.Trap(new int[] { 3, 0, 2 });
         }
     }
 

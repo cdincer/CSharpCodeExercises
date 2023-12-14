@@ -279,82 +279,36 @@ namespace Neetcode150
         */
         public int Trap(int[] height)
         {
-            int left = 0;
-            int right = 0;
-            bool[] visited = new bool[height.Length];
-            List<catcher> myl = new();
-
-            if (height.Length > 1)
-                right = 1;
-
-
-            if (height[0] == 0 && height.Length > 2)
-            {
-                left = 1;
-                right = 2;
-            }
-            else if (height[0] == 0 && height.Length == 1)
-            {
+            int n = height.Length;
+            if (n <= 2)
                 return 0;
-            }
-            int currentHeight = 0;
-            catcher newmint = new();
 
-            while (left < height.Length && right < height.Length - 1)
+            int left = 0, right = n - 1;
+            int leftMax = 0, rightMax = 0;
+            int trappedWater = 0;
+
+            while (left < right)
             {
-                currentHeight = Math.Max(currentHeight, height[left]);
-                newmint.sp = left;
-                newmint.sph = height[left];
-
-                if (height[left] > height[right])
+                if (height[left] < height[right])
                 {
-                    newmint.ep = right;
-                    newmint.eph = height[right];
-                    left = right;
-                    right++;
-                    newmint.width = 1;
-                    myl.Add(newmint);
-                    newmint = new();
-
+                    if (height[left] > leftMax)
+                        leftMax = height[left];
+                    else
+                        trappedWater += leftMax - height[left];
+                    left++;
                 }
-                else if (height[left] < height[right])
+                else
                 {
-                    newmint.ep = right;
-                    newmint.eph = height[right];
-                    left = right;
-                    right++;
-                    newmint.width = 1;
-                    myl.Add(newmint);
-                    newmint = new();
+                    if (height[right] > rightMax)
+                        rightMax = height[right];
+                    else
+                        trappedWater += rightMax - height[right];
+                    right--;
                 }
-
-                if (left == right)
-                    right++;
-
-                if (newmint.ep == -1)
-                    newmint.ep = right;
-            }
-            
-            int sum = 0;
-            foreach (catcher catched in myl)
-            {
-                sum = sum + (catched.width * Math.Min(catched.sph, catched.eph));
-                Console.WriteLine("sp " + catched.sp + " ep " + catched.ep + " width " + catched.width);
             }
 
-            return sum;
+            return trappedWater;
         }
-
-        public class catcher
-        {
-            public int sp { get; set; } = -1;
-            public int sph { get; set; } = -1;
-            public int ep { get; set; } = -1;
-            public int eph { get; set; } = -1;
-            public int width { get; set; } = 1;
-        }
-
-
         #endregion
     }
 }
