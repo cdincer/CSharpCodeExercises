@@ -81,7 +81,7 @@ namespace CSharpCodeExercises
             #endregion
 
             TwoPointers myArray = new();
-            myArray.Trap(new int[] { 3, 0, 2 });
+            myArray.Trap(nums);
         }
     }
 

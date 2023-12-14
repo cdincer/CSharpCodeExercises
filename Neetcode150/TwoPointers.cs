@@ -279,35 +279,30 @@ namespace Neetcode150
         */
         public int Trap(int[] height)
         {
-            int n = height.Length;
-            if (n <= 2)
-                return 0;
 
-            int left = 0, right = n - 1;
-            int leftMax = 0, rightMax = 0;
-            int trappedWater = 0;
+            if (height is null || height.Length == 0) return 0;
+
+            int left = 0, right = height.Length - 1;
+            int leftMax = height[left], rightMax = height[right];
+            var result = 0;
 
             while (left < right)
             {
-                if (height[left] < height[right])
+                if (leftMax < rightMax)
                 {
-                    if (height[left] > leftMax)
-                        leftMax = height[left];
-                    else
-                        trappedWater += leftMax - height[left];
                     left++;
+                    leftMax = Math.Max(leftMax, height[left]);
+                    result += leftMax - height[left];
                 }
                 else
                 {
-                    if (height[right] > rightMax)
-                        rightMax = height[right];
-                    else
-                        trappedWater += rightMax - height[right];
                     right--;
+                    rightMax = Math.Max(rightMax, height[right]);
+                    result += rightMax - height[right];
                 }
             }
 
-            return trappedWater;
+            return result;
         }
         #endregion
     }
