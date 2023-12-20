@@ -1,4 +1,7 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
 namespace Neetcode150
 {
@@ -165,7 +168,7 @@ namespace Neetcode150
          * int param_4 = obj.GetMin();
          */
         #endregion
-        #region  Evaluate Reverse Polish Notation
+        #region Evaluate Reverse Polish Notation
         /*
         You are given an array of strings tokens that represents an arithmetic expression in a Reverse Polish Notation.
         Evaluate the expression. Return an integer that represents the value of the expression.
@@ -266,12 +269,192 @@ namespace Neetcode150
         Constraints:
             1 <= n <= 8
 
-        Look up permutation generation / backtracking style solution
         https://leetcode.com/problems/generate-parentheses/
         */
+        /*
+        Solution Notes:
+        This is a custom solution. Same problem previously done in "iterative" approach on Recursion II card.
+        This solution copies the Combinations questions back tracking solution and adapts to parantheses.
+        Because it is not iterative, it is significantly faster. About 3 to 4 times. 
+        It still has the same verification for correct parantheses combination from stack card question.
+        */
 
-        
+        public IList<string> GenerateParenthesis(int n)
+        {
+            List<string> tempList = new();
+            List<string> myList = generator("", tempList, n, 0);
+            return myList;
+        }
+        public List<string> generator(string prev, List<string> tempList, int n, int k)
+        {
+            if (prev.Length == n * 2 || k == n * 2)
+            {
+                if (ptv(prev))
+                {
+                    tempList.Add(prev);
+                    return tempList;
+                }
+                return tempList;
+            }
+            StringBuilder sb = new StringBuilder(prev);
+            sb.Append("(");
+            tempList = generator(sb.ToString(), tempList, n, k + 1);
+            sb.Length--;
+            sb.Append(")");
+            tempList = generator(sb.ToString(), tempList, n, k + 1);
+            return tempList;
+        }
+        public bool ptv(string model)
+        {
+            Stack<char> ms = new();
+            char counter = ')';
+
+            for (int i = 0; i < model.Length; i++)
+            {
+                if (model[i] == '(')
+                {
+                    ms.Push(counter);
+                }
+                else
+                {
+                    if (ms.Count > 0)
+                    {
+                        ms.Pop();
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
+            if (ms.Count > 0)
+                return false;
+
+            return true;
+        }
+
+        public IList<string> GenerateParenthesisNeet(int n)
+        {
+            var result = new List<string>();
+            var seq = new StringBuilder();
+
+            void backtrack(int open, int close)
+            {
+                if (seq.Length == n * 2)
+                {
+                    result.Add(seq.ToString());
+                    return;
+                }
+
+                if (open < n)
+                {
+                    seq.Append("(");
+                    backtrack(open + 1, close);
+                    seq.Remove(seq.Length - 1, 1);
+                }
+                if (close < open)
+                {
+                    seq.Append(")");
+                    backtrack(open, close + 1);
+                    seq.Remove(seq.Length - 1, 1);
+                }
+
+            }
+
+            backtrack(0, 0);
+
+            return result;
+        }
+
         #endregion
+        #region Daily Temperatures
+        /*
+        Given an array of integers temperatures represents the daily temperatures, return an array answer such that answer[i] is the number of days you have to wait after the ith day to get a warmer temperature. 
+        If there is no future day for which this is possible, keep answer[i] == 0 instead.
 
+        Example 1:
+        Input: temperatures = [73,74,75,71,69,72,76,73]
+        Output: [1,1,4,2,1,1,0,0]
+
+        Example 2:
+        Input: temperatures = [30,40,50,60]
+        Output: [1,1,1,0]
+
+        Example 3:
+        Input: temperatures = [30,60,90]
+        Output: [1,1,0]
+
+        Constraints:
+            1 <= temperatures.length <= 105
+            30 <= temperatures[i] <= 100
+
+        https://leetcode.com/problems/daily-temperatures/
+        */
+        /*
+        Solution Notes:
+        This is a custom solution. It was based on a previously seen solution but neetcode stores 
+        the location of found temperature. Mine does both. There is a small amount of runtime speed difference
+        less than 30 ms. However memory usage is significantly more about 10%.
+        */
+        public int[] DailyTemperatures(int[] temperatures)
+        {
+            Stack<tempRecord> warmer = new();
+            int[] comp = new int[temperatures.Length];
+            for (int i = 0; i < temperatures.Length; i++)
+            {
+                if (warmer.Count > 0 && warmer.Peek().warmness < temperatures[i])
+                {
+                    while (warmer.Count > 0 && warmer.Peek().warmness < temperatures[i])
+                    {
+                        tempRecord stackPopped = warmer.Pop();
+                        comp[stackPopped.location] = i - stackPopped.location;
+                    }
+                    tempRecord stackPushed = new();
+                    stackPushed.location = i;
+                    stackPushed.warmness = temperatures[i];
+                    warmer.Push(stackPushed);
+                }
+                else
+                {
+                    tempRecord temp = new();
+                    temp.location = i;
+                    temp.warmness = temperatures[i];
+                    warmer.Push(temp);
+                }
+            }
+            return comp;
+        }
+        public class tempRecord
+        {
+            public int location;
+            public int warmness;
+        }
+
+        public int[] DailyTemperaturesNeet(int[] temperatures)
+        {
+            var result = new int[temperatures.Length];
+            Array.Fill(result, 0);
+            var stack = new Stack<int>();
+
+            for (var i = 0; i < temperatures.Length; i++)
+            {
+                var t = temperatures[i];
+                while (stack.Any() && temperatures[stack.Peek()] < t)
+                {
+                    var prev = stack.Pop();
+                    result[prev] = i - prev;
+                }
+                stack.Push(i);
+            }
+
+            return result;
+        }
+        #endregion
+        #region Car Fleet
+        /*
+        https://leetcode.com/problems/car-fleet/
+        This seem like Daily Temperatures with common divisor.
+        */
+        #endregion
     }
 }
