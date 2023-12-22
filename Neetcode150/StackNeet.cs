@@ -495,7 +495,7 @@ namespace Neetcode150
         [3,2]
         https://leetcode.com/problems/car-fleet/
         */
-        public int CarFleet(int target, int[] position, int[] speed)
+        public int CarFleetNeet(int target, int[] position, int[] speed)
         {
             var pair = new (int, int)[position.Length];
             for (var i = 0; i < position.Length; i++)
@@ -515,6 +515,42 @@ namespace Neetcode150
 
             return stack.Count;
         }
+        //Added because of single pass.
+        public int CarFleet(int target, int[] position, int[] speed)
+        {
+            if (position.Length == 1)
+                return 1;
+
+            var stack = new Stack<(int Position, double Duration)>(position.Length);
+
+            Array.Sort(position, speed);
+
+            for (int i = position.Length - 1; i >= 0; i--)
+            {
+                double distance = target - position[i];
+                double duration = distance / speed[i];
+                // Boils down to comparing durations
+                // if the duration is less than previously seen cars, then it will join a fleet
+                // if the duration is more than previously seen cars, it will be in it's own fleet
+
+                ////Console.Out.WriteLine($"({position[i]},{speed[i]}) ({distance},{duration})");
+                if (stack.Count == 0 || duration > stack.Peek().Duration)
+                {
+                    var print = stack.Count > 0 ? stack.Peek().Duration.ToString() : "";
+                    ////Console.Out.WriteLine($"(PUSHING ({distance}>{print})");
+                    stack.Push((position[i], duration));
+                }
+            }
+
+            return stack.Count;
+        }
+
         #endregion
+        #region Largest Rectangle in Histogram
+        /* WIP
+        https://leetcode.com/problems/largest-rectangle-in-histogram/
+        */
+        #endregion
+
     }
 }
