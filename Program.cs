@@ -80,8 +80,8 @@ namespace CSharpCodeExercises
             string stringSorted = "0P";
             #endregion
 
-            TwoPointers myArray = new();
-            myArray.Trap(nums);
+            BinarySearchNeet myArray = new();
+            myArray.FindMin(nums);
         }
     }
 
