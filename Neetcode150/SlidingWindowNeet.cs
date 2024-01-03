@@ -152,6 +152,10 @@ namespace Neetcode150
         #region Permutation in String
         /*
         https://leetcode.com/problems/permutation-in-string/
+        Extra Test Case:
+        s1:"zxcvzxcvzxcvzxcvmraodapsadf"
+        s2:"roadmap"
+
         */
         public bool CheckInclusion(string s1, string s2)
         {
@@ -187,11 +191,11 @@ namespace Neetcode150
         }
 
 
-        public bool comparer(char cheked, char[] chekee)
+        public bool comparer(char compared, char[] coarr)
         {
-            for (int j = 0; j < chekee.Length; j++)
+            for (int j = 0; j < coarr.Length; j++)
             {
-                if (cheked == chekee[j])
+                if (compared == coarr[j])
                 {
                     return true;
                 }
