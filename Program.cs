@@ -79,9 +79,8 @@ namespace CSharpCodeExercises
 
             string stringSorted = "0P";
             #endregion
-
-            BinarySearchNeet myArray = new();
-            myArray.FindMin(nums);
+            SlidingWindowNeet myArray = new();
+            myArray.CharacterReplacement("BAAAB",2);
         }
     }
 
