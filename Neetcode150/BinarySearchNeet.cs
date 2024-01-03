@@ -185,24 +185,24 @@ namespace Neetcode150
         */
         public int FindMin(int[] nums)
         {
-            int s = 0;
-            int e = nums.Length - 1;
+            int left = 0;
+            int right = nums.Length - 1;
             int minValue = nums[0];
 
-            if (nums[s] < nums[e])
-                return nums[s];
+            if (nums[left] < nums[right])
+                return nums[left];
 
-            while (s <= e)
+            while (left <= right)
             {
-                int mid = s + ((e - s) / 2);
+                int mid = left + ((right - left) / 2);
                 if (nums[mid] < minValue)
                 {
-                    e = mid - 1;
+                    right = mid - 1;
                     minValue = nums[mid];
                 }
                 else
                 {
-                    s = mid + 1;
+                    left = mid + 1;
                 }
             }
 
@@ -270,36 +270,216 @@ namespace Neetcode150
         4
         [8,1,2,3,4,5,6,7] 182 / 195
         6
+        [3,1] 192 / 195 
+        1
         */
-        public int Search2(int[] nums, int target)
+        public int SearchNeet(int[] nums, int target)
         {
-            int low = 0;
-            int high = nums.Length - 1;
+            int left = 0;
+            int right = nums.Length - 1;
 
-            while (low <= high)
+            while (left <= right)
             {
-                var mid = (low + high) / 2;
+                var mid = left + ((right - left) / 2);
 
                 if (nums[mid] == target)
                     return mid;
 
-                if (nums[low] <= nums[mid])
+                if (nums[left] <= nums[mid]) // left sorted solution
                 {
-                    if (target > nums[mid] || target < nums[low])
-                        low = mid + 1;
+                    if (target > nums[mid] || target < nums[left])
+                        left = mid + 1;
                     else
-                        high = mid - 1;
+                        right = mid - 1;
                 }
                 else
                 {
-                    if (target < nums[mid] || target > nums[high])
-                        high = mid - 1;
+                    if (target < nums[mid] || target > nums[right])
+                        right = mid - 1;
                     else
-                        low = mid + 1;
+                        left = mid + 1;
                 }
             }
             return -1;
         }
+        #endregion
+        #region Time Based Key Value Store 
+        /*
+        https://leetcode.com/problems/time-based-key-value-store/
+        Extra Test Cases: 
+        ["TimeMap","set","set","get","get","get","get","get"] 45 / 51 testcases passed
+        [[],["love","high",10],["love","low",20],["love",5],["love",10],["love",15],["love",20],["love",25]]
+        ["TimeMap","set","set","get","set","get","get"] 46 / 51 testcases passed
+        [[],["a","bar",1],["x","b",3],["b",3],["foo","bar2",4],["foo",4],["foo",5]]
+        */
+        public class TimeMap
+        {
+
+            public Dictionary<string, List<IRow>> list;
+
+            public TimeMap()
+            {
+                list = new();
+            }
+
+            public void Set(string key, string value, int timestamp)
+            {
+
+                if (!list.ContainsKey(key))
+                    list[key] = new List<IRow>();
+
+                IRow NewRow = new();
+                NewRow.value = value;
+                NewRow.timestamp = timestamp;
+                list[key].Add(NewRow);
+            }
+
+            public string Get(string key, int timestamp)
+            {
+
+                if (!list.ContainsKey(key))
+                    return "";
+
+                List<IRow> forl = new List<IRow>();
+                string maxValue = "";
+                forl = list[key];
+                int target = timestamp;
+
+                int left = 0;
+                int right = forl.Count - 1;
+
+                while (left <= right)
+                {
+                    int mid = left + ((right - left) / 2);
+
+                    if (forl[mid].timestamp == target)
+                        return forl[mid].value;
+
+                    if (forl[mid].timestamp < target)
+                    {
+                        maxValue = forl[mid].value;
+                        left = mid + 1;
+                    }
+                    else
+                    {
+                        right = mid - 1;
+                    }
+                }
+                if (maxValue != "")
+                    return maxValue;
+
+                return "";
+            }
+        }
+        public class IRow
+        {
+            public string value;
+            public int timestamp;
+        }
+        #endregion
+        #region Median of Two Sorted Arrays  
+        /*
+        Exta Test Cases:
+        [1,3] 2057 / 2094 testcases passed
+        [2,7]
+        [] 1418 / 2094 testcases passed
+        [1,2,3,4,5]
+        */
+
+        public double FindMedianSortedArrays(int[] nums1, int[] nums2)
+        {
+            if (nums1.Length > nums2.Length)
+            {
+                int[] temp = nums1;
+                nums1 = nums2;
+                nums2 = temp;
+            }
+
+            int n1l = nums1.Length;
+            int n2l = nums2.Length;
+            int left = 0, right = n1l;
+
+            while (left <= right)
+            {
+                int partition1 = (left + right) / 2;
+                int partition2 = (n1l + n2l + 1) / 2 - partition1;
+
+                int left1 = (partition1 == 0) ? int.MinValue : nums1[partition1 - 1];
+                int left2 = (partition2 == 0) ? int.MinValue : nums2[partition2 - 1];
+
+                int right1 = (partition1 == n1l) ? int.MaxValue : nums1[partition1];
+                int right2 = (partition2 == n2l) ? int.MaxValue : nums2[partition2];
+
+                if (left1 <= right2 && left2 <= right1)
+                {
+                    if ((n1l + n2l) % 2 == 0)
+                    {
+                        return (Math.Max(left1, left2) + Math.Min(right1, right2)) / 2.0;
+                    }
+                    else
+                    {
+                        return Math.Max(left1, left2);
+                    }
+                }
+                else if (left1 > right2)
+                {
+                    right = partition1 - 1;
+                }
+                else
+                {
+                    left = partition1 + 1;
+                }
+            }
+
+            throw new ArgumentException("Input arrays are not sorted.");
+        }
+        public double FindMedianSortedArrays2(int[] nums1, int[] nums2)
+        {
+            if (nums1.Length > nums2.Length)
+            {
+                int[] temp = nums1;
+                nums1 = nums2;
+                nums2 = nums1;
+            }
+
+            int n1l = nums1.Length;
+            int n2l = nums2.Length;
+            int left = 0;
+            int right = n1l;
+
+            while (left <= right)
+            {
+                int Partition1 = (left + right) / 2;
+                int Partition2 = (n1l + n2l + 1) / 2 - Partition1;
+
+                int left1 = Partition1 == 0 ? int.MinValue : nums1[Partition1 - 1];
+                int left2 = Partition2 == 0 ? int.MinValue : nums2[Partition2 - 1];
+
+                int right1 = Partition1 == n1l ? int.MaxValue : nums1[Partition1];
+                int right2 = Partition2 == n2l ? int.MaxValue : nums2[Partition2];
+
+                if (left1 <= right2 && left2 <= right1)
+                {
+                    if ((n1l + n2l) % 2 == 0)
+                        return (Math.Max(left1, left2) + Math.Min(right2, right1)) / 2.0;
+                    else
+                    {
+                        return Math.Max(left1, left2);
+                    }
+                }
+                else if (left1 > right2)
+                {
+                    right = Partition1 - 1;
+                }
+                else
+                {
+                    left = Partition1 + 1;
+                }
+            }
+
+            return -1;
+        }
+
         #endregion
     }
 }
