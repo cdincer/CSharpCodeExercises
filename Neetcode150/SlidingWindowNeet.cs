@@ -233,7 +233,98 @@ namespace Neetcode150
 
 
         #endregion
+        #region Minimum Window Substring
+        /*
+        Given two strings s and t of lengths m and n respectively, return the minimum window
+        substring of s such that every character in t (including duplicates) is included in the window. 
+        If there is no such substring, return the empty string "".
 
+        The testcases will be generated such that the answer is unique.
+
+        Example 1:
+        Input: s = "ADOBECODEBANC", t = "ABC"
+        Output: "BANC"
+        Explanation: The minimum window substring "BANC" includes 'A', 'B', and 'C' from string t.
+
+        Example 2:
+        Input: s = "a", t = "a"
+        Output: "a"
+        Explanation: The entire string s is the minimum window.
+
+        Example 3:
+        Input: s = "a", t = "aa"
+        Output: ""
+        Explanation: Both 'a's from t must be included in the window.
+        Since the largest window of s only has one 'a', return empty string.
+
+        Constraints:
+            m == s.length
+            n == t.length
+            1 <= m, n <= 105
+            s and t consist of uppercase and lowercase English letters.
+
+        Follow up: Could you find an algorithm that runs in O(m + n) time?
+        Extra Test Cases:
+        s="aaaaaaaaaaaabbbbbcdd" 187 / 267 testcases passed
+        t="abcdd"
+        https://leetcode.com/problems/minimum-window-substring
+        */
+        public string MinWindow(string s, string t)
+        {
+            if (string.IsNullOrEmpty(t)) return string.Empty;
+
+            var countT = new Dictionary<char, int>();
+            var window = new Dictionary<char, int>();
+
+            foreach (var c in t)
+            {
+                AddCharToDictionary(c, countT);
+            }
+
+            var have = 0;
+            var need = countT.Count;
+            var left = 0;
+            var res = new[] { -1, -1 };
+            var resultLength = int.MaxValue;
+            for (var right = 0; right < s.Length; right++)
+            {
+                var c = s[right];
+                AddCharToDictionary(c, window);
+
+                if (countT.ContainsKey(c) && window[c] == countT[c]) have++;
+
+                while (have == need)
+                {
+                    // update our result
+                    var windowSize = right - left + 1;
+                    if (windowSize < resultLength)
+                    {
+                        res = new[] { left, right };
+                        resultLength = windowSize;
+                    }
+
+                    // pop from the left of our window
+                    window[s[left]]--;
+                    if (countT.ContainsKey(s[left]) && window[s[left]] < countT[s[left]])
+                    {
+                        have--;
+                    }
+
+                    left++;
+                }
+            }
+
+            return resultLength == int.MaxValue
+               ? string.Empty
+               : s.Substring(res[0], res[1] - res[0] + 1);
+        }
+
+        private void AddCharToDictionary(char c, IDictionary<char, int> dict)
+        {
+            if (dict.ContainsKey(c)) dict[c]++;
+            else dict.Add(c, 1);
+        }
+        #endregion
     }
 
 }
