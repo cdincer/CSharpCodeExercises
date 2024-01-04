@@ -151,57 +151,86 @@ namespace Neetcode150
         #endregion
         #region Permutation in String
         /*
+        Given two strings s1 and s2, return true if s2 contains a permutation of s1, or false otherwise.
+        In other words, return true if one of s1's permutations is the substring of s2.
+
+        Example 1:
+
+        Input: s1 = "ab", s2 = "eidbaooo"
+        Output: true
+        Explanation: s2 contains one permutation of s1 ("ba").
+
+        Example 2:
+        Input: s1 = "ab", s2 = "eidboaoo"
+        Output: false
+
+        Constraints:
+            1 <= s1.length, s2.length <= 104
+            s1 and s2 consist of lowercase English letters.
+
         https://leetcode.com/problems/permutation-in-string/
         Extra Test Case:
         s1:"zxcvzxcvzxcvzxcvmraodapsadf"
         s2:"roadmap"
-
+        s1:"hello"
+        s2:"ooolleoooleh"
+        s1:"ab"
+        s2:"a"
         */
+
         public bool CheckInclusion(string s1, string s2)
         {
-            int start = 0;
-            int end = 0;
-            if (s1.Length > s2.Length)
+            int[] keep1 = new int[26];
+            int[] keep2 = new int[26];
+            if (s1.Length > s2.Length) return false;
+            for (int i = 0; i < s1.Length; i++)
             {
-                string temp = s1;
-                s1 = s2;
-                s2 = temp;
+                keep1[s1[i] - 'a']++;
+                keep2[s2[i] - 'a']++;
             }
-            char[] ts = s1.ToCharArray();
 
-            while (end < s2.Length)
+            int matches = 0;
+
+            for (int i = 0; i < keep1.Length; i++)
             {
-                int letcounter = 0;
-                for (int i = start; i < end; i++)
+                if (keep1[i] == keep2[i])
                 {
-                    if (comparer(s2[i], ts))
-                    {
-                        letcounter++;
-                        if (letcounter == ts.Length)
-                            return true;
-                    }
-                    else
-                    {
-                        start++;
-                    }
+                    matches++;
                 }
-                end++;
             }
-            return false;
-        }
 
-
-        public bool comparer(char compared, char[] coarr)
-        {
-            for (int j = 0; j < coarr.Length; j++)
+            int left = 0;
+            for (int right = s1.Length; right < s2.Length; right++)
             {
-                if (compared == coarr[j])
-                {
+                int arrc = s2[right] - 'a';
+                if (matches == 26)
                     return true;
+
+                keep2[arrc]++;
+
+                if (keep1[arrc] == keep2[arrc])
+                {
+                    matches++;
                 }
+                else if (keep1[arrc] + 1 == keep2[arrc])
+                {
+                    matches--;
+                }
+                arrc = s2[left] - 'a';
+                keep2[arrc]--;
+                if (keep1[arrc] == keep2[arrc])
+                {
+                    matches++;
+                }
+                else if (keep1[arrc] - 1 == keep2[arrc])
+                {
+                    matches--;
+                }
+                left++;
             }
-            return false;
+            return matches == 26;
         }
+
 
         #endregion
 
