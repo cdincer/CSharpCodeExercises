@@ -3,6 +3,7 @@ using CSharpCodeExercises.Tier2;
 using CSharpCodeExercises.Tier3;
 using Neetcode150;
 using Tier2;
+using static Neetcode150.LinkedListNeet;
 
 namespace CSharpCodeExercises
 {
@@ -65,6 +66,9 @@ namespace CSharpCodeExercises
             new int[] {0,0,1}
           };
             #endregion
+            #region LinkedList ListNodes
+            ListNode head = new ListNode(1, new ListNode(2, new ListNode(3, new ListNode(4,new ListNode(5)))));
+            #endregion
             #region List Examples
             List<IList<string>> equations = new();
             equations.Add(new List<string>() { "a", "b" });
@@ -79,8 +83,9 @@ namespace CSharpCodeExercises
 
             string stringSorted = "0P";
             #endregion
-            SlidingWindowNeet myArray = new();
-            myArray.MinWindow("ABA ","BAA");
+            LinkedListNeet myArray = new();
+
+            myArray.RemoveNthFromEnd(head,5);
         }
     }
 
