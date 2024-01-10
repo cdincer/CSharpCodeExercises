@@ -83,9 +83,8 @@ namespace CSharpCodeExercises
 
             string stringSorted = "0P";
             #endregion
-            LinkedListNeet myArray = new();
-
-            myArray.RemoveNthFromEnd(head,5);
+            DynamicProgramming mdp = new DynamicProgramming();
+            mdp.MaxCoins(new int[] {3,1,5,8});
         }
     }
 

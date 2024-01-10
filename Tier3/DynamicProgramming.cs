@@ -1,4 +1,4 @@
- using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -11,7 +11,7 @@ namespace CSharpCodeExercises.Tier3
         Solution inspired by Matrix-chain multiplication in Introduction To Algorithms Section 15.2
         https://leetcode.com/problems/burst-balloons/description/
         */
-        public static int MaxCoins(int[] nums)
+        public int MaxCoins(int[] nums)
         {
             List<int> numsl = nums.ToList();
             numsl.Insert(0, 1);
@@ -28,10 +28,11 @@ namespace CSharpCodeExercises.Tier3
                     mem[i][j] = -1;
                 }
             }
-            return MCM(newArray, 1, n - 1, mem);
+            int result = MCM(newArray, 1, n - 1, mem);
+            return result;
         }
 
-        public static int MCM(int[] nums, int left, int right, int[][] mem)
+        public  int MCM(int[] nums, int left, int right, int[][] mem)
         {
             if (left >= right)
                 return 0;
