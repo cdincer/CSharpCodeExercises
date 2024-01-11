@@ -255,7 +255,7 @@ namespace Neetcode150
             return dummy.next;
         }
         #endregion
-        #region  Copy List with Random Pointer
+        #region Copy List with Random Pointer
         /*
         A linked list of length n is given such that each node contains an additional random pointer, which could point to any node in the list, or null.
         Construct a deep copy of the list. The deep copy should consist of exactly n brand new nodes, where each new node has its value set to the value of its corresponding original node. 
@@ -292,6 +292,9 @@ namespace Neetcode150
 
 
         https://leetcode.com/problems/copy-list-with-random-pointer/
+        Extra Test Cases:
+        [[-1,0]]
+        []
         */
         public class RandomPointNode
         {
@@ -347,6 +350,258 @@ namespace Neetcode150
             return copy;
         }
         #endregion
+        #region Add Two Numbers
+        /*
+        You are given two non-empty linked lists representing two non-negative integers. The digits are stored in reverse order, and each of their nodes contains a single digit. 
+        Add the two numbers and return the sum as a linked list.
+        You may assume the two numbers do not contain any leading zero, except the number 0 itself.
 
+        Example 1:
+        Input: l1 = [2,4,3], l2 = [5,6,4]
+        Output: [7,0,8]
+        Explanation: 342 + 465 = 807.
+
+        Example 2:
+        Input: l1 = [0], l2 = [0]
+        Output: [0]
+
+        Example 3:
+        Input: l1 = [9,9,9,9,9,9,9], l2 = [9,9,9,9]
+        Output: [8,9,9,9,0,0,0,1]
+
+        Constraints:
+
+            The number of nodes in each linked list is in the range [1, 100].
+            0 <= Node.val <= 9
+            It is guaranteed that the list represents a number that does not have leading zeros.
+
+        https://leetcode.com/problems/add-two-numbers/
+        */
+        public ListNode AddTwoNumbers(ListNode l1, ListNode l2)
+        {
+            var sumList = new ListNode();
+            var current = sumList;
+            int carry = 0, sum = 0;
+
+            while (l1 != null || l2 != null || carry == 1)
+            {
+                var v1 = l1 == null ? 0 : l1.val;
+                var v2 = l2 == null ? 0 : l2.val;
+                sum = v1 + v2 + carry;
+                carry = sum > 9 ? 1 : 0;
+                sum = sum % 10;
+                current.next = new ListNode(sum);
+
+                current = current.next;
+                l1 = l1 == null ? null : l1.next;
+                l2 = l2 == null ? null : l2.next;
+            }
+
+            return sumList.next;
+        }
+        #endregion
+        #region Linked List Cycle
+        /*
+        Given head, the head of a linked list, determine if the linked list has a cycle in it.
+        There is a cycle in a linked list if there is some node in the list that can be reached again by continuously following the next pointer. Internally, pos is used to denote the index of the node that tail's next pointer is connected to. 
+        Note that pos is not passed as a parameter.
+        Return true if there is a cycle in the linked list. Otherwise, return false.
+
+        Example 1:
+        Input: head = [3,2,0,-4], pos = 1
+        Output: true
+        Explanation: There is a cycle in the linked list, where the tail connects to the 1st node (0-indexed).
+
+        Example 2:
+        Input: head = [1,2], pos = 0
+        Output: true
+        Explanation: There is a cycle in the linked list, where the tail connects to the 0th node.
+
+        Example 3:
+        Input: head = [1], pos = -1
+        Output: false
+        Explanation: There is no cycle in the linked list.
+
+        Constraints:
+        The number of the nodes in the list is in the range [0, 104].
+        -105 <= Node.val <= 105
+        pos is -1 or a valid index in the linked-list.
+
+        Follow up: Can you solve it using O(1) (i.e. constant) memory?
+
+        [1,2]
+        -1
+        []
+        -1
+        [3,4,5]
+        [-1]
+        */
+        public bool HasCycle(ListNode head)
+        {
+            ListNode slow = head;
+            ListNode fast = head;
+
+            if (head == null)
+                return false;
+
+            while (fast != null && fast.next != null)
+            {
+                slow = slow.next;
+                fast = fast.next.next;
+
+                if (fast == slow)
+                    return true;
+            }
+
+            return false;
+        }
+        #endregion
+        #region Find the Duplicate Number
+        /*
+        Given an array of integers nums containing n + 1 integers where each integer is in the range [1, n] inclusive.
+        There is only one repeated number in nums, return this repeated number.
+        You must solve the problem without modifying the array nums and uses only constant extra space.
+
+        Example 1:
+        Input: nums = [1,3,4,2,2]
+        Output: 2
+
+        Example 2:
+        Input: nums = [3,1,3,4,2]
+        Output: 3
+
+        Constraints:
+            1 <= n <= 105
+            nums.length == n + 1
+            1 <= nums[i] <= n
+            All the integers in nums appear only once except for precisely one integer which appears two or more times.
+
+        
+
+        Follow up:
+            How can we prove that at least one duplicate number must exist in nums?
+            Can you solve the problem in linear runtime complexity?
+
+
+        https://leetcode.com/problems/find-the-duplicate-number/
+        */
+        public int FindDuplicate(int[] nums)
+        {
+            int slow = 0;
+            int fast = 0;
+
+            while (true)
+            {
+                slow = nums[slow];
+                fast = nums[nums[fast]];
+                if (slow == fast)
+                    break;
+            }
+            int slow2 = 0;
+
+            while (true)
+            {
+                slow = nums[slow];
+                slow2 = nums[slow2];
+
+                if (slow == slow2)
+                    return slow;
+            }
+
+            return 0;
+        }
+        #endregion
+        #region LRU Cache
+        /*
+        Design a data structure that follows the constraints of a Least Recently Used (LRU) cache.
+        Implement the LRUCache class:
+
+            LRUCache(int capacity) Initialize the LRU cache with positive size capacity.
+            int get(int key) Return the value of the key if the key exists, otherwise return -1.
+            void put(int key, int value) Update the value of the key if the key exists. Otherwise, add the key-value pair to the cache. If the number of keys exceeds the capacity from this operation, evict the least recently used key.
+
+        The functions get and put must each run in O(1) average time complexity.
+
+        Example 1:
+        Input
+        ["LRUCache", "put", "put", "get", "put", "get", "put", "get", "get", "get"]
+        [[2], [1, 1], [2, 2], [1], [3, 3], [2], [4, 4], [1], [3], [4]]
+        Output
+        [null, null, null, 1, null, -1, null, -1, 3, 4]
+
+        Explanation
+        LRUCache lRUCache = new LRUCache(2);
+        lRUCache.put(1, 1); // cache is {1=1}
+        lRUCache.put(2, 2); // cache is {1=1, 2=2}
+        lRUCache.get(1);    // return 1
+        lRUCache.put(3, 3); // LRU key was 2, evicts key 2, cache is {1=1, 3=3}
+        lRUCache.get(2);    // returns -1 (not found)
+        lRUCache.put(4, 4); // LRU key was 1, evicts key 1, cache is {4=4, 3=3}
+        lRUCache.get(1);    // return -1 (not found)
+        lRUCache.get(3);    // return 3
+        lRUCache.get(4);    // return 4
+
+        Constraints:
+
+            1 <= capacity <= 3000
+            0 <= key <= 104
+            0 <= value <= 105
+            At most 2 * 105 calls will be made to get and put.
+
+        https://leetcode.com/problems/lru-cache/
+        */
+        /*
+        Extra Test Cases:
+        ["LRUCache","put","put","get","put","put","get"]
+        [[2],[2,1],[2,2],[2],[1,1],[4,1],[2]]
+        ["LRUCache","put","put","put","put","get","get"] 13 / 22 testcases passed
+        [[2],[2,1],[1,1],[2,3],[4,1],[1],[2]]
+        */
+        public class LRUCache
+        {
+            private Dictionary<int, LinkedListNode<(int key, int value)>> _dict = new();
+            private LinkedList<(int key, int value)> _values = new();
+
+            private int _capacity;
+
+            public LRUCache(int capacity)
+            {
+                _capacity = capacity;
+            }
+
+            public int Get(int key)
+            {
+                if (!_dict.ContainsKey(key))
+                {
+                    return -1;
+                }
+
+                var node = _dict[key];
+                _values.Remove(node);
+                _values.AddFirst(node);
+
+                return node.Value.value;
+            }
+
+            public void Put(int key, int value)
+            {
+                if (!_dict.ContainsKey(key) && _dict.Count >= _capacity)
+                {
+                    var node = _values.Last;
+                    _dict.Remove(node.Value.key);
+                    _values.Remove(node);
+                }
+
+                var existingNode = _dict.GetValueOrDefault(key);
+                if (existingNode != null)
+                {
+                    _values.Remove(existingNode);
+                }
+
+                _values.AddFirst((key, value));
+                _dict[key] = _values.First;
+            }
+        }
+        #endregion
     }
 }
