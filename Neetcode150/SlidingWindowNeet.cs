@@ -325,6 +325,70 @@ namespace Neetcode150
             else dict.Add(c, 1);
         }
         #endregion
+        #region Sliding Window Maximum
+        /*
+        You are given an array of integers nums, there is a sliding window of size k which is moving from the very left of the array to the very right.
+        You can only see the k numbers in the window. Each time the sliding window moves right by one position.Return the max sliding window.
+
+        Example 1:
+
+        Input: nums = [1,3,-1,-3,5,3,6,7], k = 3
+        Output: [3,3,5,5,6,7]
+        Explanation: 
+        Window position                Max
+        ---------------               -----
+        [1  3  -1] -3  5  3  6  7       3
+        1 [3  -1  -3] 5  3  6  7       3
+        1  3 [-1  -3  5] 3  6  7       5
+        1  3  -1 [-3  5  3] 6  7       5
+        1  3  -1  -3 [5  3  6] 7       6
+        1  3  -1  -3  5 [3  6  7]      7
+
+        Example 2:
+        Input: nums = [1], k = 1
+        Output: [1]
+
+        Constraints:
+
+        1 <= nums.length <= 105
+        -104 <= nums[i] <= 104
+        1 <= k <= nums.length
+        Extra Random Test Cases:
+        [41,8467,6334,6500,9169,5724,1478,9358,6962,4464,5705,8145,3281,6827,9961,491,2995,1942,4827,5436,2391,4604,3902,153,292,2382,7421,8716,9718,9895,5447,1726,4771,1538,1869,9912,5667,6299,7035,9894,8703,3811,1322,333,7673,4664,5141,7711,8253,686]
+        4
+        [8,5547,7644,2662,2757,37,2859,8723,9741,7529,778,2316,3035,2190,1842,288,106,9040,8942,9264,2648,7446,3805,5890,6729,4370,5350,5006,1101,4393,3548,9629,2623,4084,9954,8756,1840,4966,7376,3931,6308,6944,2439,4626,1323,5537,1538,6118,2082,2929,6541,4833,1115,4639,9658,2704,9930,3977,2306,1673,2386,5021,8745,6924,9072,6270,5829,6777,5573,5097,6512,3986,3290,9161,8636,2355,4767,3655,5574,4031,2052]
+        10
+        */
+        public int[] MaxSlidingWindow(int[] nums, int k)
+        {
+
+            var output = new List<int>();
+            LinkedList<int> queue = new();
+            int left = 0, right = 0;
+
+            while (right < nums.Length)
+            {
+                // pop smaller values from queue
+                while (queue.Count > 0 && nums[queue.Last.Value] < nums[right])
+                    queue.RemoveLast();
+                queue.AddLast(right);
+
+                // remove left val from the window
+                if (left > queue.First.Value)
+                    queue.RemoveFirst();
+
+                if (right + 1 >= k)
+                {
+                    output.Add(nums[queue.First.Value]);
+                    left++;
+                }
+
+                right++;
+            }
+
+            return output.ToArray();
+        }
+        #endregion
     }
 
 }

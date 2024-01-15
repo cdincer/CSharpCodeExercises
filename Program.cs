@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using CSharpCodeExercises.Tier2;
 using CSharpCodeExercises.Tier3;
 using Neetcode150;
@@ -85,6 +86,31 @@ namespace CSharpCodeExercises
             #endregion
             DynamicProgramming mdp = new DynamicProgramming();
             mdp.MaxCoins(new int[] {3,1,5,8});
+            MaxSlidingWindow(new int[]{1,3,-1,-3,5,3,6,7},3);
+        }
+         public   static int[] MaxSlidingWindow(int[] nums, int k)
+        {
+            LinkedList<int> window = new();
+            List<int> lr = new();
+            int result = 0;
+            for (int i = 0; i < nums.Length; i++)
+            {
+                if (window.Count < k)
+                {
+                    window.AddLast(nums[i]);
+                    if (window.Count == k)
+                    {
+                      lr.Add(window.Max());
+                      window.RemoveFirst();
+                    }
+                }
+                else if(window.Count == k)
+                {
+                  lr.Add(window.Max());
+                  window.RemoveFirst();
+                }
+            }
+            return lr.ToArray();
         }
     }
 
