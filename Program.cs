@@ -84,33 +84,10 @@ namespace CSharpCodeExercises
 
             string stringSorted = "0P";
             #endregion
-            DynamicProgramming mdp = new DynamicProgramming();
-            mdp.MaxCoins(new int[] {3,1,5,8});
-            MaxSlidingWindow(new int[]{1,3,-1,-3,5,3,6,7},3);
-        }
-         public   static int[] MaxSlidingWindow(int[] nums, int k)
-        {
-            LinkedList<int> window = new();
-            List<int> lr = new();
-            int result = 0;
-            for (int i = 0; i < nums.Length; i++)
-            {
-                if (window.Count < k)
-                {
-                    window.AddLast(nums[i]);
-                    if (window.Count == k)
-                    {
-                      lr.Add(window.Max());
-                      window.RemoveFirst();
-                    }
-                }
-                else if(window.Count == k)
-                {
-                  lr.Add(window.Max());
-                  window.RemoveFirst();
-                }
-            }
-            return lr.ToArray();
+            LinkedListNeet mdp = new LinkedListNeet();
+            ListNode head2 = new ListNode(1, new ListNode(2, new ListNode(3, new ListNode(4,new ListNode(5)))));
+
+            mdp.ReverseKGroup(head2,2);
         }
     }
 

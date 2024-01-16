@@ -603,5 +603,55 @@ namespace Neetcode150
             }
         }
         #endregion
+        #region Merge K Sorted Lists 
+        #endregion
+        #region Reverse Nodes in k-Group
+        //        ListNode head = new ListNode(1, new ListNode(2, new ListNode(3, new ListNode(4,new ListNode(5)))));
+        public ListNode ReverseKGroup(ListNode head, int k)
+        {
+            var dummy = new ListNode(0, head);
+            var groupPrev = dummy;
+            var groupNext = dummy;
+
+            while (true)
+            {
+                var kth = getKth(groupPrev, k);
+                if (kth == null)
+                    break;
+
+                groupNext = kth.next;
+
+                // reverse group
+                var prev = kth.next;
+                var curr = groupPrev.next;
+
+                while (curr != groupNext)
+                {
+                    var temp = curr.next;
+                    curr.next = prev;
+                    prev = curr;
+                    curr = temp;
+                }
+
+                var tmp = groupPrev.next;
+                groupPrev.next = kth;
+                groupPrev = tmp;
+            }
+
+            return dummy.next;
+        }
+
+        private ListNode getKth(ListNode curr, int k)
+        {
+            while (curr != null && k > 0)
+            {
+                curr = curr.next;
+                k -= 1;
+            }
+
+            return curr;
+        }
+        #endregion
+
     }
 }
