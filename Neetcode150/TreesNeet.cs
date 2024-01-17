@@ -461,6 +461,33 @@ namespace Neetcode150
         #endregion
         #region Count Good Nodes in Binary Tree
         /*
+        Given a binary tree root, a node X in the tree is named good if in the path from root to X there are no nodes with a value greater than X.
+        Return the number of good nodes in the binary tree.
+
+        Example 1:
+        Input: root = [3,1,4,3,null,1,5]
+        Output: 4
+        Explanation: Nodes in blue are good.
+        Root Node (3) is always a good node.
+        Node 4 -> (3,4) is the maximum value in the path starting from the root.
+        Node 5 -> (3,4,5) is the maximum value in the path
+        Node 3 -> (3,1,3) is the maximum value in the path.
+
+        Example 2:
+        Input: root = [3,3,null,4,2]
+        Output: 3
+        Explanation: Node 2 -> (3, 3, 2) is not good, because "3" is higher than it.
+
+        Example 3:
+        Input: root = [1]
+        Output: 1
+        Explanation: Root is considered as good.
+
+        Constraints:
+
+            The number of nodes in the binary tree is in the range [1, 10^5].
+            Each node's value is between [-10^4, 10^4].
+
         https://leetcode.com/problems/count-good-nodes-in-binary-tree/
         Extra Test Case: 10 / 63 testcases passed
         [9,null,3,6]
@@ -492,6 +519,41 @@ namespace Neetcode150
             counter(head.right, max);
 
             return 0;
+        }
+        #endregion
+        #region Validate Binary Search Tree
+        /*
+
+        https://leetcode.com/problems/validate-binary-search-tree/
+
+        Extra Test Cases:(All real test cases)
+        [2,1,3]
+        [5,1,4,null,null,3,6]
+        [2,2,2]
+        [0]
+        [1,null,1]
+        [5,4,6,null,null,3,7]
+        [0,null,1]
+        [3,1,5,0,2,4,6,null,null,null,3]
+        [3,1,5,0,2,4,6]
+        [24,-60,null,-60,-6]
+        [-2147483648,null,2147483647,-2147483648]
+        [5,4,6,null,null,3,7] 76 / 84 test cases passed 
+        */
+        public bool IsValidBST(TreeNode root)
+        {
+            return splitter(root.left, null, root.val) && splitter(root.right, root.val, null);
+        }
+        public bool splitter(TreeNode root, int? left, int? right)
+        {
+            if (root == null) return true;
+
+            if ((left != null && root.val <= left) ||
+               (right != null && root.val >= right))
+                return false;
+
+            return splitter(root.left, left, root.val) &&
+                splitter(root.right, root.val, right);
         }
         #endregion
     }
