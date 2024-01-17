@@ -604,6 +604,157 @@ namespace Neetcode150
         }
         #endregion
         #region Merge K Sorted Lists 
+        /*
+        You are given an array of k linked-lists lists, each linked-list is sorted in ascending order.
+        Merge all the linked-lists into one sorted linked-list and return it.
+
+        Example 1:
+        Input: lists = [[1,4,5],[1,3,4],[2,6]]
+        Output: [1,1,2,3,4,4,5,6]
+        Explanation: The linked-lists are:
+        [
+        1->4->5,
+        1->3->4,
+        2->6
+        ]
+        merging them into one sorted list:
+        1->1->2->3->4->4->5->6
+
+        Example 2:
+        Input: lists = []
+        Output: []
+
+        Example 3:
+        Input: lists = [[]]
+        Output: []
+
+        Constraints:
+
+            k == lists.length
+            0 <= k <= 104
+            0 <= lists[i].length <= 500
+            -104 <= lists[i][j] <= 104
+            lists[i] is sorted in ascending order.
+            The sum of lists[i].length will not exceed 104.
+
+        */
+        public ListNode MergeKLists(ListNode[] lists)
+        {
+            Stack<ListNode> items = new Stack<ListNode>();
+
+            for (int i = lists.Length - 1; i >= 0; i--)
+            {
+                items.Push(lists[i]);
+            }
+
+            if (items.Count == 0)
+                return null;
+
+            if (items.Count == 1)
+                return lists[0];
+
+            while (items.Count > 1)
+            {
+                ListNode temp1 = items.Pop();
+                ListNode temp2 = null;
+                if (items.Count != 0)
+                {
+                    temp2 = items.Pop();
+                }
+                else
+                {
+                    temp2 = null;
+                }
+                items.Push(merge2(temp1, temp2));
+            }
+
+            return items.Pop();
+        }
+
+        public ListNode merge2(ListNode l1, ListNode l2)
+        {
+            ListNode dummy = new ListNode(0, l1);
+            ListNode copy = dummy;
+            while (l1 != null && l2 != null)
+            {
+                if (l2.val >= l1.val)
+                {
+                    dummy.next = l1;
+                    l1 = l1.next;
+                }
+                else if (l1.val >= l2.val)
+                {
+                    dummy.next = l2;
+                    l2 = l2.next;
+                }
+                dummy = dummy.next;
+            }
+
+            if (l1 != null && l2 == null)
+            {
+                dummy.next = l1;
+            }
+            else if (l2 != null && l1 == null)
+            {
+                dummy.next = l2;
+            }
+
+            return copy.next;
+        }
+        public ListNode MergeKListsNeet(ListNode[] lists)
+        {
+            if (lists.Length == 0)
+            {
+                return null;
+            }
+
+            while (lists.Length > 1)
+            {
+                var mergedLists = new ListNode[(lists.Length + 1) / 2];
+                for (int i = 0; i < lists.Length; i += 2)
+                {
+                    var l1 = lists[i];
+                    var l2 = (i + 1 < lists.Length) ? lists[i + 1] : null;
+                    mergedLists[i / 2] = (MergeListsNeet(l1, l2));
+                }
+                lists = mergedLists;
+            }
+
+            return lists[0];
+        }
+
+        public ListNode MergeListsNeet(ListNode l1, ListNode l2)
+        {
+            var sorted = new ListNode();
+            var current = sorted;
+
+            while (l1 != null && l2 != null)
+            {
+                if (l1.val <= l2.val)
+                {
+                    current.next = l1;
+                    l1 = l1.next;
+                }
+                else
+                {
+                    current.next = l2;
+                    l2 = l2.next;
+                }
+                current = current.next;
+            }
+
+            if (l1 != null)
+            {
+                current.next = l1;
+            }
+            else
+            {
+                current.next = l2;
+            }
+
+            return sorted.next;
+        }
+
         #endregion
         #region Reverse Nodes in k-Group
         //        ListNode head = new ListNode(1, new ListNode(2, new ListNode(3, new ListNode(4,new ListNode(5)))));

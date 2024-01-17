@@ -87,7 +87,7 @@ namespace CSharpCodeExercises
             LinkedListNeet mdp = new LinkedListNeet();
             ListNode head2 = new ListNode(1, new ListNode(2, new ListNode(3, new ListNode(4,new ListNode(5)))));
 
-            mdp.ReverseKGroup(head2,2);
+            mdp.ReverseKGroup(head2,3);
         }
     }
 
