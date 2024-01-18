@@ -523,6 +523,21 @@ namespace Neetcode150
         #endregion
         #region Validate Binary Search Tree
         /*
+        Given the root of a binary tree, determine if it is a valid binary search tree (BST).
+        A valid BST is defined as follows:
+
+        The left subtree of a node contains only nodes with keys less than the node's key.
+        The right subtree of a node contains only nodes with keys greater than the node's key.
+        Both the left and right subtrees must also be binary search trees.
+
+        Example 1:
+        Input: root = [2,1,3]
+        Output: true
+
+        Example 2:
+        Input: root = [5,1,4,null,null,3,6]
+        Output: false
+        Explanation: The root node's value is 5 but its right child's value is 4.
 
         https://leetcode.com/problems/validate-binary-search-tree/
 
@@ -554,6 +569,87 @@ namespace Neetcode150
 
             return splitter(root.left, left, root.val) &&
                 splitter(root.right, root.val, right);
+        }
+        #endregion
+        #region Kth Smallest Element in a BST
+        /*
+        
+        */
+        //Custom Solution, runtime and memory consumption is really close to Neetcode's.
+        Stack<int> items = new();
+        public int KthSmallest(TreeNode root, int k)
+        {
+
+            TreeBuilderInOrder(root);
+            while (items.Count > k)
+            {
+                items.Pop();
+            }
+
+            return items.Pop();
+        }
+
+        public void TreeBuilderInOrder(TreeNode root)
+        {
+            if (root == null)
+                return;
+
+            TreeBuilderInOrder(root.left);
+            items.Push(root.val);
+            TreeBuilderInOrder(root.right);
+        }
+
+        public int KthSmallestNeet(TreeNode root, int k)
+        {
+            var result = -1;
+            var inorderStack = new Stack<TreeNode>();
+
+            var cur = root;
+
+            while (cur != null || inorderStack.Count > 0)
+            {
+                while (cur != null)
+                {
+                    inorderStack.Push(cur);
+                    cur = cur.left;
+                }
+                cur = inorderStack.Pop();
+
+                k--;
+                if (k == 0)
+                {
+                    result = cur.val;
+                    break;
+                }
+                cur = cur.right;
+            }
+            return result;
+        }
+        #endregion
+        #region Construct Binary Tree from Preorder and Inorder Traversal
+        /*
+        https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/
+        */
+        public TreeNode BuildTree(int[] preorder, int[] inorder)
+        {
+            return BuildTreeHelper(0, 0, inorder.Length - 1, preorder, inorder);
+        }
+
+        private TreeNode BuildTreeHelper(int preStart, int inStart, int inEnd, int[] preorder, int[] inorder)
+        {
+            if (preorder.Length == 0 && inorder.Length == 0)
+                return null;
+
+            if (preStart > preorder.Length - 1 || inStart > inEnd)
+                return null;
+
+            var rootNode = new TreeNode(preorder[preStart]);
+            var mid = Array.IndexOf(inorder, preorder[preStart]);
+
+            rootNode.left = BuildTreeHelper(preStart + 1, inStart, mid - 1, preorder, inorder);
+            rootNode.right = BuildTreeHelper(preStart + mid - inStart + 1, mid + 1, inEnd, preorder, inorder);
+
+            return rootNode;
         }
         #endregion
     }
