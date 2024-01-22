@@ -35,7 +35,7 @@ namespace Neetcode150
         trie.search("app");     // return True
 
         Constraints:
-        1 <= word.length, prefix.length <= 2000
+        1 <= word.Length, prefix.Length <= 2000
         word and prefix consist only of lowercase English letters.
         At most 3 * 104 calls in total will be made to insert, search, and startsWith.
 
@@ -147,21 +147,19 @@ namespace Neetcode150
         */
         public class TrieNode2
         {
-            public Dictionary<char, TrieNode2> Children;
-            public bool EndOfWord;
+            public Dictionary<char, TrieNode2> childrenMap { get; set; }
+            public bool isWord { get; set; }
 
             public TrieNode2()
             {
-                Children = new Dictionary<char, TrieNode2>();
-                EndOfWord = false;
+                childrenMap = new Dictionary<char, TrieNode2>();
+                isWord = false;
             }
         }
 
         public class WordDictionary
         {
-
-            public TrieNode2 root;
-
+            public TrieNode2 root { get; set; }
             public WordDictionary()
             {
                 root = new TrieNode2();
@@ -169,62 +167,144 @@ namespace Neetcode150
 
             public void AddWord(string word)
             {
-                var current = root;
-                for (var i = 0; i < word.Length; i++)
+                var cur = root;
+
+                foreach (var element in word)
                 {
-                    if (!current.Children.ContainsKey(word[i]))
+                    if (!cur.childrenMap.ContainsKey(element))
                     {
-                        var newNode = new TrieNode2();
-                        current.Children.Add(word[i], newNode);
+                        cur.childrenMap[element] = new TrieNode2();
                     }
-                    current = current.Children[word[i]];
+                    cur = cur.childrenMap[element];
                 }
-                current.EndOfWord = true;
+                cur.isWord = true;
             }
 
             public bool Search(string word)
             {
-                return dfs(0, root, word);
+                var cur = root;
+
+                return traverse(0, cur, word);
+
             }
 
-            private bool dfs(int index, TrieNode2 root, string word)
+            public bool traverse(int index, TrieNode2 root, string word)
             {
-                var currentNode = root;
+                var cur = root;
 
-                for (var i = index; i < word.Length; i++)
+                for (int i = index; i < word.Length; i++)
                 {
-                    var letter = word[i];
-                    if (letter == '.')
+                    if (word[i] == '.')
                     {
-                        foreach (var (key, value) in currentNode.Children)
+                        foreach (var (key, value) in cur.childrenMap)
                         {
-                            if (dfs(i + 1, value, word))
-                            {
+                            if (traverse(i + 1, value, word))
                                 return true;
-                            }
                         }
-
                         return false;
                     }
                     else
                     {
-                        if (!currentNode.Children.ContainsKey(letter))
-                        {
+                        if (!cur.childrenMap.ContainsKey(word[i]))
                             return false;
-                        }
-                        currentNode = currentNode.Children[letter];
+
+                        cur = cur.childrenMap[word[i]];
                     }
                 }
-                return currentNode.EndOfWord;
+                return cur.isWord;
+            }
+        }
+        #endregion
+        #region Word Search II
+        /*
+        Given an m x n board of characters and a list of strings words, return all words on the board.
+        Each word must be constructed from letters of sequentially adjacent cells, where adjacent cells are horizontally or vertically neighboring. 
+        The same letter cell may not be used more than once in a word.
+
+        Example 1:
+        Input: board = [["o","a","a","n"],["e","t","a","e"],["i","h","k","r"],["i","f","l","v"]], words = ["oath","pea","eat","rain"]
+        Output: ["eat","oath"]
+
+        Example 2:
+        Input: board = [["a","b"],["c","d"]], words = ["abcb"]
+        Output: []
+
+        Constraints:
+
+            m == board.length
+            n == board[i].length
+            1 <= m, n <= 12
+            board[i][j] is a lowercase English letter.
+            1 <= words.length <= 3 * 104
+            1 <= words[i].length <= 10
+            words[i] consists of lowercase English letters.
+            All the strings of words are unique.
+            Extra Test Cases:
+            board = [["a"]]
+            words =  ["a"] 42 / 65 testcases passed
+            board = [["o","a","a","n"],["e","t","a","e"],["i","h","k","r"],["i","f","l","v"]] 63 / 65 testcases passed
+            words = ["oath","pea","eat","rain","oathi","oathk","oathf","oate","oathii","oathfi","oathfii"]
+        */
+
+        public IList<string> FindWords(char[][] board, string[] words)
+        {
+            int m = board.Length;
+            int n = board[0].Length;
+            List<string> res = new();
+
+            //build trie
+            Node root = new();
+            foreach (string word in words)
+            {
+                Node node = root;
+                foreach (char c in word)
+                {
+                    if (node.Next[c] is null) node.Next[c] = new Node();
+                    node = node.Next[c];
+                }
+                node.Word = word;
+            }
+
+            //do dfs
+            for (int i = 0; i < m; i++)
+            {
+                for (int j = 0; j < n; j++)
+                {
+                    Dfs(i, j, root);
+                }
+            }
+
+            return res;
+
+            void Dfs(int i, int j, Node node)
+            {
+                if (i < 0 || j < 0 || i == m || j == n) return;
+                char c = board[i][j];
+                if (c == '/' || node.Next[c] is null) return;
+                node = node.Next[c];
+
+                if (node.Word is not null)
+                {
+                    res.Add(node.Word);
+                    node.Word = null;
+                }
+
+                board[i][j] = '/';
+                Dfs(i - 1, j, node);
+                Dfs(i, j - 1, node);
+                Dfs(i + 1, j, node);
+                Dfs(i, j + 1, node);
+                board[i][j] = c;
             }
         }
 
-        /**
-         * Your WordDictionary object will be instantiated and called as such:
-         * WordDictionary obj = new WordDictionary();
-         * obj.AddWord(word);
-         * bool param_2 = obj.Search(word);
-         */
+
+        public class Node
+        {
+            public Node[] Next { get; } = new Node['z' + 1];
+            public string Word { get; set; }
+        }
         #endregion
+
     }
 }
