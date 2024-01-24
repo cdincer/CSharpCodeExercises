@@ -217,6 +217,118 @@ namespace Neetcode150
             }
         }
         #endregion
+        #region Subsets II
+        /*
+        Given an integer array nums that may contain duplicates, return all possible
+        subsets
+        (the power set).
 
+        The solution set must not contain duplicate subsets. Return the solution in any order.
+
+        Example 1:
+
+        Input: nums = [1,2,2]
+        Output: [[],[1],[1,2],[1,2,2],[2],[2,2]]
+
+        Example 2:
+
+        Input: nums = [0]
+        Output: [[],[0]]
+
+        Constraints:
+
+            1 <= nums.length <= 10
+            -10 <= nums[i] <= 10
+
+        */
+        //T: O(N*2^N)
+        public IList<IList<int>> SubsetsWithDupNeet(int[] nums)
+        {
+            var list = new List<IList<int>>();
+            Array.Sort(nums);
+            backTrack(list, new List<int>(), nums, 0);
+            return list;
+        }
+
+        private void backTrack(List<IList<int>> list, List<int> curr, int[] nums, int start)
+        {
+            list.Add(new List<int>(curr));
+            for (var i = start; i < nums.Length; i++)
+            {
+                if (i > start && nums[i] == nums[i - 1]) continue;
+                curr.Add(nums[i]);
+                backTrack(list, curr, nums, i + 1);
+                curr.RemoveAt(curr.Count - 1);
+            }
+        }
+        #endregion
+        #region Combination Sum II
+        /*
+        Given a collection of candidate numbers (candidates) and a target number (target), 
+        find all unique combinations in candidates where the candidate numbers sum to target.
+        Each number in candidates may only be used once in the combination.
+        Note: The solution set must not contain duplicate combinations.
+
+        
+        Example 1:
+        Input: candidates = [10,1,2,7,6,1,5], target = 8
+        Output: 
+        [
+        [1,1,6],
+        [1,2,5],
+        [1,7],
+        [2,6]
+        ]
+
+        Example 2:
+        Input: candidates = [2,5,2,1,2], target = 5
+        Output: 
+        [
+        [1,2,2],
+        [5]
+        ]
+
+        Constraints:
+
+            1 <= candidates.length <= 100
+            1 <= candidates[i] <= 50
+            1 <= target <= 30
+
+        https://leetcode.com/problems/combination-sum-ii/   
+        */
+        List<IList<int>> keeper4 = new();
+        int ttarget2;
+        public IList<IList<int>> CombinationSum2(int[] candidates, int target)
+        {
+            ttarget2 = target;
+            List<int> keep = new();
+            Array.Sort(candidates);
+            csum2(0, keep, candidates);
+
+            return keeper4;
+        }
+        public void csum2(int index, List<int> keep, int[] candidates)
+        {
+            int total = keep.Sum();
+            if (total > ttarget2 || index > candidates.Length)
+                return;
+
+            if (total == ttarget2)
+            {
+                keeper4.Add(new List<int>(keep));
+                return;
+            }
+
+            for (int i = index; i < candidates.Length; i++)
+            {
+                if (i > index && candidates[i] == candidates[i - 1]) continue;
+
+                keep.Add(candidates[i]);
+                csum2(i + 1, keep, candidates);
+                keep.Remove(candidates[i]);
+
+            }
+        }
+        #endregion
     }
 }
