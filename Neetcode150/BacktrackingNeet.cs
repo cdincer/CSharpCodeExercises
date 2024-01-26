@@ -427,7 +427,26 @@ namespace Neetcode150
         #endregion
         #region Palindrome Partitioning
         /*
-        
+        Given a string s, partition s such that every substring
+        of the partition is a palindrome. Return all possible palindrome partitioning of s.
+
+        Example 1:
+        Input: s = "aab"
+        Output: [["a","a","b"],["aa","b"]]
+
+        Example 2:
+        Input: s = "a"
+        Output: [["a"]]
+
+        Constraints:
+
+            1 <= s.length <= 16
+            s contains only lowercase English letters.
+            
+        https://leetcode.com/problems/palindrome-partitioning/
+        Extra Test Cases:
+        "abbab"  12 / 32 testcases passed
+        "cbbbcc" 14 / 32 testcases passed
         */
         public IList<IList<string>> Partition(string s)
         {
@@ -448,7 +467,7 @@ namespace Neetcode150
                     {
                         result.Add(s.Substring(i, j - i + 1));
                         dfs(j + 1);
-                        result.RemoveAt(result.Count - 1);
+                        result.Remove(result.Last());
                     }
                 }
             }
@@ -469,5 +488,43 @@ namespace Neetcode150
             return results;
         }
         #endregion
+        #region Letter Combinations of a Phone Number
+        /*
+        https://leetcode.com/problems/letter-combinations-of-a-phone-number/
+        */
+        public IList<string> LetterCombinations(string digits)
+        {
+            var lettersMap = new Dictionary<char, string>
+            {
+                {'2', "abc"},
+                {'3', "def"},
+                {'4', "ghi"},
+                {'5', "jkl"},
+                {'6', "mno"},
+                {'7', "pqrs"},
+                {'8', "tuv"},
+                {'9', "wxyz"}
+            };
+
+            var result = new List<string>();
+
+            if (!string.IsNullOrEmpty(digits))
+                Backtrack(result, digits, lettersMap, "", 0);
+
+            return result;
+        }
+
+        void Backtrack(List<string> result, string digits, Dictionary<char, string> lettersMap, string curString, int start)
+        {
+            if (curString.Length == digits.Length)
+            { result.Add(curString); return; }
+
+            foreach (var c in lettersMap[digits[start]])
+            {
+                Backtrack(result, digits, lettersMap, curString + c, start + 1);
+            }
+        }
+        #endregion
+
     }
 }
