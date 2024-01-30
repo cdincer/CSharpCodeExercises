@@ -548,6 +548,66 @@ namespace Neetcode150
             }
         }
         #endregion
+        #region N-Queens
+        /*
+        Difference between this and N-Queens II is the return type.
+        This returns a board which we create, other one just returns the viable solution number.
+        
+        https://leetcode.com/problems/n-queens/
+        */
+        public IList<IList<string>> SolveNQueens(int n)
+        {
+            var result = new List<IList<string>>();
+            IList<StringBuilder> board = new List<StringBuilder>();
 
+            for (int i = 0; i < n; i++)
+            {
+                board.Add(new StringBuilder(n));
+                board[i].Append('.', n);
+            }
+
+            backqueen(n, 0, board, result, new HashSet<(int i, int j)>(), new HashSet<(int i, int j)>(), new HashSet<(int i, int j)>());
+            return result;
+        }
+
+        private void backqueen(
+        int n, int row, IList<StringBuilder> board,
+        List<IList<string>> result,
+        HashSet<(int i, int j)> col,
+        HashSet<(int i, int j)> posdiag,
+        HashSet<(int i, int j)> negdiag
+        )
+        {
+            if (n == 0)
+            {
+                result.Add(board.Select(x => x.ToString()).ToList());
+                return;
+            }
+
+            if (row == board.Count) return;
+
+            for (int c = 0; c < board.Count; c++)
+            {
+                (int i, int j) column = (0, c);
+                int m = Math.Min(row, c);
+                (int i, int j) diag1 = (row - m, c - m); // r-c
+                m = Math.Min(row, board.Count - 1 - c);//r+c
+                (int i, int j) diag2 = (row - m, c + m);
+
+                if (col.Contains(column) || posdiag.Contains(diag2) || negdiag.Contains(diag1))
+                    continue;
+
+                board[row][c] = 'Q';
+                col.Add(column);
+                posdiag.Add(diag2);
+                negdiag.Add(diag1);
+                backqueen(n - 1, row + 1, board, result, col, posdiag, negdiag);
+                col.Remove(column);
+                posdiag.Remove(diag2);
+                negdiag.Remove(diag1);
+                board[row][c] = '.';
+            }
+        }
+        #endregion
     }
 }
