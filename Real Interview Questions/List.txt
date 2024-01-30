@@ -21,6 +21,54 @@ Constraints:
     1 <= n <= 300
     0 <= nums[i] <= 100
 
+public int MaxCoins(int[] nums) {
+
+        if(nums.Length == 0)
+        return 0;
+
+        if(nums.Length == 1)
+        return nums[0];
+
+        List<int> VirtualSet = nums.ToList(); //Adding virtual beginning and end.
+                                              //This is seen in instruction as begin and end ballon with value 1
+        VirtualSet.Insert(0,1);
+        VirtualSet.Add(1);
+        int n = VirtualSet.Count;
+        int[][] mem = new int[n][];
+        nums = VirtualSet.ToArray();
+        
+        for(int i=0;i<mem.Length;i++)
+        {
+            mem[i] = new int[n];
+            for(int j=0;j<mem[i].Length;j++)
+            {
+                mem[i][j] = -1;
+            }
+        }
+
+    int result = MCM(nums,1,n-1,mem);
+    return result;
+    }
+
+public int MCM(int[] nums,int left,int right,int[][] mem)
+    {
+        if(left>=right)
+        return 0;
+
+        if(mem[left][right] != -1)
+        return mem[left][right];
+
+        int maxCost =  int.MinValue;
+        for(int k=left;k<right;k++)
+        {
+            int totalCost = MCM(nums,left,k,mem) + MCM(nums,k+1,right,mem)+nums[left-1] * nums[k] * nums[right];
+            maxCost = Math.Max(totalCost,maxCost); 
+            mem[left][right] = maxCost;
+        }
+
+        return maxCost;
+    }
+
 https://leetcode.com/problems/sum-of-number-and-its-reverse/
 2443. Sum of Number and Its Reverse
 

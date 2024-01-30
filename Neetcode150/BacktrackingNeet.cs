@@ -555,58 +555,48 @@ namespace Neetcode150
         
         https://leetcode.com/problems/n-queens/
         */
+        List<IList<string>> results = new();
         public IList<IList<string>> SolveNQueens(int n)
         {
-            var result = new List<IList<string>>();
-            IList<StringBuilder> board = new List<StringBuilder>();
-
+            List<StringBuilder> result = new();
             for (int i = 0; i < n; i++)
             {
-                board.Add(new StringBuilder(n));
-                board[i].Append('.', n);
+                result.Add(new StringBuilder(n));
+                result[i].Append('.', n);
             }
-
-            backqueen(n, 0, board, result, new HashSet<(int i, int j)>(), new HashSet<(int i, int j)>(), new HashSet<(int i, int j)>());
-            return result;
-        }
-
-        private void backqueen(
-        int n, int row, IList<StringBuilder> board,
-        List<IList<string>> result,
-        HashSet<(int i, int j)> col,
-        HashSet<(int i, int j)> posdiag,
-        HashSet<(int i, int j)> negdiag
-        )
-        {
-            if (n == 0)
+            searcher(0, n, new HashSet<(int i, int j)>(), new HashSet<int>(), new HashSet<int>());
+            void searcher(int r, int n, HashSet<(int i, int j)> col, HashSet<int> posdiag, HashSet<int> negdiag)
             {
-                result.Add(board.Select(x => x.ToString()).ToList());
-                return;
+                if (n == 0)
+                {
+                    results.Add(result.Select(x => x.ToString()).ToList());
+                    return;
+                }
+                if (r == result.Count)
+                    return;
+
+                for (int c = 0; c < result.Count; c++)
+                {
+                    (int i, int j) column = (0, c);
+                    int diag1 = (r - c);//Closing a diagonal spot for negative side.
+                    int diag2 = (r + c);//Closing a diagonal spot for positive side.
+                    //https://www.youtube.com/watch?v=Ph95IHmRp5M in this video these sides are shown.
+                    
+                    if (col.Contains(column) || posdiag.Contains(diag2) || negdiag.Contains(diag1))
+                        continue;
+
+                    col.Add(column);
+                    posdiag.Add(diag2);
+                    negdiag.Add(diag1);
+                    result[r][c] = 'Q';
+                    searcher(r + 1, n - 1, col, posdiag, negdiag);
+                    col.Remove(column);
+                    posdiag.Remove(diag2);
+                    negdiag.Remove(diag1);
+                    result[r][c] = '.';
+                }
             }
-
-            if (row == board.Count) return;
-
-            for (int c = 0; c < board.Count; c++)
-            {
-                (int i, int j) column = (0, c);
-                int m = Math.Min(row, c);
-                (int i, int j) diag1 = (row - m, c - m); // r-c
-                m = Math.Min(row, board.Count - 1 - c);//r+c
-                (int i, int j) diag2 = (row - m, c + m);
-
-                if (col.Contains(column) || posdiag.Contains(diag2) || negdiag.Contains(diag1))
-                    continue;
-
-                board[row][c] = 'Q';
-                col.Add(column);
-                posdiag.Add(diag2);
-                negdiag.Add(diag1);
-                backqueen(n - 1, row + 1, board, result, col, posdiag, negdiag);
-                col.Remove(column);
-                posdiag.Remove(diag2);
-                negdiag.Remove(diag1);
-                board[row][c] = '.';
-            }
+            return results;
         }
         #endregion
     }
