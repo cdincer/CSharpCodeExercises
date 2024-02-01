@@ -152,7 +152,100 @@ namespace Neetcode150
             return result;
         }
         #endregion
+        #region Kth Largest Element in an array
+        /*
+        https://leetcode.com/problems/kth-largest-element-in-an-array/
+        */
 
+        public int FindKthLargest(int[] nums, int k)
+        {
+            PriorityQueue<int, int> queue = new PriorityQueue<int, int>();
+
+            for (var i = 0; i < nums.Length; i++)
+            {
+                if (queue.Count < k)
+                    queue.Enqueue(nums[i], nums[i]);
+                else
+                {
+                    if (nums[i] <= queue.Peek()) continue;
+
+                    queue.Dequeue();
+                    queue.Enqueue(nums[i], nums[i]);
+                }
+            }
+            return queue.Dequeue();
+        }
+
+        public int FindKthLargest2(int[] nums, int k)
+        {
+            PriorityQueue<int, int> items = new();
+
+            for (int i = 0; i < nums.Length; i++)
+            {
+                if (items.Count < k)
+                    items.Enqueue(nums[i], nums[i]);
+                else if (items.Count == k)
+                {
+                    items.Dequeue();
+                    items.Enqueue(nums[i], nums[i]);
+                }
+            }
+            // while(items.Count > k)
+            // {
+            //     items.Dequeue();
+            // }
+
+            return items.Dequeue();
+        }
+
+        #endregion
+        #region Task Scheduler
+        public int LeastInterval(char[] tasks, int n)
+        {
+            Dictionary<char, int> freq = new();
+            PriorityQueue<int, int> heap = new PriorityQueue<int, int>();
+
+            foreach (char c in tasks)
+            {
+                freq.TryAdd(c, 0);
+                freq[c]++;
+            }
+
+            foreach (char key in freq.Keys)
+            {
+                heap.Enqueue(freq[key], -freq[key]);
+            }
+
+            int time = 0;
+            Queue<(int freq, int availableAt)> queue = new();
+
+            while (heap.Count > 0 || queue.Count > 0)
+            {
+                time++;
+
+                if (heap.Count > 0)
+                {
+                    int node = heap.Dequeue();
+
+                    if (node - 1 != 0)
+                    {
+                        queue.Enqueue((node - 1, time + n));
+                    }
+                }
+
+                if (queue.Count > 0)
+                {
+                    if (queue.Peek().availableAt == time)
+                    {
+                        var curr = queue.Dequeue();
+                        heap.Enqueue(curr.freq, -curr.freq);
+                    }
+                }
+            }
+
+            return time;
+        }
+        #endregion
     }
 
 }

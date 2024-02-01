@@ -84,10 +84,10 @@ namespace CSharpCodeExercises
 
             string stringSorted = "0P";
             #endregion
-            BacktrackingNeet mdp = new BacktrackingNeet();
+            HeapPriorityQueueNeet mdp = new HeapPriorityQueueNeet();
             ListNode head2 = new ListNode(1, new ListNode(2, new ListNode(3, new ListNode(4,new ListNode(5)))));
 
-            mdp.SolveNQueens( 4);
+            mdp.LeastInterval(new char[]{'A','A','A','B','B','B'},2);
         }
     }
 
