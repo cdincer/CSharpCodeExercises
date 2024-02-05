@@ -287,39 +287,143 @@ namespace Neetcode150
         #endregion
         #region Design Twitter
         /*
-        ["Twitter","postTweet","getNewsFeed","follow","getNewsFeed","unfollow","getNewsFeed"]  1 / 16 testcases passed
+        ["Twitter","postTweet","getNewsFeed","follow","getNewsFeed","unfollow","getNewsFeed"] 1 / 16 testcases passed
         [[],[1,1],[1],[2,1],[2],[2,1],[2]]
+        ["Twitter","getNewsFeed"]  2 / 16 testcases passed
+        [[],[1]]
+        ["Twitter","follow","getNewsFeed"] 3 / 16 testcases passed
+        [[],[1,5],[1]]
         ["Twitter","postTweet","postTweet","postTweet","postTweet","postTweet","postTweet","postTweet","postTweet","postTweet","postTweet","postTweet","postTweet","postTweet","postTweet","postTweet","postTweet","postTweet","postTweet","postTweet","postTweet","postTweet","postTweet","getNewsFeed","follow","getNewsFeed","unfollow","getNewsFeed"] 14 / 16 testcases passed
         [[],[1,5],[2,3],[1,101],[2,13],[2,10],[1,2],[1,94],[2,505],[1,333],[2,22],[1,11],[1,205],[2,203],[1,201],[2,213],[1,200],[2,202],[1,204],[2,208],[2,233],[1,222],[2,211],[1],[1,2],[1],[1,2],[1]]
+        ["Twitter","postTweet","follow","follow","getNewsFeed"] 15 / 16 testcases passed
+        [[],[2,5],[1,2],[1,2],[1]]
+        
         */
+        //Custom solution made because neetcode's fail the 14th test case.
+        public class Twitter
+        {
+            Dictionary<int, HashSet<int>> users = new();
+            Dictionary<int, Dictionary<int, DateTime>> messages = new();
+            public Twitter()
+            {
 
+            }
+
+            public void PostTweet(int userId, int tweetId)
+            {
+                if (!users.ContainsKey(userId))
+                {
+                    users[userId] = new();
+                    users[userId].Add(userId);
+                }
+
+                if (!messages.ContainsKey(userId))
+                {
+                    messages[userId] = new();
+                }
+
+                if (messages[userId].Count == 10)
+                {
+                    var removeKey = messages[userId].OrderBy(x => x.Value).First();
+                    messages[userId].Remove(removeKey.Key);
+                }
+
+                messages[userId].Add(tweetId, DateTime.Now);
+            }
+
+            public IList<int> GetNewsFeed(int userId)
+            {
+                if (!users.ContainsKey(userId))
+                {
+                    users[userId] = new();
+                    users[userId].Add(userId);
+                }
+
+                HashSet<int> followed = users[userId];
+                PriorityQueue<int, DateTime> myq = new();
+                foreach (int source in followed)
+                {
+                    if (!messages.ContainsKey(source))
+                        continue;
+
+                    foreach (var message in messages[source])
+                    {
+                        if (myq.Count < 10)
+                        {
+                            myq.Enqueue(message.Key, message.Value);
+                        }
+                        else if (myq.Count == 10)
+                        {
+                            myq.EnqueueDequeue(message.Key, message.Value);
+                        }
+                    }
+                }
+                List<int> result = new();
+                while (myq.Count > 0)
+                {
+                    int messageInt = myq.Dequeue();
+                    result.Add(messageInt);
+                }
+                result.Reverse();
+
+                return result;
+            }
+
+            public void Follow(int followerId, int followeeId)
+            {
+                if (!users.ContainsKey(followerId))
+                {
+                    users[followerId] = new();
+                    users[followerId].Add(followerId);
+                }
+                users[followerId].Add(followeeId);
+            }
+
+            public void Unfollow(int followerId, int followeeId)
+            {
+                if (!users.ContainsKey(followerId))
+                {
+                    users[followerId] = new();
+                    users[followerId].Add(followerId);
+                }
+                users[followerId].Remove(followeeId);
+            }
+        }
         #endregion
         #region Find Median from Data Stream
         /*
         
         https://leetcode.com/problems/find-median-from-data-stream/
         */
+
         public class MedianFinder
         {
-            PriorityQueue<int, int> left = new();
-            PriorityQueue<int, int> right = new();
             bool odd = false;
+            PriorityQueue<double, double> left = new();
+            PriorityQueue<double, double> right = new();
 
-            public void AddNum(int n)
+            public MedianFinder()
+            {
+
+            }
+
+            public void AddNum(int num)
             {
                 odd = !odd;
-                int m = right.EnqueueDequeue(n, -n);
-                left.Enqueue(m, m);
+                double m = left.EnqueueDequeue(num, -num);
+                right.Enqueue(m, m);
 
-                if (left.Count - 1 > right.Count)
+                if (right.Count - 1 > left.Count)
                 {
-                    m = left.Dequeue();
-                    right.Enqueue(m, -m);
+                    double t = right.Dequeue();
+                    left.Enqueue(t, -t);
                 }
             }
 
-            public double FindMedian() =>
-                odd ? left.Peek() : (left.Peek() + right.Peek()) / 2.0;
+            public double FindMedian()
+            {
+                return odd ? right.Peek() : (left.Peek() + right.Peek()) / 2.0;
+            }
         }
         #endregion
     }

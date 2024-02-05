@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using CSharpCodeExercises.Tier2;
 using CSharpCodeExercises.Tier3;
@@ -88,6 +89,16 @@ namespace CSharpCodeExercises
             ListNode head2 = new ListNode(1, new ListNode(2, new ListNode(3, new ListNode(4,new ListNode(5)))));
 
             mdp.LeastInterval(new char[]{'A','A','A','B','B','B'},2);
+
+            HeapPriorityQueueNeet.MedianFinder allparts = new();
+            allparts.AddNum(1);
+            allparts.AddNum(2);
+            allparts.AddNum(3);
+            allparts.AddNum(4);
+            allparts.AddNum(5);
+            allparts.AddNum(6);
+            Console.WriteLine(allparts.FindMedian());
+
         }
     }
 
