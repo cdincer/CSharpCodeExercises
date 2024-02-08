@@ -124,7 +124,7 @@ namespace Neetcode150
 
         */
         #region Required Node Class
-               public class Node
+        public class Node
         {
             public int val;
             public IList<Node> neighbors;
@@ -148,6 +148,8 @@ namespace Neetcode150
             }
         }
         #endregion
+        //Run time difference between queue version and recursive is about 10%
+        //Same memory usage.
         public Node CloneGraph(Node node)
         {
             if (node == null)
@@ -185,6 +187,329 @@ namespace Neetcode150
                 }
             }
             return myNode;
+        }
+
+        Dictionary<Node, Node> map = new Dictionary<Node, Node>();
+        public Node CloneGraphNeet(Node node)
+        {
+            if (node == null) return null;
+            if (!map.ContainsKey(node))
+            {
+                map.Add(node, new Node(node.val));
+                foreach (var n in node.neighbors)
+                {
+                    map[node].neighbors.Add(CloneGraphNeet(n));
+                }
+            }
+
+            return map[node];
+        }
+        #endregion
+        #region  Max Area of Island
+        /*
+        You are given an m x n binary matrix grid. An island is a group of 1's (representing land) connected 4-directionally (horizontal or vertical.) 
+        You may assume all four edges of the grid are surrounded by water.
+        The area of an island is the number of cells with a value 1 in the island.
+        Return the maximum area of an island in grid. If there is no island, return 0.
+
+        Example 1:
+        Input: grid = [[0,0,1,0,0,0,0,1,0,0,0,0,0],[0,0,0,0,0,0,0,1,1,1,0,0,0],[0,1,1,0,1,0,0,0,0,0,0,0,0],[0,1,0,0,1,1,0,0,1,0,1,0,0],[0,1,0,0,1,1,0,0,1,1,1,0,0],[0,0,0,0,0,0,0,0,0,0,1,0,0],[0,0,0,0,0,0,0,1,1,1,0,0,0],[0,0,0,0,0,0,0,1,1,0,0,0,0]]
+        Output: 6
+        Explanation: The answer is not 11, because the island must be connected 4-directionally.
+
+        Example 2:
+        Input: grid = [[0,0,0,0,0,0,0,0]]
+        Output: 0
+
+        Constraints:
+
+            m == grid.length
+            n == grid[i].length
+            1 <= m, n <= 50
+            grid[i][j] is either 0 or 1.
+
+        Test Cases:
+        [[1]] 613 / 728 testcases passed
+        https://leetcode.com/problems/max-area-of-island/
+        */
+        public int MaxAreaOfIsland(int[][] grid)
+        {
+            int MaxArea = 0;
+            int rl = grid.Length;
+            int cl = grid[0].Length;
+            Queue<(int, int)> myq = new();
+            int[] dr = new int[] { 1, -1, 0, 0 };
+            int[] dc = new int[] { 0, 0, 1, -1 };
+
+            for (int i = 0; i < grid.Length; i++)
+            {
+                for (int j = 0; j < grid[i].Length; j++)
+                {
+                    if (grid[i][j] == 1)
+                    {
+                        myq.Enqueue((i, j));
+                        int currA = 1;
+                        grid[i][j] = 0;
+                        while (myq.Count > 0)
+                        {
+                            (int tr, int tc) = myq.Dequeue();
+                            for (int x = 0; x < 4; x++)
+                            {
+                                int cr = dr[x] + tr;
+                                int cc = dc[x] + tc;
+
+                                if (cr > -1 && cr < rl && cc > -1 && cc < cl && grid[cr][cc] == 1)
+                                {
+                                    Console.WriteLine("entered with " + cr + " with cc" + cc);
+                                    currA++;
+                                    grid[cr][cc] = 0;
+                                    myq.Enqueue((cr, cc));
+                                }
+                            }
+                        }
+                        MaxArea = Math.Max(MaxArea, currA);
+                    }
+                }
+
+            }
+
+            return MaxArea;
+        }
+        #endregion
+        #region Pacific Atlantic Water Flow
+        /*
+        There is an m x n rectangular island that borders both the Pacific Ocean and Atlantic Ocean. The Pacific Ocean touches the island's left and top edges, and the Atlantic Ocean touches the island's right and bottom edges.
+        The island is partitioned into a grid of square cells. You are given an m x n integer matrix heights where heights[r][c] represents the height above sea level of the cell at coordinate (r, c).
+        The island receives a lot of rain, and the rain water can flow to neighboring cells directly north, south, east, and west if the neighboring cell's height is less than or equal to the current cell's height. 
+        Water can flow from any cell adjacent to an ocean into the ocean.
+        Return a 2D list of grid coordinates result where result[i] = [ri, ci] denotes that rain water can flow from cell (ri, ci) to both the Pacific and Atlantic oceans.
+        
+        Example 1:
+        Input: heights = [[1,2,2,3,5],[3,2,3,4,4],[2,4,5,3,1],[6,7,1,4,5],[5,1,1,2,4]]
+        Output: [[0,4],[1,3],[1,4],[2,2],[3,0],[3,1],[4,0]]
+        Explanation: The following cells can flow to the Pacific and Atlantic oceans, as shown below:
+        [0,4]: [0,4] -> Pacific Ocean 
+            [0,4] -> Atlantic Ocean
+        [1,3]: [1,3] -> [0,3] -> Pacific Ocean 
+            [1,3] -> [1,4] -> Atlantic Ocean
+        [1,4]: [1,4] -> [1,3] -> [0,3] -> Pacific Ocean 
+            [1,4] -> Atlantic Ocean
+        [2,2]: [2,2] -> [1,2] -> [0,2] -> Pacific Ocean 
+            [2,2] -> [2,3] -> [2,4] -> Atlantic Ocean
+        [3,0]: [3,0] -> Pacific Ocean 
+            [3,0] -> [4,0] -> Atlantic Ocean
+        [3,1]: [3,1] -> [3,0] -> Pacific Ocean 
+            [3,1] -> [4,1] -> Atlantic Ocean
+        [4,0]: [4,0] -> Pacific Ocean 
+            [4,0] -> Atlantic Ocean
+        Note that there are other possible paths for these cells to flow to the Pacific and Atlantic oceans.
+
+        Example 2:
+        Input: heights = [[1]]
+        Output: [[0,0]]
+        Explanation: The water can flow from the only cell to the Pacific and Atlantic oceans.
+
+        Constraints:
+
+            m == heights.length
+            n == heights[r].length
+            1 <= m, n <= 200
+            0 <= heights[r][c] <= 105
+        
+        Test Cases:
+        [[1,1],[1,1],[1,1]] 5 / 113 testcases passed
+
+        https://leetcode.com/problems/pacific-atlantic-water-flow/
+        */
+        public IList<IList<int>> PacificAtlantic(int[][] heights)
+        {
+            int rl = heights.Length;
+            int cl = heights[0].Length;
+            bool[,] pacf = new bool[rl, cl];
+            bool[,] atla = new bool[rl, cl];
+            List<IList<int>> results = new();
+            //top and bottom same loop one at the begin = 0 and the end  = rl-1 
+            for (int i = 0; i < heights[0].Length; i++)
+            {
+                searcher(0, i, heights, pacf, heights[0][i]);
+                searcher(rl - 1, i, heights, atla, heights[rl - 1][i]);
+            }
+
+            for (int i = 0; i < heights.Length; i++)
+            {
+                searcher(i, 0, heights, pacf, heights[i][0]);
+                searcher(i, cl - 1, heights, atla, heights[i][cl - 1]);
+            }
+
+            for (int i = 0; i < heights.Length; i++)
+            {
+                for (int j = 0; j < heights[0].Length; j++)
+                {
+                    if (pacf[i, j] && atla[i, j])
+                    {
+                        results.Add(new List<int> { i, j });
+                    }
+                }
+            }
+
+            void searcher(int row, int col, int[][] heights, bool[,] visited, int prev)
+            {
+                if (row < 0 || col < 0 || row >= rl || col >= cl || visited[row, col] == true || heights[row][col] < prev)
+                    return;
+
+                visited[row, col] = true;
+
+                searcher(row + 1, col, heights, visited, heights[row][col]);
+                searcher(row - 1, col, heights, visited, heights[row][col]);
+                searcher(row, col + 1, heights, visited, heights[row][col]);
+                searcher(row, col - 1, heights, visited, heights[row][col]);
+            }
+            return results;
+        }
+        #endregion
+        #region Surrounded Regions
+        /*
+        Given an m x n matrix board containing 'X' and 'O', capture all regions that are 4-directionally surrounded by 'X'.
+        A region is captured by flipping all 'O's into 'X's in that surrounded region.
+
+        
+
+        Example 1:
+        Input: board = [["X","X","X","X"],["X","O","O","X"],["X","X","O","X"],["X","O","X","X"]]
+        Output: [["X","X","X","X"],["X","X","X","X"],["X","X","X","X"],["X","O","X","X"]]
+        Explanation: Notice that an 'O' should not be flipped if:
+        - It is on the border, or
+        - It is adjacent to an 'O' that should not be flipped.
+        The bottom 'O' is on the border, so it is not flipped.
+        The other three 'O' form a surrounded region, so they are flipped.
+
+        Example 2:
+        Input: board = [["X"]]
+        Output: [["X"]]
+
+        Constraints:
+            m == board.length
+            n == board[i].length
+            1 <= m, n <= 200
+            board[i][j] is 'X' or 'O'.
+            
+        */
+        public void Solve(char[][] board)
+        {
+            int rl = board.Length;
+            int cl = board[0].Length;
+
+            for (int i = 0; i < rl; i++)
+            {
+                if (board[i][0] == 'O' || board[i][cl - 1] == 'O')
+                {
+                    searcher(i, 0, board);
+                    searcher(i, cl - 1, board);
+                }
+            }
+
+            for (int i = 0; i < cl; i++)
+            {
+                if (board[0][i] == 'O' || board[rl - 1][i] == 'O')
+                {
+                    searcher(0, i, board);
+                    searcher(rl - 1, i, board);
+                }
+            }
+
+
+            void searcher(int r, int c, char[][] board)
+            {
+                if (r < 0 || r >= rl || c < 0 || c >= cl)
+                    return;
+
+                if (board[r][c] == 'X' || board[r][c] == 'T')
+                    return;
+
+                board[r][c] = 'T';
+                searcher(r + 1, c, board);
+                searcher(r - 1, c, board);
+                searcher(r, c + 1, board);
+                searcher(r, c - 1, board);
+            }
+
+            for (int i = 0; i < rl; i++)
+            {
+                for (int j = 0; j < cl; j++)
+                {
+                    if (board[i][j] == 'O')
+                        board[i][j] = 'X';
+                }
+            }
+
+            for (int i = 0; i < rl; i++)
+            {
+                for (int j = 0; j < cl; j++)
+                {
+                    if (board[i][j] == 'T')
+                        board[i][j] = 'O';
+                }
+            }
+        }
+        public void SolveNeet(char[][] board)
+        {
+            var n = board.Length;
+
+            if (n == 0) return;
+            var m = board[0].Length;
+
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = 0; j < m; j++)
+                {
+                    if ((i == 0 || j == 0 || i == n - 1 || j == m - 1) && board[i][j] == 'O')
+                    {
+                        CaptureDfs(board, i, j);
+                    }
+                }
+            }
+
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = 0; j < m; j++)
+                {
+                    if (board[i][j] == 'O')
+                    {
+                        board[i][j] = 'X';
+                    }
+                }
+            }
+
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = 0; j < m; j++)
+                {
+                    if (board[i][j] == 'T')
+                    {
+                        board[i][j] = 'O';
+                    }
+                }
+            }
+        }
+
+        private void CaptureDfs(char[][] board, int x, int y)
+        {
+            var n = board.Length;
+            var m = board[0].Length;
+
+            if (x >= n || x < 0 || y >= m || y < 0)
+            {
+                return;
+            }
+
+            if (board[x][y] == 'T' || board[x][y] == 'X') return;
+
+            board[x][y] = 'T';
+            CaptureDfs(board, x + 1, y);
+            CaptureDfs(board, x - 1, y);
+            CaptureDfs(board, x, y + 1);
+            CaptureDfs(board, x, y - 1);
+
         }
         #endregion
     }
