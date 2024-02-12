@@ -567,5 +567,14 @@ namespace Neetcode150
             return fresh == 0 ? time - 1 : -1;
         }
         #endregion
+        #region Course Schedule
+        /*
+
+        https://leetcode.com/problems/course-schedule/
+        Test Cases:
+        numCourses = 5
+        prerequisites = [[1,4],[2,4],[3,1],[3,2]]
+        */
+        #endregion
     }
 }
