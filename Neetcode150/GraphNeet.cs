@@ -757,5 +757,88 @@ namespace Neetcode150
             return results.ToArray();
         }
         #endregion
+        #region Redundant Connection
+        /*
+        In this problem, a tree is an undirected graph that is connected and has no cycles. You are given a graph that started as a tree with n nodes labeled from 1 to n, with one additional edge added. 
+        The added edge has two different vertices chosen from 1 to n, and was not an edge that already existed. The graph is represented as an array edges of length n where edges[i] = [ai, bi] 
+        indicates that there is an edge between nodes ai and bi in the graph. Return an edge that can be removed so that the resulting graph is a tree of n nodes. If there are multiple answers, return the answer that occurs last in the input.
+
+        Example 1:
+        Input: edges = [[1,2],[1,3],[2,3]]
+        Output: [2,3]
+
+        Example 2:
+        Input: edges = [[1,2],[2,3],[3,4],[1,4],[1,5]]
+        Output: [1,4]
+
+        Constraints:
+
+            n == edges.length
+            3 <= n <= 1000
+            edges[i].length == 2
+            1 <= ai < bi <= edges.length
+            ai != bi
+            There are no repeated edges.
+            The given graph is connected.
+
+        Test Cases:
+        [[20,24],[3,17],[17,20],[8,15],[14,17],[6,17],[15,23],[6,8],[15,19],[16,22],[7,9],[8,22],[2,4],[4,11],[22,25],[6,24],[13,19],[15,18],[1,9],[4,9],[4,19],[5,10],[4,21],[4,12],[5,6]]
+        [[1,5],[1,4],[3,4],[2,3],[1,2]]
+        [[2,3],[2,5],[1,5],[2,4],[1,4]]
+        */
+        public int[] FindRedundantConnection(int[][] edges)
+        {
+            int size = edges.Length;
+            int[] roots = new int[size + 1];
+            int[] ranks = new int[size + 1];
+
+            for (int i = 0; i < size; i++)
+            {
+                roots[i] = i;
+                ranks[i] = i;
+            }
+
+            foreach (var edge in edges)
+            {
+                if (!union(edge[0], edge[1]))
+                    return new int[] { edge[0], edge[1] };
+            }
+
+            return new int[2];
+            int find(int x)
+            {
+                if (x == roots[x])
+                    return x;
+
+                return roots[x] = find(roots[x]);
+            }
+
+            bool union(int x, int y)
+            {
+                int px = find(roots[x]);
+                int py = find(roots[y]);
+
+                if (px == py)
+                    return false;
+
+                if (ranks[px] > ranks[py])
+                {
+                    roots[py] = px;
+                }
+                else if (ranks[y] > ranks[x])
+                {
+                    roots[px] = py;
+                }
+                else
+                {
+                    roots[py] = px;
+                    ranks[px]++;
+                }
+
+                return true;
+            }
+        }
+        
+        #endregion
     }
 }
