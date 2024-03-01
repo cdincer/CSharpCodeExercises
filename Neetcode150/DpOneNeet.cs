@@ -29,11 +29,11 @@ namespace Neetcode150
             1 <= nums.length <= 100
             0 <= nums[i] <= 400
 
-
         https://leetcode.com/problems/house-robber/
         Test Cases:
         [2,1,1,2] 40 / 70 testcases passed
         */
+        //For around 400 variables. The memory usage difference between these two are as follows: DP array store: 40.09MB Neetcode 2 variable store : 39.99MB
         public int Rob(int[] nums)
         {
             if (nums.Length == 1)
@@ -56,6 +56,18 @@ namespace Neetcode150
             }
 
             return Math.Max(dp[nums.Length - 1], dp[nums.Length - 2]);
+        }
+            public int RobNeet(int[] nums) {
+            int rob1 =0;
+            int rob2 =0;
+
+            for(int i=0;i<nums.Length;i++)
+            {
+                int temp = Math.Max(rob1+nums[i],rob2);
+                rob1 = rob2;
+                rob2 = temp;
+            }
+            return rob2;
         }
         #endregion
     }
