@@ -131,7 +131,55 @@ namespace Neetcode150
         }
 
         #endregion
+        #region Longest Palindromic Substring
+        /*
+        Given a string s, return the longest palindromic substring in s.
+                
+        Example 1:
+        Input: s = "babad"
+        Output: "bab"
+        Explanation: "aba" is also a valid answer.
 
+        Example 2:
+        Input: s = "cbbd"
+        Output: "bb"
+
+        Constraints:
+        1 <= s.length <= 1000
+        s consist of only digits and English letters.
+       
+        */
+        public string LongestPalindrome(string s)
+        {
+            int len1 = 0;
+            int l = 0;
+            int h = 0;
+
+            for (int i = 0; i < s.Length; i++)
+            {
+                len1 = Math.Max(cycles(s, i, i), cycles(s, i, i + 1));
+
+                if (len1 > h - l)
+                {
+                    l = i - (len1 - 1) / 2;
+                    h = i + len1 / 2;
+                }
+            }
+            return s.Substring(l, h - l + 1);
+        }
+
+        public int cycles(string s, int left, int right)
+        {
+            while (left >= 0 && right < s.Length && s[left] == s[right])
+            {
+                left--;
+                right++;
+            }
+
+
+            return right - left - 1;
+        }
+        #endregion
     }
 
 }
