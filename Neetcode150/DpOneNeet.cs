@@ -265,8 +265,15 @@ namespace Neetcode150
 
             1 <= s.length <= 100
             s contains only digits and may contain leading zero(s).
-            
+
         https://leetcode.com/problems/decode-ways/
+        */
+        #endregion
+        #region Coin Change
+        /*
+        Test Cases:
+        [186,419,83,408]
+        6249
         */
         #endregion
     }
