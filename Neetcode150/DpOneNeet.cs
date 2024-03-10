@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Neetcode150
 {
@@ -176,7 +177,6 @@ namespace Neetcode150
                 right++;
             }
 
-
             return right - left - 1;
         }
         #endregion
@@ -268,13 +268,108 @@ namespace Neetcode150
 
         https://leetcode.com/problems/decode-ways/
         */
+        public int NumDecodings(string s)
+        {
+            int[] dp = new int[s.Length + 1];
+            for (int i = 0; i < dp.Length; i++)
+            {
+                dp[i] = 1;
+            }
+
+            for (int i = s.Length - 1; i >= 0; i--)
+            {
+                if (s[i] == '0')
+                    dp[i] = 0;
+                else
+                    dp[i] = dp[i + 1];
+
+                if (i + 1 < s.Length &&
+                    (s[i] == '1' ||
+                    (s[i] == '2' && "0123456".Contains(s[i + 1]))))
+                    dp[i] += dp[i + 2];
+            }
+
+            return dp[0];
+        }
         #endregion
         #region Coin Change
         /*
+        You are given an integer array coins representing coins of different denominations and an integer amount representing a total amount of money.
+        Return the fewest number of coins that you need to make up that amount. 
+        If that amount of money cannot be made up by any combination of the coins, return -1.
+        You may assume that you have an infinite number of each kind of coin.
+
+        Example 1:
+        Input: coins = [1,2,5], amount = 11
+        Output: 3
+        Explanation: 11 = 5 + 5 + 1
+
+        Example 2:
+        Input: coins = [2], amount = 3
+        Output: -1
+
+        Example 3:
+        Input: coins = [1], amount = 0
+        Output: 0
+
+        Constraints:
+
+            1 <= coins.length <= 12
+            1 <= coins[i] <= 231 - 1
+            0 <= amount <= 104
+
+        https://leetcode.com/problems/coin-change/
         Test Cases:
         [186,419,83,408]
         6249
         */
+        public int CoinChange(int[] coins, int amount)
+        {
+            var dp = Enumerable.Repeat(amount + 1, amount + 1).ToArray();
+
+            dp[0] = 0;
+
+            for (var a = 1; a <= amount; a++)
+            {
+                foreach (var c in coins)
+                {
+                    if (a - c >= 0)
+                    {
+                        dp[a] = Math.Min(dp[a], 1 + dp[a - c]);
+                    }
+                }
+            }
+
+            return dp[amount] == amount + 1
+                ? -1
+                : dp[amount];
+        }
         #endregion
+        #region Maximum Product Subarray
+        /*
+        Extra Test Cases:
+         [-1,4,-4,5,-2,-1,-1,-2,-3]
+         [2,3,-2,4] 54 / 190 testcases passed
+        */
+        public int MaxProduct(int[] nums)
+        {
+            var maxProduct = nums.Max();
+            (int curMin, int curMax) = (1, 1);
+
+            foreach (var n in nums)
+            {
+                var tmp = curMax * n;
+
+                curMax = new int[] { n, n * curMin, n * curMax }.Max();
+                curMin = new int[] { n, n * curMin, tmp }.Min();
+
+                maxProduct = Math.Max(maxProduct, curMax);
+            }
+
+            return maxProduct;
+        }
+
+        #endregion
+    
     }
 }

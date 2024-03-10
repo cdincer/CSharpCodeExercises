@@ -85,10 +85,8 @@ namespace CSharpCodeExercises
 
             string stringSorted = "0P";
             #endregion
-            GraphNeet  graphNeet = new();
-            List<string> myList = new List<string>{"hot","dot","dog","lot","log","cog"};
-            graphNeet.LadderLength("hit","cog",myList);
-           
+            DpOneNeet  dpone = new();
+            int[] arr = new int[] {0, 10, 10, 10, 10, 10, 10, 10, 10, 10, -10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 0};
             
 
         }
