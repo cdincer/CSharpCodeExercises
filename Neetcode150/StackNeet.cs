@@ -206,7 +206,8 @@ namespace Neetcode150
 
             1 <= tokens.length <= 104
             tokens[i] is either an operator: "+", "-", "*", or "/", or an integer in the range [-200, 200].
-
+        Extra Test Cases:
+         ["10","6","9","3","+","-11","","/","","17","+","5","+"],
         https://leetcode.com/problems/evaluate-reverse-polish-notation/description/
         */
         public int EvalRPN(string[] tokens)
@@ -250,8 +251,36 @@ namespace Neetcode150
                 }
             }
 
-
             return elements.Pop();
+        }
+        private static int evaluate(int b, int a, string op) => op switch
+        {
+            "+" => a + b,
+            "-" => a - b,
+            "*" => a * b,
+            "/" => a / b,
+            _ => throw new Exception()
+        };
+        public int EvalRPNNeet(string[] tokens)
+        {
+            var stack = new Stack<int>();
+            var result = 0;
+
+            foreach (var token in tokens)
+            {
+                int number = 0;
+                var isNumber = int.TryParse(token, out number);
+                if (isNumber)
+                    stack.Push(number);
+                else
+                {
+                    result = evaluate(stack.Pop(), stack.Pop(), token);
+                    stack.Push(result);
+                }
+
+            }
+
+            return stack.Pop();
         }
         #endregion
         #region Generate Parentheses

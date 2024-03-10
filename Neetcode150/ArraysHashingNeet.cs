@@ -483,6 +483,8 @@ namespace Neetcode150
 
         https://leetcode.com/problems/longest-consecutive-sequence/
         Extra Test Case:
+        [0]
+        [0,0]
         [1,2,0,1]
         []
         */

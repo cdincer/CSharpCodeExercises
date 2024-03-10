@@ -184,6 +184,8 @@ namespace Neetcode150
             -105 <= nums[i] <= 105
             
         https://leetcode.com/problems/3sum/
+        Extra Test Cases:
+        [0,0,0,0]
         */
         public IList<IList<int>> ThreeSum(int[] nums)
         {
