@@ -81,10 +81,16 @@ namespace Neetcode150
 
         https://leetcode.com/problems/search-a-2d-matrix/description/
         Extra Test Case:
-        [[1]]
-        2
-        [[1,1]]
-        2
+        [[1]]  2
+        [[1,1]] 2
+        matrix = [[1]] target = 0
+        matrix = [[1,1]] target = 0   
+        matrix = [[1],[3],[5]] target = 3
+        matrix = [[1, 3]] target = 3
+        matrix = [[1, 3]] target = 2
+        matrix = [[1]] target = 1
+        matrix = [[1],[3]] target = 2 15 / 133 testcases passed
+    
         */
         public bool SearchMatrix(int[][] matrix, int target)
         {
