@@ -90,7 +90,7 @@ namespace Neetcode150
         matrix = [[1, 3]] target = 2
         matrix = [[1]] target = 1
         matrix = [[1],[3]] target = 2 15 / 133 testcases passed
-    
+        matrix = [[1],[3]] target = 3 115 / 133 testcases passed
         */
         public bool SearchMatrix(int[][] matrix, int target)
         {
@@ -274,6 +274,8 @@ namespace Neetcode150
         1
         [3,4,5,6,7,1,2] 174 / 195
         4
+        [4,5,6,7,0,1,2] 181 / 195
+        0
         [8,1,2,3,4,5,6,7] 182 / 195
         6
         [3,1] 192 / 195 
