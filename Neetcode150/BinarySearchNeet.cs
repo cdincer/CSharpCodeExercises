@@ -421,22 +421,14 @@ namespace Neetcode150
                 if (left1 <= right2 && left2 <= right1)
                 {
                     if ((n1l + n2l) % 2 == 0)
-                    {
                         return (Math.Max(left1, left2) + Math.Min(right1, right2)) / 2.0;
-                    }
                     else
-                    {
                         return Math.Max(left1, left2);
-                    }
                 }
                 else if (left1 > right2)
-                {
                     right = partition1 - 1;
-                }
                 else
-                {
                     left = partition1 + 1;
-                }
             }
 
             throw new ArgumentException("Input arrays are not sorted.");
@@ -445,9 +437,9 @@ namespace Neetcode150
         {
             if (nums1.Length > nums2.Length)
             {
-                int[] temp = nums1;
+                 int[] temp = nums1;
                 nums1 = nums2;
-                nums2 = nums1;
+                nums2 = temp;
             }
 
             int n1l = nums1.Length;
