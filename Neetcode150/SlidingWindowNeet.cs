@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using System.Text;
+using System.Xml.Linq;
 
 namespace Neetcode150
 {
@@ -205,6 +206,8 @@ namespace Neetcode150
         s2:"ooolleoooleh"
         s1:"ab"
         s2:"a"
+        s1:"adc"
+        s2:"dcda"
         */
 
         public bool CheckInclusion(string s1, string s2)
@@ -296,6 +299,8 @@ namespace Neetcode150
         Extra Test Cases:
         s="aaaaaaaaaaaabbbbbcdd" 187 / 267 testcases passed
         t="abcdd"
+        s="a" 163 / 267 testcases passed
+        t="b"
         https://leetcode.com/problems/minimum-window-substring
         */
         public string MinWindow(string s, string t)
