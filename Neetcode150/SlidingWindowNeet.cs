@@ -76,7 +76,12 @@ namespace Neetcode150
 
             0 <= s.length <= 5 * 104
             s consists of English letters, digits, symbols and spaces.
-
+        Extra Test Cases:
+        "dvdf"
+        "aab"
+        "jbpnbwwd"
+        " "
+        "  "
         https://leetcode.com/problems/longest-substring-without-repeating-characters/
         */
         public int LengthOfLongestSubstring(string s)
@@ -112,6 +117,28 @@ namespace Neetcode150
             }
             return longest;
         }
+        public int LengthOfLongestSubstringNeet(string s)
+        {
+            int leftPointer = 0, rightPointer = 0, maxLength = 0;
+            HashSet<int> chars = new HashSet<int>();
+
+            while (rightPointer < s.Length)
+            {
+                char currChar = s[rightPointer];
+                if (chars.Contains(currChar))
+                { // Move left pointer until all duplicate chars removed
+                    chars.Remove(s[leftPointer]);
+                    leftPointer++;
+                }
+                else
+                {
+                    chars.Add(currChar);
+                    maxLength = Math.Max(maxLength, rightPointer - leftPointer + 1);
+                    rightPointer++;
+                }
+            }
+            return maxLength;
+        }
         #endregion
         #region Longest Repeating Character Replacement
         /*
@@ -124,6 +151,8 @@ namespace Neetcode150
         "AABA" 19 / 41 testcase passed
         0
         "AAAA" 20 / 41 testcases passed
+        2
+        "IMNJJTRMJEGMSOLSCCQICIHLQIOGBJAEHQOCRAJQMBIBATGLJDTBNCPIFRDLRIJHRABBJGQAOLIKRLHDRIGERENNMJSDSSMESSTR" 25 / 41 testcases passed
         2
         */
         public int CharacterReplacement(string s, int k)
