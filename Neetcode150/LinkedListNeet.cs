@@ -295,6 +295,7 @@ namespace Neetcode150
         Extra Test Cases:
         [[-1,0]]
         []
+        [[-1,null]]
         */
         public class RandomPointNode
         {
@@ -481,8 +482,13 @@ namespace Neetcode150
         Follow up:
             How can we prove that at least one duplicate number must exist in nums?
             Can you solve the problem in linear runtime complexity?
-
-
+        Extra Test Cases:
+        ["LRUCache","put","put","get","put","get","put","get","get","get"] 4 / 22 testcases passed
+        [[2],[1,0],[2,2],[1],[3,3],[2],[4,4],[1],[3],[4]]
+        ["LRUCache","put","put","get","put","put","get"] 7 / 22 testcases passed
+        [[2],[2,1],[2,2],[2],[1,1],[4,1],[2]]
+        ["LRUCache","put","put","put","put","get","get"] 13 / 22 testcases passed
+        [[2],[2,1],[1,1],[2,3],[4,1],[1],[2]]
         https://leetcode.com/problems/find-the-duplicate-number/
         */
         public int FindDuplicate(int[] nums)
@@ -701,6 +707,7 @@ namespace Neetcode150
 
             return copy.next;
         }
+        
         public ListNode MergeKListsNeet(ListNode[] lists)
         {
             if (lists.Length == 0)
@@ -755,8 +762,35 @@ namespace Neetcode150
             return sorted.next;
         }
 
+
+        public ListNode MergeKListsCustom(ListNode[] lists)
+        {
+            List<ListNode> items = new();
+            for (int i = 0; i < lists.Length; i++)
+            {
+                while (lists[i] != null)
+                {
+                    items.Add(lists[i]);
+                    lists[i] = lists[i].next;
+                }
+            }
+            items = items.OrderBy(x => x.val).ToList();
+
+            ListNode begin = new ListNode();
+            ListNode res = begin;
+            foreach (var item in items)
+            {
+                begin.next = item;
+                begin = begin.next;
+            }
+
+            return res.next;
+        }
         #endregion
         #region Reverse Nodes in k-Group
+        /*
+        https://leetcode.com/problems/reverse-nodes-in-k-group/
+        */
         //        ListNode head = new ListNode(1, new ListNode(2, new ListNode(3, new ListNode(4,new ListNode(5)))));
         public ListNode ReverseKGroup(ListNode head, int k)
         {
