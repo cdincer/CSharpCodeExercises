@@ -491,6 +491,7 @@ namespace Neetcode150
         https://leetcode.com/problems/count-good-nodes-in-binary-tree/
         Extra Test Case: 10 / 63 testcases passed
         [9,null,3,6]
+        [2,null,4,10,8,null,null,4] 11 / 63 testcases passed
         */
         int answer2 = 0;
         public int GoodNodes(TreeNode root)
@@ -712,8 +713,10 @@ namespace Neetcode150
         https://leetcode.com/problems/binary-tree-maximum-path-sum/
         Extra Test Cases:
         [1,2] 64 / 96 testcases passed
+        [2,-1] 69 / 96 testcases passed
         [-3] 90 / 96 testcases passed
         [-2,-1] 91 / 96 testcases passed
+        
         */
         int maxPathSum = Int32.MinValue;
 

@@ -791,6 +791,10 @@ namespace Neetcode150
         /*
         https://leetcode.com/problems/reverse-nodes-in-k-group/
         */
+        /*Extra Test Cases:
+        head = [1,2] 48 / 62 testcases passed
+        k = 2
+        */
         //        ListNode head = new ListNode(1, new ListNode(2, new ListNode(3, new ListNode(4,new ListNode(5)))));
         public ListNode ReverseKGroup(ListNode head, int k)
         {
@@ -836,6 +840,66 @@ namespace Neetcode150
 
             return curr;
         }
+        //Nearly same runtime as neetcodes at the time of writing (17.03.2024)
+        //Memory consumption difference is about 5%
+        public ListNode ReverseKGroupCustom(ListNode head, int k)
+        {
+            List<ListNode> car = new();
+            ListNode curr = head;
+
+            while (curr != null)
+            {
+                car.Add(curr);
+                curr = curr.next;
+            }
+
+            List<ListNode> results = new();
+            for (int i = 0; i < car.Count; i += k)
+            {
+                if (i < car.Count)
+                {
+                    var temp = groupReverse(car, i, k);
+                    results.AddRange(temp);
+                }
+            }
+            ListNode preres = new ListNode();
+            ListNode postpro = preres;
+            foreach (var item in results)
+            {
+                postpro.next = new ListNode(item.val);
+                postpro = postpro.next;
+            }
+
+            return preres.next;
+        }
+
+        public List<ListNode> groupReverse(List<ListNode> resi, int cont, int range)
+        {
+            List<ListNode> items = new();
+
+            if (cont + range <= resi.Count)
+            {
+                for (int i = cont; i < cont + range; i++)
+                {
+                    if (i < resi.Count)
+                        items.Add(resi[i]);
+                }
+                items.Reverse();
+            }
+            else
+            {
+                for (int i = cont; i < cont + range; i++)
+                {
+                    if (i < resi.Count)
+                        items.Add(resi[i]);
+                }
+            }
+
+            return items;
+        }
+        
+        
+        
         #endregion
 
     }
