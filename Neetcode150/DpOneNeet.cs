@@ -148,7 +148,8 @@ namespace Neetcode150
         Constraints:
         1 <= s.length <= 1000
         s consist of only digits and English letters.
-       
+        Extra Test Cases:
+        "bb" 82 / 142 testcases passed
         */
         public string LongestPalindrome(string s)
         {
@@ -370,6 +371,6 @@ namespace Neetcode150
         }
 
         #endregion
-    
+
     }
 }
