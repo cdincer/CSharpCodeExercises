@@ -106,7 +106,9 @@ namespace Neetcode150
             2 <= candidates[i] <= 40
             All elements of candidates are distinct.
             1 <= target <= 40
-
+        Test Case:
+        candidates = [8,7,4,3] 39 / 160 testcases passed
+        target = 11
         https://leetcode.com/problems/combination-sum/
         */
         IList<IList<int>> result2 = new List<IList<int>>();
@@ -140,6 +142,33 @@ namespace Neetcode150
         {
             backtrack(0, new List<int>(), 0, candidates, target);
             return result2;
+        }
+        public IList<IList<int>> AlternativeCombinationSum(int[] candidates, int target)
+        {
+            var result = new List<IList<int>>();
+            Array.Sort(candidates);
+            Backtracking(candidates, 0, new List<int>(), target, result);
+            return result;
+        }
+
+        private void Backtracking(int[] candidates, int start, List<int> combination, int target, IList<IList<int>> result)
+        {
+            if (target == 0)
+            {
+                result.Add(new List<int>(combination));
+                return;
+            }
+
+            for (int i = start; i < candidates.Length; i++)
+            {
+                if (target - candidates[i] < 0)
+                {
+                    break;
+                }
+                combination.Add(candidates[i]);
+                Backtracking(candidates, i, combination, target - candidates[i], result);
+                combination.RemoveAt(combination.Count - 1);
+            }
         }
         #endregion
         #region Permutations
