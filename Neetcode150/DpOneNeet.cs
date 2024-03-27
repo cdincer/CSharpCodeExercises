@@ -371,6 +371,17 @@ namespace Neetcode150
         }
 
         #endregion
+        #region Word Break
+        /*
+        
+        Extra Test Cases:
+        "cars"
+        ["car","ca","rs"]       
+        "bb"
+        ["a","b","bbb","bbbb"]
 
+        https://leetcode.com/problems/word-break/
+        */
+        #endregion
     }
 }
