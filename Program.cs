@@ -85,9 +85,9 @@ namespace CSharpCodeExercises
 
             string stringSorted = "0P";
             #endregion
-            DpOneNeet  dpone = new();
+            DpTwoNeet  dpone = new();
             int[] arr = new int[] {0, 10, 10, 10, 10, 10, 10, 10, 10, 10, -10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 0};
-            
+            dpone.LongestCommonSubsequence("jijiijjpji","jjji");
 
         }
     }
