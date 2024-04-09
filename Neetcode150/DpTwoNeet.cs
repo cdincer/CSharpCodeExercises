@@ -50,7 +50,7 @@ namespace Neetcode150
         /*
         Given two strings text1 and text2, return the length of their longest common subsequence. If there is no common subsequence, return 0.
         A subsequence of a string is a new string generated from the original string with some characters (can be none) deleted without changing the relative order of the remaining characters.
-            For example, "ace" is a subsequence of "abcde".
+        For example, "ace" is a subsequence of "abcde".
         A common subsequence of two strings is a subsequence that is common to both strings.
 
         Example 1:
@@ -140,6 +140,19 @@ namespace Neetcode150
         [4,3,2,10,11,0,11]
         https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-cooldown/description/
         */
+        public int MaxProfit(int[] prices)
+        {
+            int sold = 0, rest = 0, hold = Int32.MinValue;
+
+            for (int i = 0; i < prices.Length; i++)
+            {
+                int prevSold = sold;
+                sold = hold + prices[i];
+                hold = Math.Max(hold, rest - prices[i]);
+                rest = Math.Max(rest, prevSold);
+            }
+            return Math.Max(sold, rest);
+        }
         #endregion
     }
     

@@ -348,6 +348,25 @@ namespace Neetcode150
         #endregion
         #region Maximum Product Subarray
         /*
+        Given an integer array nums, find a subarray that has the largest product, and return the product.
+        The test cases are generated so that the answer will fit in a 32-bit integer.
+
+        Example 1:
+        Input: nums = [2,3,-2,4]
+        Output: 6
+        Explanation: [2,3] has the largest product 6.
+
+        Example 2:
+        Input: nums = [-2,0,-1]
+        Output: 0
+        Explanation: The result cannot be 2, because [-2,-1] is not a subarray.
+
+        Constraints:
+
+            1 <= nums.length <= 2 * 104
+            -10 <= nums[i] <= 10
+            The product of any prefix or suffix of nums is guaranteed to fit in a 32-bit integer.
+
         Extra Test Cases:
          [-1,4,-4,5,-2,-1,-1,-2,-3]
          [2,3,-2,4] 54 / 190 testcases passed
@@ -434,7 +453,6 @@ namespace Neetcode150
         subsequence.
         
         Example 1:
-
         Input: nums = [10,9,2,5,3,7,101,18]
         Output: 4
         Explanation: The longest increasing subsequence is [2,3,7,101], therefore the length is 4.
@@ -513,7 +531,6 @@ namespace Neetcode150
         */
         public bool CanPartition(int[] nums)
         {
-
 
             var sum = nums.Sum();
             if (sum % 2 != 0)
