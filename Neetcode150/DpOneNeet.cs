@@ -370,6 +370,7 @@ namespace Neetcode150
         Extra Test Cases:
          [-1,4,-4,5,-2,-1,-1,-2,-3]
          [2,3,-2,4] 54 / 190 testcases passed
+         [-2] 189 / 190 testcases passed
         */
         public int MaxProduct(int[] nums)
         {
