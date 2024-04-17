@@ -253,8 +253,64 @@ namespace Neetcode150
         #region Interleaving String
         /*
         https://leetcode.com/problems/interleaving-string/
+        
+        Extra Test Cases:
+        s1 = "aabc"
+        s2 = "abad"
+        s3= "aabadabc"
+        s1 = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        s2 = "aaaaaaabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        s3 = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
         */
         #endregion
+        #region Longest Increasing Path in a Matrix
+        /*
+        https://leetcode.com/problems/longest-increasing-path-in-a-matrix/description/
+        Extra Test Case:
+        [[7,0,8],[4,7,8],[4,7,4]] 17 / 139 testcases passed
+        */
+        public int LongestIncreasingPath(int[][] matrix)
+        {
+
+            var rows = matrix.Length;
+            var cols = matrix[0].Length;
+            var maxValue = int.MinValue;
+
+            var dictionary = new Dictionary<(int, int), int>();
+
+            int dfs(int r, int c, int previous)
+            {
+                if (r >= matrix.Length || c >= matrix[0].Length || r < 0 || c < 0 || matrix[r][c] <= previous)
+                    return 0;
+
+                if (dictionary.ContainsKey((r, c)))
+                    return dictionary[(r, c)];
+
+                var value = new int[] 
+                            {  
+                             dfs(r + 1, c, matrix[r][c]), 
+                             dfs(r - 1, c, matrix[r][c]),
+                             dfs(r, c - 1, matrix[r][c]),
+                             dfs(r, c + 1, matrix[r][c])
+                            }.Max() + 1;
+                                         
+                dictionary.TryAdd((r, c), 0);
+                dictionary[(r, c)] = value;
+
+                maxValue = Math.Max(maxValue, value);
+                return value;
+            }
+
+            for (var r = 0; r < rows; r++)
+            {
+                for (var c = 0; c < cols; c++)
+                {
+                    dfs(r, c, -1);
+                }
+            }
+            return maxValue;
+        }
+        #endregion
     }
-    
+
 }
