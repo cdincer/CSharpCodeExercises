@@ -339,6 +339,40 @@ namespace Neetcode150
             return maxValue;
         }
         #endregion
+        #region Distinct Subsequences
+        /*
+        
+        */
+        public int NumDistinct(string s, string t)
+        {
+            int w1l = s.Length;
+            int w2l = t.Length;
+
+            if (w1l < w2l) return 0;
+
+            int[,] dp = new int[w1l + 1, w2l + 1];
+
+            for (int i = 0; i <= w1l; i++)
+            {
+                dp[i, 0] = 1;
+            }
+
+            for (int r = 1; r <= w1l; r++)
+            {
+                int w1In = r - 1;
+                for (int c = 1; c <= w2l; c++)
+                {
+                    int w2In = c - 1;
+                    if (s[w1In] == t[w2In])
+                        dp[r, c] = dp[r - 1, c - 1] + dp[r - 1, c];
+                    else
+                        dp[r, c] = dp[r - 1, c];
+                }
+            }
+
+            return dp[w1l, w2l];
+        }
+        #endregion
     }
 
 }
