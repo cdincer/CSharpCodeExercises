@@ -371,14 +371,14 @@ namespace Neetcode150
                 if (dictionary.ContainsKey((r, c)))
                     return dictionary[(r, c)];
 
-                var value = new int[] 
-                            {  
-                             dfs(r + 1, c, matrix[r][c]), 
+                var value = new int[]
+                            {
+                             dfs(r + 1, c, matrix[r][c]),
                              dfs(r - 1, c, matrix[r][c]),
                              dfs(r, c - 1, matrix[r][c]),
                              dfs(r, c + 1, matrix[r][c])
                             }.Max() + 1;
-                                         
+
                 dictionary.TryAdd((r, c), 0);
                 dictionary[(r, c)] = value;
 
@@ -398,36 +398,61 @@ namespace Neetcode150
         #endregion
         #region Distinct Subsequences
         /*
-        
+        Given two strings s and t, return the number of distinct subsequences of s which equals t.
+        The test cases are generated so that the answer fits on a 32-bit signed integer.
+
+        Example 1:
+        Input: s = "rabbbit", t = "rabbit"
+        Output: 3
+        Explanation:
+        As shown below, there are 3 ways you can generate "rabbit" from s.
+        rabbbit
+        rabbbit
+        rabbbit
+
+        Example 2:
+        Input: s = "babgbag", t = "bag"
+        Output: 5
+        Explanation:
+        As shown below, there are 5 ways you can generate "bag" from s.
+        babgbag
+        babgbag
+        babgbag
+        babgbag
+        babgbag
+
+        Constraints:
+
+            1 <= s.length, t.length <= 1000
+            s and t consist of English letters.
+
         */
         public int NumDistinct(string s, string t)
         {
-            int w1l = s.Length;
-            int w2l = t.Length;
+            if (t.Length > s.Length)
+                return 0;
 
-            if (w1l < w2l) return 0;
+            //s is longer //t is shorter
+            int wll = s.Length;
+            int wsl = t.Length;
+            int[,] dp = new int[wll + 1, wsl + 1];
 
-            int[,] dp = new int[w1l + 1, w2l + 1];
+            for (int r = 0; r < wll; r++)
+                dp[r, wsl] = 1;
 
-            for (int i = 0; i <= w1l; i++)
+            dp[wll, wsl] = 1;
+
+            for (int r = wll - 1; r >= 0; r--)
             {
-                dp[i, 0] = 1;
-            }
-
-            for (int r = 1; r <= w1l; r++)
-            {
-                int w1In = r - 1;
-                for (int c = 1; c <= w2l; c++)
+                for (int c = wsl - 1; c >= 0; c--)
                 {
-                    int w2In = c - 1;
-                    if (s[w1In] == t[w2In])
-                        dp[r, c] = dp[r - 1, c - 1] + dp[r - 1, c];
+                    if (s[r] == t[c])
+                        dp[r, c] = dp[r + 1, c + 1] + dp[r + 1, c];
                     else
-                        dp[r, c] = dp[r - 1, c];
+                        dp[r, c] = dp[r + 1, c];
                 }
             }
-
-            return dp[w1l, w2l];
+            return dp[0, 0];
         }
         #endregion
     }
