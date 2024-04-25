@@ -488,6 +488,39 @@ namespace Neetcode150
 
         https://leetcode.com/problems/edit-distance/
         */
+
+        //T: O(N^2), S: O(N^2)
+        public int MinDistance(string word1, string word2)
+        {
+            //Bottom up
+            var w1l = word1.Length;
+            var w2l = word2.Length;
+            var dp = new int[w1l + 1, w2l + 1];
+
+            for (var r = 0; r < w1l + 1; r++)
+            {
+                dp[r, w2l] = w1l - r;
+            }
+            for (var c = 0; c < w2l + 1; c++)
+            {
+                dp[w1l, c] = w2l - c;
+            }
+
+            for (var r = w1l - 1; r >= 0; r--)
+            {
+                for (var c = w2l - 1; c >= 0; c--)
+                {
+                    if (word1[r] == word2[c])
+                        dp[r, c] = dp[r + 1, c + 1];
+                    else
+                        dp[r, c] = 1 + Math.Min(Math.Min(dp[r + 1, c + 1], dp[r + 1, c]), dp[r, c + 1]); //Replace, Delete, Insert
+                }
+            }
+
+            return dp[0, 0];
+        }
+
+
         #endregion
     }
 
