@@ -485,10 +485,13 @@ namespace Neetcode150
         Constraints:
             0 <= word1.length, word2.length <= 500
             word1 and word2 consist of lowercase English letters.
-
+        
+        Extra Test Cases:
+        word1 = "spartan" word2 = "part" Expected 3 1106 / 1146 testcases passed
+    
         https://leetcode.com/problems/edit-distance/
         */
-
+    
         //T: O(N^2), S: O(N^2)
         public int MinDistance(string word1, string word2)
         {
