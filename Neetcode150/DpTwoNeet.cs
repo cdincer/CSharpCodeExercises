@@ -592,6 +592,14 @@ namespace Neetcode150
         }
 
         #endregion
+        #region Regular Expression Matching
+        /*
+        Extra Test Cases:
+        Input: "aaa", Pattern:"ab*ac*a"
+        Input: "mississippi" Pattern:"mis*is*p*."
+        Input "a" Pattern:".*"
+        */
+        #endregion
     }
 
 }
