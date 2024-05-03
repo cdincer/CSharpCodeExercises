@@ -599,7 +599,47 @@ namespace Neetcode150
         Input: "mississippi" Pattern:"mis*is*p*."
         Input "a" Pattern:".*"
         */
+        public bool IsMatch(string stri, string pat)
+        {
+            // Top down
+            var cache = new Dictionary<(int, int), bool>();
+            //Three possibility with one goes to deeper levels.
+            //Match a wild card.
+            //Match a letter.
+            //Just don't match anything.
+            bool dfs(int r, int c)//r is for input, c is for pattern.
+            {
+                if (cache.ContainsKey((r, c)))
+                    return cache[(r, c)];
+                if (r >= stri.Length && c >= pat.Length)
+                    return true;
+                if (c >= pat.Length)
+                    return false;
+
+                var match = r < stri.Length && (stri[r] == pat[c] || pat[c] == '.');
+                if (c + 1 < pat.Length && pat[c + 1] == '*')
+                {
+                    cache.TryAdd((r, c), false);
+                    cache[(r, c)] = (match && dfs(r + 1, c)) || //use *
+                      dfs(r, c + 2); //dont use *
+                    return cache[(r, c)];
+                }
+
+                if (match)
+                {
+                    cache.TryAdd((r, c), false);
+                    cache[(r, c)] = dfs(r + 1, c + 1);
+                    return cache[(r, c)];
+                }
+
+                cache.TryAdd((r, c), false);
+                cache[(r, c)] = false;
+                return cache[(r, c)];
+            }
+
+            return dfs(0, 0);
+        }
+    }
         #endregion
     }
 
-}
