@@ -603,10 +603,10 @@ namespace Neetcode150
         {
             // Top down
             var cache = new Dictionary<(int, int), bool>();
-            //Three possibility with one goes to deeper levels.
-            //Match a wild card.
+            //Three possibilities.
+            //Match the wild cards.
             //Match a letter.
-            //Just don't match anything.
+            //Nothing is matched
             bool dfs(int r, int c)//r is for input, c is for pattern.
             {
                 if (cache.ContainsKey((r, c)))
