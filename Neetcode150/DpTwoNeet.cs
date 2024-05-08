@@ -626,6 +626,8 @@ namespace Neetcode150
         Input: "aaa", Pattern:"ab*ac*a"
         Input: "mississippi" Pattern:"mis*is*p*."
         Input "a" Pattern:".*"
+        Input:"ab" Pattern: ".*c" 10 /356 test cases.
+
         */
         public bool IsMatch(string stri, string pat)
         {

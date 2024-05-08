@@ -89,6 +89,10 @@ namespace CSharpCodeExercises
             int[] arr = new int[] {1,2,3,0,2};
             dpone.MaxProfit(arr);
 
+
+            BitManipulatiuonNeet cl1 = new();
+            cl1.reverseBits(58);
+
         }
     }
 
