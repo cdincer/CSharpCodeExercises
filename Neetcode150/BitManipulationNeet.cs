@@ -43,13 +43,49 @@ namespace Neetcode150
             return result;
         }
         #endregion
+        #region Counting Bits
+        /*
+        Given an integer n, return an array ans of length n + 1 such that for each i (0 <= i <= n), ans[i] is the number of 1's in the binary representation of i.
+
+        Example 1:
+
+        Input: n = 2
+        Output: [0,1,1]
+        Explanation:
+        0 --> 0
+        1 --> 1
+        2 --> 10
+
+        Example 2:
+        Input: n = 5
+        Output: [0,1,1,2,1,2]
+        Explanation:
+        0 --> 0
+        1 --> 1
+        2 --> 10
+        3 --> 11
+        4 --> 100
+        5 --> 101
+
+        Constraints:
+
+            0 <= n <= 105
+
+        Follow up:
+
+            It is very easy to come up with a solution with a runtime of O(n log n). Can you do it in linear time O(n) and possibly in a single pass?
+            Can you do it without using any built-in function (i.e., like __builtin_popcount in C++)?
+
+        https://leetcode.com/problems/counting-bits/
+        */
+        #endregion
         #region Reverse Bits
         /*
         Reverse bits of a given 32 bits unsigned integer.
 
         Note:
             Note that in some languages, such as Java, there is no unsigned integer type. In this case, both input and output will be given as a signed integer type. They should not affect your implementation, as the integer's internal binary representation is the same, whether it is signed or unsigned.
-            In Java, the compiler represents the signed integers using 2's complement notation. Therefore, in Example 2 above, the input represents the signed integer -3 and the output represents the signed integer -1073741825.
+            In Java, the compziler represents the signed integers using 2's complement notation. Therefore, in Example 2 above, the input represents the signed integer -3 and the output represents the signed integer -1073741825.
 
         Example 1:
         Input: n = 00000010100101000001111010011100
@@ -69,6 +105,10 @@ namespace Neetcode150
 
         Extra Test Cases:
         00000000000000000000000000000100
+        00000000000000000000000000000001
+        00000000000000000000000000000110
+        10000000000000000000000000000001
+        00000010100101000001111010011100
         https://leetcode.com/problems/reverse-bits/
         */
         public uint reverseBits(uint n)

@@ -696,8 +696,6 @@ namespace CSharpCodeExercises.Tier2
         Output: false
         Explanation: After trying all the possible pairs (i, j), we cannot satisfy the three conditions, so we return false.
 
-        
-
         Constraints:
 
             2 <= nums.length <= 105
@@ -716,6 +714,7 @@ namespace CSharpCodeExercises.Tier2
         [Output:true]
         https://leetcode.com/problems/contains-duplicate-iii/description/
         */
+        #region Normal Solutions
         public class TreeNodeD
         {
             public long val;
@@ -849,7 +848,251 @@ namespace CSharpCodeExercises.Tier2
 
             return false;
         }
+        #endregion Normal Solutions
+        #region Solution Red And Black Tree Area 
+        public bool ContainsNearbyAlmostDuplicate3(int[] nums, int indexDiff, int valueDiff) {
+            var tree = new RedBlackTree();
+            for (int i = 0; i < nums.Length; i++)
+            {
+                if (tree.Any(nums[i] - valueDiff, nums[i] + valueDiff))
+                    return true;
+                if (i >= indexDiff)
+                    tree.Delete(nums[i - indexDiff]);
+                tree.Insert(nums[i]);
+            }
+            return false;
+        }
 
+        #region RBT Definition
+        public class RedBlackTree
+        {
+            private enum RedBlackNodeType
+            {
+                Red,
+                Black
+            }
+
+            private class RedBlackNode
+            {
+                public RedBlackNodeType Color { get; set; }
+                public RedBlackNode Left { get; set; }
+                public RedBlackNode Right { get; set; }
+                public RedBlackNode Parent { get; set; }
+                public int Count { get; set; }
+                public int Value { get; set; }
+
+                public bool IsEmpty => this == null || Color == RedBlackNodeType.Black;
+
+                public RedBlackNode(int value)
+                {
+                    Value = value;
+                    Count = 1;
+                    Color = RedBlackNodeType.Red;
+                }
+            }
+
+            private RedBlackNode _root;
+
+            public RedBlackTree()
+            {
+                _root = null;
+            }
+
+            public bool Any(int min, int max)
+            {
+                return Any(_root, min, max);
+            }
+
+            public void Insert(int value)
+            {
+                _root = InsertRecursive(_root, value);
+                _root.Color = RedBlackNodeType.Black;
+            }
+
+            public void Delete(int value)
+            {
+                if (_root != null)
+                {
+                    _root = DeleteRecursive(_root, value);
+                    if (_root != null)
+                    {
+                        _root.Color = RedBlackNodeType.Black;
+                    }
+                }
+            }
+
+            private bool Any(RedBlackNode node, int min, int max)
+            {
+                if (node == null)
+                {
+                    return false;
+                }
+
+                if (node.Value < min)
+                {
+                    return Any(node.Right, min, max);
+                }
+                else if (node.Value > max)
+                {
+                    return Any(node.Left, min, max);
+                }
+                else
+                {
+                    return true;
+                }
+            }
+
+            private RedBlackNode InsertRecursive(RedBlackNode node, int value)
+            {
+                if (node == null)
+                {
+                    return new RedBlackNode(value);
+                }
+
+                if (value < node.Value)
+                {
+                    node.Left = InsertRecursive(node.Left, value);
+                    node.Left.Parent = node;
+                }
+                else if (value > node.Value)
+                {
+                    node.Right = InsertRecursive(node.Right, value);
+                    node.Right.Parent = node;
+                }
+                else
+                {
+                    node.Count++;
+                }
+
+                if (node.Right != null && node.Right.Color == RedBlackNodeType.Red)
+                {
+                    if (node.Left != null && node.Left.Color == RedBlackNodeType.Red)
+                    {
+                        FlipColors(node);
+                    }
+                    else
+                    {
+                        node = RotateLeft(node);
+                    }
+                }
+
+                if (node.Left != null && node.Left.Color == RedBlackNodeType.Red && node.Left.Left != null && node.Left.Left.Color == RedBlackNodeType.Red)
+                {
+                    node = RotateRight(node);
+                }
+
+                return node;
+            }
+
+            private RedBlackNode DeleteRecursive(RedBlackNode node, int value)
+            {
+                if (node == null)
+                {
+                    return null;
+                }
+
+                if (value < node.Value)
+                {
+                    node.Left = DeleteRecursive(node.Left, value);
+                }
+                else if (value > node.Value)
+                {
+                    node.Right = DeleteRecursive(node.Right, value);
+                }
+                else
+                {
+                    if (node.Count > 1)
+                    {
+                        node.Count--;
+                    }
+                    else
+                    {
+                        if (node.Left == null)
+                        {
+                            return node.Right;
+                        }
+                        else if (node.Right == null)
+                        {
+                            return node.Left;
+                        }
+                        else
+                        {
+                            var minRight = FindMin(node.Right);
+                            node.Value = minRight.Value;
+                            node.Count = minRight.Count;
+                            node.Right = DeleteMin(node.Right);
+                        }
+                    }
+                }
+
+                if (node.Right != null && node.Right.Color == RedBlackNodeType.Red)
+                {
+                    if (node.Left != null && node.Left.Color == RedBlackNodeType.Red)
+                    {
+                        FlipColors(node);
+                    }
+                    else
+                    {
+                        node = RotateLeft(node);
+                    }
+                }
+
+                if (node.Left != null && node.Left.Color == RedBlackNodeType.Red && (node.Left.Left == null || node.Left.Left.Color != RedBlackNodeType.Red))
+                {
+                    node = RotateRight(node);
+                }
+
+                return node;
+            }
+
+            private RedBlackNode RotateLeft(RedBlackNode node)
+            {
+                var newRoot = node.Right;
+                node.Right = newRoot.Left;
+                newRoot.Left = node;
+                newRoot.Color = node.Color;
+                node.Color = RedBlackNodeType.Red;
+                return newRoot;
+            }
+
+            private RedBlackNode RotateRight(RedBlackNode node)
+            {
+                var newRoot = node.Left;
+                node.Left = newRoot.Right;
+                newRoot.Right = node;
+                newRoot.Color = node.Color;
+                node.Color = RedBlackNodeType.Red;
+                return newRoot;
+            }
+
+            private void FlipColors(RedBlackNode node)
+            {
+                node.Color = RedBlackNodeType.Red;
+                node.Left.Color = RedBlackNodeType.Black;
+                node.Right.Color = RedBlackNodeType.Black;
+            }
+
+            private RedBlackNode FindMin(RedBlackNode node)
+            {
+                while (node.Left != null)
+                {
+                    node = node.Left;
+                }
+                return node;
+            }
+
+            private RedBlackNode DeleteMin(RedBlackNode node)
+            {
+                if (node.Left == null)
+                {
+                    return node.Right;
+                }
+                node.Left = DeleteMin(node.Left);
+                return node;
+            }
+        }
+        #endregion RBT Definition
+        #endregion Solution Red And Black Tree Area 
         #endregion
         #region Balanced Binary Tree
         /*
