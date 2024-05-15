@@ -91,7 +91,8 @@ namespace CSharpCodeExercises
 
 
             BitManipulatiuonNeet cl1 = new();
-            cl1.reverseBits(58);
+            var result = cl1.Reverse(1056389759);
+            Console.WriteLine("Result " + result);
 
         }
     }

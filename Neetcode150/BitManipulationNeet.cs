@@ -171,8 +171,83 @@ namespace Neetcode150
         #endregion
         #region Missing Number
         /*
-        
+        Given an array nums containing n distinct numbers in the range [0, n], return the only number in the range that is missing from the array.
+
+        Example 1:
+        Input: nums = [3,0,1]
+        Output: 2
+        Explanation: n = 3 since there are 3 numbers, so all numbers are in the range [0,3]. 2 is the missing number in the range since it does not appear in nums.
+
+        Example 2:
+        Input: nums = [0,1]
+        Output: 2
+        Explanation: n = 2 since there are 2 numbers, so all numbers are in the range [0,2]. 2 is the missing number in the range since it does not appear in nums.
+
+        Example 3:
+        Input: nums = [9,6,4,2,3,5,7,0,1]
+        Output: 8
+        Explanation: n = 9 since there are 9 numbers, so all numbers are in the range [0,9]. 8 is the missing number in the range since it does not appear in nums.
+
+        Constraints:
+
+            n == nums.length
+            1 <= n <= 104
+            0 <= nums[i] <= n
+            All the numbers of nums are unique.
+
+        Follow up: Could you implement a solution using only O(1) extra space complexity and O(n) runtime complexity?
+        Extra Test Cases:
+        [9,6,4,2,3,5,7,0,1] 98 / 122 testcases passed
+        [1]                 111 / 122 testcases passed
+        https://leetcode.com/problems/missing-number/
         */
+        //Notes about the solution below: Barely any difference in runtime and memory usage with this solution and neetcode's one.
+        public int MissingNumber(int[] nums)
+        {
+            int result = 0;
+            for (int i = 0; i < nums.Length + 1; i++)
+                result = result ^ i;
+
+            for (int i = 0; i < nums.Length; i++)
+                result = result ^ nums[i];
+
+            return result;
+        }
+        #endregion
+        #region Reverse Integer
+        /*
+        Extra Test Cases:
+        1534236469 1036 / 1045 testcases passed
+        */
+          public int Reverse(int x) {
+        int result = 0;
+
+        if(x > int.MaxValue || x < int.MinValue)
+        return 0;
+
+        while( x != 0)
+        {
+            if(x * 10 > int.MaxValue || x * 10 < int.MinValue)
+            return 0;
+
+            if(x / 10 > int.MaxValue || x / 10 < int.MinValue)
+            return 0;
+            int remain = x % 10;
+            x = x / 10;
+            
+            result = (result * 10) + remain;
+        }
+//2147483648
+//1534236469
+//9646324351
+
+            if(result > int.MaxValue ||result < int.MinValue)
+            return 0;
+
+           
+        Console.WriteLine("hit");
+        return result;
+    }
         #endregion
     }
 }
