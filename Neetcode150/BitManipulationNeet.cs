@@ -214,6 +214,37 @@ namespace Neetcode150
             return result;
         }
         #endregion
+        #region Sum Of Two Integers
+        /*
+        Given two integers a and b, return the sum of the two integers without using the operators + and -.
+
+        Example 1:
+        Input: a = 1, b = 2
+        Output: 3
+
+        Example 2:
+        Input: a = 2, b = 3
+        Output: 5
+
+        Constraints:
+
+            -1000 <= a, b <= 1000
+
+        https://leetcode.com/problems/sum-of-two-integers/
+        */
+        public int GetSum(int a, int b)
+        {
+
+            while (b != 0)
+            {
+                int temp = a & b;
+                a = a ^ b;
+                b = (temp << 1);
+            }
+
+            return a;
+        }
+        #endregion
         #region Reverse Integer
         /*
         Given a signed 32-bit integer x, return x with its digits reversed. 
@@ -241,26 +272,26 @@ namespace Neetcode150
         Extra Test Cases:
         1534236469 1036 / 1045 testcases passed
         */
-            public int Reverse(int x)
+        public int Reverse(int x)
+        {
+            int result = 0;
+            while (x != 0)
             {
-                int result = 0;
-                while (x != 0)
-                {
-                    int digit = x % 10;
+                int digit = x % 10;
 
-                    if (result > int.MaxValue / 10 || (result == int.MaxValue && digit > 8))
-                        return 0;
+                if (result > int.MaxValue / 10 || (result == int.MaxValue && digit > 8))
+                    return 0;
 
-                    if (result < int.MinValue / 10 || (result == int.MinValue && digit < -7))
-                        return 0;
+                if (result < int.MinValue / 10 || (result == int.MinValue && digit < -7))
+                    return 0;
 
-                    x = x / 10;
-                    result = (result * 10) + digit;
-                }
-
-                return result;
+                x = x / 10;
+                result = (result * 10) + digit;
             }
-        
+
+            return result;
+        }
+
         #endregion
     }
 }
