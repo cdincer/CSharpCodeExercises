@@ -286,12 +286,37 @@ namespace Neetcode150
         digits = [1] 101 / 109 testcases passed
         digits = [9,9] 108 / 111 testcases passed May 27th 2024
         */
+        public int[] PlusOne(int[] digits)
+        {
+            int carry = 1;
 
+            for (int i = digits.Length - 1; i >= 0; i--)
+            {
+                digits[i] = digits[i] + carry;
+                carry = 0;
+                if (digits[i] == 10)
+                {
+                    digits[i] = 0;
+                    carry = 1;
+                }
+
+            }
+
+            if (carry == 1)
+            {
+                List<int> temp = digits.ToList();
+                temp.Insert(0, 1);
+                return temp.ToArray();
+            }
+            return digits;
+        }
         #endregion Plus One
         #region Pow(x, n)
         /*
-        x = 0.44528 n = 0 285 / 307 testcases passed
-        x = 1.00000 n = -2147483648 300 / 307 testcases passed
+        x = 0.44528 n =  0 285 / 307 testcases passed
+        x = 1.00000 n = -2147483648 291 / 306 testcases passed
+        x = 0.00001 n = 2147483647 300 / 307 testcases passed
+        x= -1.00000 n = 2147483647
         */
         #endregion Pow(x, n)
 
