@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
+using System.Text;
 
 namespace Neetcode150
 {
@@ -360,6 +361,71 @@ namespace Neetcode150
             return n % 2 == 1 ? result * x : result;
         }
         #endregion Pow(x, n)
+        #region Multiply Strings
+        /*
+        Given two non-negative integers num1 and num2 represented as strings, return the product of num1 and num2, also represented as a string.
+        Note: You must not use any built-in BigInteger library or convert the inputs to integer directly.
+
+        Example 1:
+        Input: num1 = "2", num2 = "3"
+        Output: "6"
+
+        Example 2:
+        Input: num1 = "123", num2 = "456"
+        Output: "56088"
+
+        Constraints:
+
+            1 <= num1.length, num2.length <= 200
+            num1 and num2 consist of digits only.
+            Both num1 and num2 do not contain any leading zero, except the number 0 itself.
+        
+        https://leetcode.com/problems/multiply-strings/
+        */
+        public string Multiply(string num1, string num2)
+        {
+
+            if (string.Equals(num1, "0") || string.Equals(num2, "0"))
+                return "0";
+
+            char[] n1ar = num1.ToArray();
+            char[] n2ar = num2.ToArray();
+            int[] resultarr = new int[n1ar.Length + n2ar.Length];
+            //reverse it and go from left to right
+            Array.Reverse(n1ar);
+            Array.Reverse(n2ar);
+            for (int ar1 = 0; ar1 < n1ar.Length; ar1++)
+            {
+                for (int ar2 = 0; ar2 < n2ar.Length; ar2++)
+                {
+                    int n1num = n1ar[ar1] - '0';
+                    int n2num = n2ar[ar2] - '0';
+                    var digit = (n1num * n2num);
+                    resultarr[ar1 + ar2] += digit;
+                    resultarr[ar1 + ar2 + 1] += (resultarr[ar1 + ar2]) / 10;
+                    resultarr[ar1 + ar2] = (resultarr[ar1 + ar2]) % 10;
+
+                }
+            }
+
+            Array.Reverse(resultarr);
+            StringBuilder results = new();
+            int startPoint = 0;
+
+            for (int i = 0; i < resultarr.Length; i++)
+            {
+                if (resultarr[i] != 0)
+                    break;
+                startPoint++;
+
+
+            }
+
+         resultarr = resultarr.Reverse().ToArray();
+
+            return results.ToString();
+        }
+        #endregion Multiply Strings
 
     }
 }
