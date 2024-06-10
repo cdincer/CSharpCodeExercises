@@ -67,6 +67,10 @@ namespace Neetcode150
             return result.ToArray();
         }
         #endregion Insert Interval
-
+        #region Merge Intervals
+        /*
+        https://leetcode.com/problems/merge-intervals/
+        */
+        #endregion Merge Intervals
     }
 }
