@@ -69,8 +69,45 @@ namespace Neetcode150
         #endregion Insert Interval
         #region Merge Intervals
         /*
+        C# Test Cases:
+        # 1st Example:
+        int[][] twoDArray = new int[][]
+            {
+            new int[] {1,3},
+            new int[] {2,6},
+            new int[] {8,10},
+            new int[] {15,18},
+            };
         https://leetcode.com/problems/merge-intervals/
         */
+        public int[][] Merge(int[][] intervals)
+        {
+
+            var sortedInterval = intervals.Clone() as int[][];
+            Array.Sort(sortedInterval, (a, b) => a[0] - b[0]);
+
+            var mergedInterval = new List<int[]>();
+            var lastInterval = sortedInterval[0];
+            mergedInterval.Add(lastInterval);
+
+            for (var i = 1; i < sortedInterval.Length; i++)
+            {
+                var current = sortedInterval[i];
+                var lastIntervalEnd = lastInterval[1];
+                var nextIntervalEnd = current[1];
+                var nextIntervalStart = current[0];
+
+                if (lastIntervalEnd >= nextIntervalStart)
+                    lastInterval[1] = Math.Max(nextIntervalEnd, lastIntervalEnd);
+                else
+                {
+                    lastInterval = current;
+                    mergedInterval.Add(lastInterval);
+                }
+            }
+
+            return mergedInterval.ToArray();
+        }
         #endregion Merge Intervals
     }
 }
