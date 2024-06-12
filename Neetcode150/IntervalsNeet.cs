@@ -79,35 +79,36 @@ namespace Neetcode150
             new int[] {15,18},
             };
         https://leetcode.com/problems/merge-intervals/
+        Extra Test Cases:
+        [[1,3]] 13 / 170 testcases passed
         */
         public int[][] Merge(int[][] intervals)
         {
 
-            var sortedInterval = intervals.Clone() as int[][];
-            Array.Sort(sortedInterval, (a, b) => a[0] - b[0]);
+            Array.Sort(intervals, (a, b) => a[0] - b[0]);
 
             var mergedInterval = new List<int[]>();
-            var lastInterval = sortedInterval[0];
+            var lastInterval = intervals[0];
             mergedInterval.Add(lastInterval);
 
-            for (var i = 1; i < sortedInterval.Length; i++)
+            for (var i = 1; i < intervals.Length; i++)
             {
-                var current = sortedInterval[i];
                 var lastIntervalEnd = lastInterval[1];
-                var nextIntervalEnd = current[1];
-                var nextIntervalStart = current[0];
+                var nextIntervalEnd = intervals[i][1];
+                var nextIntervalStart = intervals[i][0];
 
                 if (lastIntervalEnd >= nextIntervalStart)
                     lastInterval[1] = Math.Max(nextIntervalEnd, lastIntervalEnd);
                 else
                 {
-                    lastInterval = current;
+                    lastInterval = intervals[i];
                     mergedInterval.Add(lastInterval);
                 }
             }
 
             return mergedInterval.ToArray();
         }
+
         #endregion Merge Intervals
     }
 }
