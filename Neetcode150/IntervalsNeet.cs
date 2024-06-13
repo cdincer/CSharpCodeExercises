@@ -82,33 +82,58 @@ namespace Neetcode150
         Extra Test Cases:
         [[1,3]] 13 / 170 testcases passed
         */
+        //Simplified version of the neetcode one.
         public int[][] Merge(int[][] intervals)
         {
-
+            List<int[]> result = new();
             Array.Sort(intervals, (a, b) => a[0] - b[0]);
+            var lastInterval = intervals[0];//Track the large overlapping end
+            result.Add(lastInterval);
+            for (int i = 1; i < intervals.Length; i++)
+            {
+                if (lastInterval[1] >= intervals[i][0])
+                {
+                    lastInterval[1] = Math.Max(intervals[i][1], lastInterval[1]);
+                }
+                else
+                {
+                    lastInterval = intervals[i];
+                    result.Add(lastInterval);
+                }
+            }
+
+            return result.ToArray();
+        }
+        //Keeping this here for reference belongs to neetcode
+        public int[][] MergeNeetCode(int[][] intervals)
+        {
+
+            var sortedInterval = intervals.Clone() as int[][];
+            Array.Sort(sortedInterval, (a, b) => a[0] - b[0]);
 
             var mergedInterval = new List<int[]>();
-            var lastInterval = intervals[0];
+            var lastInterval = sortedInterval[0];
             mergedInterval.Add(lastInterval);
 
-            for (var i = 1; i < intervals.Length; i++)
+            for (var i = 1; i < sortedInterval.Length; i++)
             {
+                var current = sortedInterval[i];
                 var lastIntervalEnd = lastInterval[1];
-                var nextIntervalEnd = intervals[i][1];
-                var nextIntervalStart = intervals[i][0];
+                var nextIntervalEnd = current[1];
+                var nextIntervalStart = current[0];
 
                 if (lastIntervalEnd >= nextIntervalStart)
                     lastInterval[1] = Math.Max(nextIntervalEnd, lastIntervalEnd);
                 else
                 {
-                    lastInterval = intervals[i];
+                    lastInterval = current;
                     mergedInterval.Add(lastInterval);
+                    //lastInterval = current;
                 }
             }
 
             return mergedInterval.ToArray();
         }
-
         #endregion Merge Intervals
     }
 }
