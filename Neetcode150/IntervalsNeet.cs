@@ -215,7 +215,9 @@ namespace Neetcode150
         }
         #endregion
         #region Minimum Interval to Include Each Query
-
+        /*
+        https://leetcode.com/problems/minimum-interval-to-include-each-query/
+        */
         //Time Limit Exceeded on 34th test but otherwise just fine.
         public int[] MinInterval(int[][] intervals, int[] queries)
         {
@@ -228,7 +230,7 @@ namespace Neetcode150
                 {
                     if (queries[y] >= intervals[i][0] && queries[y] <= intervals[i][1])
                     {
-                        currentSize = Math.Min((intervals[i][1] - intervals[i][0]) + 1, currentSize);
+                        currentSize = Math.Min(intervals[i][1] - intervals[i][0] + 1, currentSize);
                     }
                 }
                 if (currentSize != int.MaxValue)

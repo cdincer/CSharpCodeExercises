@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using CSharpCodeExercises.Tier2;
 using CSharpCodeExercises.Tier3;
+using Exercises.Leetcode.ArrayRelated;
 using Neetcode150;
 using Tier2;
 using static Neetcode150.LinkedListNeet;
@@ -88,11 +89,8 @@ namespace CSharpCodeExercises
             DpTwoNeet  dpone = new();
             int[] arr = new int[] {1,2,3,0,2};
             dpone.MaxProfit(arr);
-
-
-            BitManipulatiuonNeet cl1 = new();
-            var result = cl1.Reverse(1056389759);
-            Console.WriteLine("Result " + result);
+            ArrayLeetCode1 test = new();
+            test.MinDifference(new int[] {6,6,0,1,1,4,6});
 
         }
     }
