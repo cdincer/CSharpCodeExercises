@@ -157,7 +157,87 @@ namespace Neetcode150
         #region Non-overlapping Intervals
         /*
         https://leetcode.com/problems/non-overlapping-intervals/
+        Extra Test Cases:
+        [[1,100],[11,22],[1,11],[2,12]]
         */
+        //Neetcode solution
+        public int EraseOverlapIntervals(int[][] intervals)
+        {
+            List<int[]> result = new();
+            int counter = 0;
+            Array.Sort(intervals, (a, b) => a[0] - b[0]);
+            int prevEnd = intervals[0][1];
+
+            for (int i = 1; i < intervals.Length; i++)
+            {
+                if (prevEnd > intervals[i][0])
+                {
+                    prevEnd = Math.Min(prevEnd, intervals[i][1]);
+                    counter++;
+                }
+                else
+                {
+                    prevEnd = intervals[i][1];
+                }
+            }
+
+            return counter;
+        }
+        //Alternative solution with a different array sorting comparer
+        public int EraseOverlapIntervals2(int[][] intervals)
+        {
+            Array.Sort(intervals, (x, y) =>
+            {
+                if (x[0] == y[0])
+                {
+                    return 0;
+                }
+                return x[0] > y[0] ? 1 : -1;
+            });
+
+            int del = 0, left = 0, n = intervals.Length; ;
+            for (int right = 1; right < n; ++right)
+            {
+                if (intervals[right][0] < intervals[left][1])
+                {
+                    if (intervals[left][1] > intervals[right][1])
+                    { // if first interval sorted by start ends later than the second
+                        left = right;
+                    }
+                    del++;
+                }
+                else
+                {
+                    left = right;
+                }
+            }
+            return del;
+        }
         #endregion
+        #region Minimum Interval to Include Each Query
+
+        //Time Limit Exceeded on 34th test but otherwise just fine.
+        public int[] MinInterval(int[][] intervals, int[] queries)
+        {
+            List<int> result = new();
+            Array.Sort(intervals, (a, b) => a[0] - b[0]);
+            for (int y = 0; y < queries.Length; y++)
+            {
+                int currentSize = int.MaxValue;
+                for (int i = 0; i < intervals.Length; i++)
+                {
+                    if (queries[y] >= intervals[i][0] && queries[y] <= intervals[i][1])
+                    {
+                        currentSize = Math.Min((intervals[i][1] - intervals[i][0]) + 1, currentSize);
+                    }
+                }
+                if (currentSize != int.MaxValue)
+                    result.Add(currentSize);
+                else result.Add(-1);
+            }
+            return result.ToArray();
+        }
+        #endregion
+    
     }
 }
