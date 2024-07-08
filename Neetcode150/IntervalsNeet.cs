@@ -246,7 +246,7 @@ namespace Neetcode150
                 this.end = end;
             }
         }
- 
+
         public bool CanAttendMeetings(List<Interval> intervals)
         {
             Interval[] arri = intervals.ToArray();
@@ -289,9 +289,53 @@ namespace Neetcode150
 
             0 <= intervals.length <= 500
             0 <= intervals[i].start < intervals[i].end <= 1,000,000
+            Extra Test Cases:
+            [] 6 / 22 cases passed
+            [(0,10),(1,3),(2,6),(5,8),(7,12),(11,15),(13,18),(16,20),(19,25),(24,30)] 10 / 22 cases passed
+            [(0,10),(10,20),(20,30),(30,40),(40,50),(50,60),(60,70),(70,80),(80,90),(90,100),(0,100),(10,90),(20,80),(30,70),(40,60)] 19 / 22 cases passed
+            C# Test Cases:
+            List<IntervalsNeet.Interval> times = new()
+            {
+            new IntervalsNeet.Interval(0,10),
+            new IntervalsNeet.Interval(10,20) ,
+            new IntervalsNeet.Interval(20,30),
+            new IntervalsNeet.Interval(30,40),
+            new IntervalsNeet.Interval(40,50),
+            new IntervalsNeet.Interval(50,60),                   
+            new IntervalsNeet.Interval(60,70),
+            new IntervalsNeet.Interval(70,80),
+            new IntervalsNeet.Interval(80,90),
+            new IntervalsNeet.Interval(90,100),
+            new IntervalsNeet.Interval(0,100),
+            new IntervalsNeet.Interval(10,90),
+            new IntervalsNeet.Interval(20,80),
+            new IntervalsNeet.Interval(30,70),
+            new IntervalsNeet.Interval(40,60)
+            };
+            List<IntervalsNeet.Interval> times2 = new()
+            {
+            new IntervalsNeet.Interval(0,10),
+            new IntervalsNeet.Interval(1,3) ,
+            new IntervalsNeet.Interval(2,6),
+            new IntervalsNeet.Interval(5,8),
+            new IntervalsNeet.Interval(7,12),
+            new IntervalsNeet.Interval(11,15),                   
+            new IntervalsNeet.Interval(16,20),
+            new IntervalsNeet.Interval(19,25),
+            new IntervalsNeet.Interval(24,30)
+            };
+        */
+        /**
+        * Definition of Interval:
+        * public class Interval {
+        *     public int start, end;
+        *     public Interval(int start, int end) {
+        *         this.start = start;
+        *         this.end = end;
+        *     }
+        * }
         */
         #endregion
-
         #region Minimum Interval to Include Each Query
         /*
         https://leetcode.com/problems/minimum-interval-to-include-each-query/
@@ -318,6 +362,6 @@ namespace Neetcode150
             return result.ToArray();
         }
         #endregion
-    
+
     }
 }

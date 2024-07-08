@@ -86,11 +86,22 @@ namespace CSharpCodeExercises
 
             string stringSorted = "0P";
             #endregion
-            DpTwoNeet  dpone = new();
-            int[] arr = new int[] {1,2,3,0,2};
-            dpone.MaxProfit(arr);
-            ArrayLeetCode1 test = new();
-            test.MinDifference(new int[] {6,6,0,1,1,4,6});
+          List<IntervalsNeet.Interval> times2 = new()
+          {
+          new IntervalsNeet.Interval(0,10),
+          new IntervalsNeet.Interval(1,3) ,
+          new IntervalsNeet.Interval(2,6),
+          new IntervalsNeet.Interval(5,8),
+          new IntervalsNeet.Interval(7,12),
+          new IntervalsNeet.Interval(11,15),                   
+          new IntervalsNeet.Interval(16,20),
+          new IntervalsNeet.Interval(19,25),
+          new IntervalsNeet.Interval(24,30)
+          };
+
+            IntervalsNeet intervalsNeet = new();
+            intervalsNeet.MinMeetingRooms(times2);
+          
 
         }
     }
