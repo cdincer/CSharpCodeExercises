@@ -335,6 +335,38 @@ namespace Neetcode150
         *     }
         * }
         */
+        public int MinMeetingRooms(List<Interval> intervals)
+        {
+            if (intervals == null || intervals.Count == 0)
+            {
+                return 0;
+            }
+
+            int result = 0;
+            List<int> start = new List<int>(), end = new List<int>();
+
+            foreach (Interval interval in intervals)
+            {
+                start.Add(interval.start);
+                end.Add(interval.end);
+            }
+
+            start.Sort();
+            end.Sort();
+
+            for (int s = 0, e = 0; s < start.Count; s++)
+            {
+                if (start[s] < end[e])
+                {
+                    result++;
+                }
+                else
+                {
+                    e++;
+                }
+            }
+            return result;
+        }
         #endregion
         #region Minimum Interval to Include Each Query
         /*
@@ -362,6 +394,5 @@ namespace Neetcode150
             return result.ToArray();
         }
         #endregion
-
     }
 }
