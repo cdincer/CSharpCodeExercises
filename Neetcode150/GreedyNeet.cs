@@ -56,6 +56,23 @@ namespace Neetcode150
             return maxSub;
         }
         #endregion
+        #region Jump Game
+        /*
+        https://leetcode.com/problems/jump-game/
+        */
+        #endregion
+        #region Jump Game II
+        /*
+        Extra Test Cases: 
+        [2,1,1,5,2] Output:3 
+        [2,1] Output:1 
+        [1] Output:0 
+        [2,1,2,1,0] Output:2 
+        [3,4,3,2,5,4,3] 
+        [4,1,1,3,1,1,1] 
+        [10,9,8,7,6,5,4,3,2,1,1,0]
+        */
+        #endregion
     }
 
 }
