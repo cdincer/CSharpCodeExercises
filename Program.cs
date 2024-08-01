@@ -99,10 +99,6 @@ namespace CSharpCodeExercises
           new IntervalsNeet.Interval(24,30)
           };
 
-            IntervalsNeet intervalsNeet = new();
-            intervalsNeet.MinMeetingRooms(times2);
-          
-
         }
     }
 
