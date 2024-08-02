@@ -36,6 +36,7 @@ namespace Neetcode150
         [["MUC","LHR"],["JFK","MUC"],["SFO","SJC"],["LHR","SFO"]] Output: ["JFK","MUC","LHR","SFO","SJC"]
         [["JFK","SFO"],["JFK","ATL"],["SFO","ATL"],["ATL","JFK"],["ATL","SFO"]] Output: ["JFK","ATL","JFK","SFO","ATL","SFO"]
         [["JFK","KUL"],["JFK","NRT"],["NRT","JFK"]] Output: ["JFK","NRT","JFK","KUL"] REALLY IMPORTANT
+        https://leetcode.com/problems/reconstruct-itinerary/
         */
         public IList<string> FindItinerary(IList<IList<string>> tickets)
         {
@@ -77,7 +78,85 @@ namespace Neetcode150
 
             ans.Push(src);
         }
-       #endregion
+        #endregion
+
+        #region Min Cost to Connect All Points
+        /*
+        You are given an array points representing integer coordinates of some points on a 2D-plane, where points[i] = [xi, yi].
+
+        The cost of connecting two points [xi, yi] and [xj, yj] is the manhattan distance between them: |xi - xj| + |yi - yj|, where |val| denotes the absolute value of val.
+
+        Return the minimum cost to make all points connected. All points are connected if there is exactly one simple path between any two points.
+
+        
+
+        Example 1:
+
+        Input: points = [[0,0],[2,2],[3,10],[5,2],[7,0]]
+        Output: 20
+        Explanation: 
+
+        We can connect the points as shown above to get the minimum cost of 20.
+        Notice that there is a unique path between every pair of points.
+
+        Example 2:
+
+        Input: points = [[3,12],[-2,5],[-4,1]]
+        Output: 18
+
+        
+
+        Constraints:
+
+            1 <= points.length <= 1000
+            -106 <= xi, yi <= 106
+            All pairs (xi, yi) are distinct.
+
+
+            Extra Test Cases:
+         [[-14,-14],[-18,5],[18,-10],[18,18],[10,-2]]
+        */
+        public int MinCostConnectPoints(int[][] points)
+        {
+            Dictionary<int, List<(int, int)>> dict = new();
+            for (int i = 0; i < points.Length; i++)
+            {
+                int xmain = points[i][0];
+                int ymain = points[i][1];
+                dict.TryAdd(i, new List<(int, int)>());
+                for (int y = 0; y < points.Length; y++)
+                {
+                    if (points[y][0] == xmain && points[y][1] == ymain)
+                        continue;
+                    int res = Math.Abs(xmain - points[y][0]) + Math.Abs(ymain - points[y][1]);
+                    dict[i].Add((res, y));
+                }
+            }
+            PriorityQueue<(int, int), int> minHeap = new();
+            int result = 0; minHeap.Enqueue((0, 0), 0);
+            HashSet<int> visited = new();
+            while (minHeap.Count > 0)
+            {
+                var (cost, node) = minHeap.Dequeue();
+
+                if (!visited.Contains(node))
+                {
+                    result += cost;
+                    visited.Add(node);
+                    var adjlist = dict[node];
+                    for (int i = 0; i < adjlist.Count; i++)
+                    {
+                        if (!visited.Contains(adjlist[i].Item2))
+                        {
+                            minHeap.Enqueue((adjlist[i].Item1, adjlist[i].Item2), adjlist[i].Item1);
+                        }
+                    }
+                }
+            }
+            return result;
+        }
+
+        #endregion
 
     }
 }
