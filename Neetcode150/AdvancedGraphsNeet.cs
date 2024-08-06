@@ -107,8 +107,10 @@ namespace Neetcode150
             All pairs (xi, yi) are distinct.
 
 
-            Extra Test Cases:
-         [[-14,-14],[-18,5],[18,-10],[18,18],[10,-2]]
+        Extra Test Cases:
+        [[0,0]] Output : 0 4 / 72 testcases passed
+        [[-14,-14],[-18,5],[18,-10],[18,18],[10,-2]] Output : 102
+        https://leetcode.com/problems/min-cost-to-connect-all-points/
         */
         public int MinCostConnectPoints(int[][] points)
         {
@@ -154,7 +156,8 @@ namespace Neetcode150
         #region Network Delay Time
         /*
         Extra Test Cases:
-        [[1,2,1],[2,3,2]] 8/53 testcases
+        [[1,2,1],[2,3,2]] n = 3 k = 1 8/53 testcases
+        [[1,2,1],[2,1,3]] n = 2 k = 2
         [[1,2,1],[2,3,7],[1,3,4],[2,1,2]] 50/53 testcases
         */
         #endregion
