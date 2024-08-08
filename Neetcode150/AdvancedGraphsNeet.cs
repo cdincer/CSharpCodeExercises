@@ -79,7 +79,6 @@ namespace Neetcode150
             ans.Push(src);
         }
         #endregion
-
         #region Min Cost to Connect All Points
         /*
         You are given an array points representing integer coordinates of some points on a 2D-plane, where points[i] = [xi, yi].
@@ -98,14 +97,11 @@ namespace Neetcode150
         Input: points = [[3,12],[-2,5],[-4,1]]
         Output: 18
 
-        
-
         Constraints:
 
             1 <= points.length <= 1000
             -106 <= xi, yi <= 106
             All pairs (xi, yi) are distinct.
-
 
         Extra Test Cases:
         [[0,0]] Output : 0 4 / 72 testcases passed
@@ -114,41 +110,46 @@ namespace Neetcode150
         */
         public int MinCostConnectPoints(int[][] points)
         {
+            int result = 0;
+            HashSet<int> visited = new();//source node //cost //target node
+            PriorityQueue<(int, int), int> pq = new();
             Dictionary<int, List<(int, int)>> dict = new();
+
             for (int i = 0; i < points.Length; i++)
             {
-                int xmain = points[i][0];
-                int ymain = points[i][1];
-                dict.TryAdd(i, new List<(int, int)>());
-                for (int y = 0; y < points.Length; y++)
+                int mx = points[i][0];
+                int my = points[i][1];
+                dict.Add(i, new List<(int, int)>());
+                for (int j = 0; j < points.Length; j++)
                 {
-                    if (points[y][0] == xmain && points[y][1] == ymain)
-                        continue;
-                    int res = Math.Abs(xmain - points[y][0]) + Math.Abs(ymain - points[y][1]);
-                    dict[i].Add((res, y));
+                    if (i == j) continue;
+
+                    int dist = Math.Abs(mx - points[j][0]) + Math.Abs(my - points[j][1]);
+                    dict[i].Add((dist, j));
                 }
             }
-            PriorityQueue<(int, int), int> minHeap = new();
-            int result = 0; minHeap.Enqueue((0, 0), 0);
-            HashSet<int> visited = new();
-            while (minHeap.Count > 0)
-            {
-                var (cost, node) = minHeap.Dequeue();
 
-                if (!visited.Contains(node))
+            pq.Enqueue((0, 0), 0);
+
+            while (pq.Count > 0)
+            {
+                (int cost, int node) = pq.Dequeue();
+
+                if (visited.Contains(node)) continue;
+
+                visited.Add(node);
+                result += cost;
+
+                if (dict.TryGetValue(node, out List<(int, int)> clist))
                 {
-                    result += cost;
-                    visited.Add(node);
-                    var adjlist = dict[node];
-                    for (int i = 0; i < adjlist.Count; i++)
+                    foreach (var item in clist)
                     {
-                        if (!visited.Contains(adjlist[i].Item2))
-                        {
-                            minHeap.Enqueue((adjlist[i].Item1, adjlist[i].Item2), adjlist[i].Item1);
-                        }
+                        if (!visited.Contains(item.Item2))
+                            pq.Enqueue((item.Item1, item.Item2), item.Item1);
                     }
                 }
             }
+
             return result;
         }
 
@@ -156,9 +157,11 @@ namespace Neetcode150
         #region Network Delay Time
         /*
         Extra Test Cases:
-        [[1,2,1],[2,3,2]] n = 3 k = 1 8/53 testcases
-        [[1,2,1],[2,1,3]] n = 2 k = 2
-        [[1,2,1],[2,3,7],[1,3,4],[2,1,2]] 50/53 testcases
+        [[1,2,1],[2,3,2]] n = 3 k = 1 Output: 3 8/53 testcases
+        [[1,2,1],[2,3,2],[1,3,4]] n = 3 k = 1 Output: 3 13 / 53 testcases
+        [[1,2,1],[2,1,3]] n = 2 k = 2 Output: 3
+        [[1,2,1],[2,3,7],[1,3,4],[2,1,2]] Output: 50/53 testcases
+      
         */
         #endregion
     }
