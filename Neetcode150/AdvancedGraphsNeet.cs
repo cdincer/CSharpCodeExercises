@@ -161,8 +161,50 @@ namespace Neetcode150
         [[1,2,1],[2,3,2],[1,3,4]] n = 3 k = 1 Output: 3 13 / 53 testcases
         [[1,2,1],[2,1,3]] n = 2 k = 2 Output: 3
         [[1,2,1],[2,3,7],[1,3,4],[2,1,2]] Output: 50/53 testcases
-      
+        https://leetcode.com/problems/network-delay-time
         */
+
+        ///Modified solution of Neetcode so it has a similar adjancency list and 
+        ///dequeuing pattern.
+        public int NetworkDelayTime(int[][] times, int n, int k)
+        {
+            HashSet<int> visited = new();
+            PriorityQueue<(int, int), int> pq = new();
+            Dictionary<int, List<(int, int)>> dict = new();//cost //target node
+            foreach (var time in times)
+            {
+                dict.TryAdd(time[0], new List<(int, int)>());
+
+                dict[time[0]].Add((time[2], time[1]));
+            }
+            int result = 0;
+            pq.Enqueue((0, k), 0);
+
+            while (pq.Count > 0)
+            {
+                (int cost, int node) = pq.Dequeue();
+
+                if (visited.Contains(node)) continue;
+
+                visited.Add(node);
+                result = Math.Max(result, cost);
+                if (dict.TryGetValue(node, out var clist))
+                {
+                    foreach (var current in clist)
+                    {
+                        if (visited.Contains(current.Item2)) continue;
+
+                        int we = result + current.Item1;
+                        pq.Enqueue((we, current.Item2), we);
+                    }
+                }
+            }
+
+            if (visited.Count == n)
+                return result;
+
+            return -1;
+        }
         #endregion
         #region Rising Water
         /*
