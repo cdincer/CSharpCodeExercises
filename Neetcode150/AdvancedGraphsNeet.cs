@@ -307,13 +307,109 @@ namespace Neetcode150
             pq.Enqueue((r, c), grid[r][c]);
         }
         #endregion
-        #region Alien Dictionary
+        #region Foreign/Alien Dictionary (Two names on Neetcode - different one in roadmap another one in question page)
         /*
+        Premium Question on Leetcode / Neetcode.io  https://neetcode.io/problems/foreign-dictionary
+        There is a foreign language which uses the latin alphabet, but the order among letters is not "a", "b", "c" ... "z" as in English.
+        You receive a list of non-empty strings words from the dictionary, where the words are sorted lexicographically based on the rules of this new language.
+        Derive the order of letters in this language. If the order is invalid, return an empty string. If there are multiple valid order of letters, return any of them.
+        A string a is lexicographically smaller than a string b if either of the following is true:
+
+            The first letter where they differ is smaller in a than in b.
+            There is no index i such that a[i] != b[i] and a.length < b.length.
+
+        Example 1:
+        Input: ["z","o"]
+        Output: "zo"
+        Explanation:
+        From "z" and "o", we know 'z' < 'o', so return "zo".
+
+        Example 2:
+        Input: ["hrn","hrf","er","enn","rfnn"]
+        Output: "hernf"
+        Explanation:
+
+            from "hrn" and "hrf", we know 'n' < 'f'
+            from "hrf" and "er", we know 'h' < 'e'
+            from "er" and "enn", we know get 'r' < 'n'
+            from "enn" and "rfnn" we know 'e'<'r'
+            so one possibile solution is "hernf"
+
+        Constraints:
+
+            The input words will contain characters only from lowercase 'a' to 'z'.
+            1 <= words.length <= 100
+            1 <= words[i].length <= 100
+
         Extra Test Case:
         words=["wrt","wrf","er","ett","rftt","te"] Expected Output: wertf
         words=["abc","bcd","cde"] Expected Output: edabc Passed test cases: 2 / 24 
         words=["wrtkj","wrt"]. Expected output:"" Passed test cases: 4 / 24
+        https://leetcode.com/problems/alien-dictionary/
         */
+        public string foreignDictionary(string[] words)
+        {
+            Dictionary<char, HashSet<char>> dict = new();
+
+            foreach (string word in words) //Create a hashset for every letter because some of them might not be linked to anything.
+            {
+                foreach (var c in word)
+                {
+                    dict.TryAdd(c, new HashSet<char>());
+                }
+            }
+
+            for (int i = 0; i < words.Length - 1; i++)
+            {
+                string w1 = words[i];
+                string w2 = words[i + 1];
+                int minLength = Math.Min(w1.Length, w2.Length);
+
+                if (w1.Length > w2.Length && w1.Substring(0, minLength) == w2.Substring(0, minLength))
+                    return "";
+
+                for (int y = 0; y < minLength; y++)
+                {
+                    if (w1[y] != w2[y])
+                    {
+                        dict[w1[y]].Add(w2[y]);
+                        break;
+                    }
+                }
+            }
+            List<char> result = new();
+            Dictionary<char, bool> visited = new();
+            bool travel(char c)
+            {
+                if (visited.ContainsKey(c))
+                    return visited[c];
+
+                visited.TryAdd(c, true);
+                foreach (var item in dict[c])
+                {
+                    if (travel(item))
+                        return true;
+                }
+
+                visited[c] = false;
+                result.Add(c);
+
+                return visited[c];
+            }
+            //Dictionary insert order is preserved, 
+            //this can be verified through MoveNext() in Dictionary.cs
+            //As a result of this foreach loop below goes through our letters and their links
+            //through the insert order(correct order that is asked by this question)
+            foreach (var item in dict.Keys) 
+            {
+                if (travel(item))
+                    return "";
+            }
+
+
+            result.Reverse();
+            return string.Join("", result);
+        }
         #endregion
     }
 }
