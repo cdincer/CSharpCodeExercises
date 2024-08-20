@@ -411,5 +411,16 @@ namespace Neetcode150
             return string.Join("", result);
         }
         #endregion
+        #region Cheapest Flights Within K Stops
+        /*
+        https://leetcode.com/problems/cheapest-flights-within-k-stops/
+        Extra Test Cases:
+        52 / 56 testcases passed
+        n = 7 flights = [[0,3,7],[4,5,3],[6,4,8],[2,0,10],[6,5,6],[1,2,2],[2,5,9],[2,6,8],[3,6,3],[4,0,10],[4,6,8],[5,2,6],[1,4,3],[4,1,6],[0,5,10],[3,1,5],[4,3,1],[5,4,10],[0,1,6]]        
+        dst = 4 k = 1 Expected = 16
+        -----
+        */
+        #endregion
+   
     }
 }
