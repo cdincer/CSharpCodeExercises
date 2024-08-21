@@ -335,6 +335,34 @@ namespace Neetcode150
             return arr;
         }
         #endregion
+        #region String Encode And Decode
+        /* Leetcode Premium Question
+        Design an algorithm to encode a list of strings to a single string.
+        The encoded string is then decoded back to the original list of strings.
+        Please implement encode and decode
+
+        Example 1:
+        Input: ["neet","code","love","you"]
+        Output:["neet","code","love","you"]
+
+        Example 2:
+        Input: ["we","say",":","yes"]
+        Output: ["we","say",":","yes"]
+
+        Constraints:
+
+            0 <= strs.length < 100
+            0 <= strs[i].length < 200
+            strs[i] contains only UTF-8 characters.
+
+        Extra Test Cases:
+        Input:[] Expected output:[]
+        Input:[""] Expected output:[""]
+        https://neetcode.io/problems/string-encode-and-decode
+
+        Hint:Just translate original string to a list and make that list into a string again.
+        */
+        #endregion
         #region Product of Array Except Self
         /*
         Given an integer array nums, return an array answer such that answer[i] is equal to the product of all the elements of nums except nums[i].
