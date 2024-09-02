@@ -307,7 +307,9 @@ namespace Neetcode150
         Because it is not iterative, it is significantly faster. About 3 to 4 times. 
         It still has the same verification for correct parantheses combination from stack card question.
         */
-
+        // Note for the performance of the custom vs neet solution.
+        //Run time custom: 110 ms -- Neet run time:104 ms
+        //Memory custom:71.4 mb --  Neet memory: 48.9 mb
         public IList<string> GenerateParenthesis(int n)
         {
             List<string> tempList = new();
