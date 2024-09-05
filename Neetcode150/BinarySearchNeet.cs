@@ -83,12 +83,13 @@ namespace Neetcode150
         Extra Test Case:
         [[1]]  2
         [[1,1]] 2
-        matrix = [[1]] target = 0
-        matrix = [[1,1]] target = 0   
+        matrix = [[1]] target = 0 2 / 133 testcases passed
+        matrix = [[1,1]] target = 0   5 / 133 testcases passed
         matrix = [[1],[3],[5]] target = 3
         matrix = [[1, 3]] target = 3
         matrix = [[1, 3]] target = 2
         matrix = [[1]] target = 1
+        matrix = [[1,3]] target = 1 114 / 133 testcases passed
         matrix = [[1],[3]] target = 2 15 / 133 testcases passed
         matrix = [[1],[3]] target = 3 115 / 133 testcases passed
         */
@@ -387,11 +388,34 @@ namespace Neetcode150
         #endregion
         #region Median of Two Sorted Arrays  
         /*
+        Given two sorted arrays nums1 and nums2 of size m and n respectively, return the median of the two sorted arrays.
+        The overall run time complexity should be O(log (m+n)).
+
+        Example 1:
+        Input: nums1 = [1,3], nums2 = [2]
+        Output: 2.00000
+        Explanation: merged array = [1,2,3] and median is 2.
+
+        Example 2:
+        Input: nums1 = [1,2], nums2 = [3,4]
+        Output: 2.50000
+        Explanation: merged array = [1,2,3,4] and median is (2 + 3) / 2 = 2.5.
+
+        Constraints:
+
+            nums1.length == m
+            nums2.length == n
+            0 <= m <= 1000
+            0 <= n <= 1000
+            1 <= m + n <= 2000
+            -106 <= nums1[i], nums2[i] <= 106
+
         Exta Test Cases:
         [1,3] 2057 / 2094 testcases passed
         [2,7]
         [] 1418 / 2094 testcases passed
         [1,2,3,4,5]
+        https://leetcode.com/problems/median-of-two-sorted-arrays/
         */
 
         public double FindMedianSortedArrays(int[] nums1, int[] nums2)
