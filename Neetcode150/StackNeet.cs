@@ -421,46 +421,7 @@ namespace Neetcode150
 
         https://leetcode.com/problems/daily-temperatures/
         */
-        /*
-        Solution Notes:
-        This is a custom solution. It was based on a previously seen solution but neetcode stores 
-        the location of found temperature. Mine does both. There is a small amount of runtime speed difference
-        less than 30 ms. However memory usage is significantly more about 10%.
-        */
-        public int[] DailyTemperatures(int[] temperatures)
-        {
-            Stack<tempRecord> warmer = new();
-            int[] comp = new int[temperatures.Length];
-            for (int i = 0; i < temperatures.Length; i++)
-            {
-                if (warmer.Count > 0 && warmer.Peek().warmness < temperatures[i])
-                {
-                    while (warmer.Count > 0 && warmer.Peek().warmness < temperatures[i])
-                    {
-                        tempRecord stackPopped = warmer.Pop();
-                        comp[stackPopped.location] = i - stackPopped.location;
-                    }
-                    tempRecord stackPushed = new();
-                    stackPushed.location = i;
-                    stackPushed.warmness = temperatures[i];
-                    warmer.Push(stackPushed);
-                }
-                else
-                {
-                    tempRecord temp = new();
-                    temp.location = i;
-                    temp.warmness = temperatures[i];
-                    warmer.Push(temp);
-                }
-            }
-            return comp;
-        }
-        public class tempRecord
-        {
-            public int location;
-            public int warmness;
-        }
-
+        //Update custom solution removed for being too long and containing unnecessary variables
         public int[] DailyTemperaturesNeet(int[] temperatures)
         {
             var result = new int[temperatures.Length];
@@ -470,7 +431,7 @@ namespace Neetcode150
             for (var i = 0; i < temperatures.Length; i++)
             {
                 var t = temperatures[i];
-                while (stack.Any() && temperatures[stack.Peek()] < t)
+                while (stack.Count == 0 && temperatures[stack.Peek()] < t)
                 {
                     var prev = stack.Pop();
                     result[prev] = i - prev;
@@ -520,10 +481,9 @@ namespace Neetcode150
             0 <= position[i] < target
             All the values of position are unique.
             0 < speed[i] <= 106
-        Extra Test Case:
-         10
-        [6,8]
-        [3,2]
+
+        Extra Test Cases:
+        target = 10 position = [6,8] speed = [3,2] 11 / 48 testcases passed
         https://leetcode.com/problems/car-fleet/
         */
         public int CarFleetNeet(int target, int[] position, int[] speed)
