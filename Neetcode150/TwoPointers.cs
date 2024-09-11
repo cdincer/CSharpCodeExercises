@@ -185,7 +185,10 @@ namespace Neetcode150
             
         https://leetcode.com/problems/3sum/
         Extra Test Cases:
-        [0,0,0,0]
+        [1,-1,-1,0] Output: [[-1,0,1]] 43 / 313
+        [0,0,0,0] Output: [[0,0,0]] 79 / 313
+        [-1,0,1,0] Output: [[-1,0,1]] 83 / 313 
+        Output:
         */
         public IList<IList<int>> ThreeSum(int[] nums)
         {

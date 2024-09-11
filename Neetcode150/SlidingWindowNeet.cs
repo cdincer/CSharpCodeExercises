@@ -145,16 +145,11 @@ namespace Neetcode150
         /*
         https://leetcode.com/problems/longest-repeating-character-replacement/
         Extra Test Cases:
-        "BAAA"  10 / 41 testcases passed
-        0
-        "BAAAB" 18 / 41 testcases passed
-        2
-        "AABA" 19 / 41 testcase passed
-        0
-        "AAAA" 20 / 41 testcases passed
-        2
-        "IMNJJTRMJEGMSOLSCCQICIHLQIOGBJAEHQOCRAJQMBIBATGLJDTBNCPIFRDLRIJHRABBJGQAOLIKRLHDRIGERENNMJSDSSMESSTR" 25 / 41 testcases passed
-        2
+        "BAAA" k = 0 10 / 41 testcases passed
+        "BAAAB" k = 2 18 / 41 testcases passed
+        "AABA" k = 0 19 / 41 testcase passed
+        "AAAA" k = 2 20 / 41 testcases passed
+        "IMNJJTRMJEGMSOLSCCQICIHLQIOGBJAEHQOCRAJQMBIBATGLJDTBNCPIFRDLRIJHRABBJGQAOLIKRLHDRIGERENNMJSDSSMESSTR" k = 2 25 / 41 testcases passed
         */
         public int CharacterReplacement(string s, int k)
         {
