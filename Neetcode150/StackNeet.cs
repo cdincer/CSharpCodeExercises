@@ -555,6 +555,10 @@ namespace Neetcode150
             0 <= heights[i] <= 104
 
         https://leetcode.com/problems/largest-rectangle-in-histogram/
+        Extra Test Case:
+        heights = [4,2] Expected = 4 14 / 99
+        heights = [0]   Expected = 0 96 / 99
+        heights = [0,0] Expected = 0 97 / 99 
         */
         public int LargestRectangleArea(int[] heights)
         {
