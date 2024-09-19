@@ -557,6 +557,7 @@ namespace Neetcode150
         https://leetcode.com/problems/largest-rectangle-in-histogram/
         Extra Test Case:
         heights = [4,2] Expected = 4 14 / 99
+        heights = [2,1,2] Exptected = 2 53 / 99
         heights = [0]   Expected = 0 96 / 99
         heights = [0,0] Expected = 0 97 / 99 
         */
