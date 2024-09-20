@@ -414,8 +414,8 @@ namespace Neetcode150
                 return result;
             }
         }
-    
-      
+
+
         #endregion
         #region Median of Two Sorted Arrays  
         /*
@@ -442,99 +442,55 @@ namespace Neetcode150
             -106 <= nums1[i], nums2[i] <= 106
 
         Exta Test Cases:
-        [1,3] 2057 / 2094 testcases passed
-        [2,7]
-        [] 1418 / 2094 testcases passed
-        [1,2,3,4,5]
+        nums1 = [] nums2 = [1,2,3,4,5] 1418 / 2094 testcases passed
+        nums1 = [1,3] nums2 = [2,7] 2057 / 2094 testcases passed
+        
         https://leetcode.com/problems/median-of-two-sorted-arrays/
         */
 
         public double FindMedianSortedArrays(int[] nums1, int[] nums2)
         {
-            if (nums1.Length > nums2.Length)
-            {
-                int[] temp = nums1;
-                nums1 = nums2;
-                nums2 = temp;
-            }
+            if (nums1.Length <= 0 && nums2.Length == 1)
+                return nums2[0];
+
+            if (nums2.Length <= 0 && nums1.Length == 1)
+                return nums1[0];
 
             int n1l = nums1.Length;
             int n2l = nums2.Length;
-            int left = 0, right = n1l;
+            
+            if (n1l > n2l)
+                return FindMedianSortedArrays(nums2, nums1);
 
-            while (left <= right)
+            int total = n1l + n2l;
+            int half = (total + 1) / 2;
+            int mleft = 0;
+            int mright = n1l;
+            double result = 0.0;
+
+            while (mleft <= mright)
             {
-                int partition1 = (left + right) / 2;
-                int partition2 = (n1l + n2l + 1) / 2 - partition1;
-
-                int left1 = (partition1 == 0) ? int.MinValue : nums1[partition1 - 1];
-                int left2 = (partition2 == 0) ? int.MinValue : nums2[partition2 - 1];
-
-                int right1 = (partition1 == n1l) ? int.MaxValue : nums1[partition1];
-                int right2 = (partition2 == n2l) ? int.MaxValue : nums2[partition2];
+                int n1i = mleft + (mright - mleft) / 2;
+                int n2i = half - n1i;
+                int left1 = (n1i > 0) ? nums1[n1i - 1] : int.MinValue;
+                int right1 = (n1i < n1l) ? nums1[n1i] : int.MaxValue;
+                int left2 = (n2i > 0) ? nums2[n2i - 1] : int.MinValue;
+                int right2 = (n2i < n2l) ? nums2[n2i] : int.MaxValue;
 
                 if (left1 <= right2 && left2 <= right1)
                 {
-                    if ((n1l + n2l) % 2 == 0)
-                        return (Math.Max(left1, left2) + Math.Min(right1, right2)) / 2.0;
+                    if (total % 2 == 0)
+                        return (Math.Max(left1, left2) + Math.Min(right1, right2)) / 2.00;
                     else
                         return Math.Max(left1, left2);
                 }
                 else if (left1 > right2)
-                    right = partition1 - 1;
+                    mright = n1i - 1;
                 else
-                    left = partition1 + 1;
+                    mleft = n1i + 1;
             }
-
-            throw new ArgumentException("Input arrays are not sorted.");
+            return result;
         }
-        public double FindMedianSortedArrays2(int[] nums1, int[] nums2)
-        {
-            if (nums1.Length > nums2.Length)
-            {
-                 int[] temp = nums1;
-                nums1 = nums2;
-                nums2 = temp;
-            }
-
-            int n1l = nums1.Length;
-            int n2l = nums2.Length;
-            int left = 0;
-            int right = n1l;
-
-            while (left <= right)
-            {
-                int Partition1 = (left + right) / 2;
-                int Partition2 = (n1l + n2l + 1) / 2 - Partition1;
-
-                int left1 = Partition1 == 0 ? int.MinValue : nums1[Partition1 - 1];
-                int left2 = Partition2 == 0 ? int.MinValue : nums2[Partition2 - 1];
-
-                int right1 = Partition1 == n1l ? int.MaxValue : nums1[Partition1];
-                int right2 = Partition2 == n2l ? int.MaxValue : nums2[Partition2];
-
-                if (left1 <= right2 && left2 <= right1)
-                {
-                    if ((n1l + n2l) % 2 == 0)
-                        return (Math.Max(left1, left2) + Math.Min(right2, right1)) / 2.0;
-                    else
-                    {
-                        return Math.Max(left1, left2);
-                    }
-                }
-                else if (left1 > right2)
-                {
-                    right = Partition1 - 1;
-                }
-                else
-                {
-                    left = Partition1 + 1;
-                }
-            }
-
-            return -1;
-        }
-
         #endregion
     }
 }
