@@ -444,7 +444,7 @@ namespace Neetcode150
         Exta Test Cases:
         nums1 = [] nums2 = [1,2,3,4,5] 1418 / 2094 testcases passed
         nums1 = [1,3] nums2 = [2,7] 2057 / 2094 testcases passed
-        
+       nums1 = [100000] nums2 = [100001] 2088 / 2096 testcases passed
         https://leetcode.com/problems/median-of-two-sorted-arrays/
         */
 
@@ -473,9 +473,9 @@ namespace Neetcode150
                 int n1i = mleft + (mright - mleft) / 2;
                 int n2i = half - n1i;
                 int left1 = (n1i > 0) ? nums1[n1i - 1] : int.MinValue;
-                int right1 = (n1i < n1l) ? nums1[n1i] : int.MaxValue;
                 int left2 = (n2i > 0) ? nums2[n2i - 1] : int.MinValue;
-                int right2 = (n2i < n2l) ? nums2[n2i] : int.MaxValue;
+                int right1 = (n1l > n1i) ? nums1[n1i] : int.MaxValue;
+                int right2 = (n2l > n2i) ? nums2[n2i] : int.MaxValue;
 
                 if (left1 <= right2 && left2 <= right1)
                 {
