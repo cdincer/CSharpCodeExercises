@@ -155,12 +155,12 @@ namespace Neetcode150
 
             while (fast != null && fast.next != null)
             {
-                prev = slow;
+                prev = slow;//Keep track of l1 head and its link to the main head.
                 slow = slow.next;
                 fast = fast.next.next;
             }
 
-            prev.next = null;
+            prev.next = null;//Sever it so you don't have to go through it end up with a null or cycle.
 
             // step 2. reverse the 2nd half
             ListNode l2 = reverse(slow);
