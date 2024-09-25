@@ -118,11 +118,9 @@ namespace Neetcode150
         You are given the head of a singly linked-list. The list can be represented as:
 
         L0 → L1 → … → Ln - 1 → Ln
-
         Reorder the list to be on the following form:
 
         L0 → Ln → L1 → Ln - 1 → L2 → Ln - 2 → …
-
         You may not modify the values in the list's nodes. Only nodes themselves may be changed.
 
         Example 1:
@@ -134,13 +132,13 @@ namespace Neetcode150
         Output: [1,5,2,4,3]
 
         Constraints:
-
             The number of nodes in the list is in the range [1, 5 * 104].
             1 <= Node.val <= 1000
 
         https://leetcode.com/problems/reorder-list/
+        Extra Test Case: 
+        Head: [1] 2 / 12 testcases passed
         */
-
         //Code is literally copy pasted from a java solution without a single change and it works out of the box.
         //Runtime: 74ms Beats 95.56% of users with C# Memory:45.81MB Beats 15.12%of users with C#
         public void ReorderList(ListNode head)
@@ -205,22 +203,18 @@ namespace Neetcode150
         Given the head of a linked list, remove the nth node from the end of the list and return its head.
 
         Example 1:
-
         Input: head = [1,2,3,4,5], n = 2
         Output: [1,2,3,5]
 
         Example 2:
-
         Input: head = [1], n = 1
         Output: []
 
         Example 3:
-
         Input: head = [1,2], n = 1
         Output: [1]
 
         Constraints:
-
             The number of nodes in the list is sz.
             1 <= sz <= 30
             0 <= Node.val <= 100
@@ -229,8 +223,8 @@ namespace Neetcode150
         Follow up: Could you do this in one pass?
 
         https://leetcode.com/problems/remove-nth-node-from-end-of-list/
-        [1,2] 189 / 208 testcases passed
-        1
+        head = [1,2] n = 1 Output : 1 189 / 208 testcases passed
+        head = [1,2] n = 2 Output : 2 190 / 208 testcases passed
         */
         public ListNode RemoveNthFromEnd(ListNode head, int n)
         {
