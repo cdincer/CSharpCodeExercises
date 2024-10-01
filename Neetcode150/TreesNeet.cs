@@ -392,6 +392,7 @@ namespace Neetcode150
             -100 <= Node.val <= 100
 
         https://leetcode.com/problems/binary-tree-right-side-view/
+        root = [1,2,3,4] Expected = [1,3,4] 71 / 216 testcase
         */
         //Both solutions run times are really close same with memory.
         List<int> results = new();
