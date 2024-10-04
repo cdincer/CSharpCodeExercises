@@ -393,6 +393,7 @@ namespace Neetcode150
 
         https://leetcode.com/problems/binary-tree-right-side-view/
         root = [1,2,3,4] Expected = [1,3,4] 71 / 216 testcase
+        root = [1,2,3,null,null,4] Expected = 1,3,4] 90 / 216 testcase
         */
         //Both solutions run times are really close same with memory.
         List<int> results = new();
