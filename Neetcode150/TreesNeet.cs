@@ -545,32 +545,32 @@ namespace Neetcode150
         https://leetcode.com/problems/validate-binary-search-tree/
 
         Extra Test Cases:(All real test cases)
-        [2,1,3]
-        [5,1,4,null,null,3,6]
-        [2,2,2]
-        [0]
-        [1,null,1]
-        [0,null,1]
-        [3,1,5,0,2,4,6,null,null,null,3]
-        [3,1,5,0,2,4,6]
-        [24,-60,null,-60,-6]
-        [-2147483648,null,2147483647,-2147483648]
-        [5,4,6,null,null,3,7] 76 / 84 test cases passed 
+        [2,1,3] Expected = true
+        [5,1,4,null,null,3,6] Expected = false
+        [2,2,2] Expected = false
+        [0] Expected = true
+        [1,null,1] Expected = true
+        [0,null,1] Expected = true
+        [3,1,5,0,2,4,6,null,null,null,3] Expected = false
+        [3,1,5,0,2,4,6] Expected = true
+        [24,-60,null,-60,-6] Expected = false
+        [-2147483648,null,2147483647,-2147483648] Expected =
+        [5,4,6,null,null,3,7] Expected = false 76 / 84 test cases passed 
         */
         public bool IsValidBST(TreeNode root)
         {
-            return splitter(root.left, null, root.val) && splitter(root.right, root.val, null);
+            return splitter(root, null, null);
         }
-        public bool splitter(TreeNode root, int? left, int? right)
-        {
-            if (root == null) return true;
 
-            if ((left != null && root.val <= left) ||
-               (right != null && root.val >= right))
+        public bool splitter(TreeNode root, int? min, int? max)
+        {
+            if (root == null)
+                return true;
+
+            if ((min != null && root.val <= min) || (max != null && root.val >= max))
                 return false;
 
-            return splitter(root.left, left, root.val) &&
-                splitter(root.right, root.val, right);
+            return splitter(root.left, min, root.val) && splitter(root.right, root.val, max);
         }
         #endregion
         #region Kth Smallest Element in a BST
