@@ -245,7 +245,8 @@ namespace Neetcode150
             board = [["o","a","a","n"],["e","t","a","e"],["i","h","k","r"],["i","f","l","v"]] 63 / 65 testcases passed
             words = ["oath","pea","eat","rain","oathi","oathk","oathf","oate","oathii","oathfi","oathfii"]
         */
-
+        //Neetcode answer to this problem times out at 64th test case.
+        //Solution below doesn't.
         public IList<string> FindWords(char[][] board, string[] words)
         {
             int m = board.Length;
