@@ -667,6 +667,10 @@ namespace Neetcode150
         inorder is guaranteed to be the inorder traversal of the tree.
 
         https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/
+       
+       preorder = [3,9,10,20,15,11,7], inorder = [10,9,3,11,15,20,7] Output: [3,9,20,null,null,15,7]
+       preorder = [1,2,4,6,5,3,7,8,9,10], inorder = [4,2,5,6,1,3,8,9,7,10]  Output: [4,5,10,3,9,null,11,null,17,null,8,13,15,2,7,null,null,14,null,20,19,null,6,1]
+       preorder = [4,5,3,17,2,6,7,1,9,8,10,11,13,14,15,20,19], inorder = [3,2,6,17,1,7,5,9,8,4,10,14,13,11,20,15,19] Output:[1,2,3,4,6,null,7,null,null,5,null,8,10,null,null,null,9]
         */
         public TreeNode BuildTree(int[] preorder, int[] inorder)
         {
