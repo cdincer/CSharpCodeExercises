@@ -214,6 +214,80 @@ namespace Neetcode150
                 return cur.isWord;
             }
         }
+        
+        
+        /*Array based solution that has a faster run time and smaller memory foot-print
+        public class TrieNode
+        {
+            public Dictionary<char,TrieNode> children;
+            public bool isWord;
+            public TrieNode()
+            {
+                children = new Dictionary<char,TrieNode>();
+                isWord = false;
+            }
+        }
+
+        public class WordDictionary {
+            TrieNode root;
+            
+            public WordDictionary() 
+            {
+                root = new TrieNode();
+            }
+            
+            public void AddWord(string word) 
+            {
+                TrieNode cur = root;
+
+                foreach(char c in word)
+                {
+                    if(!cur.children.ContainsKey(c))
+                    cur.children.Add(c, new TrieNode());
+
+                    cur = cur.children[c];
+                }
+
+                cur.isWord = true;    
+            }
+            
+            public bool Search(string word) 
+            {
+                TrieNode cur = root;
+                return traveler(0,word,cur);
+            }
+
+            public bool traveler( int index, string word, TrieNode cur)
+            {
+                for(int i = index; i < word.Length; i++)
+                {
+                    char c = word[i];
+
+                    if(c == '.')
+                    {
+                        foreach(KeyValuePair<char,TrieNode> item in cur.children)
+                        {
+                            if(traveler(i + 1,word,item.Value))
+                            return true;
+                        }
+                        return false;
+                    }
+                    else
+                    {
+                        if(!cur.children.ContainsKey(c))
+                        return false;
+
+                        cur = cur.children[c];
+                    }
+                }
+
+                return cur.isWord;
+            }
+        }
+
+        */
+        
+        
         #endregion
         #region Word Search II
         /*
