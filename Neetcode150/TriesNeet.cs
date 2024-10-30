@@ -318,6 +318,17 @@ namespace Neetcode150
             words =  ["a"] 42 / 65 testcases passed
             board = [["o","a","a","n"],["e","t","a","e"],["i","h","k","r"],["i","f","l","v"]] 63 / 65 testcases passed
             words = ["oath","pea","eat","rain","oathi","oathk","oathf","oate","oathii","oathfi","oathfii"]
+        
+           C# test case 1:
+           char[][] board = new char[][]
+            {
+            new char[] {'o','a','a','n'},
+            new char []{'e','t','a','e'},
+            new char []{'i','h','k','r'},
+            new char []{'i','f','l','v'},
+            };
+          string[] words = new string[] {"oath","pea","eat","rain"};
+        
         */
         //Neetcode answer to this problem times out at 64th test case.
         //Solution below doesn't.
