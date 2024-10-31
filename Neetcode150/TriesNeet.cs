@@ -214,8 +214,8 @@ namespace Neetcode150
                 return cur.isWord;
             }
         }
-        
-        
+
+
         /*Array based solution that has a faster run time and smaller memory foot-print
         public class TrieNode
         {
@@ -286,8 +286,8 @@ namespace Neetcode150
         }
 
         */
-        
-        
+
+
         #endregion
         #region Word Search II
         /*
@@ -334,8 +334,8 @@ namespace Neetcode150
         //Solution below doesn't.
         public IList<string> FindWords(char[][] board, string[] words)
         {
-            int m = board.Length;
-            int n = board[0].Length;
+            int rl = board.Length;
+            int cl = board[0].Length;
             List<string> res = new();
 
             //build trie
@@ -352,21 +352,21 @@ namespace Neetcode150
             }
 
             //do dfs
-            for (int i = 0; i < m; i++)
+            for (int r = 0; r < rl; r++)
             {
-                for (int j = 0; j < n; j++)
+                for (int c = 0; c < cl; c++)
                 {
-                    Dfs(i, j, root);
+                    Dfs(r, c, root);
                 }
             }
 
             return res;
 
-            void Dfs(int i, int j, Node node)
+            void Dfs(int row, int col, Node node)
             {
-                if (i < 0 || j < 0 || i == m || j == n) return;
-                char c = board[i][j];
-                if (c == '/' || node.Next[c] is null) return;
+                if (row < 0 || col < 0 || row == rl || col == cl) return;
+                char c = board[row][col];
+                if (c == '/' || node.Next[c] == null) return;
                 node = node.Next[c];
 
                 if (node.Word is not null)
@@ -375,12 +375,12 @@ namespace Neetcode150
                     node.Word = null;
                 }
 
-                board[i][j] = '/';
-                Dfs(i - 1, j, node);
-                Dfs(i, j - 1, node);
-                Dfs(i + 1, j, node);
-                Dfs(i, j + 1, node);
-                board[i][j] = c;
+                board[row][col] = '/';
+                Dfs(row - 1, col, node);
+                Dfs(row + 1, col, node);
+                Dfs(row, col + 1, node);
+                Dfs(row, col - 1, node);
+                board[row][col] = c;
             }
         }
 

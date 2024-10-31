@@ -593,7 +593,10 @@ namespace Neetcode150
 
         Follow up: If the BST is modified often (i.e., we can do insert and delete operations) and you need to find the kth smallest frequently, how would you optimize?
         https://leetcode.com/problems/kth-smallest-element-in-a-bst/
+        
+        root = [3,1,4,null,2] k = 2 Expected = 2 33/93 testcases
         */
+
         //Custom Solution, runtime and memory consumption is really close to Neetcode's.
         Stack<int> items = new();
         public int KthSmallest(TreeNode root, int k)
