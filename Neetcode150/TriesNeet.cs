@@ -217,74 +217,83 @@ namespace Neetcode150
 
 
         /*Array based solution that has a faster run time and smaller memory foot-print
-        public class TrieNode
-        {
-            public Dictionary<char,TrieNode> children;
-            public bool isWord;
-            public TrieNode()
-            {
-                children = new Dictionary<char,TrieNode>();
-                isWord = false;
-            }
-        }
-
         public class WordDictionary {
-            TrieNode root;
-            
-            public WordDictionary() 
-            {
-                root = new TrieNode();
+            Node root;
+            public WordDictionary() {
+                root = new Node();
             }
             
-            public void AddWord(string word) 
-            {
-                TrieNode cur = root;
+            public void AddWord(string word) {
+                Node curr = root;
 
                 foreach(char c in word)
                 {
-                    if(!cur.children.ContainsKey(c))
-                    cur.children.Add(c, new TrieNode());
+                    int let = c - 'a';
+                    if(curr.children[let] == null)
+                    curr.children[let] = new Node();
 
-                    cur = cur.children[c];
+                    curr = curr.children[let];
                 }
 
-                cur.isWord = true;    
+                curr.isWord = true;
             }
             
-            public bool Search(string word) 
-            {
-                TrieNode cur = root;
-                return traveler(0,word,cur);
+            public bool Search(string word) {
+                return dfs(word,0,root);
             }
 
-            public bool traveler( int index, string word, TrieNode cur)
+            public bool dfs(string word, int index,Node head)
             {
+                Node curr = head;
+
+                if(head == null)
+                return false;
+
                 for(int i = index; i < word.Length; i++)
                 {
-                    char c = word[i];
+                    int let = word[i] - 'a';
 
-                    if(c == '.')
+                    if(word[i] == '.')
                     {
-                        foreach(KeyValuePair<char,TrieNode> item in cur.children)
+
+                        foreach(Node item in curr.children)
                         {
-                            if(traveler(i + 1,word,item.Value))
+                            if(dfs(word,i + 1,item))
                             return true;
                         }
                         return false;
                     }
                     else
                     {
-                        if(!cur.children.ContainsKey(c))
+                        if(curr.children[let] == null)
                         return false;
-
-                        cur = cur.children[c];
+                        else
+                        {
+                            curr = curr.children[let];
+                        }
                     }
                 }
 
-                return cur.isWord;
+                if(curr.isWord == true)
+                return true;
+
+                return false;
             }
+
         }
 
+        public class Node
+        {
+            public Node[] children;
+            public char val;
+            public bool isWord;
+
+            public Node()
+            {
+                children = new Node[26];
+                isWord = false;
+            }
+        }
         */
 
 
