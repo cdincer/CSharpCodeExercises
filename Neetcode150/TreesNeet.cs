@@ -727,25 +727,26 @@ namespace Neetcode150
         [-2,-1] 91 / 96 testcases passed
         
         */
-        int maxPathSum = Int32.MinValue;
-
+        int maxPathSum = int.MinValue;
         public int MaxPathSum(TreeNode root)
         {
-            DfsMaxPathSum(root);
+            dfs(root);
             return maxPathSum;
         }
 
-        private int DfsMaxPathSum(TreeNode root)
+        public int dfs(TreeNode root)
         {
             if (root == null)
                 return 0;
 
-            int leftMax = DfsMaxPathSum(root.left),
-                rightMax = DfsMaxPathSum(root.right),
-                currentMax = 0;
+            int leftSum = dfs(root.left);
+            int rightSum = dfs(root.right);
+            int currentMax = 0;
 
-            currentMax = Math.Max(currentMax, Math.Max(leftMax + root.val, rightMax + root.val));
-            maxPathSum = Math.Max(maxPathSum, leftMax + root.val + rightMax);
+            //see left path or right is big and send that in if its bigger than 0.
+            currentMax = Math.Max(currentMax, Math.Max(leftSum, rightSum) + root.val);
+            //see if max sum is bigger than the currentNode sum in the process eliminate negative values
+            maxPathSum = Math.Max(maxPathSum, leftSum + root.val + rightSum);
 
             return currentMax;
         }
