@@ -96,32 +96,39 @@ namespace Neetcode150
 
         https://leetcode.com/problems/last-stone-weight/
         */
-
+        //Because of a good comparer usage example here, previous solution was replaced.
         public int LastStoneWeight(int[] stones)
         {
-            PriorityQueue<int, int> maxHeap = new PriorityQueue<int, int>();
-
+            PriorityQueue<int, int> pq = new PriorityQueue<int, int>(Comparer<int>.Create((a, b) => b.CompareTo(a)));
             foreach (int stone in stones)
             {
-                maxHeap.Enqueue(stone, -stone);
+                pq.Enqueue(stone, stone);
             }
 
-            int stoneOne;
-            int stoneTwo;
-
-            while (maxHeap.Count > 1)
+            while (pq.Count > 1)
             {
-                stoneOne = maxHeap.Dequeue();
-                stoneTwo = maxHeap.Dequeue();
-                if (stoneOne > stoneTwo)
-                    maxHeap.Enqueue(stoneOne - stoneTwo, -(stoneOne - stoneTwo));
+                int stone1 = pq.Dequeue();
+                int stone2 = pq.Dequeue();
+
+                if (stone1 == stone2)
+                    continue;
+                if (stone1 > stone2)
+                {
+                    stone1 -= stone2;
+                    pq.Enqueue(stone1, stone1);
+                }
+                else
+                {
+                    stone2 -= stone1;
+                    pq.Enqueue(stone2, stone2);
+                }
             }
 
-            if (maxHeap.Count == 0)
-                return 0;
-            return maxHeap.Dequeue();
-        }
+            if (pq.Count > 0)
+                return pq.Dequeue();
 
+            return 0;
+        }
         #endregion
         #region K Closest Points to Origin
         /*
