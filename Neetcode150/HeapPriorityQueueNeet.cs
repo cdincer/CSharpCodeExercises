@@ -134,7 +134,10 @@ namespace Neetcode150
         /*
         
         Extra Test Cases: 
-        [[-95,76],[17,7],[-55,-58],[53,20],[-69,-8],[-57,87],[-2,-42],[-10,-87],[-36,-57],[97,-39],[97,49]] 63 / 87 testcases passed
+        [[-95,76],[17,7],[-55,-58],[53,20],[-69,-8],[-57,87],[-2,-42],[-10,-87],[-36,-57],[97,-39],[97,49]] k = 5 
+        Output: [[-69,-8],[-36,-57],[53,20],[-2,-42],[17,7]] 63 / 87 testcases passed
+        ----
+        
         */
         public int[][] KClosest(int[][] points, int k)
         {
@@ -158,10 +161,42 @@ namespace Neetcode150
 
             return result;
         }
+
+        //Alternative with comparer
+        //Slower than solution above.
+
+        public int[][] KClosest2(int[][] points, int k)
+        {
+
+            var oPoints = points.Select(point =>
+               {
+                   long x = point[0];
+                   long y = point[1];
+
+                   return (point, x * x + y * y);
+               });
+
+            PriorityQueue<int[], long> pq = new PriorityQueue<int[], long>
+            (oPoints, Comparer<long>.Create((a, b) => a.CompareTo(b)));
+
+            int[][] result = new int[k][];
+            int index = 0;
+            while (pq.Count > 0 && k > 0)
+            {
+                result[index] = pq.Dequeue();
+                k--;
+                index++;
+            }
+
+            return result.ToArray();
+        }
+
         #endregion
         #region Kth Largest Element in an array
         /*
         https://leetcode.com/problems/kth-largest-element-in-an-array/
+
+        [-1,2,0] k = 2 Output: 0  27 / 42 testcases passed
         */
 
         public int FindKthLargest(int[] nums, int k)
