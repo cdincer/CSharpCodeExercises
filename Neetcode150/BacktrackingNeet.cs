@@ -518,15 +518,15 @@ namespace Neetcode150
         }
 
 
-        public List<List<string>> Partition2(string s)
+        public List<IList<string>> Partition2(string s)
         {
-            List<List<string>> result = new List<List<string>>();
+            List<IList<string>> result = new List<IList<string>>();
             List<string> part = new List<string>();
             Dfs(0, s, part, result);
             return result;
         }
 
-        private void Dfs(int index, string word, List<string> part, List<List<string>> res)
+        private void Dfs(int index, string word, List<string> part, List<IList<string>> res)
         {
             if (index >= word.Length)
             {
