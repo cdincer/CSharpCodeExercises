@@ -516,6 +516,47 @@ namespace Neetcode150
 
             return results;
         }
+
+
+        public List<List<string>> Partition2(string s)
+        {
+            List<List<string>> result = new List<List<string>>();
+            List<string> part = new List<string>();
+            Dfs(0, s, part, result);
+            return result;
+        }
+
+        private void Dfs(int index, string word, List<string> part, List<List<string>> res)
+        {
+            if (index >= word.Length)
+            {
+                res.Add(new List<string>(part));
+                return;
+            }
+            for (int i = index; i < word.Length; i++)
+            {
+                if (IsPali(word, index, i))
+                {
+                    part.Add(word.Substring(index, i - index + 1));
+                    Dfs(i + 1, word, part, res);
+                    part.RemoveAt(part.Count - 1);
+                }
+            }
+        }
+
+        private bool IsPali(string s, int left, int right)
+        {
+            while (left < right)
+            {
+                if (s[left] != s[right])
+                {
+                    return false;
+                }
+                left++;
+                right--;
+            }
+            return true;
+        }
         #endregion
         #region Letter Combinations of a Phone Number
         /*
