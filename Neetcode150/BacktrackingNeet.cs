@@ -518,7 +518,7 @@ namespace Neetcode150
         }
 
 
-        public List<IList<string>> Partition2(string s)
+        public IList<IList<string>> Partition2(string s)
         {
             List<IList<string>> result = new List<IList<string>>();
             List<string> part = new List<string>();
