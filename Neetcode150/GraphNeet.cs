@@ -79,6 +79,77 @@ namespace Neetcode150
             return result;
         }
         #endregion
+        #region Max Area of Island
+        /*
+        You are given an m x n binary matrix grid. An island is a group of 1's (representing land) connected 4-directionally (horizontal or vertical.) 
+        You may assume all four edges of the grid are surrounded by water.
+        The area of an island is the number of cells with a value 1 in the island.
+        Return the maximum area of an island in grid. If there is no island, return 0.
+
+        Example 1:
+        Input: grid = [[0,0,1,0,0,0,0,1,0,0,0,0,0],[0,0,0,0,0,0,0,1,1,1,0,0,0],[0,1,1,0,1,0,0,0,0,0,0,0,0],[0,1,0,0,1,1,0,0,1,0,1,0,0],[0,1,0,0,1,1,0,0,1,1,1,0,0],[0,0,0,0,0,0,0,0,0,0,1,0,0],[0,0,0,0,0,0,0,1,1,1,0,0,0],[0,0,0,0,0,0,0,1,1,0,0,0,0]]
+        Output: 6
+        Explanation: The answer is not 11, because the island must be connected 4-directionally.
+
+        Example 2:
+        Input: grid = [[0,0,0,0,0,0,0,0]]
+        Output: 0
+
+        Constraints:
+
+            m == grid.length
+            n == grid[i].length
+            1 <= m, n <= 50
+            grid[i][j] is either 0 or 1.
+
+        Test Cases:
+        [[1]] 613 / 728 testcases passed
+        https://leetcode.com/problems/max-area-of-island/
+        */
+        public int MaxAreaOfIsland(int[][] grid)
+        {
+            int MaxArea = 0;
+            int rl = grid.Length;
+            int cl = grid[0].Length;
+            Queue<(int, int)> myq = new();
+            int[] dr = new int[] { 1, -1, 0, 0 };
+            int[] dc = new int[] { 0, 0, 1, -1 };
+
+            for (int i = 0; i < grid.Length; i++)
+            {
+                for (int j = 0; j < grid[i].Length; j++)
+                {
+                    if (grid[i][j] == 1)
+                    {
+                        myq.Enqueue((i, j));
+                        int currA = 1;
+                        grid[i][j] = 0;
+                        while (myq.Count > 0)
+                        {
+                            (int tr, int tc) = myq.Dequeue();
+                            for (int x = 0; x < 4; x++)
+                            {
+                                int cr = dr[x] + tr;
+                                int cc = dc[x] + tc;
+
+                                if (cr > -1 && cr < rl && cc > -1 && cc < cl && grid[cr][cc] == 1)
+                                {
+                                    Console.WriteLine("entered with " + cr + " with cc" + cc);
+                                    currA++;
+                                    grid[cr][cc] = 0;
+                                    myq.Enqueue((cr, cc));
+                                }
+                            }
+                        }
+                        MaxArea = Math.Max(MaxArea, currA);
+                    }
+                }
+
+            }
+
+            return MaxArea;
+        }
+        #endregion
         #region Clone Graph
         /*
         Given a reference of a node in a connected undirected graph.
@@ -205,76 +276,52 @@ namespace Neetcode150
             return map[node];
         }
         #endregion
-        #region  Max Area of Island
+        #region Walls And Gates (sometimes can be named islandsAndTreasure)
         /*
-        You are given an m x n binary matrix grid. An island is a group of 1's (representing land) connected 4-directionally (horizontal or vertical.) 
-        You may assume all four edges of the grid are surrounded by water.
-        The area of an island is the number of cells with a value 1 in the island.
-        Return the maximum area of an island in grid. If there is no island, return 0.
+        You are given a m×nm×n 2D grid initialized with these three possible values:
+        -1 - A water cell that can not be traversed.
+        0 - A treasure chest.
+        INF - A land cell that can be traversed. We use the integer 2^31 - 1 = 2147483647 to represent INF.
+
+        Fill each land cell with the distance to its nearest treasure chest.
+         If a land cell cannot reach a treasure chest than the value should remain INF.
+        Assume the grid can only be traversed up, down, left, or right.
 
         Example 1:
-        Input: grid = [[0,0,1,0,0,0,0,1,0,0,0,0,0],[0,0,0,0,0,0,0,1,1,1,0,0,0],[0,1,1,0,1,0,0,0,0,0,0,0,0],[0,1,0,0,1,1,0,0,1,0,1,0,0],[0,1,0,0,1,1,0,0,1,1,1,0,0],[0,0,0,0,0,0,0,0,0,0,1,0,0],[0,0,0,0,0,0,0,1,1,1,0,0,0],[0,0,0,0,0,0,0,1,1,0,0,0,0]]
-        Output: 6
-        Explanation: The answer is not 11, because the island must be connected 4-directionally.
+        Input: [
+        [2147483647,-1,0,2147483647],
+        [2147483647,2147483647,2147483647,-1],
+        [2147483647,-1,2147483647,-1],
+        [0,-1,2147483647,2147483647]
+        ]
+
+        Output: [
+        [3,-1,0,1],
+        [2,2,1,-1],
+        [1,-1,2,-1],
+        [0,-1,3,4]
+        ]
 
         Example 2:
-        Input: grid = [[0,0,0,0,0,0,0,0]]
-        Output: 0
+        Input: [
+        [0,-1],
+        [2147483647,2147483647]
+        ]
+
+        Output: [
+        [0,-1],
+        [1,2]
+        ]
 
         Constraints:
 
             m == grid.length
             n == grid[i].length
-            1 <= m, n <= 50
-            grid[i][j] is either 0 or 1.
-
-        Test Cases:
-        [[1]] 613 / 728 testcases passed
-        https://leetcode.com/problems/max-area-of-island/
+            1 <= m, n <= 100
+            grid[i][j] is one of {-1, 0, 2147483647}
+        
+        https://neetcode.io/problems/islands-and-treasure
         */
-        public int MaxAreaOfIsland(int[][] grid)
-        {
-            int MaxArea = 0;
-            int rl = grid.Length;
-            int cl = grid[0].Length;
-            Queue<(int, int)> myq = new();
-            int[] dr = new int[] { 1, -1, 0, 0 };
-            int[] dc = new int[] { 0, 0, 1, -1 };
-
-            for (int i = 0; i < grid.Length; i++)
-            {
-                for (int j = 0; j < grid[i].Length; j++)
-                {
-                    if (grid[i][j] == 1)
-                    {
-                        myq.Enqueue((i, j));
-                        int currA = 1;
-                        grid[i][j] = 0;
-                        while (myq.Count > 0)
-                        {
-                            (int tr, int tc) = myq.Dequeue();
-                            for (int x = 0; x < 4; x++)
-                            {
-                                int cr = dr[x] + tr;
-                                int cc = dc[x] + tc;
-
-                                if (cr > -1 && cr < rl && cc > -1 && cc < cl && grid[cr][cc] == 1)
-                                {
-                                    Console.WriteLine("entered with " + cr + " with cc" + cc);
-                                    currA++;
-                                    grid[cr][cc] = 0;
-                                    myq.Enqueue((cr, cc));
-                                }
-                            }
-                        }
-                        MaxArea = Math.Max(MaxArea, currA);
-                    }
-                }
-
-            }
-
-            return MaxArea;
-        }
         #endregion
         #region Pacific Atlantic Water Flow
         /*
