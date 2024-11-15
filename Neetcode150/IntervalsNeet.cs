@@ -238,6 +238,7 @@ namespace Neetcode150
             0 <= intervals.length <= 500
             0 <= intervals[i].start < intervals[i].end <= 1,000,000
 
+        intervals=[(0,8),(8,10)]  Expected output: true Passed test cases: 2 / 3 
         */
         public class Interval
         {
