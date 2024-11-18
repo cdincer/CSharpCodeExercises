@@ -338,30 +338,29 @@ namespace Tier2
             1 <= n <= 45
 
         https://leetcode.com/problems/climbing-stairs/description/
+        
+        Hint: Even with recursive/memoization solution TLE.
+        Extra Test Case:
+        n = 44 21 / 45 testcases passed 
         */
-        //No official solution but even the question hint was basically fibonacci number so adapted that.
-        Dictionary<int, int> memValue2 = new();
+
+        //Bottom up DP
         public int ClimbStairs(int n)
         {
-
-            if (memValue2.ContainsKey(n))
+            if (n <= 2)
             {
-                return memValue2[n];
+                return n;
             }
-            int result = 0;
-
-            if (n == 0 || n == 1)
+            int[] dp = new int[n + 1];
+            dp[1] = 1;
+            dp[2] = 2;
+            for (int i = 3; i <= n; i++)
             {
-                return 1;
+                dp[i] = dp[i - 1] + dp[i - 2];
             }
-            else
-            {
-                result = ClimbStairs(n - 1) + ClimbStairs(n - 2);
-            }
-
-            memValue2.Add(n, result);
-            return memValue2[n];
+            return dp[n];
         }
+
         #endregion
         #endregion
         #region Complexity Analysis

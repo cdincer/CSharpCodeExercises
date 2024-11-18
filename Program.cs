@@ -99,8 +99,8 @@ namespace CSharpCodeExercises
           new IntervalsNeet.Interval(24,30)
           };
 
+          TestGroundClass testGround = new();
+          testGround.ClimbStairs(2);
         }
     }
-
-
 }
