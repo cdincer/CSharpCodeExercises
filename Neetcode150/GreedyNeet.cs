@@ -36,8 +36,9 @@ namespace Neetcode150
 
         https://leetcode.com/problems/maximum-subarray/
         Extra Test Cases:
-        [-2,1] 172 / 210 testcases passed
-        [-1] 195 / 210 testcases passed
+        [-2,1] Expected =  1 172 / 210 testcases passed
+        [-1] Expected = -1 195 / 210 testcases passed
+        [-2,-1] Expected = -1 196 / 210 testcases passed
         */
         public int MaxSubArray(int[] nums)
         {
