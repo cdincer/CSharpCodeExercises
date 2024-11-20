@@ -119,14 +119,35 @@ namespace Neetcode150
             It's guaranteed that you can reach nums[n - 1].
 
         Extra Test Cases: 
-        [2,1,1,5,2] Output:3 
-        [2,1] Output:1 
-        [1] Output:0 
-        [2,1,2,1,0] Output:2 
+        [2,1,1,5,2] Expected: 3 
+        [2,1] Expected: 1 
+        [1] Expected: 0 
+        [2,1,2,1,0] Expected: 2 
         [3,4,3,2,5,4,3] 
         [4,1,1,3,1,1,1] 
         [10,9,8,7,6,5,4,3,2,1,1,0]
+        [1,2,3] Expected: 2 32 / 110 testcases passed
         */
+        public int Jump(int[] nums)
+        {
+            int result = 0;
+            int left = 0;
+            int right = 0;
+            
+            while (right < nums.Length - 1)
+            {
+                int maxJump = 0;
+                for (int i = left; i <= right; i++)
+                {
+                    maxJump = Math.Max(maxJump, i + nums[i]);
+                }
+                left = right + 1;
+                right = maxJump;
+                result++;
+            }
+            
+            return result;
+        }
         #endregion
         #region Gas Station
         /*
@@ -167,6 +188,7 @@ namespace Neetcode150
         Extra Test Cases:
         gas=[2,0,0]
         cost=[0,1,0]
+        gas =  [5,1,2,3,4] cost = [4,4,1,5,1] Expected: 4 26 / 39 testcases passed
         https://leetcode.com/problems/gas-station/
         */
         public int CanCompleteCircuit(int[] gas, int[] cost)
