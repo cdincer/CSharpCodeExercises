@@ -127,6 +127,8 @@ namespace Neetcode150
         [4,1,1,3,1,1,1] 
         [10,9,8,7,6,5,4,3,2,1,1,0]
         [1,2,3] Expected: 2 32 / 110 testcases passed
+        [1,2,1,1,1] Expected: 3 18 / 110 testcases passed
+        https://leetcode.com/problems/jump-game-ii/
         */
         public int Jump(int[] nums)
         {
@@ -189,6 +191,7 @@ namespace Neetcode150
         gas=[2,0,0]
         cost=[0,1,0]
         gas =  [5,1,2,3,4] cost = [4,4,1,5,1] Expected: 4 26 / 39 testcases passed
+        gas =  [3,1,1] cost = [1,2,2] Expected: 0  36 / 39 testcases passed
         https://leetcode.com/problems/gas-station/
         */
         public int CanCompleteCircuit(int[] gas, int[] cost)
