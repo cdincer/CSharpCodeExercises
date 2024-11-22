@@ -6,6 +6,48 @@ namespace Neetcode150
 {
     public class DpOneNeet
     {
+        #region Climbing Stairs
+        /*
+        You are climbing a staircase. It takes n steps to reach the top.
+        Each time you can either climb 1 or 2 steps. 
+        In how many distinct ways can you climb to the top?
+
+        
+        Example 1:
+
+        Input: n = 2
+        Output: 2
+        Explanation: There are two ways to climb to the top.
+        1. 1 step + 1 step
+        2. 2 steps
+
+        Example 2:
+        Input: n = 3
+        Output: 3
+        Explanation: There are three ways to climb to the top.
+        1. 1 step + 1 step + 1 step
+        2. 1 step + 2 steps
+        3. 2 steps + 1 step
+
+        https://leetcode.com/problems/climbing-stairs/
+        n = 38 16 / 45 testcases passed
+        n = 44 21 / 45 testcases passed
+        */
+
+        public int ClimbStairs(int n)
+        {
+            int one = 1, two = 1;
+
+            for (int i = 0; i < n - 1; i++)
+            {
+                int temp = one;
+                one = one + two;
+                two = temp;
+            }
+
+            return one;
+        }
+        #endregion
         #region Min Cost Climbing Stairs
         /*
         You are given an integer array cost where cost[i] is the cost of ith step on a staircase. 
@@ -39,25 +81,14 @@ namespace Neetcode150
 
         https://leetcode.com/problems/min-cost-climbing-stairs/
         */
-        int[] memo;
+        //Space optimized
         public int MinCostClimbingStairs(int[] cost)
         {
-            memo = new int[cost.Length];
-            Array.Fill(memo, -1);
-            return Math.Min(dfs(cost, 0), dfs(cost, 1));
-        }
-
-        public int dfs(int[] cost, int index)
-        {
-            if (index >= cost.Length)
-                return 0;
-
-            if (memo[index] != -1)
-                return memo[index];
-
-            memo[index] = cost[index] + Math.Min(dfs(cost, index + 1), dfs(cost, index + 2));
-
-            return memo[index];
+            for (int i = cost.Length - 3; i >= 0; i--)
+            {
+                cost[i] += Math.Min(cost[i + 1], cost[i + 2]);
+            }
+            return Math.Min(cost[0], cost[1]);
         }
         #endregion
         #region House Robber
