@@ -193,6 +193,8 @@ namespace Neetcode150
             There are no repeated edges and no self-loops in the graph.
             The Graph is connected and all nodes can be visited starting from the given node.
 
+        Extra Test Case:
+        edges = [[2,3,4,14],[1,7,11],[1],[1,5,6,8],[4,9],[4],[2,10],[4,13],[5,12,16],[7],[2],[9,15],[8],[1],[12],[9]] 17 / 22 testcases passed
         */
         #region Required Node Class
         public class Node

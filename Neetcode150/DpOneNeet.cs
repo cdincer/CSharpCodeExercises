@@ -33,19 +33,20 @@ namespace Neetcode150
         n = 38 16 / 45 testcases passed
         n = 44 21 / 45 testcases passed
         */
-
+        //House Robber problems have a similar way of solving the question.
         public int ClimbStairs(int n)
         {
-            int one = 1, two = 1;
+            int one = 1;
+            int two = 1;
 
             for (int i = 0; i < n - 1; i++)
             {
-                int temp = one;
-                one = one + two;
+                int temp = one + two;
+                one = two;
                 two = temp;
             }
 
-            return one;
+            return two;
         }
         #endregion
         #region Min Cost Climbing Stairs
@@ -86,8 +87,11 @@ namespace Neetcode150
         {
             for (int i = cost.Length - 3; i >= 0; i--)
             {
+                //This point is reachable by the previous two.
                 cost[i] += Math.Min(cost[i + 1], cost[i + 2]);
             }
+
+            //Two starting points only places left to check
             return Math.Min(cost[0], cost[1]);
         }
         #endregion
