@@ -324,6 +324,66 @@ namespace Neetcode150
         
         https://neetcode.io/problems/islands-and-treasure
         */
+        int[][] directions =
+        {
+            new int[] {1,0}, new int[] {-1,0},
+            new int[] {0,1},new int[] {0,-1}
+        };
+        
+        int INF = int.MaxValue;
+        int rl = 0;
+        int cl = 0;
+
+        public void islandsAndTreasure(int[][] grid)
+        {
+            rl = grid.Length;
+            cl = grid[0].Length;
+
+            for (int r = 0; r < rl; r++)
+            {
+                for (int c = 0; c < cl; c++)
+                {
+                    if (grid[r][c] == INF)
+                        grid[r][c] = bfs(grid, r, c);
+                }
+            }
+        }
+
+
+        public int bfs(int[][] grid, int r, int c)
+        {
+            Queue<(int, int)> que = new();
+            que.Enqueue((r, c));
+            bool[,] visit = new bool[rl, cl];
+            visit[r, c] = true;
+            int steps = 0;
+
+            while (que.Count > 0)
+            {
+                int size = que.Count;
+                for (int i = 0; i < size; i++)
+                {
+                    (int tr, int tc) = que.Dequeue();
+
+                    if (grid[tr][tc] == 0) return steps;
+
+                    foreach (int[] dir in directions)
+                    {
+                        int cr = tr + dir[0];
+                        int cc = tc + dir[1];
+
+                        if (cr >= 0 && cc >= 0 && rl > cr && cl > cc
+                                   && !visit[cr, cc] && grid[cr][cc] != -1)
+                        {
+                            visit[cr, cc] = true;
+                            que.Enqueue((cr, cc));
+                        }
+                    }
+                }
+                steps++;
+            }
+            return INF;
+        }
         #endregion
         #region Pacific Atlantic Water Flow
         /*
