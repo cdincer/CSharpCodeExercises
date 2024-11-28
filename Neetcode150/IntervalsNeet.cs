@@ -103,6 +103,7 @@ namespace Neetcode150
         [[1,4],[0,0]] Expected: [[0,0],[1,4]] 52 / 171 testcases passed
         [[1,4],[0,0]] Expected: [[0,0],[1,4]] 53 / 171 testcases passed
         [[2,3],[2,2],[3,3],[1,3],[5,7],[2,2],[4,6]] Expected: [[1,3],[4,7]]  87 / 171 testcases passed
+        [[2,3],[4,5],[6,7],[8,9],[1,10]] Expected: [[1,10]] 95 / 171 testcases passed
         */
         //Simplified version of the neetcode one.
         public int[][] Merge(int[][] intervals)
@@ -161,7 +162,7 @@ namespace Neetcode150
         /*
         https://leetcode.com/problems/non-overlapping-intervals/
         Extra Test Cases:
-        [[1,100],[11,22],[1,11],[2,12]]
+        [[1,100],[11,22],[1,11],[2,12]] Expected: 2
         */
         //Neetcode solution
         public int EraseOverlapIntervals(int[][] intervals)
