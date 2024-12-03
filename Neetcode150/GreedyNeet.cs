@@ -190,6 +190,7 @@ namespace Neetcode150
         Extra Test Cases:
         gas=[2,0,0]
         cost=[0,1,0]
+        gas = [1,2,3,4,5] cost = [3,4,5,1,2] Expected: 3 20 / 39 testcases passed
         gas =  [5,1,2,3,4] cost = [4,4,1,5,1] Expected: 4 26 / 39 testcases passed
         gas =  [3,1,1] cost = [1,2,2] Expected: 0  36 / 39 testcases passed
         https://leetcode.com/problems/gas-station/
