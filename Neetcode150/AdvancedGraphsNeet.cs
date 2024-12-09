@@ -38,45 +38,39 @@ namespace Neetcode150
         [["JFK","KUL"],["JFK","NRT"],["NRT","JFK"]] Output: ["JFK","NRT","JFK","KUL"] REALLY IMPORTANT
         https://leetcode.com/problems/reconstruct-itinerary/
         */
+        private Dictionary<string, IList<string>> adj;
+        private IList<string> res = new List<string>();
+
         public IList<string> FindItinerary(IList<IList<string>> tickets)
         {
-            Dictionary<string, List<string>> map = new();
-
-            foreach (var ticket in tickets)
+            adj = new Dictionary<string, IList<string>>();
+            var sortedTickets = tickets.OrderByDescending(t => t[1]).ToList();
+            foreach (var ticket in sortedTickets)
             {
-                if (!map.TryGetValue(ticket[0], out List<string> adj))
+                if (!adj.ContainsKey(ticket[0]))
                 {
-                    adj = new List<string>();
-                    map.Add(ticket[0], adj);
+                    if (!adj.ContainsKey(ticket[0]))
+                        adj[ticket[0]] = new List<string>();
                 }
-
-                adj.Add(ticket[1]);
+                adj[ticket[0]].Add(ticket[1]);
             }
 
-            foreach (List<string> adj in map.Values)
-            {
-                adj.Sort((a, b) => string.Compare(b, a));
-            }
+            Dfs("JFK");
 
-            Stack<string> res = new();
-            Travel(map, "JFK", res);
-            return res.ToList();
 
+            return res.Reverse().ToList();
         }
 
-        public void Travel(Dictionary<string, List<string>> itin, string src, Stack<string> ans)
-        {
-            if (itin.TryGetValue(src, out List<string> adj))
-            {
-                while (adj.Count > 0)
-                {
-                    string dest = adj.Last();
-                    adj.RemoveAt(adj.Count - 1);
-                    Travel(itin, dest, ans);
-                }
-            }
 
-            ans.Push(src);
+        private void Dfs(string src)
+        {
+            while (adj.ContainsKey(src) && adj[src].Count > 0)
+            {
+                var dst = adj[src][adj[src].Count - 1];
+                adj[src].RemoveAt(adj[src].Count - 1);
+                Dfs(dst);
+            }
+            res.Add(src);
         }
         #endregion
         #region Min Cost to Connect All Points
