@@ -104,47 +104,32 @@ namespace Neetcode150
         */
         public int MinCostConnectPoints(int[][] points)
         {
-            int result = 0;
-            HashSet<int> visited = new();//source node //cost //target node
-            PriorityQueue<(int, int), int> pq = new();
-            Dictionary<int, List<(int, int)>> dict = new();
+            int n = points.Length, node = 0;
+            int[] dist = new int[n];
+            bool[] visit = new bool[n];
+            Array.Fill(dist, 100000000);
+            int edges = 0, res = 0;
 
-            for (int i = 0; i < points.Length; i++)
+            while (edges < n - 1)
             {
-                int mx = points[i][0];
-                int my = points[i][1];
-                dict.Add(i, new List<(int, int)>());
-                for (int j = 0; j < points.Length; j++)
+                visit[node] = true;
+                int nextNode = -1;
+                for (int i = 0; i < n; i++)
                 {
-                    if (i == j) continue;
-
-                    int dist = Math.Abs(mx - points[j][0]) + Math.Abs(my - points[j][1]);
-                    dict[i].Add((dist, j));
-                }
-            }
-
-            pq.Enqueue((0, 0), 0);
-
-            while (pq.Count > 0)
-            {
-                (int cost, int node) = pq.Dequeue();
-
-                if (visited.Contains(node)) continue;
-
-                visited.Add(node);
-                result += cost;
-
-                if (dict.TryGetValue(node, out List<(int, int)> clist))
-                {
-                    foreach (var item in clist)
+                    if (visit[i]) continue;
+                    int curDist = Math.Abs(points[i][0] - points[node][0]) +
+                                   Math.Abs(points[i][1] - points[node][1]);
+                    dist[i] = Math.Min(dist[i], curDist);
+                    if (nextNode == -1 || dist[i] < dist[nextNode])
                     {
-                        if (!visited.Contains(item.Item2))
-                            pq.Enqueue((item.Item1, item.Item2), item.Item1);
+                        nextNode = i;
                     }
                 }
+                res += dist[nextNode];
+                node = nextNode;
+                edges++;
             }
-
-            return result;
+            return res;
         }
 
         #endregion
