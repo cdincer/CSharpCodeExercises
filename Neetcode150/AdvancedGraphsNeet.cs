@@ -392,13 +392,112 @@ namespace Neetcode150
         #endregion
         #region Cheapest Flights Within K Stops
         /*
+        There are n cities connected by some number of flights. You are given an array flights where flights[i] = [fromi, to i, price i] 
+        indicates that there is a flight from city fromi to city to i with cost price i.
+        You are also given three integers src, dst, and k, return the cheapest price from src to dst with at most k stops. If there is no such route, return -1.
+
+        Example 1
+        Input: n = 4, flights = [[0,1,100],[1,2,100],[2,0,100],[1,3,600],[2,3,200]], src = 0, dst = 3, k = 1
+        Output: 700
+        Explanation:
+        The graph is shown above.
+        The optimal path with at most 1 stop from city 0 to 3 is marked in red and has cost 100 + 600 = 700.
+        Note that the path through cities [0,1,2,3] is cheaper but is invalid because it uses 2 stops.
+
+        Example 2:
+        Input: n = 3, flights = [[0,1,100],[1,2,100],[0,2,500]], src = 0, dst = 2, k = 1
+        Output: 200
+        Explanation:
+        The graph is shown above.
+        The optimal path with at most 1 stop from city 0 to 2 is marked in red and has cost 100 + 100 = 200.
+
+        Example 3:
+        Input: n = 3, flights = [[0,1,100],[1,2,100],[0,2,500]], src = 0, dst = 2, k = 0
+        Output: 500
+        Explanation:
+        The graph is shown above.
+        The optimal path with no stops from city 0 to 2 is marked in red and has cost 500.
+
+        Constraints:
+
+            1 <= n <= 100
+            0 <= flights.length <= (n * (n - 1) / 2)
+            flights[i].length == 3
+            0 <= fromi, toi < n
+            fromi != toi
+            1 <= pricei <= 104
+            There will not be any multiple flights between two cities.
+            0 <= src, dst, k < n
+            src != dst
+
         https://leetcode.com/problems/cheapest-flights-within-k-stops/
         Extra Test Cases:
         52 / 56 testcases passed
         n = 7 flights = [[0,3,7],[4,5,3],[6,4,8],[2,0,10],[6,5,6],[1,2,2],[2,5,9],[2,6,8],[3,6,3],[4,0,10],[4,6,8],[5,2,6],[1,4,3],[4,1,6],[0,5,10],[3,1,5],[4,3,1],[5,4,10],[0,1,6]]        
-        dst = 4 k = 1 Expected = 16
+        src = 2 dst = 4 k = 1 Expected = 16
         -----
+        C# Sample Test Case:
+        
+            int[][] grid2 = new int[][]
+            {
+                new int[] {0,1,100},
+                new int[] {1,2,100},
+                new int[] {2,0,100},
+                new int[] {1,3,600},
+                new int[] {2,3,200}
+             };
+
+             
+            int[][] grid3 = new int[][]
+            {
+                new int[] {0,1,100},
+                new int[] {1,2,100},
+                new int[] {0,2,500}
+             };
+          .FindCheapestPrice(4,grid2,0,3,1);
         */
+        //Shortest Path Algorithm Solution.
+        public int FindCheapestPrice(int n, int[][] flights, int src, int dst, int k)
+        {
+
+            int[] prices = new int[n];
+            Array.Fill(prices, int.MaxValue);
+            prices[src] = 0;
+
+            List<int[]>[] adj = new List<int[]>[n];
+
+            for (int i = 0; i < n; i++)
+                adj[i] = new List<int[]>();
+
+            foreach (var flight in flights)
+                adj[flight[0]].Add(new int[] { flight[1], flight[2] });
+
+            var q = new Queue<(int cst, int node, int stops)>();
+            q.Enqueue((0, src, 0));
+
+            while (q.Count > 0)
+            {
+                var (cst, node, stops) = q.Dequeue();
+
+                if (stops > k) continue;
+
+                foreach (var neighbor in adj[node])
+                {
+                    int nei = neighbor[0];
+                    int neiCost = neighbor[1];
+                    int nextCost = cst + neiCost;
+
+                    if (nextCost < prices[nei])
+                    {
+                        prices[nei] = nextCost;
+                        q.Enqueue((nextCost, nei, stops + 1));
+                    }
+
+                }
+            }
+
+            return prices[dst] == int.MaxValue ? -1 : prices[dst];
+        }
         #endregion
    
     }
