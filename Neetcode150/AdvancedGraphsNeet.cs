@@ -174,7 +174,7 @@ namespace Neetcode150
         public int NetworkDelayTime(int[][] times, int n, int k)
         {
             HashSet<int> visited = new();
-            PriorityQueue<(int, int), int> pq = new();
+            PriorityQueue<(int, int), int> pq = new();//cost //target node // Priority which based on cost
             Dictionary<int, List<(int, int)>> dict = new();//cost //target node
             foreach (var time in times)
             {
@@ -199,8 +199,8 @@ namespace Neetcode150
                     {
                         if (visited.Contains(current.Item2)) continue;
 
-                        int we = result + current.Item1;
-                        pq.Enqueue((we, current.Item2), we);
+                        int overallCost = result + current.Item1;
+                        pq.Enqueue((overallCost, current.Item2), overallCost);
                     }
                 }
             }
