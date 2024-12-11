@@ -162,10 +162,10 @@ namespace Neetcode150
             All the pairs (ui, vi) are unique. (i.e., no multiple edges.)
 
         Extra Test Cases:
-        [[1,2,1],[2,3,2]] n = 3 k = 1 Output: 3 8/53 testcases
-        [[1,2,1],[2,3,2],[1,3,4]] n = 3 k = 1 Output: 3 13 / 53 testcases
-        [[1,2,1],[2,1,3]] n = 2 k = 2 Output: 3
-        [[1,2,1],[2,3,7],[1,3,4],[2,1,2]] Output: 50/53 testcases
+        [[1,2,1],[2,3,2]] n = 3 k = 1 Expected: 3 8/53 testcases
+        [[1,2,1],[2,3,2],[1,3,4]] n = 3 k = 1 Expected: 3 13 / 53 testcases
+        [[1,2,1],[2,1,3]] n = 2 k = 2 Expected: 3
+        [[1,2,1],[2,3,7],[1,3,4],[2,1,2]] n = 4 k = 1 Expected: -1 50/53 testcases
         https://leetcode.com/problems/network-delay-time
         */
 
@@ -245,46 +245,7 @@ namespace Neetcode150
         [[3,2],[0,1]] Output: 3 30 / 43 testcases passed
         https://leetcode.com/problems/swim-in-rising-water
         */
-        public int SwimInWater(int[][] grid)
-        {
-            HashSet<(int, int)> visited = new();
-            PriorityQueue<(int, int), int> pq = new(); // x,y cost
-            int result = 0;
-            pq.Enqueue((0, 0), grid[0][0]);
-
-            while (pq.Count > 0)
-            {
-                pq.TryDequeue(out var node, out int cost);
-
-                if (visited.Contains(node)) continue;
-
-                visited.Add(node);
-                result = Math.Max(result, cost);
-
-                int r = node.Item1;
-                int c = node.Item2;
-
-                if (r == grid.Length - 1 && c == grid[0].Length - 1)
-                    return result;
-
-                travel(pq, visited, grid, r + 1, c);
-                travel(pq, visited, grid, r - 1, c);
-                travel(pq, visited, grid, r, c + 1);
-                travel(pq, visited, grid, r, c - 1);
-
-            }
-
-            return -1;
-        }
-
-        public void travel(PriorityQueue<(int, int), int> pq, HashSet<(int, int)> visited, int[][] grid, int r, int c)
-        {
-            if (r >= grid.Length || 0 > r) return;
-            if (c >= grid[0].Length || 0 > c) return;
-            if (visited.Contains((r, c))) return;
-
-            pq.Enqueue((r, c), grid[r][c]);
-        }
+       
         #endregion
         #region Foreign/Alien Dictionary (Two names on Neetcode - different one in roadmap another one in question page)
         /*
