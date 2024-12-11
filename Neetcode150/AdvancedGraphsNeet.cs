@@ -245,6 +245,61 @@ namespace Neetcode150
         [[3,2],[0,1]] Output: 3 30 / 43 testcases passed
         https://leetcode.com/problems/swim-in-rising-water
         */
+        int rl = 0;
+        int cl = 0;
+        //Neetcode's Runtime on Dec 11, 2024 06:10 7ms Beats 98.98%
+        //Neetcode's memory on  Dec 11, 2024 06:10 42.33MB Beats 96.26%
+
+        //My refactored Runtime on Dec 11, 2024 06:10 8ms Beats 98.98%
+        //My refactored memory on  Dec 11, 2024 06:10 42.98MB Beats 83.18%
+
+
+        public int SwimInWater(int[][] grid)
+        {
+            rl = grid.Length;
+            cl = grid[0].Length;
+            bool[,] visit = new bool[rl, cl];
+
+            int minH = grid[0][0], maxH = grid[0][0];
+
+            for (int rt = 0; rt < rl; rt++)
+            {
+                minH = Math.Min(minH, grid[rt].Min());
+                maxH = Math.Max(maxH, grid[rt].Max());
+            }
+
+            int l = minH, r = maxH;
+
+            while (l < r)
+            {
+                int m = (l + r) >> 1;
+
+                if (dfs(grid, visit, 0, 0, m))
+                    r = m;
+                else
+                    l = m + 1;
+
+                visit = new bool[rl, cl];
+            }
+
+            return l;
+        }
+
+        private bool dfs(int[][] grid, bool[,] visit, int row, int col, int time)
+        {
+            if (0 > row || 0 > col || row >= rl || col >= cl || visit[row, col] || grid[row][col] > time)
+                return false;
+
+            if (row == rl - 1 && col == cl - 1) return true;
+
+            visit[row, col] = true;
+
+            return
+            dfs(grid, visit, row + 1, col, time) ||
+            dfs(grid, visit, row - 1, col, time) ||
+            dfs(grid, visit, row, col + 1, time) ||
+            dfs(grid, visit, row, col - 1, time);
+        }
        
         #endregion
         #region Foreign/Alien Dictionary (Two names on Neetcode - different one in roadmap another one in question page)
