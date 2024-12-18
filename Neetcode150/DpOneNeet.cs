@@ -356,6 +356,9 @@ namespace Neetcode150
             1 <= s.length <= 100
             s contains only digits and may contain leading zero(s).
 
+        s = "2101" Expected = 1 166 / 269 testcases passed
+        s ="1201234" Expected = 3 258 / 269 testcases passed
+
         https://leetcode.com/problems/decode-ways/
         */
         public int NumDecodings(string s)
@@ -373,9 +376,7 @@ namespace Neetcode150
                 else
                     dp[i] = dp[i + 1];
 
-                if (i + 1 < s.Length &&
-                    (s[i] == '1' ||
-                    (s[i] == '2' && "0123456".Contains(s[i + 1]))))
+                if (i + 1 < s.Length && (s[i] == '1' || (s[i] == '2' && s[i + 1] < '7')))
                     dp[i] += dp[i + 2];
             }
 
