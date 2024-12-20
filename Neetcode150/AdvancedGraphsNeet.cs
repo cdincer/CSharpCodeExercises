@@ -342,6 +342,8 @@ namespace Neetcode150
         words=["wrtkj","wrt"]. Expected output:"" Passed test cases: 4 / 24
         https://leetcode.com/problems/alien-dictionary/
         */
+        //Neetcode's website is terrible for doing this problem, 
+        //there will be irrelevant errors
         public string foreignDictionary(string[] words)
         {
             Dictionary<char, HashSet<char>> dict = new();
@@ -448,6 +450,10 @@ namespace Neetcode150
 
         https://leetcode.com/problems/cheapest-flights-within-k-stops/
         Extra Test Cases:
+        45 / 56 testcases passed
+        n = 5 flights = [[4,1,1],[1,2,3],[0,3,2],[0,4,10],[3,1,1],[1,4,3]] 
+        src = 2 dst = 1 k = 1 Expected = -1
+        --
         52 / 56 testcases passed
         n = 7 flights = [[0,3,7],[4,5,3],[6,4,8],[2,0,10],[6,5,6],[1,2,2],[2,5,9],[2,6,8],[3,6,3],[4,0,10],[4,6,8],[5,2,6],[1,4,3],[4,1,6],[0,5,10],[3,1,5],[4,3,1],[5,4,10],[0,1,6]]        
         src = 2 dst = 4 k = 1 Expected = 16
@@ -463,7 +469,6 @@ namespace Neetcode150
                 new int[] {2,3,200}
              };
 
-             
             int[][] grid3 = new int[][]
             {
                 new int[] {0,1,100},
