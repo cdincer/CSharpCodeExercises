@@ -242,32 +242,28 @@ namespace Neetcode150
         */
         public string LongestPalindrome(string s)
         {
-            int len1 = 0;
-            int l = 0;
-            int h = 0;
+            int resIdx = 0, resLen = 0;
+            int n = s.Length;
 
-            for (int i = 0; i < s.Length; i++)
+            bool[,] dp = new bool[n, n];
+
+            for (int i = n - 1; i >= 0; i--)
             {
-                len1 = Math.Max(cycles(s, i, i), cycles(s, i, i + 1));
-
-                if (len1 > h - l)
+                for (int j = i; j < n; j++)
                 {
-                    l = i - (len1 - 1) / 2;
-                    h = i + len1 / 2;
+                    if (s[i] == s[j] && (j - i <= 2 || dp[i + 1, j - 1]))
+                    {
+                        dp[i, j] = true;
+                        if (resLen < (j - i + 1))
+                        {
+                            resIdx = i;
+                            resLen = j - i + 1;
+                        }
+                    }
                 }
             }
-            return s.Substring(l, h - l + 1);
-        }
 
-        public int cycles(string s, int left, int right)
-        {
-            while (left >= 0 && right < s.Length && s[left] == s[right])
-            {
-                left--;
-                right++;
-            }
-
-            return right - left - 1;
+            return s.Substring(resIdx, resLen);
         }
         #endregion
         #region Palindromic Substrings
