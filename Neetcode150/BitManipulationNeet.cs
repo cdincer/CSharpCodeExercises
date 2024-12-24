@@ -229,20 +229,29 @@ namespace Neetcode150
         Constraints:
 
             -1000 <= a, b <= 1000
-
+        Extra Test Cases:
+        a = -12 b = -8 Expected: -20 17 / 31 testcases passed
         https://leetcode.com/problems/sum-of-two-integers/
         */
         public int GetSum(int a, int b)
         {
+            int res = 0;
+            int carry = 0;
 
-            while (b != 0)
+            for (int i = 0; i < 32; i++)
             {
-                int temp = a & b;
-                a = a ^ b;
-                b = (temp << 1);
+                int a_bit = (a >> i) & 1;
+                int b_bit = (b >> i) & 1;
+
+                int curr_bit = a_bit ^ b_bit ^ carry;
+                carry = (a_bit + b_bit + carry) >= 2 ? 1 : 0;
+
+                if (curr_bit != 0)
+                    res |= (1 << i);
+
             }
 
-            return a;
+            return res;
         }
         #endregion
         #region Reverse Integer

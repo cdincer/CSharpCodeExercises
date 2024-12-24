@@ -443,6 +443,39 @@ namespace Neetcode150
         "()))))*)(()()*)))())()())()())*())))(*())))())))()(((" 
         "()())(())))()())())()(()))*)())(()()((())()((())))()*)((()))((()((())()"
         */
+        public bool CheckValidString(string s)
+        {
+            int leftMin = 0;
+            int leftMax = 0;
+
+            for (int i = 0; i < s.Length; i++)
+            {
+                if (s[i] == '(')
+                {
+                    leftMin++;
+                    leftMax++;
+                }
+                else if (s[i] == ')')
+                {
+                    leftMin--;
+                    leftMax--;
+                }
+                else if (s[i] == '*')
+                {
+                    leftMin--;
+                    leftMax++;
+                }
+
+                if (leftMin < 0)
+                    leftMin = 0;
+
+                if (leftMax < 0)
+                    return false;
+
+            }
+
+            return leftMin == 0;
+        }
         #endregion
     }
 
