@@ -171,45 +171,49 @@ namespace Neetcode150
 
         ///Modified solution of Neetcode so it has a similar adjancency list and 
         ///dequeuing pattern.
+
         public int NetworkDelayTime(int[][] times, int n, int k)
         {
-            HashSet<int> visited = new();
-            PriorityQueue<(int, int), int> pq = new();//cost //target node // Priority which based on cost
-            Dictionary<int, List<(int, int)>> dict = new();//cost //target node
+            var adj = new Dictionary<int, List<int[]>>();
+            for (int i = 1; i <= n; i++) adj[i] = new List<int[]>();
             foreach (var time in times)
             {
-                dict.TryAdd(time[0], new List<(int, int)>());
-
-                dict[time[0]].Add((time[2], time[1]));
+                adj[time[0]].Add(new int[] { time[1], time[2] });
             }
-            int result = 0;
-            pq.Enqueue((0, k), 0);
 
-            while (pq.Count > 0)
+            var dist = new Dictionary<int, int>();
+            for (int i = 1; i <= n; i++) dist[i] = int.MaxValue;
+            dist[k] = 0;
+
+            var q = new Queue<int[]>();
+            q.Enqueue(new int[] { k, 0 });
+
+            while (q.Count > 0)
             {
-                (int cost, int node) = pq.Dequeue();
+                var curr = q.Dequeue();
+                int node = curr[0], time = curr[1];
 
-                if (visited.Contains(node)) continue;
-
-                visited.Add(node);
-                result = Math.Max(result, cost);
-                if (dict.TryGetValue(node, out var clist))
+                if (dist[node] < time) continue;
+                
+                foreach (var nei in adj[node])
                 {
-                    foreach (var current in clist)
+                    int nextNode = nei[0], weight = nei[1];
+                    if (time + weight < dist[nextNode])
                     {
-                        if (visited.Contains(current.Item2)) continue;
-
-                        int overallCost = result + current.Item1;
-                        pq.Enqueue((overallCost, current.Item2), overallCost);
+                        dist[nextNode] = time + weight;
+                        q.Enqueue(new int[] { nextNode, time + weight });
                     }
                 }
             }
 
-            if (visited.Count == n)
-                return result;
-
-            return -1;
+            int res = 0;
+            foreach (var time in dist.Values)
+            {
+                res = Math.Max(res, time);
+            }
+            return res == int.MaxValue ? -1 : res;
         }
+
         #endregion
         #region Rising Water
         /*
@@ -245,14 +249,14 @@ namespace Neetcode150
         [[3,2],[0,1]] Output: 3 30 / 43 testcases passed
         https://leetcode.com/problems/swim-in-rising-water
         */
-        int rl = 0;
-        int cl = 0;
         //Neetcode's Runtime on Dec 11, 2024 06:10 7ms Beats 98.98%
         //Neetcode's memory on  Dec 11, 2024 06:10 42.33MB Beats 96.26%
 
         //My refactored Runtime on Dec 11, 2024 06:10 8ms Beats 98.98%
         //My refactored memory on  Dec 11, 2024 06:10 42.98MB Beats 83.18%
 
+        int rl = 0;
+        int cl = 0;
 
         public int SwimInWater(int[][] grid)
         {
