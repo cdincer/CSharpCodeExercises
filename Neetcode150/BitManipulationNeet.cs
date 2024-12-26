@@ -256,6 +256,15 @@ namespace Neetcode150
         #endregion
         #region Reverse Integer
         /*
+        IMPORTANT NOTE:
+        
+        This question doesn't have a actual bit manipulation.
+        Only it uses bit manipulation similar integer size check with python solution
+        That's why it is listed under the bit manipulation group of questions.
+       
+        It can be seen under type of Recursion solution:
+        https://neetcode.io/solutions/reverse-integer
+
         Given a signed 32-bit integer x, return x with its digits reversed. 
         If reversing x causes the value to go outside the signed 32-bit integer range [-231, 231 - 1], then return 0.
         Assume the environment does not allow you to store 64-bit integers (signed or unsigned).
@@ -278,6 +287,8 @@ namespace Neetcode150
 
         https://leetcode.com/problems/reverse-integer
 
+
+        https://neetcode.io/solutions/reverse-integer
         Extra Test Cases:
         1534236469 1036 / 1045 testcases passed
         */
