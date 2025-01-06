@@ -240,30 +240,34 @@ namespace Neetcode150
         Extra Test Cases:
         "bb" 82 / 142 testcases passed
         */
+        int resLen = 0, resIdx = 0;
         public string LongestPalindrome(string s)
         {
-            int resIdx = 0, resLen = 0;
-            int n = s.Length;
 
-            bool[,] dp = new bool[n, n];
-
-            for (int i = n - 1; i >= 0; i--)
+            for (int i = 0; i < s.Length; i++)
             {
-                for (int j = i; j < n; j++)
-                {
-                    if (s[i] == s[j] && (j - i <= 2 || dp[i + 1, j - 1]))
-                    {
-                        dp[i, j] = true;
-                        if (resLen < (j - i + 1))
-                        {
-                            resIdx = i;
-                            resLen = j - i + 1;
-                        }
-                    }
-                }
+                findLongest(s, i, i);
+                findLongest(s, i, i + 1);
             }
 
             return s.Substring(resIdx, resLen);
+        }
+
+
+        public void findLongest(string w, int l, int r)
+        {
+
+            while (l >= 0 && r < w.Length && w[l] == w[r])
+            {
+                if (r - l + 1 > resLen)
+                {
+                    resIdx = l;
+                    resLen = r - l + 1;
+                }
+                l--;
+                r++;
+            }
+            return;
         }
         #endregion
         #region Palindromic Substrings
