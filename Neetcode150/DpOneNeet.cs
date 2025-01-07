@@ -239,6 +239,8 @@ namespace Neetcode150
         s consist of only digits and English letters.
         Extra Test Cases:
         "bb" 82 / 142 testcases passed
+
+        https://leetcode.com/problems/longest-palindromic-substring/
         */
         int resLen = 0, resIdx = 0;
         public string LongestPalindrome(string s)
@@ -290,7 +292,7 @@ namespace Neetcode150
             1 <= s.length <= 1000
             s consists of lowercase English letters.
 
-            https://leetcode.com/problems/palindromic-substrings/
+        https://leetcode.com/problems/palindromic-substrings/
         */
         public int CountSubstrings(string s)
         {
@@ -363,11 +365,9 @@ namespace Neetcode150
         */
         public int NumDecodings(string s)
         {
+
             int[] dp = new int[s.Length + 1];
-            for (int i = 0; i < dp.Length; i++)
-            {
-                dp[i] = 1;
-            }
+            dp[s.Length] = 1;
 
             for (int i = s.Length - 1; i >= 0; i--)
             {
@@ -379,6 +379,7 @@ namespace Neetcode150
                 if (i + 1 < s.Length && (s[i] == '1' || (s[i] == '2' && s[i + 1] < '7')))
                     dp[i] += dp[i + 2];
             }
+
 
             return dp[0];
         }
