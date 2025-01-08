@@ -246,7 +246,9 @@ namespace Neetcode150
         [8,10,12] 3 = false
         [66,75,4,37,92,87,68,65,58,100,97,42,19,66,73,1,5,44,30,29,76,31,12,35,26,93,9,36,90,16,86,15,4,9,13,98,10,14,18,90,89,3,10,65,24,31,43,25,54,55,54,81,10,80,31,12,15,14,59,27,64,93,32,26,69,79,13,32,29,24,27,91,92,82,37,101,100,61,74,30,91,62,36,92,28,23,4,63,55,3,11,11,101,22,34,25,2,75,43,72] 2 
         hand = [8,10,12] groupSize = 3 Expected: false 46 / 92 testcases passed
-        
+        hand = [8,8,9,7,7,7,6,7,10,6] groupSize = 2 Expected: true 82 / 92 testcases passed
+        hand = [8,4,7,6,0,6,2,5,5,1] groupSize = 3 Expected: false 87 / 92 testcases passed
+        hand = [5,5,4,3,2,1]  groupSize = 2 Expected: false 87 / 92 testcases passed
         https://leetcode.com/problems/hand-of-straights/
         */
       public bool IsNStraightHand(int[] hand, int groupSize) {
