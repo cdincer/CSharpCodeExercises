@@ -257,26 +257,27 @@ namespace Neetcode150
             if (hand.Length % groupSize != 0)
                 return false;
 
-            foreach (int num in hand)
+            foreach (int card in hand)
             {
-                count.TryAdd(num, 0);
-                count[num]++;
+                count.TryAdd(card, 0);
+                count[card]++;
             }
 
-            foreach (int num in hand)
+            foreach (int card in hand)
             {
-                int start = num;
+                int start = card;
                 while (count.ContainsKey(start - 1) && count[start - 1] > 0)
                 {
                     start--;
                 }
 
-                while (start <= num)
+                while (start <= card) // This equal condition makes sure we are not missing out on anything 
+                                      //for our card in our hand.
                 {
                     while (count.ContainsKey(start) && count[start] > 0)
                     {
-                        for (int i = start; i < start + groupSize; i++)
-                        {
+                        for (int i = start; i < start + groupSize; i++) //This start + groupSize makes sure we cover our bases for smaller values
+                        {                                               //that our card can be part of and looks for bigger cards.        
                             if (!count.ContainsKey(i) || count[i] == 0)
                                 return false;
 
