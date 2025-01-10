@@ -448,8 +448,9 @@ namespace Neetcode150
         */
         public bool CheckValidString(string s)
         {
-            int leftMin = 0;
-            int leftMax = 0;
+            int leftMin = 0; // Minimum left open paranthese we can have.
+            int leftMax = 0; // Maximum left open parantheses we can have 
+                            
 
             for (int i = 0; i < s.Length; i++)
             {
@@ -470,14 +471,19 @@ namespace Neetcode150
                 }
 
                 if (leftMin < 0)
-                    leftMin = 0;
+                    leftMin = 0;//We reset it to zero because we don't need less than that.
+                                //Over supply of parantheses condition where they are valid, we pick empty wildcard.
 
                 if (leftMax < 0)
-                    return false;
+                    return false;//Under supply of parantheses and incorrect order condition.
+                                 //Closing parantheses has a strict order compared to opening.
+                                 //We can have multiple open paranthesis sequentially order wise but not closing.
 
             }
 
-            return leftMin == 0;
+            return leftMin == 0;//We check only leftMin as a result of it's the variable
+                                //we use to keep the amount of parantheses , we need for a valid
+                                //parantheses string.
         }
         #endregion
     }
