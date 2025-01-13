@@ -38,40 +38,47 @@ namespace Neetcode150
         [["JFK","KUL"],["JFK","NRT"],["NRT","JFK"]] Output: ["JFK","NRT","JFK","KUL"] REALLY IMPORTANT
         https://leetcode.com/problems/reconstruct-itinerary/
         */
-        private Dictionary<string, IList<string>> adj;
-        private IList<string> res = new List<string>();
 
+        Dictionary<string, List<string>> adj;
+        List<string> result;
         public IList<string> FindItinerary(IList<IList<string>> tickets)
         {
-            adj = new Dictionary<string, IList<string>>();
-            var sortedTickets = tickets.OrderByDescending(t => t[1]).ToList();
-            foreach (var ticket in sortedTickets)
+            adj = new();
+            result = new();
+
+            foreach (List<string> ticket in tickets)
             {
-                if (!adj.ContainsKey(ticket[0]))
-                {
-                    if (!adj.ContainsKey(ticket[0]))
-                        adj[ticket[0]] = new List<string>();
-                }
+                adj.TryAdd(ticket[0], new List<string>());
                 adj[ticket[0]].Add(ticket[1]);
             }
-
-            Dfs("JFK");
-
-
-            return res.Reverse().ToList();
-        }
-
-
-        private void Dfs(string src)
-        {
-            while (adj.ContainsKey(src) && adj[src].Count > 0)
+            
+            foreach (List<string> route in adj.Values)
             {
-                var dst = adj[src][adj[src].Count - 1];
-                adj[src].RemoveAt(adj[src].Count - 1);
-                Dfs(dst);
+                route.Sort((a, b) => b.CompareTo(a));
             }
-            res.Add(src);
+
+            travel("JFK");
+
+            result.Reverse();
+            return result;
         }
+
+        public void travel(string src)
+        {
+            if (adj.ContainsKey(src))
+            {
+                while (adj[src].Count > 0)
+                {
+                    string dst = adj[src][^1];
+                    adj[src].RemoveAt(adj[src].Count - 1);
+                    travel(dst);
+                }
+            }
+
+            result.Add(src);
+        }
+
+
         #endregion
         #region Min Cost to Connect All Points
         /*
