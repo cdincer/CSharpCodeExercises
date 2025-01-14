@@ -494,47 +494,48 @@ namespace Neetcode150
           .FindCheapestPrice(4,grid2,0,3,1);
         */
         //Shortest Path Algorithm Solution.
+
         public int FindCheapestPrice(int n, int[][] flights, int src, int dst, int k)
         {
+            Dictionary<int, List<(int, int)>> adj = new();
+            int[] dist = new int[n];
+            Array.Fill(dist, int.MaxValue);
 
-            int[] prices = new int[n];
-            Array.Fill(prices, int.MaxValue);
-            prices[src] = 0;
-
-            List<int[]>[] adj = new List<int[]>[n];
-
-            for (int i = 0; i < n; i++)
-                adj[i] = new List<int[]>();
-
-            foreach (var flight in flights)
-                adj[flight[0]].Add(new int[] { flight[1], flight[2] });
-
-            var q = new Queue<(int cst, int node, int stops)>();
-            q.Enqueue((0, src, 0));
-
-            while (q.Count > 0)
+            foreach (int[] flight in flights)
             {
-                var (cst, node, stops) = q.Dequeue();
-
-                if (stops > k) continue;
-
-                foreach (var neighbor in adj[node])
-                {
-                    int nei = neighbor[0];
-                    int neiCost = neighbor[1];
-                    int nextCost = cst + neiCost;
-
-                    if (nextCost < prices[nei])
-                    {
-                        prices[nei] = nextCost;
-                        q.Enqueue((nextCost, nei, stops + 1));
-                    }
-
-                }
+                adj.TryAdd(flight[0], new List<(int, int)>());
+                adj[flight[0]].Add((flight[1], flight[2]));
             }
 
-            return prices[dst] == int.MaxValue ? -1 : prices[dst];
-        }
+            Queue<(int, int, int)> que = new(); //src // cost of fly //cost of stops
+            que.Enqueue((src, 0, 0));
+
+            while (que.Count > 0)
+            {
+                (int curSpot, int curCost, int curStops) = que.Dequeue();
+
+                if (curStops > k) continue;
+
+                if (adj.TryGetValue(curSpot, out List<(int, int)> tickets))
+                {
+                    foreach ((int, int) ticket in tickets)
+                    {
+                        int nei = ticket.Item1;
+                        int cost = ticket.Item2;
+
+                        if (curCost + cost < dist[nei])
+                        {
+                            que.Enqueue((nei, cost + curCost, curStops + 1));
+                            dist[nei] = curCost + cost;
+                        }
+                    }
+                }
+
+            }
+
+     return dist[dst] == int.MaxValue ? -1 : dist[dst];
+    }
+
         #endregion
    
     }
