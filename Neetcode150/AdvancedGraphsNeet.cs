@@ -179,47 +179,54 @@ namespace Neetcode150
         ///Modified solution of Neetcode so it has a similar adjancency list and 
         ///dequeuing pattern.
 
+
         public int NetworkDelayTime(int[][] times, int n, int k)
         {
-            var adj = new Dictionary<int, List<int[]>>();
-            for (int i = 1; i <= n; i++) adj[i] = new List<int[]>();
-            foreach (var time in times)
+            int[] timeCosts = new int[n + 1];
+            Array.Fill(timeCosts, int.MaxValue);
+            timeCosts[0] = 0;
+            timeCosts[k] = 0;
+
+            Dictionary<int, List<(int, int)>> dict = new(); //source //target //cost
+            foreach (int[] time in times)
             {
-                adj[time[0]].Add(new int[] { time[1], time[2] });
+                dict.TryAdd(time[0], new List<(int, int)>());
+                dict[time[0]].Add((time[1], time[2]));
             }
+            Queue<(int, int)> que = new();
+            que.Enqueue((k, 0));
 
-            var dist = new Dictionary<int, int>();
-            for (int i = 1; i <= n; i++) dist[i] = int.MaxValue;
-            dist[k] = 0;
-
-            var q = new Queue<int[]>();
-            q.Enqueue(new int[] { k, 0 });
-
-            while (q.Count > 0)
+            while (que.Count > 0)
             {
-                var curr = q.Dequeue();
-                int node = curr[0], time = curr[1];
+                (int startPoint, int startCost) = que.Dequeue();
 
-                if (dist[node] < time) continue;
-                
-                foreach (var nei in adj[node])
+                if (dict.ContainsKey(startPoint))
                 {
-                    int nextNode = nei[0], weight = nei[1];
-                    if (time + weight < dist[nextNode])
+                    foreach ((int, int) item in dict[startPoint])
                     {
-                        dist[nextNode] = time + weight;
-                        q.Enqueue(new int[] { nextNode, time + weight });
+                        int nei = item.Item1;
+                        int wei = item.Item2 + startCost;
+
+                        if (timeCosts[nei] > wei)
+                        {
+                            timeCosts[nei] = wei;
+                            que.Enqueue((nei, wei));
+                        }
                     }
                 }
+
             }
 
-            int res = 0;
-            foreach (var time in dist.Values)
+            int result = 0;
+            foreach (int timeCost in timeCosts)
             {
-                res = Math.Max(res, time);
+                //Console.WriteLine("timeCost " + timeCost);
+                result = Math.Max(timeCost, result);
             }
-            return res == int.MaxValue ? -1 : res;
+
+            return result == int.MaxValue ? -1 : result;
         }
+
 
         #endregion
         #region Rising Water
