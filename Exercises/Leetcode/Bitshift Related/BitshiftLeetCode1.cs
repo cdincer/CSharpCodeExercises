@@ -100,7 +100,31 @@ namespace Exercises.Leetcode.BitshiftRelated
         derived = [0] Expected Output:True
         derived = [1] Expected Output:False
         https://leetcode.com/problems/neighboring-bitwise-xor/
+
+        Explanation:
+        derived[0] = original[0] XOR original[1]
+        derived[1] = original[1] XOR original[2]
+        derived[2] = original[2] XOR original[3]
+        derived[3] = original[3] XOR original[4]
+        ...
+        derived[n-1] = original[n-1] XOR original[0]
+
+        XOR's Commutativity,Associativity, Self-inverse nature is the key to this question.
+        By doing a cumulative XOR we strike out all of the elements of the original array(Self-inverse).
+        It can be only zero if there is one unique original array that is the basis for 
+        derived one we are getting(Commutativity). If there is a change to "original" one that causes one of the
+        other derived elements (Associativity) to change that means that are two "original"s so there is no valid single one.
+
         */
+        public bool DoesValidArrayExist(int[] derived)
+        {
+            int XOR = 0;
+            foreach (int element in derived)
+            {
+                XOR = XOR ^ element;
+            }
+            return XOR == 0;
+        }
         #endregion
 
     }
