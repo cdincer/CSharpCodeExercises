@@ -574,7 +574,13 @@ namespace Neetcode150
         https://leetcode.com/problems/longest-increasing-subsequence/description/
         */
         
-        //    Time complexity: O(nlog⁡n)
+        //This solution is chosen for the following reasons:
+        // 1 - Other run times for solutions that use  recursiong, dynamic programming have run time of n^2.
+        // 2 - Segment tree solution code is much longer than Binary Tree using one.
+        // 3 - Follow up for this question is "Follow up: Can you come up with an algorithm that runs in O(n log(n)) time complexity?"
+        // 4-  It's memory foot print is equal to all others while having faster run time and easy to write nature of it.
+
+        //    Time complexity: O(n log⁡n)
         //    Space complexity: O(n)
 
         public int LengthOfLIS(int[] nums)
