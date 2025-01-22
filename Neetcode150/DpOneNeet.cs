@@ -602,6 +602,7 @@ namespace Neetcode150
                     otherwise, a negative number that is the bitwise complement of the index
                     of the next element that is larger than item or, if there is no larger element, 
                     the bitwise complement of Count.
+                    https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1.binarysearch?view=net-9.0#system-collections-generic-list-1-binarysearch(-0)
                 */
                 int idx = dp.BinarySearch(nums[i]);
                 if (idx < 0) 
@@ -609,6 +610,8 @@ namespace Neetcode150
                    //https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/bitwise-and-shift-operators#bitwise-complement-operator-
                    idx = ~idx;
                 }
+                //Only grow the list if there is something bigger than the elements we saw previously
+                //Otherwise keep replacing our starting element and keep our list fresh for adding bigger elements
                 dp[idx] = nums[i];
             }
 
@@ -643,52 +646,32 @@ namespace Neetcode150
         [1,5,10,6] 140 / 142 testcases passed
         https://leetcode.com/problems/partition-equal-subset-sum/
         */
+
         public bool CanPartition(int[] nums)
         {
-
-            var sum = nums.Sum();
-            if (sum % 2 != 0)
+            int arrSum = nums.Sum();
+            if (arrSum % 2 != 0)
             {
                 return false;
             }
 
-            return subSetSum(nums, sum / 2);
-        }
+            int target = arrSum / 2;
+            bool[] dp = new bool[target + 1];
 
-        private bool subSetSum(int[] nums, int target)
-        {
-            var dp = new bool[nums.Length + 1, target + 1];
+            dp[0] = true;
 
-            for (var i = 0; i < nums.Length + 1; i++)
+            //Coin Change problem adjacent
+            for (int i = 0; i < nums.Length; i++)
             {
-                for (var j = 0; j < target + 1; j++)
+                for (int j = target; j >= nums[i]; j--)
                 {
-                    if (i == 0)
-                    {
-                        dp[i, j] = false;
-                    }
-                    if (j == 0)
-                    {
-                        dp[i, j] = true;
-                    }
+                    dp[j] = dp[j] || dp[j - nums[i]];
                 }
             }
 
-            for (var i = 1; i < nums.Length + 1; i++)
-            {
-                for (var j = 1; j < target + 1; j++)
-                {
-                    if (nums[i - 1] <= j)
-                    {
-                        dp[i, j] = dp[i - 1, j] || dp[i - 1, j - nums[i - 1]];
-                    }
-                    else
-                        dp[i, j] = dp[i - 1, j];
-                }
-            }
-
-            return dp[nums.Length, target];
+            return dp[target];
         }
+
         #endregion
     }
 }
