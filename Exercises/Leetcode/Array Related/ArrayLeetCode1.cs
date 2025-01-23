@@ -126,7 +126,7 @@ namespace Exercises.Leetcode.ArrayRelated
             return result;
         }
         #endregion
-        #region Grid Game        
+        #region Grid Game (Medium)      
         /*
         You are given a 0-indexed 2D array grid of size 2 x n, where grid[r][c] represents the number of points at position (r, c) on the matrix. Two robots are playing a game on this matrix.
         Both robots initially start at (0, 0) and want to reach (1, n-1). Each robot may only move to the right ((r, c) to (r, c + 1)) or down ((r, c) to (r + 1, c)).
@@ -163,6 +163,9 @@ namespace Exercises.Leetcode.ArrayRelated
 
 
         https://leetcode.com/problems/grid-game/
+        Extra Test Cases:
+        [[2, 4, 6], [8, 9, 10]] Expected : 8
+
         */
         //Editorial leetcode converted to java code.
         //https://leetcode.com/problems/grid-game/editorial/
@@ -192,6 +195,126 @@ namespace Exercises.Leetcode.ArrayRelated
             return minimumSum;
         }
         #endregion
+        #region Count Servers that Communicate (Medium)
+        /*
+         You are given a map of a server center, represented as a m * n integer matrix grid,
+         where 1 means that on that cell there is a server and 0 means that it is no server. Two servers are said to communicate 
+         if they are on the same row or on the same column. Return the number of servers that communicate with any other server.
 
+        Example 1:
+        Input: grid = [[1,0],[0,1]]
+        Output: 0
+        Explanation: No servers can communicate with others.
+
+        Example 2:
+        Input: grid = [[1,0],[1,1]]
+        Output: 3
+        Explanation: All three servers can communicate with at least one other server.
+
+        Example 3:
+        Input: grid = [[1,1,0,0],[0,0,1,0],[0,0,1,0],[0,0,0,1]]
+        Output: 4
+        Explanation: The two servers in the first row can communicate with each other. The two servers in the third column can communicate with each other. The server at right bottom corner can't communicate with any other server.
+
+        Constraints:
+
+            m == grid.length
+            n == grid[i].length
+            1 <= m <= 250
+            1 <= n <= 250
+            grid[i][j] == 0 or 1
+
+        https://leetcode.com/problems/count-servers-that-communicate
+        */
+        //Editorial solution converted to C#
+        //https://leetcode.com/problems/count-servers-that-communicate/editorial
+        public int CountServers(int[][] grid)
+        {
+            int numRows = grid.Length;
+            int numCols = numRows > 0 ? grid[0].Length : 0;
+            int communicableServersCount = 0;
+
+            // Traverse through the grid
+            for (int row = 0; row < numRows; ++row)
+            {
+                for (int col = 0; col < numCols; ++col)
+                {
+                    if (grid[row][col] == 1)
+                    {
+                        bool canCommunicate = false;
+
+                        // Check for communication in the same row
+                        for (int otherCol = 0; otherCol < numCols; ++otherCol)
+                        {
+                            if (otherCol != col && grid[row][otherCol] == 1)
+                            {
+                                canCommunicate = true;
+                                break;
+                            }
+                        }
+
+                        // If a server was found in the same row, increment
+                        // communicableServersCount
+                        if (canCommunicate)
+                        {
+                            communicableServersCount++;
+                        }
+                        else
+                        {
+                            // Check for communication in the same column
+                            for (int otherRow = 0; otherRow < numRows; ++otherRow)
+                            {
+                                if (otherRow != row && grid[otherRow][col] == 1)
+                                {
+                                    canCommunicate = true;
+                                    break;
+                                }
+                            }
+
+                            // If a server was found in the same column, increment
+                            // communicableServersCount
+                            if (canCommunicate)
+                            {
+                                communicableServersCount++;
+                            }
+                        }
+                    }
+                }
+            }
+
+            return communicableServersCount;
+        }
+        //Fastest running, easiest to understand
+        public int CountServers2(int[][] grid)
+        {   
+            //Create two grids that track the nodes that are available
+            int[] rows = new int[grid.Length];
+            int[] cols = new int[grid[0].Length];
+
+            for (var i = 0; i < rows.Length; i++)
+                for (var j = 0; j < cols.Length; j++)
+                    if (grid[i][j] == 1)
+                    {   //Add to two grids that they have have a node
+                        //Easy way to check communications between all 
+                        //of these nodes
+                        rows[i]++;
+                        cols[j]++;
+                    }
+
+            int count = 0;
+
+            for (var i = 0; i < rows.Length; i++)
+                for (var j = 0; j < cols.Length; j++)
+                {
+                    //Only increase count if both/one of the grids have more than 2 nodes.
+                    //That's the primary reason we keep count on the grids. Need 2 or more
+                    //on these grids to communicate
+                    if (grid[i][j] == 1 && (rows[i] > 1 || cols[j] > 1))
+                        count++;
+                }
+                    
+            return count;
+        }
+        #endregion
     }
 }
