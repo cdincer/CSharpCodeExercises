@@ -471,11 +471,13 @@ namespace Neetcode150
 
             foreach (int num in nums)
             {
-                int tmp = curMax * num;
-                curMax = Math.Max(num, Math.Max(curMax * num, curMin * num));
-                curMin = Math.Min(num, Math.Min(tmp, curMin * num)); // tmp because curMax 
-                                                                     // might have changed
-                res = Math.Max(curMax, res);
+                int tempMin = num * curMin;
+                int tempMax = num * curMax;
+
+                curMin = Math.Min(num, Math.Min(tempMin, tempMax));
+                curMax = Math.Max(num, Math.Max(tempMin, tempMax));
+
+                res = Math.Max(res, curMax);
             }
 
             return res;
