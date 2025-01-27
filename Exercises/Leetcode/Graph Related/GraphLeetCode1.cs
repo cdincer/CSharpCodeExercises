@@ -42,6 +42,11 @@ namespace Exercises.Leetcode.GraphRelated
             The number of edges in the graph will be in the range [1, 4 * 104].
 
         */
+        //Converted Java code
+        //Detailed explanation can be found below.
+        //https://leetcode.com/problems/find-eventual-safe-states/editorial/
+        //Very similar to Number Of Provinces question in Graph Learning card on Leetcode.
+
         public bool dfs(int node, int[][] adj, bool[] visit,
                         bool[] inStack)
         {
