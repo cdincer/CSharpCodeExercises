@@ -33,15 +33,15 @@ namespace Neetcode150
             int[] row = new int[n];
             Array.Fill(row, 1);
 
-            for (int i = 0; i < m - 1; i++)
+            for (int r = 0; r < m - 1; r++)
             {
-                var newrow = new int[n];
-                Array.Fill(newrow, 1);
-                for (int r = n - 2; r >= 0; r--)
+                int[] newRow = new int[n];
+                Array.Fill(newRow, 1);
+                for (int col = n - 2; col >= 0; col--)
                 {
-                    newrow[r] = newrow[r + 1] + row[r];
+                    newRow[col] = newRow[col + 1] + row[col];
                 }
-                row = newrow;
+                row = newRow;
             }
             return row[0];
         }
