@@ -228,27 +228,38 @@ namespace Neetcode150
         1
         https://leetcode.com/problems/target-sum/
         */
+
+        //Coin Change like DP solution
         public int FindTargetSumWays(int[] nums, int target)
         {
-            var mem = new Dictionary<(int, int), int>();
+            Dictionary<int, int> dp = new Dictionary<int, int>();
+            dp[0] = 1;
 
-            int dfs(int index, int total)
+            foreach (int num in nums)
             {
-                if (index == nums.Length)
-                    return total == target ? 1 : 0;
-
-
-                if (mem.ContainsKey((index, total)))
+                Dictionary<int, int> nextDp = new Dictionary<int, int>();
+                foreach (var entry in dp)
                 {
-                    return mem[(index, total)];
+                    int total = entry.Key;
+                    int count = entry.Value;
+
+                    if (!nextDp.ContainsKey(total + num))
+                    {
+                        nextDp[total + num] = 0;
+                    }
+                    nextDp[total + num] += count;
+
+                    if (!nextDp.ContainsKey(total - num))
+                    {
+                        nextDp[total - num] = 0;
+                    }
+                    nextDp[total - num] += count;
                 }
-
-                mem[(index, total)] = dfs(index + 1, total + nums[index]) + dfs(index + 1, total - nums[index]);
-                return mem[(index, total)];
+                dp = nextDp;
             }
-
-            return dfs(0, 0);
+            return dp.ContainsKey(target) ? dp[target] : 0;
         }
+
         #endregion
         #region Interleaving String
         /*
