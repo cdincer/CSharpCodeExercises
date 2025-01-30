@@ -147,9 +147,9 @@ namespace Neetcode150
             for (int i = 0; i < prices.Length; i++)
             {
                 int prevSold = sold;
-                sold = hold + prices[i];
-                hold = Math.Max(hold, rest - prices[i]);
-                rest = Math.Max(rest, prevSold);
+                sold = hold + prices[i];//sold that day
+                hold = Math.Max(hold, rest - prices[i]); //bought that day or not bought
+                rest = Math.Max(rest, prevSold);//decide rest or sell
             }
             return Math.Max(sold, rest);
         }
@@ -311,24 +311,36 @@ namespace Neetcode150
         */
         public bool IsInterleave(string s1, string s2, string s3)
         {
-            if (s3.Length != s1.Length + s2.Length)
+            int shortLength = s1.Length > s2.Length ? s2.Length : s1.Length;
+            int longLength = s1.Length > s2.Length ? s1.Length : s2.Length;
+
+            string shortWord = s1.Length > s2.Length ? s2 : s1;
+            string longWord = s1.Length > s2.Length ? s1 : s2;
+
+            if (shortLength + longLength != s3.Length)
                 return false;
-            bool[,] dp = new bool[s1.Length + 1, s2.Length + 1];
-            dp[s1.Length, s2.Length] = true;
 
-            for (int r = s1.Length; r >= 0; r--)
+            bool[] dp = new bool[longLength + 1];
+            dp[longLength] = true;
+            for (int i = shortLength; i >= 0; i--)
             {
-                for (int c = s2.Length; c >= 0; c--)
+                bool nextDp = true;
+                for (int j = longLength - 1; j >= 0; j--)
                 {
-                    if (s1.Length > r && s1[r] == s3[r + c] && dp[r + 1, c])
-                        dp[r, c] = true;
-
-                    if (s2.Length > c && s2[c] == s3[r + c] && dp[r, c + 1])
-                        dp[r, c] = true;
+                    bool res = false;
+                    if (i < shortLength && shortWord[i] == s3[i + j] && dp[j])
+                    {
+                        res = true;
+                    }
+                    if (j < longLength && longWord[j] == s3[i + j] && nextDp)
+                    {
+                        res = true;
+                    }
+                    dp[j] = res;
+                    nextDp = dp[j];
                 }
             }
-
-            return dp[0, 0];
+            return dp[0];
         }
         #endregion
         #region Longest Increasing Path in a Matrix
