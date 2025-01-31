@@ -149,7 +149,7 @@ namespace Neetcode150
                 int prevSold = sold;
                 sold = hold + prices[i];//sold that day
                 hold = Math.Max(hold, rest - prices[i]); //bought that day or not bought
-                rest = Math.Max(rest, prevSold);//decide rest or sell
+                rest = Math.Max(rest, prevSold);//not sold anything
             }
             return Math.Max(sold, rest);
         }
@@ -192,6 +192,33 @@ namespace Neetcode150
         amount = 500
         [3,5,7,8,9,10,11]
         */
+        
+
+        //    This solution picked for following reasons:
+        //    1-Clarity
+        //    2-Efficient use of memory
+        //    3-It doesn't initialize new array for every coin loop
+        //
+        //    https://neetcode.io/solutions/coin-change-ii - 5. Dynamic Programming (Optimal)
+        //    Time complexity: O(n∗a)
+        //    Space complexity: O(a)
+        //    Where n is the number of coins and a is the given amount. 
+        public int Change(int amount, int[] coins)
+        {
+            int[] dp = new int[amount + 1];
+            //Required Base starting point
+            dp[0] = 1;
+            //Operates on the similar logic of Coin Change 1
+            for (int i = 0; i < coins.Length; i++)
+            {
+                //Only difference look for all combinations and sum them.
+                for (int a = 1; a <= amount; a++)
+                {
+                    dp[a] += (coins[i] <= a ? dp[a - coins[i]] : 0);
+                }
+            }
+            return dp[amount];
+        }
         #endregion
         #region Target Sum
         /*
