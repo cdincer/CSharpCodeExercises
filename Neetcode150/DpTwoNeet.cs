@@ -209,14 +209,17 @@ namespace Neetcode150
             //Required Base starting point
             dp[0] = 1;
             //Operates on the similar logic of Coin Change 1
-            for (int i = 0; i < coins.Length; i++)
+            foreach (int coin in coins)
             {
-                //Only difference look for all combinations and sum them.
-                for (int a = 1; a <= amount; a++)
+                //Only difference we look for all of the valid
+                //combinations that make up the amount and sum them.
+
+                for (int j = 1; j <= amount; j++)
                 {
-                    dp[a] += (coins[i] <= a ? dp[a - coins[i]] : 0);
+                    dp[j] += j - coin >= 0 ? dp[j - coin] : 0;
                 }
             }
+
             return dp[amount];
         }
         #endregion
