@@ -514,9 +514,9 @@ namespace Neetcode150
             All the strings of wordDict are unique.
 
         Extra Test Cases:
-        "cars" ["car","ca","rs"] Expected : true      
-        "bb" ["a","b","bbb","bbbb"] Expected : true
-
+        s ="cars" wordDict =["car","ca","rs"] Expected : true      
+        s ="bb" wordDict =["a","b","bbb","bbbb"] Expected : true
+        s ="abcd" wordDict =["a","abc","b","cd"] Expected : true 39 / 47 testcases passed
         https://leetcode.com/problems/word-break/
         */
         public bool WordBreak(string s, IList<string> wordDict)
@@ -649,7 +649,8 @@ namespace Neetcode150
         [4,10,7,9,7,1,11,9,13,15]
         [9,10,15,3,9,2,9,10,13,1]
         [100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,99,97] 
-        [1,5,10,6] 140 / 142 testcases passed
+        nums = [1,2,5] Expected: false 127 / 144 testcases passed -- 2025-02-03 dated total cases
+        nums = [1,5,10,6] Expected: true 140 / 142 testcases passed -- 2024-04-02 dated total cases
         https://leetcode.com/problems/partition-equal-subset-sum/
         */
 
