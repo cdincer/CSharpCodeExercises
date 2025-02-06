@@ -184,13 +184,12 @@ namespace Exercises.Leetcode.ArrayRelated
             for (int turnIndex = 0; turnIndex < grid[0].Length; turnIndex++)
             {
                 firstRowSum -= grid[0][turnIndex];
-                // Find the minimum maximum value out of firstRowSum and
-                // secondRowSum.
                 minimumSum = Math.Min(
                     minimumSum,
-                    Math.Max(firstRowSum, secondRowSum)
+                    Math.Max(firstRowSum, secondRowSum)//It can take only one carved path.
+                                                       //Right and down is their only move directions.
                 );
-                secondRowSum += grid[1][turnIndex];
+                secondRowSum += grid[1][turnIndex]; //Following 
             }
             return minimumSum;
         }
