@@ -274,7 +274,7 @@ namespace Neetcode150
                 while (start <= card) // This equal condition makes sure we are not missing out on anything 
                                       //for our card in our hand.
                 {
-                    while (count.ContainsKey(start) && count[start] > 0)
+                    while (count[start] > 0)
                     {
                         for (int i = start; i < start + groupSize; i++) //This start + groupSize makes sure we cover our bases for smaller values
                         {                                               //that our card can be part of and looks for bigger cards.        
