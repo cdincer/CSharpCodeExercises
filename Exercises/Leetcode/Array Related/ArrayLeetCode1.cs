@@ -315,5 +315,72 @@ namespace Exercises.Leetcode.ArrayRelated
             return count;
         }
         #endregion
+        #region Tuple with Same Product
+        /*
+        Given an array nums of distinct positive integers, return the number of tuples (a, b, c, d) such that a * b = c * d where a, b, c, and d are elements of nums, and a != b != c != d.
+
+        Example 1:
+
+        Input: nums = [2,3,4,6]
+        Output: 8
+        Explanation: There are 8 valid tuples:
+        (2,6,3,4) , (2,6,4,3) , (6,2,3,4) , (6,2,4,3)
+        (3,4,2,6) , (4,3,2,6) , (3,4,6,2) , (4,3,6,2)
+
+        Example 2:
+
+        Input: nums = [1,2,4,5,10]
+        Output: 16
+        Explanation: There are 16 valid tuples:
+        (1,10,2,5) , (1,10,5,2) , (10,1,2,5) , (10,1,5,2)
+        (2,5,1,10) , (2,5,10,1) , (5,2,1,10) , (5,2,10,1)
+        (2,10,4,5) , (2,10,5,4) , (10,2,4,5) , (10,2,5,4)
+        (4,5,2,10) , (4,5,10,2) , (5,4,2,10) , (5,4,10,2)
+
+        Constraints:
+
+            1 <= nums.length <= 1000
+            1 <= nums[i] <= 104
+            All elements in nums are distinct.
+
+        nums = [2,3,4,6,8,12] Expected: 40 10 / 37 testcases passed
+
+        https://leetcode.com/problems/tuple-with-same-product/
+        */
+
+        //Permutation rule for this question
+        //Comparison for standard: 4 * 3 * 2 * 1 
+        // 2 * ((2 * 1) * (2 * 1)) //Numbers are unique and can switch sides
+                                   //that's we multiply with 8.
+
+        public int TupleSameProduct(int[] nums)
+        {
+            int n = nums.Length;
+            int cnt = 0;
+            Dictionary<int, int> cnter = new Dictionary<int, int>();
+
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = i + 1; j < n; j++)
+                {
+                    int mult = nums[i] * nums[j];
+                    if (cnter.ContainsKey(mult))
+                    {
+                        cnt += cnter[mult];//Only increase count when there was a 
+                                          //previously calculated result we can equate to with a new combo
+                        cnter[mult]++;
+                    }
+                    else
+                    {
+                        cnter[mult] = 1;
+                    }
+                }
+            }
+            return cnt * 8; // Multiply by 8 because a single valid a * b = c * d with digit changes can be 8 different results
+
+        }
+        #endregion
+    
+    
     }
 }
