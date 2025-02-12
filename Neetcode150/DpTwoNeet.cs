@@ -621,45 +621,33 @@ namespace Neetcode150
         https://leetcode.com/problems/burst-balloons/
         */
 
+
         public int MaxCoins(int[] nums)
         {
-            List<int> numsl = nums.ToList();
-            numsl.Insert(0, 1);
-            numsl.Add(1);
-            int n = numsl.Count;
-            int[] newArray = numsl.ToArray();
-            int[][] mem = new int[n][];
+            int n = nums.Length;
 
-            for (int i = 0; i < mem.Length; i++)
+            List<int> surr = nums.ToList();
+            surr = surr.Prepend(1).Append(1).ToList();
+
+            int[] newNums = surr.ToArray();
+
+            int[,] dp = new int[n + 2, n + 2];
+            for (int l = n; l >= 1; l--)
             {
-                mem[i] = new int[n];
-                for (int j = 0; j < mem[i].Length; j++)
+                for (int r = l; r <= n; r++)
                 {
-                    mem[i][j] = -1;
+                    for (int i = l; i <= r; i++)
+                    {
+                        int coins = newNums[l - 1] * newNums[i] * newNums[r + 1];
+                        coins += dp[l, i - 1] + dp[i + 1, r];
+                        dp[l, r] = Math.Max(dp[l, r], coins);
+                    }
                 }
             }
-            return MCM(newArray, 1, n - 1, mem);
+
+            return dp[1, n];
         }
 
-        public int MCM(int[] nums, int left, int right, int[][] mem)
-        {
-            if (left >= right)
-                return 0;
-
-            if (mem[left][right] != -1)
-                return mem[left][right];
-
-            int max_cost = int.MinValue;
-            for (int k = left; k < right; k++)
-            {
-                int total_cost = MCM(nums, left, k, mem) + MCM(nums, k + 1, right, mem) + nums[left - 1] * nums[k] * nums[right];  //after traversing any element from left to right, 
-                                                                                                                                   //Assume that the traversed element is no more in nums array and find product of current element and its adjacent element
-                max_cost = Math.Max(max_cost, total_cost);
-
-                mem[left][right] = max_cost;
-            }
-            return mem[left][right];
-        }
 
         #endregion
         #region Regular Expression Matching
