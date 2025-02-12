@@ -620,16 +620,12 @@ namespace Neetcode150
             0 <= nums[i] <= 100
         https://leetcode.com/problems/burst-balloons/
         */
-
-
+        
         public int MaxCoins(int[] nums)
         {
             int n = nums.Length;
 
-            List<int> surr = nums.ToList();
-            surr = surr.Prepend(1).Append(1).ToList();
-
-            int[] newNums = surr.ToArray();
+            int[] newNums = nums.Prepend(1).Append(1).ToArray();
 
             int[,] dp = new int[n + 2, n + 2];
             for (int l = n; l >= 1; l--)
