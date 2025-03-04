@@ -579,7 +579,7 @@ namespace Neetcode150
         https://leetcode.com/problems/edit-distance/
         */
 
-        //T: O(N^2), S: O(N^2)
+       
         public int MinDistance(string word1, string word2)
         {
             //Bottom up

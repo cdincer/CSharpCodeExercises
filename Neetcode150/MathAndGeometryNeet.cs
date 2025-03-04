@@ -32,20 +32,22 @@ namespace Neetcode150
         */
         public void Rotate(int[][] matrix)
         {
-            (int left, int right) = (0, matrix.Length - 1);
-
+            int left = 0;
+            int right = matrix.Length - 1;
+            
             while (left < right)
             {
-                var limit = right - left;
-                for (var i = 0; i < limit; i++)
+                int limit = right - left;
+                for (int i = 0; i < limit; i++)
                 {
-                    (int top, int bottom) = (left, right);
+                    int top = left;
+                    int bottom =  right;
 
-                    var topLeft = matrix[top][left + i];
-                    matrix[top][left + i] = matrix[bottom - i][left];
-                    matrix[bottom - i][left] = matrix[bottom][right - i];
-                    matrix[bottom][right - i] = matrix[top + i][right];
-                    matrix[top + i][right] = topLeft;
+                    int topLeft = matrix[top][left + i];
+                    matrix[top][left + i] = matrix[bottom - i][left]; // bottom left to top left
+                    matrix[bottom - i][left] = matrix[bottom][right - i]; // bottom right to bottom left
+                    matrix[bottom][right - i] = matrix[top + i][right];//top right to bottom right
+                    matrix[top + i][right] = topLeft;//top left to top right
                 }
 
                 left++;
