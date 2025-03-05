@@ -124,6 +124,48 @@ namespace Neetcode150
             }//Repeat
             return result;
         }
+       
+       #region Alternative
+        public IList<int> SpiralOrder2(int[][] matrix)
+        {
+            List<int> result = new List<int>();
+            if (matrix == null || matrix.Length == 0) return result;
+
+            int startRow = 0, endRow = matrix.Length - 1;
+            int startCol = 0, endCol = matrix[0].Length - 1;
+            int dir = 0;
+
+            while (startRow <= endRow && startCol <= endCol)
+            {
+                switch (dir)
+                {
+                    case 0: //MOVE RIGHT
+                        for (int col = startCol; col <= endCol; col++)
+                            result.Add(matrix[startRow][col]);
+                        startRow++;
+                        break;
+                    case 1: //MOVE DOWN
+                        for (int row = startRow; row <= endRow; row++)
+                            result.Add(matrix[row][endCol]);
+                        endCol--;
+                        break;
+                    case 2://MOVE LEFT
+                        for (int col = endCol; col >= startCol; col--)
+                            result.Add(matrix[endRow][col]);
+                        endRow--;
+                        break;
+                    case 3://MOVE UP
+                        for (int row = endRow; row >= startRow; row--)
+                            result.Add(matrix[row][startCol]);
+                        startCol++;
+                        break;
+                }
+                dir = (dir + 1) % 4;
+            }
+            return result;
+        }
+       #endregion
+       
         #endregion
         #region Set Matrix Zeroes
         /*

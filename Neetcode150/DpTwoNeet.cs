@@ -737,6 +737,40 @@ namespace Neetcode150
 
             return dfs(0, 0);
         }
+
+        #region Alternative Top Down
+        public bool IsMatchTopDown(string s, string p)
+        {
+            int sL = s.Length;
+            int pL = p.Length;
+            bool[,] dp = new bool[sL + 1, pL + 1];
+            dp[sL, pL] = true;
+
+            for (int r = sL; r >= 0; r--)
+            {
+                for (int c = pL - 1; c >= 0; c--)
+                {
+                    bool match = r < sL &&
+                                 (s[r] == p[c] || p[c] == '.');
+
+                    if ((c + 1) < pL && p[c + 1] == '*')
+                    {
+                        dp[r, c] = dp[r, c + 2];
+                        if (match)
+                        {
+                            dp[r, c] = dp[r + 1, c] || dp[r, c];
+                        }
+                        else if (match)
+                        {
+                            dp[r, c] = dp[r + 1, c + 1];
+                        }
+                    }
+                }
+            }
+
+            return dp[0, 0];
+        }
+        #endregion Alternative Top Down
         #endregion
     }
 }
