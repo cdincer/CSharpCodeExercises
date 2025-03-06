@@ -750,20 +750,23 @@ namespace Neetcode150
             {
                 for (int c = pL - 1; c >= 0; c--)
                 {
+                    //'.' Matches any single character.​​​​
                     bool match = r < sL &&
                                  (s[r] == p[c] || p[c] == '.');
 
-                    if ((c + 1) < pL && p[c + 1] == '*')
+                    //'*' Matches zero or more of the preceding element.
+                    if ((c + 1) < pL && p[c + 1] == '*') //Use the star if it's available.
                     {
-                        dp[r, c] = dp[r, c + 2];
-                        if (match)
-                        {
-                            dp[r, c] = dp[r + 1, c] || dp[r, c];
-                        }
-                        else if (match)
-                        {
-                            dp[r, c] = dp[r + 1, c + 1];
-                        }
+                        dp[r, c] = dp[r, c + 2]; // incase star matching doesn't work out.
+                        if (match)               // see if the other pattern item matched.
+                        {                        // from previous comparisons.
+                            dp[r, c] = dp[r + 1, c] || dp[r, c];//Do the star pattern matching 
+                                                                //see if the previous
+                        }                                       //string element matched current pattern.
+                    }
+                    else if (match) //Star doesn't exist just use the routine matching.
+                    {
+                        dp[r, c] = dp[r + 1, c + 1];
                     }
                 }
             }
