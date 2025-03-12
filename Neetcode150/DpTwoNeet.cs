@@ -140,19 +140,29 @@ namespace Neetcode150
         [4,3,2,10,11,0,11]
         https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-cooldown/description/
         */
+
         public int MaxProfit(int[] prices)
         {
-            int sold = 0, rest = 0, hold = Int32.MinValue;
-
+            int hold = int.MinValue; // Requires a initial state
+                                     // if we don't it will be missing 
+                                     // spending of purchasing
+            int sold = 0;
+            int rest = 0;
+            //You can buy and sell,not need to wait
+            //for a day after taking a action
             for (int i = 0; i < prices.Length; i++)
             {
                 int prevSold = sold;
-                sold = hold + prices[i];//sold that day
-                hold = Math.Max(hold, rest - prices[i]); //bought that day or not bought
-                rest = Math.Max(rest, prevSold);//not sold anything
+                sold = hold + prices[i];//In order to sell we have to be holding.
+                hold = Math.Max(hold, rest - prices[i]);//In order to hold, we need to decide
+                                                        //on buying or not buying.
+                rest = Math.Max(rest, prevSold);//We store our resting amount. 
+                                                //This will be our tracing previous days.
             }
-            return Math.Max(sold, rest);
+
+            return Math.Max(rest, sold);
         }
+
         #endregion
         #region Coin Change II 
         /*
@@ -342,26 +352,28 @@ namespace Neetcode150
         #region 2-D DP Bottom Up
         public bool IsInterleave1(string s1, string s2, string s3)
         {
-            int m = s1.Length, n = s2.Length;
-            if (m + n != s3.Length)
+            int s1L = s1.Length, s2L = s2.Length;
+            if (s1L + s2L != s3.Length)
             {
                 return false;
             }
 
-            bool[,] dp = new bool[m + 1, n + 1];
-            dp[m, n] = true;
+            bool[,] dp = new bool[s1L + 1, s2L + 1];
+            dp[s1L, s2L] = true;
 
-            for (int i = m; i >= 0; i--)
+            for (int r = s1L; r >= 0; r--)
             {
-                for (int j = n; j >= 0; j--)
+                for (int c = s2L; c >= 0; c--)
                 {
-                    if (i < m && s1[i] == s3[i + j] && dp[i + 1, j])
+                    //dp[r + 1, c] and dp[r, c  +1] for checking make sure
+                    //the interleaving works
+                    if (r < s1L && s1[r] == s3[r + c] && dp[r + 1, c])
                     {
-                        dp[i, j] = true;
+                        dp[r, c] = true;
                     }
-                    if (j < n && s2[j] == s3[i + j] && dp[i, j + 1])
+                    if (c < s2L && s2[c] == s3[r + c] && dp[r, c + 1])
                     {
-                        dp[i, j] = true;
+                        dp[r, c] = true;
                     }
                 }
             }
