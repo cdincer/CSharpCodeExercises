@@ -365,8 +365,9 @@ namespace Neetcode150
             {
                 for (int c = s2L; c >= 0; c--)
                 {
-                    //dp[r + 1, c] and dp[r, c  +1] for checking make sure
-                    //the interleaving works
+                    //dp[r + 1, c] and dp[r, c  +1] are for checking 
+                    //the interleaving works, this is done by checking the
+                    //used up parts (remaining of both on 2-D array) are "valid"
                     if (r < s1L && s1[r] == s3[r + c] && dp[r + 1, c])
                     {
                         dp[r, c] = true;
