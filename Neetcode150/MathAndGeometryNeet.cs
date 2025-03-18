@@ -29,6 +29,21 @@ namespace Neetcode150
             -1000 <= matrix[i][j] <= 1000
 
         https://leetcode.com/problems/rotate-image/
+        C# Sample Test Cases:
+               int[][] RotateArr1 = new int[][]
+            {
+                new int[] {1,2,3},
+                new int[] {4,5,6},
+                new int[] {7,8,9}
+             };
+
+             int[][] RotateArr2 = new int[][]
+            {
+                new int[] {5,1,9,11},
+                new int[] {2,4,8,10},
+                new int[] {13,3,6,7},
+                new int[] {15,14,12,16}
+             };
         */
         public void Rotate(int[][] matrix)
         {
@@ -41,13 +56,17 @@ namespace Neetcode150
                 for (int i = 0; i < limit; i++)
                 {
                     int top = left;
-                    int bottom =  right;
+                    int bottom = right;
 
                     int topLeft = matrix[top][left + i];
-                    matrix[top][left + i] = matrix[bottom - i][left]; // bottom left to top left
-                    matrix[bottom - i][left] = matrix[bottom][right - i]; // bottom right to bottom left
-                    matrix[bottom][right - i] = matrix[top + i][right];//top right to bottom right
-                    matrix[top + i][right] = topLeft;//top left to top right
+                    // to Top Left from Bottom Left
+                    matrix[top][left + i] = matrix[bottom - i][left]; 
+                    //to Bottom Left from Bottom Right
+                    matrix[bottom - i][left] = matrix[bottom][right - i];
+                    //to Bottom Right from Top Right
+                    matrix[bottom][right - i] = matrix[top + i][right];
+                    //to Top Right from Top Left
+                    matrix[top + i][right] = topLeft;
                 }
 
                 left++;
