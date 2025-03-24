@@ -143,7 +143,8 @@ namespace Neetcode150
 
         public int MaxProfit(int[] prices)
         {
-            int hold = int.MinValue; // Requires a initial state
+            int hold = int.MinValue; // Requires a initial state, we can't
+                                     // hold without buying anything
                                      // if we don't it will be missing 
                                      // spending of purchasing
             int sold = 0;
@@ -802,11 +803,14 @@ namespace Neetcode150
                     if ((c + 1) < pL && p[c + 1] == '*') //Use the star if it's available.
                     {
                         dp[r, c] = dp[r, c + 2]; // incase star matching doesn't work out.
-                        if (match)               // see if the other pattern item matched.
-                        {                        // from previous comparisons.
-                            dp[r, c] = dp[r + 1, c] || dp[r, c];//Do the star pattern matching 
-                                                                //see if the previous
-                        }                                       //string element matched current pattern.
+                        if (match)               // see if the other pattern character matched.
+                        {                        // with the current string character
+                                                 // we can skip using star wildcard and move
+                                                 // onto a other character in the pattern.
+
+                            dp[r, c] |= dp[r + 1, c];//Do the star pattern matching 
+                                                     //see if the next
+                        }                            //string element matched current pattern.
                     }
                     else if (match) //Star doesn't exist just use the routine matching.
                     {
