@@ -94,26 +94,28 @@ namespace Neetcode150
         */
         public int LongestCommonSubsequence(string text1, string text2)
         {
-            string longW = text1.Length > text2.Length ? text1 : text2;
-            string shortW = text1.Length > text2.Length ? text2 : text1;
+            int t1l = text1.Length;
+            int t2l = text2.Length;
 
-            int[,] dp = new int[longW.Length + 1, shortW.Length + 1];
+            int[,] dp = new int[t1l + 1, t2l + 1];
 
-            for (int r = longW.Length - 1; r >= 0; r--)
+            for (int r = t1l - 1; r >= 0; r--)
             {
-                for (int c = shortW.Length - 1; c >= 0; c--)
+                for (int c = t2l - 1; c >= 0; c--)
                 {
-                    if (longW[r] == shortW[c])
+                    if (text1[r] == text2[c])
+                    {
                         dp[r, c] = 1 + dp[r + 1, c + 1];
+                    }
                     else
-                        dp[r, c] = Math.Max(dp[r, c + 1], dp[r + 1, c]);
-
+                    {
+                        dp[r, c] = Math.Max(dp[r + 1, c], dp[r, c + 1]);
+                    }
                 }
             }
 
             return dp[0, 0];
         }
-
         #endregion
         #region Best Time to Buy and Sell Stock with Cooldown
         /*
@@ -149,8 +151,7 @@ namespace Neetcode150
                                      // spending of purchasing
             int sold = 0;
             int rest = 0;
-            //You can buy and sell,not need to wait
-            //for a day after taking a action
+
             for (int i = 0; i < prices.Length; i++)
             {
                 int prevSold = sold;
