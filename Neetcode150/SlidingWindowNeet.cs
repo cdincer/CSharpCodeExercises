@@ -297,34 +297,37 @@ namespace Neetcode150
         t="b"
         https://leetcode.com/problems/minimum-window-substring
         */
+
         public string MinWindow(string s, string t)
         {
             if (string.IsNullOrEmpty(t)) return string.Empty;
 
-            var countT = new Dictionary<char, int>();
-            var window = new Dictionary<char, int>();
+            Dictionary<char, int> countT = new();
+            Dictionary<char, int> window = new();
 
-            foreach (var c in t)
+            foreach (char c in t)
             {
-                AddCharToDictionary(c, countT);
+                countT.TryAdd(c, 0);
+                countT[c] += 1;
             }
 
-            var have = 0;
-            var need = countT.Count;
-            var left = 0;
-            var res = new[] { -1, -1 };
-            var resultLength = int.MaxValue;
-            for (var right = 0; right < s.Length; right++)
+            int have = 0;
+            int need = countT.Count;
+            int left = 0;
+            int[] res = new int[] { -1, 1 };
+            int resultLength = int.MaxValue;
+            for (int right = 0; right < s.Length; right++)
             {
-                var c = s[right];
-                AddCharToDictionary(c, window);
+                char c = s[right];
+                window.TryAdd(c, 0);
+                window[c] += 1;
 
-                if (countT.ContainsKey(c) && window[c] == countT[c]) have++;
+                if (countT.TryGetValue(c, out _) && window[c] == countT[c]) have++;
 
                 while (have == need)
                 {
                     // update our result
-                    var windowSize = right - left + 1;
+                    int windowSize = right - left + 1;
                     if (windowSize < resultLength)
                     {
                         res = new[] { left, right };
@@ -333,7 +336,7 @@ namespace Neetcode150
 
                     // pop from the left of our window
                     window[s[left]]--;
-                    if (countT.ContainsKey(s[left]) && window[s[left]] < countT[s[left]])
+                    if (countT.TryGetValue(s[left], out _) && window[s[left]] < countT[s[left]])
                     {
                         have--;
                     }
@@ -343,15 +346,10 @@ namespace Neetcode150
             }
 
             return resultLength == int.MaxValue
-               ? string.Empty
-               : s.Substring(res[0], res[1] - res[0] + 1);
+                      ? string.Empty
+                      : s.Substring(res[0], res[1] - res[0] + 1);
         }
 
-        private void AddCharToDictionary(char c, IDictionary<char, int> dict)
-        {
-            if (dict.ContainsKey(c)) dict[c]++;
-            else dict.Add(c, 1);
-        }
         #endregion
         #region Sliding Window Maximum
         /*
