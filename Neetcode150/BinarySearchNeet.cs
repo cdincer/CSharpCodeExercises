@@ -301,15 +301,15 @@ namespace Neetcode150
 
                 if (nums[left] <= nums[mid]) // left sorted solution
                 {
-                    if (target > nums[mid] || target < nums[left])
-                        left = mid + 1;
-                    else
-                        right = mid - 1;
+                    if (target > nums[mid] || target < nums[left]) // Second conditional
+                        left = mid + 1;                            // is for steping over the boundary
+                    else                                           // to cross to other section
+                        right = mid - 1;                           
                 }
                 else
                 {
-                    if (target < nums[mid] || target > nums[right])
-                        right = mid - 1;
+                    if (target < nums[mid] || target > nums[right]) // Same as above for second conditional
+                        right = mid - 1;                            // Step over the boundary 
                     else
                         left = mid + 1;
                 }

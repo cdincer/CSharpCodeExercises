@@ -35,7 +35,19 @@ namespace Neetcode150
         Extra Test Cases:
         [2,1,2,1,0,1,2]
         */
-     
+        public int MaxProfit(int[] prices)
+        {
+            int maxP = 0;
+            int minBuy = prices[0];
+
+            foreach (int sell in prices)
+            {
+                maxP = Math.Max(maxP, sell - minBuy);
+                minBuy = Math.Min(minBuy, sell);
+            }
+            return maxP;
+        }
+
         #endregion
         #region Longest Substring Without Repeating Characters
         /*

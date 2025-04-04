@@ -198,6 +198,7 @@ namespace Neetcode150
 
             for (int i = 0; i < nums.Length; i++)
             {
+                //In order to avoid duplicate sets
                 if (i > 0 && nums[i] == nums[i - 1])
                 {
                     continue;
@@ -220,6 +221,7 @@ namespace Neetcode150
                     {
                         res.Add(new List<int> { nums[i], nums[left], nums[right] });
                         left++;
+                        //Same as above to make sure we avoid duplicate sets
                         while (nums[left] == nums[left - 1] && left < right)
                         {
                             left++;
