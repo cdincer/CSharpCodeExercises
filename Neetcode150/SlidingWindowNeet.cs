@@ -387,6 +387,8 @@ namespace Neetcode150
         nums = [7,2,4]  k = 2 Expected = [7,4] 21 / 51 testcase
         46 / 51 testcase requires more optimization than 37th. Both of them can show if your code is fast enough.
         Together they cause a TLE,20th Of September 2024
+        
+        These two cases can be found in submissions tab, they are both TLE
         */
         public int[] MaxSlidingWindow(int[] nums, int k)
         {

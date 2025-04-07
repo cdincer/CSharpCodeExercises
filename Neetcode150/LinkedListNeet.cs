@@ -476,13 +476,7 @@ namespace Neetcode150
         Follow up:
             How can we prove that at least one duplicate number must exist in nums?
             Can you solve the problem in linear runtime complexity?
-        Extra Test Cases:
-        ["LRUCache","put","put","get","put","get","put","get","get","get"] 4 / 22 testcases passed
-        [[2],[1,0],[2,2],[1],[3,3],[2],[4,4],[1],[3],[4]]
-        ["LRUCache","put","put","get","put","put","get"] 7 / 22 testcases passed
-        [[2],[2,1],[2,2],[2],[1,1],[4,1],[2]]
-        ["LRUCache","put","put","put","put","get","get"] 13 / 22 testcases passed
-        [[2],[2,1],[1,1],[2,3],[4,1],[1],[2]]
+      
         https://leetcode.com/problems/find-the-duplicate-number/
         */
         public int FindDuplicate(int[] nums)
@@ -553,6 +547,12 @@ namespace Neetcode150
         /*
         Extra Test Cases:
         ["LRUCache","put","put","get","put","put","get"]
+        [[2],[2,1],[2,2],[2],[1,1],[4,1],[2]]
+        ["LRUCache","put","put","put","put","get","get"] 13 / 22 testcases passed
+        [[2],[2,1],[1,1],[2,3],[4,1],[1],[2]]
+        ["LRUCache","put","put","get","put","get","put","get","get","get"] 4 / 22 testcases passed
+        [[2],[1,0],[2,2],[1],[3,3],[2],[4,4],[1],[3],[4]]
+        ["LRUCache","put","put","get","put","put","get"] 7 / 22 testcases passed
         [[2],[2,1],[2,2],[2],[1,1],[4,1],[2]]
         ["LRUCache","put","put","put","put","get","get"] 13 / 22 testcases passed
         [[2],[2,1],[1,1],[2,3],[4,1],[1],[2]]
