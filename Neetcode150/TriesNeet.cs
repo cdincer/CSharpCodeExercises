@@ -60,8 +60,8 @@ namespace Neetcode150
 
             public void Insert(string word)
             {
-                var cur = root;
-                foreach (var c in word)
+                TrieNode cur = root;
+                foreach (char c in word)
                 {
                     if (!cur.childrenMap.ContainsKey(c))
                     {
@@ -74,21 +74,21 @@ namespace Neetcode150
 
             public bool Search(string word)
             {
-                var node = traverse(word);
+                TrieNode node = traverse(word);
                 return node != null && node.isWord;
             }
 
             public bool StartsWith(string prefix)
             {
-                var node = traverse(prefix);
+                TrieNode node = traverse(prefix);
                 return node != null;
             }
 
             private TrieNode traverse(string path)
             {
-                var cur = root;
+                TrieNode cur = root;
 
-                foreach (var c in path)
+                foreach (char c in path)
                 {
                     if (cur.childrenMap.ContainsKey(c))
                     {

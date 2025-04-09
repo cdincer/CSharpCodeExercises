@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Neetcode150
 {
-    public class TreeNeet
+    public class TreesNeet
     {
 
         public class TreeNode
@@ -395,54 +395,6 @@ namespace Neetcode150
         root = [1,2,3,4] Expected = [1,3,4] 71 / 216 testcase
         root = [1,2,3,null,null,4] Expected = 1,3,4] 90 / 216 testcase
         */
-        //Both solutions run times are really close same with memory.
-        List<int> results = new();
-        Dictionary<int, int> answer = new();
-
-        public IList<int> RightSideView(TreeNode root)
-        {
-            Dictionary<int, int> depth = new();
-
-            int counter = 1;
-            TreeNode copy = root;
-
-            if (root == null)
-                return results;
-
-            while (root != null)
-            {
-                depth.Add(counter, root.val);
-                root = root.right;
-                counter++;
-            }
-
-            dfs(0, copy);
-
-            for (int i = 1; i <= depth.Count; i++)
-            {
-                results.Add(depth[i]);
-            }
-
-            for (int j = depth.Count; j < answer.Count; j++)
-            {
-                results.Add(answer[j]);
-            }
-            return results;
-        }
-
-        public void dfs(int dc, TreeNode node)
-        {
-            if (node == null)
-            {
-                return;
-            }
-            // Visit the root first, then the left subtree, then the right subtree.
-            dfs(dc + 1, node.left);
-            answer[dc] = node.val;
-            dfs(dc + 1, node.right);
-        }
-
-
         private List<int> _result3 = new();
 
         public IList<int> RightSideViewNeet(TreeNode root)
@@ -456,7 +408,7 @@ namespace Neetcode150
             if (root == null) return;
             if (level >= _result3.Count) _result3.Add(root.val);
 
-            // At first visit right node
+            //At first visit right node
             DfsNeet(root.right, level + 1);
             DfsNeet(root.left, level + 1);
         }
@@ -688,8 +640,8 @@ namespace Neetcode150
             if (preStart > preorder.Length - 1 || inStart > inEnd)
                 return null;
 
-            var rootNode = new TreeNode(preorder[preStart]);
-            var mid = Array.IndexOf(inorder, preorder[preStart]);
+            TreeNode rootNode = new TreeNode(preorder[preStart]);
+            int mid = Array.IndexOf(inorder, preorder[preStart]);
 
             rootNode.left = BuildTreeHelper(preStart + 1, inStart, mid - 1, preorder, inorder);
             rootNode.right = BuildTreeHelper(preStart + mid - inStart + 1, mid + 1, inEnd, preorder, inorder);
@@ -798,11 +750,14 @@ namespace Neetcode150
         // Decodes your encoded data to tree.
         public TreeNode deserialize(string data)
         {
-            var nodesArray = data.Split(",");
-            var index = 0;
+            string[] nodesArray = data.Split(",");
+            int index = 0;
 
             TreeNode dfs()
             {
+                if(nodesArray[index] == "7")
+                Console.WriteLine("aaa");
+                
                 if (nodesArray[index] == "N")
                 {
                     index++;
