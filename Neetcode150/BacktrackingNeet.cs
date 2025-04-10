@@ -390,68 +390,46 @@ namespace Neetcode150
 
         https://leetcode.com/problems/word-search/
         */
-        //Adapted solution from TriesNeet Word Search II.
-        //run time: 246 ms beats 87.00% memory:42.7mb beats 27.5%
-        public class Node
+
+        private int ROWS, COLS;
+
+        public bool ExistBackTracking(char[][] board, string word)
         {
-            public Node[] next = new Node['z' + 1];
-            public string Word;
+            ROWS = board.Length;
+            COLS = board[0].Length;
+
+            for (int r = 0; r < ROWS; r++)
+            {
+                for (int c = 0; c < COLS; c++)
+                {
+                    if (Dfs(board, word, r, c, 0))
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
-        public bool Exist(char[][] board, string word)
+
+        private bool Dfs(char[][] board, string word, int r, int c, int i)
         {
-            Node root = new Node();
-
-            Node temp = root;
-            for (int i = 0; i < word.Length; i++)
+            if (i == word.Length)
             {
-                char ch = word[i];
-                if (temp.next[ch] == null)
-                {
-                    temp.next[ch] = new Node();
-                }
-                temp = temp.next[ch];
+                return true;
             }
-            temp.Word = word;
-
-            int rl = board.Length;
-            int cl = board[0].Length;
-            bool result = false;
-            for (int i = 0; i < rl; i++)
+            if (r < 0 || c < 0 || r >= ROWS || c >= COLS ||
+            board[r][c] != word[i] || board[r][c] == '#')
             {
-                Node seek = root;
-                for (int j = 0; j < cl; j++)
-                {
-                    if (result == true)
-                        break;
-
-                    searcher(i, j, seek);
-                }
+                return false;
             }
 
-            void searcher(int r, int c, Node curr)
-            {
-                if (r < 0 || c < 0 || r == rl || c == cl)
-                    return;
-
-                char tch = board[r][c];
-                if (curr.next[tch] == null || board[r][c] == '/')
-                    return;
-
-                curr = curr.next[tch];
-                if (curr.Word != null && curr.Word == word)
-                {
-                    result = true;
-                    return;
-                }
-                board[r][c] = '/';
-                searcher(r - 1, c, curr);
-                searcher(r + 1, c, curr);
-                searcher(r, c - 1, curr);
-                searcher(r, c + 1, curr);
-                board[r][c] = tch;
-
-            }
-            return result;
+            board[r][c] = '#';
+            bool res = Dfs(board, word, r + 1, c, i + 1) ||
+                       Dfs(board, word, r - 1, c, i + 1) ||
+                       Dfs(board, word, r, c + 1, i + 1) ||
+                       Dfs(board, word, r, c - 1, i + 1);
+            board[r][c] = word[i];
+            return res;
         }
         #endregion
         #region Palindrome Partitioning
