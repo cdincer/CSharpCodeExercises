@@ -417,17 +417,17 @@ namespace Neetcode150
         */
         public int CoinChange(int[] coins, int amount)
         {
-            var dp = Enumerable.Repeat(amount + 1, amount + 1).ToArray();
+            int[] dp = Enumerable.Repeat(amount + 1, amount + 1).ToArray();
 
             dp[0] = 0;
 
-            for (var a = 1; a <= amount; a++)
+            for (int a = 1; a <= amount; a++)
             {
-                foreach (var c in coins)
+                foreach (int coin in coins)
                 {
-                    if (a - c >= 0)
+                    if (a - coin >= 0)
                     {
-                        dp[a] = Math.Min(dp[a], 1 + dp[a - c]);
+                        dp[a] = Math.Min(dp[a], 1 + dp[a - coin]);
                     }
                 }
             }
@@ -577,8 +577,8 @@ namespace Neetcode150
         */
 
         //This solution is chosen for the following reasons:
-        // 1 - Other run times for solutions that use  recursiong, dynamic programming have run time of n^2.
-        // 2 - Segment tree solution code is much longer than Binary Tree using one.
+        // 1 - Other run times for solutions that use  recursion, dynamic programming have run time of n^2.
+        // 2 - Segment tree solution code is much longer than Binary Search using one.
         // 3 - Follow up for this question is "Follow up: Can you come up with an algorithm that runs in O(n log(n)) time complexity?"
         // 4-  It's memory foot print is equal to all others while having faster run time and easy to write nature of it.
 
