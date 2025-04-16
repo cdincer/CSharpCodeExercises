@@ -39,9 +39,9 @@ namespace Neetcode150
         */
         public int[][] Insert(int[][] intervals, int[] newInterval)
         {
-            var result = new List<int[]>();
+            List<int[]> result = new();
 
-            for (var i = 0; i < intervals.Length; i++)
+            for (int i = 0; i < intervals.Length; i++)
             {
                 if (newInterval[1] < intervals[i][0])
                 {
@@ -109,8 +109,8 @@ namespace Neetcode150
         public int[][] Merge(int[][] intervals)
         {
             List<int[]> result = new();
-            Array.Sort(intervals, (a, b) => a[0] - b[0]);
-            var lastInterval = intervals[0];//Track the large overlapping end
+            Array.Sort(intervals, (a, b) => a[0].CompareTo(b[0]));
+            int[] lastInterval = intervals[0];//Track the large overlapping end
             result.Add(lastInterval);
             for (int i = 1; i < intervals.Length; i++)
             {
@@ -162,14 +162,15 @@ namespace Neetcode150
         /*
         https://leetcode.com/problems/non-overlapping-intervals/
         Extra Test Cases:
-        [[1,100],[11,22],[1,11],[2,12]] Expected: 2
+        [[1,100],[11,22],[1,11],[2,12]] Expected: 2 -  15 / 59 testcases
         */
         //Neetcode solution
         public int EraseOverlapIntervals(int[][] intervals)
         {
             List<int[]> result = new();
             int counter = 0;
-            Array.Sort(intervals, (a, b) => a[0] - b[0]);
+            Array.Sort(intervals, (a,b) => a[0].CompareTo(b[0]));
+            //alternative way of above comparison Array.Sort(intervals, (a, b) => a[0] - b[0]);
             int prevEnd = intervals[0][1];
 
             for (int i = 1; i < intervals.Length; i++)
