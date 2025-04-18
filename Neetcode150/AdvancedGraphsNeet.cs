@@ -271,11 +271,11 @@ namespace Neetcode150
 
         int rl = 0;
         int cl = 0;
-
         public int SwimInWater(int[][] grid)
         {
             rl = grid.Length;
             cl = grid[0].Length;
+
             bool[,] visit = new bool[rl, cl];
 
             int minH = grid[0][0], maxH = grid[0][0];
@@ -290,12 +290,15 @@ namespace Neetcode150
 
             while (l < r)
             {
-                int m = (l + r) >> 1;
-
+                int m = (l + r) / 2;
                 if (dfs(grid, visit, 0, 0, m))
+                {
                     r = m;
+                }
                 else
+                {
                     l = m + 1;
+                }
 
                 visit = new bool[rl, cl];
             }
@@ -305,18 +308,25 @@ namespace Neetcode150
 
         private bool dfs(int[][] grid, bool[,] visit, int row, int col, int time)
         {
-            if (0 > row || 0 > col || row >= rl || col >= cl || visit[row, col] || grid[row][col] > time)
-                return false;
+            if (0 > row || 0 > col || row >= rl || col >= cl || visit[row, col] ||
+               grid[row][col] > time)
+            return false;
 
             if (row == rl - 1 && col == cl - 1) return true;
 
             visit[row, col] = true;
 
-            return
-            dfs(grid, visit, row + 1, col, time) ||
-            dfs(grid, visit, row - 1, col, time) ||
-            dfs(grid, visit, row, col + 1, time) ||
-            dfs(grid, visit, row, col - 1, time);
+            int[][] directions = new int[][]{new int[] {1,0},new int[] {-1,0},
+            new int[] {0,1},new int[] {0,-1}};
+
+            bool dfsResult = false;
+
+            foreach (int[] direction in directions)
+            {
+                dfsResult |= dfs(grid, visit, row + direction[0], col + direction[1], time);
+            }
+
+            return dfsResult;
         }
        
         #endregion
