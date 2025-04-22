@@ -88,6 +88,20 @@ namespace Neetcode150
 
             return result;
         }
+
+
+        public int HammingWeight2(int n)
+        {
+            string rlength = Convert.ToString(n, 2);
+            int result = 0;
+            for (int i = 0; i < rlength.Length; i++)
+            {
+                if (rlength[i] == '1')
+                    result++;
+            }
+        
+        return result;
+    }
         #endregion
         #region Counting Bits
         /*
