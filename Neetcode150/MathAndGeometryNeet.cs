@@ -447,27 +447,27 @@ namespace Neetcode150
         */
         public string Multiply(string num1, string num2)
         {
-
             if (string.Equals(num1, "0") || string.Equals(num2, "0"))
                 return "0";
 
             char[] n1ar = num1.ToArray();
             char[] n2ar = num2.ToArray();
             int[] resultarr = new int[n1ar.Length + n2ar.Length];
+
             //reverse it and go from left to right
             Array.Reverse(n1ar);
             Array.Reverse(n2ar);
+
             for (int ar1 = 0; ar1 < n1ar.Length; ar1++)
             {
                 for (int ar2 = 0; ar2 < n2ar.Length; ar2++)
                 {
                     int n1num = n1ar[ar1] - '0';
                     int n2num = n2ar[ar2] - '0';
-                    var digit = (n1num * n2num);
+                    int digit = (n1num * n2num);
                     resultarr[ar1 + ar2] += digit;
                     resultarr[ar1 + ar2 + 1] += (resultarr[ar1 + ar2]) / 10;
                     resultarr[ar1 + ar2] = (resultarr[ar1 + ar2]) % 10;
-
                 }
             }
 
@@ -480,11 +480,13 @@ namespace Neetcode150
                 if (resultarr[i] != 0)
                     break;
                 startPoint++;
-
-
             }
 
-            resultarr = resultarr.Reverse().ToArray();
+
+            for (int i = startPoint; i < resultarr.Length; i++)
+            {
+                results.Append(resultarr[i]);
+            }
 
             return results.ToString();
         }
