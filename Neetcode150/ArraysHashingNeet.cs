@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
+using System.Linq;
 
 namespace Neetcode150
 {
@@ -304,8 +305,28 @@ namespace Neetcode150
 
         https://leetcode.com/problems/top-k-frequent-elements/
         */
-        //Neetcode Version because of priority queue. Good to have for reference.
+        //Neetcode Sorting Version with linq
         public int[] TopKFrequent(int[] nums, int k)
+        {
+            Dictionary<int, int> count = new Dictionary<int, int>();
+            foreach (int num in nums)
+            {
+                if (count.ContainsKey(num)) count[num]++;
+                else count[num] = 1;
+            }
+
+            List<int[]> arr = count.Select(entry => new int[] { entry.Value, entry.Key }).ToList();
+            arr.Sort((a, b) => b[0].CompareTo(a[0]));
+
+            int[] res = new int[k];
+            for (int i = 0; i < k; i++)
+            {
+                res[i] = arr[i][1];
+            }
+            return res;
+        }
+        //Neetcode Version because of priority queue. Good to have for reference.
+        public int[] TopKFrequentPriorityQueue(int[] nums, int k)
         {
             int[] arr = new int[k];
             var dict = new Dictionary<int, int>();
@@ -362,6 +383,37 @@ namespace Neetcode150
 
         Hint:Just translate original string to a list and make that list into a string again.
         */
+
+            public string Encode(IList<string> strs)
+            {
+                string res = "";
+                foreach (string s in strs)
+                {
+                    res += s.Length + "#" + s;
+                }
+                return res;
+            }
+
+            public List<string> Decode(string s)
+            {
+                List<string> res = new List<string>();
+                int i = 0;
+                while (i < s.Length)
+                {
+                    int j = i;
+                    while (s[j] != '#')
+                    {
+                        j++;
+                    }
+                    int length = int.Parse(s.Substring(i, j - i));
+                    i = j + 1;
+                    j = i + length;
+                    res.Add(s.Substring(i, length));
+                    i = j;
+                }
+                return res;
+            }
+        
         #endregion
         #region Product of Array Except Self
         /*
@@ -473,7 +525,6 @@ namespace Neetcode150
                         squares[(r / 3, c / 3)] = new HashSet<char>();
 
                     if (board[r][c] == '.') continue;
-
 
                     if (rows[r].Contains(board[r][c]) ||
                       cols[c].Contains(board[r][c]) ||
