@@ -307,19 +307,19 @@ namespace Neetcode150
 
             int left = 0, right = height.Length - 1;
             int leftMax = height[left], rightMax = height[right];
-            var result = 0;
+            int result = 0;
 
             while (left < right)
             {
                 if (leftMax < rightMax)
                 {
-                    left++;
+                    left++;//Because the leftMax is lower,this height can't carry water, we move one index ahead
                     leftMax = Math.Max(leftMax, height[left]);
                     result += leftMax - height[left];
                 }
                 else
                 {
-                    right--;
+                    right--;//Because the rightMax is lower,this height can't carry water, we move one index ahead
                     rightMax = Math.Max(rightMax, height[right]);
                     result += rightMax - height[right];
                 }

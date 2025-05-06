@@ -173,36 +173,22 @@ namespace Neetcode150
 
         Follow-up: Can you come up with an algorithm that is less than O(n2) time complexity?
         */
-        public int[] TwoSum(int[] nums, int target)
-        {
-            Dictionary<int, int> tracker = new();
+    public int[] TwoSum(int[] numbers, int target) {
+        int l = 0, r = numbers.Length - 1;
 
-            for (int i = 0; i < nums.Length; i++)
-            {
-                if (!tracker.ContainsKey(nums[i]))
-                    tracker.Add(nums[i], i);
+        while (l < r) {
+            int curSum = numbers[l] + numbers[r];
 
-                if (tracker.ContainsKey(target - nums[i]) && tracker[target - nums[i]] != i)
-                    return new int[] { tracker[target - nums[i]], i };
+            if (curSum > target) {
+                r--;
+            } else if (curSum < target) {
+                l++;
+            } else {
+                return new int[] { l + 1, r + 1 };
             }
-
-            return new int[0];
         }
-        public int[] TwoSumNeet(int[] nums, int target)
-        {
-            Dictionary<int, int> indices = new Dictionary<int, int>();
-
-            for (int i = 0; i < nums.Length; i++)
-            {
-                var diff = target - nums[i];
-                if (indices.ContainsKey(diff))
-                {
-                    return new int[] { indices[diff], i };
-                }
-                indices[nums[i]] = i;
-            }
-            return null;
-        }
+        return new int[0];
+    }
         #endregion
         #region Group Anagrams
         /*
@@ -235,54 +221,32 @@ namespace Neetcode150
 
         https://leetcode.com/problems/group-anagrams/
         */
+
+        #endregion
         public IList<IList<string>> GroupAnagrams(string[] strs)
         {
-            Dictionary<string, List<string>> sorted = new();
+            Dictionary<string, List<string>> dict = new();
+
             for (int i = 0; i < strs.Length; i++)
             {
-
-                char[] CurrentArray = strs[i].ToCharArray();
-                Array.Sort(CurrentArray);
-                if (!sorted.ContainsKey(new string(CurrentArray)))
+                int[] letters = new int[26];
+                foreach (char ab in strs[i])
                 {
-                    sorted.Add(new string(CurrentArray), new List<string> { strs[i] });
+                    letters[ab - 'a']++;
                 }
-                else
-                {
-                    sorted[new string(CurrentArray)].Add(strs[i]);
-                }
+                string item = String.Join(",", letters);
+                dict.TryAdd(item, new List<string>());
 
+                dict[item].Add(strs[i]);
             }
-            List<IList<string>> toR = new();
-            foreach (KeyValuePair<string, List<string>> element in sorted)
+            List<IList<string>> result = new();
+            foreach (var entry in dict)
             {
-                toR.Add(element.Value);
+                result.Add(entry.Value);
             }
-            return toR;
-        }
-        //
-        public IList<IList<string>> GroupAnagramsNeet(string[] strs)
-        {
-            var groups = new Dictionary<string, IList<string>>();
 
-            foreach (string s in strs)
-            {
-                char[] hash = new char[26];
-                foreach (char c in s)
-                {
-                    hash[c - 'a']++;
-                }
-
-                string key = new string(hash);
-                if (!groups.ContainsKey(key))
-                {
-                    groups[key] = new List<string>();
-                }
-                groups[key].Add(s);
-            }
-            return groups.Values.ToImmutableList();
+            return result;
         }
-        #endregion
         #region Top K Frequent Elements
         /*
         Given an integer array nums and an integer k, return the k most frequent elements. You may return the answer in any order.

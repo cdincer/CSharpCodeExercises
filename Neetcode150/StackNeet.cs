@@ -210,10 +210,11 @@ namespace Neetcode150
          ["10","6","9","3","+","-11","","/","","17","+","5","+"],
         https://leetcode.com/problems/evaluate-reverse-polish-notation/description/
         */
+
         public int EvalRPN(string[] tokens)
         {
             Stack<int> elements = new Stack<int>();
-            int sum = 0;
+
             for (int i = 0; i < tokens.Length; i++)
             {
                 if (int.TryParse(tokens[i], out int parsed))
@@ -222,26 +223,20 @@ namespace Neetcode150
                 }
                 else
                 {
+                    int b = elements.Pop();
+                    int a = elements.Pop();
                     switch (tokens[i])
                     {
                         case "+":
-                            int b = elements.Pop();
-                            int a = elements.Pop();
                             elements.Push(a + b);
                             break;
                         case "-":
-                            b = elements.Pop();
-                            a = elements.Pop();
                             elements.Push(a - b);
                             break;
                         case "*":
-                            b = elements.Pop();
-                            a = elements.Pop();
-                            elements.Push(b * a);
+                            elements.Push(a * b);
                             break;
                         case "/":
-                            b = elements.Pop();
-                            a = elements.Pop();
                             elements.Push(a / b);
                             break;
                         default:
@@ -253,6 +248,7 @@ namespace Neetcode150
 
             return elements.Pop();
         }
+
         private static int evaluate(int b, int a, string op) => op switch
         {
             "+" => a + b,
