@@ -169,14 +169,15 @@ namespace Neetcode150
         */
         public int MinEatingSpeed(int[] piles, int h)
         {
-            int left = 1, right = piles.Max();
-            var result = right;
+            int left = 1; int right = piles.Max();
+            int result = right;
 
             while (left <= right)
             {
-                var mid = left + (right - left) / 2;
+                int mid = left + (right - left) / 2;
                 long hours = 0;
-                foreach (var pile in piles)
+
+                foreach (int pile in piles)
                 {
                     hours += (int)Math.Ceiling(pile / (double)mid);
                 }

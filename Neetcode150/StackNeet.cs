@@ -379,6 +379,7 @@ namespace Neetcode150
                     backtrack(open + 1, close);
                     seq.Remove(seq.Length - 1, 1);
                 }
+                
                 if (close < open)
                 {
                     seq.Append(")");
@@ -559,8 +560,8 @@ namespace Neetcode150
         */
         public int LargestRectangleArea(int[] heights)
         {
-            int n = heights.Length, maxa = 0;
-            var stack = new Stack<int>();
+            int maxA = 0;
+            Stack<int> stack = new();
 
             for (int i = 0; i <= heights.Length; i++)
             {
@@ -570,12 +571,12 @@ namespace Neetcode150
                 {
                     int height = heights[stack.Pop()];
                     int width = (stack.Count == 0) ? i : i - stack.Peek() - 1;
-                    maxa = Math.Max(maxa, height * width);
+                    maxA = Math.Max(maxA, height * width);
                 }
                 stack.Push(i);
             }
 
-            return maxa;
+            return maxA;
         }
         #endregion
 
