@@ -287,6 +287,8 @@ namespace Neetcode150
         [4,5,6,7,0,1,2] target = 0 181 / 195
         [8,1,2,3,4,5,6,7] target = 6 182 / 195
         [3,1] target = 1 192 / 195 
+
+        https://leetcode.com/problems/search-in-rotated-sorted-array/
         */
         public int SearchNeet(int[] nums, int target)
         {
@@ -300,7 +302,7 @@ namespace Neetcode150
                 if (nums[mid] == target)
                     return mid;
 
-                if (nums[left] <= nums[mid]) // left sorted solution
+                if (nums[left] <= nums[mid]) // left sorted solution: meaning our mid value is in between nums[left] < nums[right]
                 {
                     if (target > nums[mid] || target < nums[left]) // Second conditional
                         left = mid + 1;                            // is for steping over the boundary

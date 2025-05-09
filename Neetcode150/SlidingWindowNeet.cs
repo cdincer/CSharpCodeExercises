@@ -89,31 +89,31 @@ namespace Neetcode150
             int start = 0;
             int end = 0;
             int longest = 0;
-            int currlength = 0;
+            int currLength = 0;
 
             if (s.Length == 0 || s.Length == 1)
                 return s.Length;
 
             while (end < s.Length)
             {
-                currlength = 1;
+                currLength = 1;
 
                 for (int i = start; i < end; i++)
                 {
                     if (s[i] == s[end])
                     {
                         start = i + 1;
-                        longest = Math.Max(longest, currlength);
-                        currlength = 1;
+                        longest = Math.Max(longest, currLength);
+                        currLength = 1;
                         break;
                     }
                     else
                     {
-                        currlength++;
+                        currLength++;
                     }
                 }
                 end++;
-                longest = Math.Max(longest, currlength);
+                longest = Math.Max(longest, currLength);
             }
             return longest;
         }
