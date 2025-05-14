@@ -40,68 +40,72 @@ namespace Neetcode150
         At most 3 * 104 calls in total will be made to insert, search, and startsWith.
 
         */
-        public class TrieNode
-        {
-            public TrieNode()
-            {
-                childrenMap = new Dictionary<char, TrieNode>();
-            }
-            public Dictionary<char, TrieNode> childrenMap { get; set; }
-            public bool isWord { get; set; }
-        }
         public class Trie
         {
-
-            private TrieNode root;
+            public NodeArr root;
             public Trie()
             {
-                root = new TrieNode();
+                root = new NodeArr();
             }
 
             public void Insert(string word)
             {
-                TrieNode cur = root;
+                var cur = root;
+
                 foreach (char c in word)
                 {
-                    if (!cur.childrenMap.ContainsKey(c))
-                    {
-                        cur.childrenMap[c] = new TrieNode();
-                    }
-                    cur = cur.childrenMap[c];
+                    int let = c - 'a';
+                    if (cur.children[let] == null)
+                        cur.children[let] = new NodeArr();
+
+                    cur = cur.children[let];
                 }
                 cur.isWord = true;
             }
 
             public bool Search(string word)
             {
-                TrieNode node = traverse(word);
-                return node != null && node.isWord;
+                var cur = root;
+
+                foreach (char c in word)
+                {
+                    int let = c - 'a';
+                    if (cur.children[let] == null)
+                        return false;
+
+                    cur = cur.children[let];
+                }
+
+                return cur.isWord;
             }
 
             public bool StartsWith(string prefix)
             {
-                TrieNode node = traverse(prefix);
-                return node != null;
-            }
+                var cur = root;
 
-            private TrieNode traverse(string path)
-            {
-                TrieNode cur = root;
-
-                foreach (char c in path)
+                foreach (char c in prefix)
                 {
-                    if (cur.childrenMap.ContainsKey(c))
-                    {
-                        cur = cur.childrenMap[c];
-                    }
-                    else
-                    {
-                        return null;
-                    }
-                }
-                return cur;
-            }
+                    int let = c - 'a';
+                    if (cur.children[let] == null)
+                        return false;
 
+                    cur = cur.children[let];
+                }
+
+                return true;
+            }
+        }
+
+        public class NodeArr
+        {
+            public NodeArr[] children;
+            public bool isWord;
+
+            public NodeArr()
+            {
+                children = new NodeArr[26];
+                isWord = false;
+            }
         }
         #endregion
         #region Design Add and Search Words Data Structure

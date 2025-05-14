@@ -724,11 +724,11 @@ namespace Neetcode150
         https://leetcode.com/problems/serialize-and-deserialize-binary-tree/
         */
         private List<string> encodedList { get; set; }
-
         // Encodes a tree to a single string.
         public string serialize(TreeNode root)
         {
             encodedList = new List<string>();
+
             void dfs(TreeNode root)
             {
                 if (root == null)
@@ -741,9 +741,7 @@ namespace Neetcode150
                 dfs(root.left);
                 dfs(root.right);
             }
-
             dfs(root);
-            Console.WriteLine(string.Join(",", encodedList));
             return string.Join(",", encodedList);
         }
 
@@ -755,9 +753,6 @@ namespace Neetcode150
 
             TreeNode dfs()
             {
-                if(nodesArray[index] == "7")
-                Console.WriteLine("aaa");
-                
                 if (nodesArray[index] == "N")
                 {
                     index++;
@@ -768,6 +763,7 @@ namespace Neetcode150
                 index++;
                 newNode.left = dfs();
                 newNode.right = dfs();
+
                 return newNode;
             }
 
