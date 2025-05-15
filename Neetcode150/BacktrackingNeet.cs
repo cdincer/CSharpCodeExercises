@@ -34,16 +34,16 @@ namespace Neetcode150
         public IList<IList<int>> Subsets(int[] nums)
         {
             List<int> keep = new();
-            repeater(0, nums, keep);
+            GeneralizedPattern(0, nums, keep);
             return keeper;
         }
 
-        public List<int> repeater(int index, int[] nums, List<int> keep)
+        public List<int> GeneralizedPattern(int index, int[] nums, List<int> keep)
         {
             for (int i = index; i < nums.Length; i++)
             {
                 keep.Add(nums[i]);
-                repeater(i + 1, nums, keep);
+                GeneralizedPattern(i + 1, nums, keep);
                 keep.Remove(nums[i]);
             }
 
@@ -111,65 +111,35 @@ namespace Neetcode150
         target = 11
         https://leetcode.com/problems/combination-sum/
         */
-        IList<IList<int>> result2 = new List<IList<int>>();
-        public void backtrack(int index, List<int> path, int total, int[] candidates, int target)
+        List<List<int>> res;
+        public List<List<int>> CombinationSum(int[] nums, int target)
+        {
+            res = new List<List<int>>();
+            Array.Sort(nums);
+            GeneralizedPattern(0, new List<int>(), 0, nums, target);
+            return res;
+        }
+
+        private void GeneralizedPattern(int i, List<int> cur, int total, int[] nums, int target)
         {
             if (total == target)
             {
-                result2.Add(path.ToList());
+                res.Add(new List<int>(cur));
                 return;
             }
 
-            if (total > target || index >= candidates.Length) return;
-
-            path.Add(candidates[index]);
-            backtrack(index,
-                      path,
-                      total + candidates[index],
-                      candidates,
-                      target);
-
-            path.Remove(path.Last());
-
-            backtrack(index + 1,
-                      path,
-                      total,
-                      candidates,
-                      target);
-
-        }
-        public IList<IList<int>> CombinationSum(int[] candidates, int target)
-        {
-            backtrack(0, new List<int>(), 0, candidates, target);
-            return result2;
-        }
-        public IList<IList<int>> AlternativeCombinationSum(int[] candidates, int target)
-        {
-            var result = new List<IList<int>>();
-            Array.Sort(candidates);
-            Backtracking(candidates, 0, new List<int>(), target, result);
-            return result;
-        }
-
-        private void Backtracking(int[] candidates, int start, List<int> combination, int target, IList<IList<int>> result)
-        {
-            if (target == 0)
+            for (int j = i; j < nums.Length; j++)
             {
-                result.Add(new List<int>(combination));
-                return;
-            }
-
-            for (int i = start; i < candidates.Length; i++)
-            {
-                if (target - candidates[i] < 0)
+                if (total + nums[j] > target)
                 {
-                    break;
+                    return;
                 }
-                combination.Add(candidates[i]);
-                Backtracking(candidates, i, combination, target - candidates[i], result);
-                combination.RemoveAt(combination.Count - 1);
+                cur.Add(nums[j]);
+                GeneralizedPattern(j, cur, total + nums[j], nums, target);
+                cur.RemoveAt(cur.Count - 1);
             }
         }
+
         #endregion
         #region Permutations
         /*
