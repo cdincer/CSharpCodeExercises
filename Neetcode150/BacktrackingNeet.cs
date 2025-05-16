@@ -533,9 +533,10 @@ namespace Neetcode150
         https://leetcode.com/problems/letter-combinations-of-a-phone-number/
         */
         //Keeping this solution in because it fits the other backtracking questions solution style.
+        List<string> resultLet = new();
         public IList<string> LetterCombinations(string digits)
         {
-            var lettersMap = new Dictionary<char, string>
+            Dictionary<char, string> lettersMap = new()
             {
                 {'2', "abc"},
                 {'3', "def"},
@@ -547,20 +548,22 @@ namespace Neetcode150
                 {'9', "wxyz"}
             };
 
-            var result = new List<string>();
-
             if (!string.IsNullOrEmpty(digits))
-                Backtrack(result, digits, lettersMap, "", 0);
+                Backtrack(resultLet, digits, lettersMap, "", 0);
 
-            return result;
+
+            return resultLet;
         }
 
-        void Backtrack(List<string> result, string digits, Dictionary<char, string> lettersMap, string curString, int start)
+        public void Backtrack(List<string> result, string digits, Dictionary<char, string> lettersMap, string curString, int start)
         {
             if (curString.Length == digits.Length)
-            { result.Add(curString); return; }
+            {
+                result.Add(curString);
+                return;
+            }
 
-            foreach (var c in lettersMap[digits[start]])
+            foreach (char c in lettersMap[digits[start]])
             {
                 Backtrack(result, digits, lettersMap, curString + c, start + 1);
             }
