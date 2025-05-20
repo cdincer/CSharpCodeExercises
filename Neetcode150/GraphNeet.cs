@@ -106,48 +106,45 @@ namespace Neetcode150
         [[1]] 613 / 728 testcases passed
         https://leetcode.com/problems/max-area-of-island/
         */
+        private static readonly int[][] directions2 = new int[][] {
+        new int[] {1, 0}, new int[] {-1, 0},
+        new int[] {0, 1}, new int[] {0, -1}
+    };
+
         public int MaxAreaOfIsland(int[][] grid)
         {
-            int MaxArea = 0;
-            int rl = grid.Length;
-            int cl = grid[0].Length;
-            Queue<(int, int)> myq = new();
-            int[] dr = new int[] { 1, -1, 0, 0 };
-            int[] dc = new int[] { 0, 0, 1, -1 };
+            int rl = grid.Length, cl = grid[0].Length;
+            int area = 0;
 
-            for (int i = 0; i < grid.Length; i++)
+            for (int r = 0; r < rl; r++)
             {
-                for (int j = 0; j < grid[i].Length; j++)
+                for (int c = 0; c < cl; c++)
                 {
-                    if (grid[i][j] == 1)
+                    if (grid[r][c] == 1)
                     {
-                        myq.Enqueue((i, j));
-                        int currA = 1;
-                        grid[i][j] = 0;
-                        while (myq.Count > 0)
-                        {
-                            (int tr, int tc) = myq.Dequeue();
-                            for (int x = 0; x < 4; x++)
-                            {
-                                int cr = dr[x] + tr;
-                                int cc = dc[x] + tc;
-
-                                if (cr > -1 && cr < rl && cc > -1 && cc < cl && grid[cr][cc] == 1)
-                                {
-                                    Console.WriteLine("entered with " + cr + " with cc" + cc);
-                                    currA++;
-                                    grid[cr][cc] = 0;
-                                    myq.Enqueue((cr, cc));
-                                }
-                            }
-                        }
-                        MaxArea = Math.Max(MaxArea, currA);
+                        area = Math.Max(area, Dfs(grid, r, c));
                     }
                 }
-
             }
 
-            return MaxArea;
+            return area;
+        }
+
+        private int Dfs(int[][] grid, int r, int c)
+        {
+            if (r < 0 || c < 0 || r >= grid.Length ||
+                c >= grid[0].Length || grid[r][c] == 0)
+            {
+                return 0;
+            }
+
+            grid[r][c] = 0;
+            int res = 1;
+            foreach (var dir in directions2)
+            {
+                res += Dfs(grid, r + dir[0], c + dir[1]);
+            }
+            return res;
         }
         #endregion
         #region Clone Graph
@@ -562,62 +559,62 @@ namespace Neetcode150
         }
         public void SolveNeet(char[][] board)
         {
-            var n = board.Length;
+            int rl = board.Length;
 
-            if (n == 0) return;
-            var m = board[0].Length;
+            if (rl == 0) return;
+            int cl = board[0].Length;
 
-            for (int i = 0; i < n; i++)
+            for (int r = 0; r < rl; r++)
             {
-                for (int j = 0; j < m; j++)
+                for (int c = 0; c < cl; c++)
                 {
-                    if ((i == 0 || j == 0 || i == n - 1 || j == m - 1) && board[i][j] == 'O')
+                    if ((r == 0 || c == 0 || r == rl - 1 || c == cl - 1) && board[r][c] == 'O')
                     {
-                        CaptureDfs(board, i, j);
+                        CaptureDfs(board, r, c);
                     }
                 }
             }
 
-            for (int i = 0; i < n; i++)
+            for (int r = 0; r < rl; r++)
             {
-                for (int j = 0; j < m; j++)
+                for (int c = 0; c < cl; c++)
                 {
-                    if (board[i][j] == 'O')
+                    if (board[r][c] == 'O')
                     {
-                        board[i][j] = 'X';
+                        board[r][c] = 'X';
                     }
                 }
             }
 
-            for (int i = 0; i < n; i++)
+            for (int r = 0; r < rl; r++)
             {
-                for (int j = 0; j < m; j++)
+                for (int c = 0; c < cl; c++)
                 {
-                    if (board[i][j] == 'T')
+                    if (board[r][c] == 'T')
                     {
-                        board[i][j] = 'O';
+                        board[r][c] = 'O';
                     }
                 }
             }
         }
 
-        private void CaptureDfs(char[][] board, int x, int y)
+        private void CaptureDfs(char[][] board, int r, int c)
         {
-            var n = board.Length;
-            var m = board[0].Length;
+            int rl = board.Length;
+            int cl = board[0].Length;
 
-            if (x >= n || x < 0 || y >= m || y < 0)
+            if(r >= rl || c >= cl || 0 > r || 0 > c)
             {
                 return;
             }
 
-            if (board[x][y] == 'T' || board[x][y] == 'X') return;
+            if (board[r][c] == 'T' || board[r][c] == 'X') return;
 
-            board[x][y] = 'T';
-            CaptureDfs(board, x + 1, y);
-            CaptureDfs(board, x - 1, y);
-            CaptureDfs(board, x, y + 1);
-            CaptureDfs(board, x, y - 1);
+            board[r][c] = 'T';
+            CaptureDfs(board, r + 1, c);
+            CaptureDfs(board, r - 1, c);
+            CaptureDfs(board, r, c + 1);
+            CaptureDfs(board, r, c - 1);
 
         }
         #endregion
