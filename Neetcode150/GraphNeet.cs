@@ -1041,5 +1041,157 @@ namespace Neetcode150
         }
 
         #endregion
+        #region Graph Valid Tree
+        /*
+        Given n nodes labeled from 0 to n - 1 and a list of undirected edges (each edge is a pair of nodes),
+         write a function to check whether these edges make up a valid tree.
+
+        Example 1:
+        Input:
+        n = 5
+        edges = [[0, 1], [0, 2], [0, 3], [1, 4]]
+
+        Output:
+        true
+
+        Example 2:
+        Input:
+        n = 5
+        edges = [[0, 1], [1, 2], [2, 3], [1, 3], [1, 4]]
+
+        Output:
+        false
+
+        Note:
+            You can assume that no duplicate edges will appear in edges. Since all edges are undirected, [0, 1] is the same as [1, 0] and thus will not appear together in edges.
+
+        Constraints:
+
+            1 <= n <= 100
+            0 <= edges.length <= n * (n - 1) / 2
+
+
+         https://neetcode.io/problems/valid-tree
+        */
+        public bool ValidTree(int n, int[][] edges)
+        {
+            if (edges.Length > n - 1)
+            {
+                return false;
+            }
+
+            List<List<int>> adj = new();
+
+            for (int i = 0; i < n; i++)
+            {
+                adj.Add(new List<int>());
+            }
+
+            foreach (var edge in edges)
+            {
+                adj[edge[0]].Add(edge[1]);
+                adj[edge[1]].Add(edge[0]);
+            }
+
+            HashSet<int> visit = new();
+
+            if (!Dfs(0, -1, visit, adj))
+            {
+                return false;
+            }
+
+            return visit.Count == n;
+        }
+
+        private bool Dfs(int node, int parent, HashSet<int> visit,
+        List<List<int>> adj)
+        {
+            if (visit.Contains(node))
+                return false;
+
+            visit.Add(node);
+
+            foreach (var nei in adj[node])
+            {
+                if (nei == parent)
+                {
+                    continue;
+                }
+
+                if (!Dfs(nei, node, visit, adj))
+                    return false;
+            }
+
+            return true;
+        }
+        #endregion
+        #region Number of Connected Components in an Undirected Graph
+        /*
+        There is an undirected graph with n nodes. There is also an edges array, where edges[i] = [a, b]
+         means that there is an edge between node a and node b in the graph.
+        The nodes are numbered from 0 to n - 1.
+
+        Return the total number of connected components in that graph.
+
+        Example 1:
+        Input:
+        n=3
+        edges=[[0,1], [0,2]]
+
+        Output:
+        1
+
+        Example 2:
+        Input:
+        n=6
+        edges=[[0,1], [1,2], [2,3], [4,5]]
+
+        Output:
+        2
+
+        Constraints:
+            1 <= n <= 100
+            0 <= edges.length <= n * (n - 1) / 2
+
+        */
+        //https://neetcode.io/problems/count-connected-components        
+        public int CountComponents(int n, int[][] edges)
+        {
+            List<List<int>> adj = new List<List<int>>();
+            bool[] visit = new bool[n];
+            for (int i = 0; i < n; i++)
+            {
+                adj.Add(new List<int>());
+            }
+            foreach (var edge in edges)
+            {
+                adj[edge[0]].Add(edge[1]);
+                adj[edge[1]].Add(edge[0]);
+            }
+
+            int res = 0;
+            for (int node = 0; node < n; node++)
+            {
+                if (!visit[node])
+                {
+                    Dfs(adj, visit, node);
+                    res++;
+                }
+            }
+            return res;
+        }
+
+        private void Dfs(List<List<int>> adj, bool[] visit, int node)
+        {
+            visit[node] = true;
+            foreach (var nei in adj[node])
+            {
+                if (!visit[nei])
+                {
+                    Dfs(adj, visit, nei);
+                }
+            }
+        }
+        #endregion
     }
 }
