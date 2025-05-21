@@ -989,8 +989,8 @@ namespace Neetcode150
                 return 0;
             }
 
-            var nei = new Dictionary<string,
-              HashSet<string>>();
+            Dictionary<string,HashSet<string>> nei = new ();
+
             if (!wordList.Contains(beginWord))
                 wordList.Add(beginWord);
 
@@ -1018,7 +1018,7 @@ namespace Neetcode150
                 for (int i = 0; i < count; i++)
                 {
                     string item = queue.Dequeue();
-                    if (string.Equals(item, endWord))
+                    if (item == endWord)
                         return result;
 
                     for (int j = 0; j < item.Length; j++)
