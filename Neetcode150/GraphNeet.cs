@@ -994,36 +994,36 @@ namespace Neetcode150
             if (!wordList.Contains(beginWord))
                 wordList.Add(beginWord);
 
-            foreach (var word in wordList)
+            foreach (string word in wordList)
             {
-                for (var j = 0; j < word.Length; j++)
+                for (int j = 0; j < word.Length; j++)
                 {
-                    var pattern = word.Substring(0, j) + "*" + word.Substring(j + 1);
+                    string pattern = word.Substring(0, j) + "*" + word.Substring(j + 1);
                     nei.TryAdd(pattern, new HashSet<string>());
                     nei[pattern].Add(word);
                 }
             }
 
-            var visited = new HashSet<string>();
+            HashSet<string> visited = new();
             visited.Add(beginWord);
 
-            var queue = new Queue<string>();
+            Queue<string> queue = new();
             queue.Enqueue(beginWord);
 
-            var result = 1;
+            int result = 1;
 
             while (queue.Count > 0)
             {
-                var count = queue.Count;
-                for (var i = 0; i < count; i++)
+                int count = queue.Count;
+                for (int i = 0; i < count; i++)
                 {
-                    var item = queue.Dequeue();
+                    string item = queue.Dequeue();
                     if (string.Equals(item, endWord))
                         return result;
 
-                    for (var j = 0; j < item.Length; j++)
+                    for (int j = 0; j < item.Length; j++)
                     {
-                        var pattern = item.Substring(0, j) + "*" + item.Substring(j + 1);
+                        string pattern = item.Substring(0, j) + "*" + item.Substring(j + 1);
                         foreach (var neiWord in nei[pattern])
                         {
                             if (!visited.Contains(neiWord))
