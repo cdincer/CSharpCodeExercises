@@ -417,7 +417,8 @@ namespace Neetcode150
         */
         public int CoinChange(int[] coins, int amount)
         {
-            int[] dp = Enumerable.Repeat(amount + 1, amount + 1).ToArray();
+            int[] dp = new int[amount + 1];
+            Array.Fill(dp,amount + 1);
 
             dp[0] = 0;
 
@@ -653,7 +654,7 @@ namespace Neetcode150
         nums = [1,5,10,6] Expected: true 140 / 142 testcases passed -- 2024-04-02 dated total cases
         https://leetcode.com/problems/partition-equal-subset-sum/
         */
-
+        //Neetcode: Dynamic Programming (Optimal), 6th option.
         public bool CanPartition(int[] nums)
         {
             int arrSum = nums.Sum();

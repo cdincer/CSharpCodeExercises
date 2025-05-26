@@ -416,8 +416,8 @@ namespace Neetcode150
             Array.Sort(intervals, (a, b) => a[0].CompareTo(b[0]));
 
             // Initialize the priority queue to keep track of the intervals by their size
-            var minHeap = new PriorityQueue<(int Size, int End), int>();
-            var res = new Dictionary<int, int>();
+            PriorityQueue<(int Size, int End), int> minHeap = new ();
+            Dictionary<int, int> res = new();
             int i = 0;
 
             // Sort the queries to process in order
