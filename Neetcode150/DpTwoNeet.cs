@@ -274,12 +274,12 @@ namespace Neetcode150
         //Coin Change like DP solution
         public int FindTargetSumWays(int[] nums, int target)
         {
-            Dictionary<int, int> dp = new Dictionary<int, int>();
+            Dictionary<int, int> dp = new();
             dp[0] = 1;
 
             foreach (int num in nums)
             {
-                Dictionary<int, int> nextDp = new Dictionary<int, int>();
+                Dictionary<int, int> nextDp = new();
                 foreach (var entry in dp)
                 {
                     int total = entry.Key;
