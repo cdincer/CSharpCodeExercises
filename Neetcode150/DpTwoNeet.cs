@@ -558,7 +558,8 @@ namespace Neetcode150
 
             1 <= s.length, t.length <= 1000
             s and t consist of English letters.
-
+        https://leetcode.com/problems/distinct-subsequences
+        https://neetcode.io/solutions/distinct-subsequences
         */
         public int NumDistinct(string s, string t)
         {
@@ -623,28 +624,29 @@ namespace Neetcode150
         word1 = "spartan" word2 = "part" Expected 3 1106 / 1146 testcases passed
     
         https://leetcode.com/problems/edit-distance/
+        https://neetcode.io/solutions/edit-distance
         */
 
        
         public int MinDistance(string word1, string word2)
         {
             //Bottom up
-            var w1l = word1.Length;
-            var w2l = word2.Length;
-            var dp = new int[w1l + 1, w2l + 1];
+            int w1l = word1.Length;
+            int w2l = word2.Length;
+            int[,] dp = new int[w1l + 1, w2l + 1];
 
-            for (var r = 0; r < w1l + 1; r++)
+            for (int r = 0; r < w1l + 1; r++)
             {
                 dp[r, w2l] = w1l - r;
             }
-            for (var c = 0; c < w2l + 1; c++)
+            for (int c = 0; c < w2l + 1; c++)
             {
                 dp[w1l, c] = w2l - c;
             }
 
-            for (var r = w1l - 1; r >= 0; r--)
+            for (int r = w1l - 1; r >= 0; r--)
             {
-                for (var c = w2l - 1; c >= 0; c--)
+                for (int c = w2l - 1; c >= 0; c--)
                 {
                     if (word1[r] == word2[c])
                         dp[r, c] = dp[r + 1, c + 1];
@@ -741,12 +743,14 @@ namespace Neetcode150
         Input: "mississippi" Pattern:"mis*is*p*."
         Input "a" Pattern:".*"
         Input:"ab" Pattern: ".*c" 10 /356 test cases.
-
+        https://leetcode.com/problems/regular-expression-matching/
+        https://neetcode.io/solutions/regular-expression-matching
         */
         public bool IsMatch(string stri, string pat)
         {
             // Top down
-            var cache = new Dictionary<(int, int), bool>();
+            Dictionary<(int, int), bool> cache = new();
+
             //Three possibilities.
             //Match the wild cards.
             //Match a letter.
