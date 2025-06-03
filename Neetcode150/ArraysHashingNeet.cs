@@ -475,11 +475,11 @@ namespace Neetcode150
         //Neetcode version.
         public bool IsValidSudoku(char[][] board)
         {
-            var rows = new Dictionary<int, HashSet<char>>();
-            var cols = new Dictionary<int, HashSet<char>>();
-            var squares = new Dictionary<(int, int), HashSet<char>>();
+            Dictionary<int, HashSet<char>> rows = new ();
+            Dictionary<int, HashSet<char>> cols = new ();
+            Dictionary<(int, int), HashSet<char>> squares = new();
 
-            for (var r = 0; r < 9; r++)
+            for (int r = 0; r < 9; r++)
             {
                 rows[r] = new HashSet<char>();
                 for (var c = 0; c < 9; c++)

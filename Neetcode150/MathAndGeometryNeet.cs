@@ -444,6 +444,7 @@ namespace Neetcode150
             Both num1 and num2 do not contain any leading zero, except the number 0 itself.
         
         https://leetcode.com/problems/multiply-strings/
+        https://neetcode.io/solutions/multiply-strings
         */
         public string Multiply(string num1, string num2)
         {

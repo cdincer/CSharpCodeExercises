@@ -782,7 +782,7 @@ namespace Tier1
                 {
                     count[c - 'a']++;
                 }
-                var temp = new String(count);
+                var temp = new string(count);
                 if (!groups.ContainsKey(temp))
                 {
                     groups.Add(temp, new List<string>() { str });
