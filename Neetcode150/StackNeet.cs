@@ -295,6 +295,7 @@ namespace Neetcode150
             1 <= n <= 8
 
         https://leetcode.com/problems/generate-parentheses/
+        https://neetcode.io/solutions/generate-parentheses
         */
         /*
         Solution Notes:
@@ -362,8 +363,8 @@ namespace Neetcode150
 
         public IList<string> GenerateParenthesisNeet(int n)
         {
-            var result = new List<string>();
-            var seq = new StringBuilder();
+            List<string> result = new();
+            StringBuilder seq = new();
 
             void backtrack(int open, int close)
             {
@@ -485,13 +486,13 @@ namespace Neetcode150
         */
         public int CarFleetNeet(int target, int[] position, int[] speed)
         {
-            var pair = new (int, int)[position.Length];
+            (int,int)[] pair = new (int,int)[position.Length];
             for (var i = 0; i < position.Length; i++)
             {
                 pair[i] = (position[i], speed[i]);
             }
 
-            var stack = new Stack<double>();
+            Stack<double> stack = new ();
             foreach (var (p, s) in pair.OrderByDescending(i => i.Item1))
             {
                 stack.Push((target - p) / (double)s);
@@ -524,7 +525,7 @@ namespace Neetcode150
                 ////Console.Out.WriteLine($"({position[i]},{speed[i]}) ({distance},{duration})");
                 if (stack.Count == 0 || duration > stack.Peek().Duration)
                 {
-                    var print = stack.Count > 0 ? stack.Peek().Duration.ToString() : "";
+                    //var print = stack.Count > 0 ? stack.Peek().Duration.ToString() : "";
                     ////Console.Out.WriteLine($"(PUSHING ({distance}>{print})");
                     stack.Push((position[i], duration));
                 }

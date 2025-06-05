@@ -232,13 +232,16 @@ namespace Neetcode150
         {
             int left = 0, right = nums.Length - 1;
             while (left <= right)
-            {
-                if (nums[left] <= nums[right])
-                {
-                    return nums[left];
+            {                                  //TODO: WIP finish the relationship description between these two conditions
+                if (nums[left] <= nums[right]) //This condition and the (nums[left] <= nums[mid])
+                {                              //complement each other to find the actual min side of the array.
+                    return nums[left];         //if the second conditional is true,//our mid is larger than the right values to the right
+                                               //if the first conditional true then .....
+                                               
+                                               
                 }
                 int mid = (left + right) / 2;
-                if (nums[mid] >= nums[left])
+                if (nums[left] <= nums[mid])
                 {
                     left = mid + 1;
                 }
@@ -388,24 +391,24 @@ namespace Neetcode150
                 {
                     return "";
                 }
-                var value = _dict[key];
+                List<(int timestamp,string value1)> timeStampList = _dict[key];
 
-                var left = 0;
-                var right = value.Count;
-                var result = "";
+                int left = 0;
+                int right = timeStampList.Count;
+                string result = "";
 
                 while (left < right)
                 {
-                    var mid = (left + right) / 2;
-                    if (value[mid].timestamp == timestamp)
+                    int mid = (left + right) / 2;
+                    if (timeStampList[mid].timestamp == timestamp)
                     {
-                        result = value[mid].value1;
+                        result = timeStampList[mid].value1;
                         return result;
                     }
-                    else if (value[mid].timestamp < timestamp)
+                    else if (timeStampList[mid].timestamp < timestamp)
                     {
                         left = mid + 1;
-                        result = value[mid].value1;
+                        result = timeStampList[mid].value1;
                     }
                     else
                     {
@@ -467,16 +470,18 @@ namespace Neetcode150
 
             int total = n1l + n2l;
             int half = (total + 1) / 2;
-            int mleft = 0;
-            int mright = n1l;
+            int n1left = 0;
+            int n1right = n1l;
             double result = 0.0;
 
-            while (mleft <= mright)
+            while (n1left <= n1right)
             {
-                int n1i = mleft + (mright - mleft) / 2;
+                int n1i = n1left + (n1right - n1left) / 2;
                 int n2i = half - n1i;
+
                 int left1 = (n1i > 0) ? nums1[n1i - 1] : int.MinValue;
                 int left2 = (n2i > 0) ? nums2[n2i - 1] : int.MinValue;
+
                 int right1 = (n1l > n1i) ? nums1[n1i] : int.MaxValue;
                 int right2 = (n2l > n2i) ? nums2[n2i] : int.MaxValue;
 
@@ -488,9 +493,9 @@ namespace Neetcode150
                         return Math.Max(left1, left2);
                 }
                 else if (left1 > right2)
-                    mright = n1i - 1;
+                    n1right = n1i - 1;
                 else
-                    mleft = n1i + 1;
+                    n1left = n1i + 1;
             }
             return result;
         }
