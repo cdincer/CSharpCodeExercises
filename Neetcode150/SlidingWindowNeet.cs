@@ -119,25 +119,29 @@ namespace Neetcode150
         }
         public int LengthOfLongestSubstringNeet(string s)
         {
-            int leftPointer = 0, rightPointer = 0, maxLength = 0;
-            HashSet<int> chars = new HashSet<int>();
+            int left = 0;
+            int right = 0;
+            int maxl = 0;
+            HashSet<char> chars = new();
 
-            while (rightPointer < s.Length)
+            while (right < s.Length)
             {
-                char currChar = s[rightPointer];
-                if (chars.Contains(currChar))
-                { // Move left pointer until all duplicate chars removed
-                    chars.Remove(s[leftPointer]);
-                    leftPointer++;
+                char curr = s[right];
+
+                if (chars.Contains(curr))
+                {
+                    chars.Remove(s[left]);
+                    left++;
                 }
                 else
                 {
-                    chars.Add(currChar);
-                    maxLength = Math.Max(maxLength, rightPointer - leftPointer + 1);
-                    rightPointer++;
+                    chars.Add(curr);
+                    maxl = Math.Max(chars.Count, maxl);
+                    right++;
                 }
             }
-            return maxLength;
+
+            return maxl;
         }
         #endregion
         #region Longest Repeating Character Replacement
@@ -191,8 +195,6 @@ namespace Neetcode150
         Constraints:
             1 <= s1.length, s2.length <= 104
             s1 and s2 consist of lowercase English letters.
-
-        https://leetcode.com/problems/permutation-in-string/
         Extra Test Case:
         s1:"zxcvzxcvzxcvzxcvmraodapsadf"
         s2:"roadmap"
@@ -202,6 +204,9 @@ namespace Neetcode150
         s2:"a"
         s1:"adc"
         s2:"dcda"
+
+        https://leetcode.com/problems/permutation-in-string/
+        https://neetcode.io/solutions/permutation-in-string
         */
 
         public bool CheckInclusion(string s1, string s2)
@@ -238,9 +243,9 @@ namespace Neetcode150
                 {
                     matches++;
                 }
-                else if (keep1[arrc] + 1 == keep2[arrc])
-                {
-                    matches--;
+                else if (keep1[arrc] + 1 == keep2[arrc]) //This means that with the increase of count on keep2 
+                {                                        //we broke the equality that previously existed,making it too large
+                    matches--;                           //so we decrease the matches.
                 }
                 arrc = s2[left] - 'a';
                 keep2[arrc]--;
@@ -248,9 +253,9 @@ namespace Neetcode150
                 {
                     matches++;
                 }
-                else if (keep1[arrc] - 1 == keep2[arrc])
-                {
-                    matches--;
+                else if (keep1[arrc] - 1 == keep2[arrc])//This means that with the decrease of count on keep2
+                {                                       //we broke the equality that previously existed,making it too small
+                    matches--;                          //so we decrease the matches.
                 }
                 left++;
             }
@@ -389,11 +394,13 @@ namespace Neetcode150
         Together they cause a TLE,20th Of September 2024
         
         These two cases can be found in submissions tab, they are both TLE
+        https://leetcode.com/problems/sliding-window-maximum/
+        https://neetcode.io/solutions/sliding-window-maximum
         */
         public int[] MaxSlidingWindow(int[] nums, int k)
         {
 
-            var output = new List<int>();
+            List<int> output = new();
             LinkedList<int> queue = new();
             int left = 0, right = 0;
 
@@ -402,6 +409,7 @@ namespace Neetcode150
                 // pop smaller values from queue
                 while (queue.Count > 0 && nums[queue.Last.Value] < nums[right])
                     queue.RemoveLast();
+                    
                 queue.AddLast(right);
 
                 // remove left val from the window
