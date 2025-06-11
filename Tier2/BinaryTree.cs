@@ -50,6 +50,11 @@ namespace Tier2
         */
         private List<int> answer = new();
 
+        public List<int> PreorderTraversal(TreeNode root)
+        {
+            dfs(root);
+            return answer;
+        }
         private void dfs(TreeNode node)
         {
             if (node == null)
@@ -62,11 +67,6 @@ namespace Tier2
             dfs(node.right);
         }
 
-        public List<int> PreorderTraversal(TreeNode root)
-        {
-            dfs(root);
-            return answer;
-        }
         //Iterative Approach
         public IList<int> PreorderTraversal2(TreeNode root)
         {

@@ -221,6 +221,20 @@ namespace Neetcode150
 
 
         /*Array based solution that has a faster run time and smaller memory foot-print
+        
+        public class Node
+        {
+            public Node[] children;
+            public char val;
+            public bool isWord;
+
+            public Node()
+            {
+                children = new Node[26];
+                isWord = false;
+            }
+        }
+
         public class WordDictionary {
             Node root;
             public WordDictionary() {
@@ -286,18 +300,6 @@ namespace Neetcode150
 
         }
 
-        public class Node
-        {
-            public Node[] children;
-            public char val;
-            public bool isWord;
-
-            public Node()
-            {
-                children = new Node[26];
-                isWord = false;
-            }
-        }
         */
 
 
