@@ -347,6 +347,12 @@ namespace Neetcode150
         */
         //Neetcode answer to this problem times out at 64th test case.
         //Solution below doesn't.
+
+        public class Node
+        {
+            public Node[] Next { get; } = new Node['z' + 1];
+            public string Word { get; set; }
+        }
         public IList<string> FindWords(char[][] board, string[] words)
         {
             int rl = board.Length;
@@ -399,12 +405,6 @@ namespace Neetcode150
             }
         }
 
-
-        public class Node
-        {
-            public Node[] Next { get; } = new Node['z' + 1];
-            public string Word { get; set; }
-        }
         #endregion
 
     }
