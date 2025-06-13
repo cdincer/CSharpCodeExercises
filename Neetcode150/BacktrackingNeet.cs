@@ -421,52 +421,12 @@ namespace Neetcode150
             s contains only lowercase English letters.
             
         https://leetcode.com/problems/palindrome-partitioning/
+        https://neetcode.io/solutions/palindrome-partitioning
         Extra Test Cases:
         "abbab"  12 / 32 testcases passed
         "cbbbcc" 14 / 32 testcases passed
         */
         public IList<IList<string>> Partition(string s)
-        {
-            List<IList<string>> results = new();
-            List<string> result = new();
-            dfs(0);
-            void dfs(int i)
-            {
-                if (i >= s.Length)
-                {
-                    results.Add(result.ToList());
-                    return;
-                }
-
-                for (int j = i; j < s.Length; j++)
-                {
-                    if (palindrome(s, i, j))
-                    {
-                        result.Add(s.Substring(i, j - i + 1));
-                        dfs(j + 1);
-                        result.Remove(result.Last());
-                    }
-                }
-            }
-
-            bool palindrome(string word, int begin, int end)
-            {
-                while (begin < end)
-                {
-                    if (word[begin] != word[end])
-                        return false;
-
-                    begin++;
-                    end--;
-                }
-                return true;
-            }
-
-            return results;
-        }
-
-
-        public IList<IList<string>> Partition2(string s)
         {
             List<IList<string>> result = new List<IList<string>>();
             List<string> part = new List<string>();
@@ -481,9 +441,10 @@ namespace Neetcode150
                 res.Add(new List<string>(part));
                 return;
             }
+
             for (int i = index; i < word.Length; i++)
             {
-                if (IsPali(word, index, i))
+                if (IsPalindrome(word, index, i))
                 {
                     part.Add(word.Substring(index, i - index + 1));
                     Dfs(i + 1, word, part, res);
@@ -492,7 +453,7 @@ namespace Neetcode150
             }
         }
 
-        private bool IsPali(string s, int left, int right)
+        private bool IsPalindrome(string s, int left, int right)
         {
             while (left < right)
             {
@@ -503,6 +464,7 @@ namespace Neetcode150
                 left++;
                 right--;
             }
+            
             return true;
         }
         #endregion
