@@ -132,7 +132,35 @@ namespace Neetcode150
         #endregion
         #region K Closest Points to Origin
         /*
+        Given an array of points where points[i] = [xi, yi] represents a point on the X-Y plane and an integer k, return the k closest points to the origin (0, 0).
+
+        The distance between two points on the X-Y plane is the Euclidean distance (i.e., √(x1 - x2)2 + (y1 - y2)2).
+
+        You may return the answer in any order. The answer is guaranteed to be unique (except for the order that it is in).
+
+        Example 1:
+
+        Input: points = [[1,3],[-2,2]], k = 1
+        Output: [[-2,2]]
+        Explanation:
+        The distance between (1, 3) and the origin is sqrt(10).
+        The distance between (-2, 2) and the origin is sqrt(8).
+        Since sqrt(8) < sqrt(10), (-2, 2) is closer to the origin.
+        We only want the closest k = 1 points from the origin, so the answer is just [[-2,2]].
+
+        Example 2:
+
+        Input: points = [[3,3],[5,-1],[-2,4]], k = 2
+        Output: [[3,3],[-2,4]]
+        Explanation: The answer [[-2,4],[3,3]] would also be accepted.
+
         
+        Constraints:
+
+            1 <= k <= points.length <= 104
+            -104 <= xi, yi <= 104
+
+        https://leetcode.com/problems/k-closest-points-to-origin/
         Extra Test Cases: 
         [[-95,76],[17,7],[-55,-58],[53,20],[-69,-8],[-57,87],[-2,-42],[-10,-87],[-36,-57],[97,-39],[97,49]] k = 5 
         Output: [[-69,-8],[-36,-57],[53,20],[-2,-42],[17,7]] 63 / 87 testcases passed
@@ -284,7 +312,7 @@ namespace Neetcode150
         public int LeastInterval(char[] tasks, int n)
         {
             Dictionary<char, int> freq = new();
-            PriorityQueue<int, int> heap = new PriorityQueue<int, int>();
+            PriorityQueue<int, int> heap = new();
 
             foreach (char c in tasks)
             {
@@ -342,93 +370,57 @@ namespace Neetcode150
         
         */
         //Custom solution made because neetcode's fail the 14th test case.
-        public class Twitter
-        {
-            Dictionary<int, HashSet<int>> users = new();
-            Dictionary<int, Dictionary<int, DateTime>> messages = new();
+       public class Twitter {
+            // Elements aren't named to save on memory
+            // Dic<int,List<int>> userDic: key:userId, value: followerIds
+            // List<(int userId,int tweetId)>  
+
+            private Dictionary<int, List<int>> userDict;
+            private List<(int, int)> tweetList;
+
             public Twitter()
             {
-
+                userDict = new Dictionary<int, List<int>>();
+                tweetList = new List<(int, int)>();
             }
 
             public void PostTweet(int userId, int tweetId)
             {
-                if (!users.ContainsKey(userId))
-                {
-                    users[userId] = new();
-                    users[userId].Add(userId);
-                }
-
-                if (!messages.ContainsKey(userId))
-                {
-                    messages[userId] = new();
-                }
-
-                if (messages[userId].Count == 10)
-                {
-                    var removeKey = messages[userId].OrderBy(x => x.Value).First();
-                    messages[userId].Remove(removeKey.Key);
-                }
-
-                messages[userId].Add(tweetId, DateTime.Now);
+                if (!userDict.ContainsKey(userId)) userDict.Add(userId, new List<int>());
+                tweetList.Add((userId, tweetId));
             }
 
             public IList<int> GetNewsFeed(int userId)
             {
-                if (!users.ContainsKey(userId))
-                {
-                    users[userId] = new();
-                    users[userId].Add(userId);
-                }
+                List<int> result = new List<int>();
 
-                HashSet<int> followed = users[userId];
-                PriorityQueue<int, DateTime> myq = new();
-                foreach (int source in followed)
-                {
-                    if (!messages.ContainsKey(source))
-                        continue;
+                if (!userDict.ContainsKey(userId)) return result;
 
-                    foreach (var message in messages[source])
+                List<int> providers = userDict[userId];
+                providers.Add(userId);
+
+                for (int i = tweetList.Count - 1; i >= 0; i--)
+                {
+                    if (providers.Contains(tweetList[i].Item1))
                     {
-                        if (myq.Count < 10)
-                        {
-                            myq.Enqueue(message.Key, message.Value);
-                        }
-                        else if (myq.Count == 10)
-                        {
-                            myq.EnqueueDequeue(message.Key, message.Value);
-                        }
+                        result.Add(tweetList[i].Item2);
                     }
+
+                    if (result.Count == 10) break;
                 }
-                List<int> result = new();
-                while (myq.Count > 0)
-                {
-                    int messageInt = myq.Dequeue();
-                    result.Add(messageInt);
-                }
-                result.Reverse();
 
                 return result;
             }
 
             public void Follow(int followerId, int followeeId)
             {
-                if (!users.ContainsKey(followerId))
-                {
-                    users[followerId] = new();
-                    users[followerId].Add(followerId);
-                }
-                users[followerId].Add(followeeId);
+                if (!userDict.ContainsKey(followerId)) userDict.Add(followerId, new List<int>());
+                if (!userDict[followerId].Contains(followeeId)) userDict[followerId].Add(followeeId);
             }
 
             public void Unfollow(int followerId, int followeeId)
             {
-                if (!users.ContainsKey(followerId))
-                {
-                    users[followerId] = new();
-                    users[followerId].Add(followerId);
-                }
-                users[followerId].Remove(followeeId);
+                if (userDict.ContainsKey(followerId)) userDict[followerId].Remove(followeeId);
             }
         }
         #endregion
