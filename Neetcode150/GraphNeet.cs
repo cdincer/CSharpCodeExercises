@@ -105,6 +105,19 @@ namespace Neetcode150
         Test Cases:
         [[1]] 613 / 728 testcases passed
         https://leetcode.com/problems/max-area-of-island/
+
+        C# Sample Test Case 1:
+
+        int[][] grid = new int[8][];
+        grid[0] = new int[] {0,0,1,0,0,0,0,1,0,0,0,0,0};
+        grid[1] = new int[] {0,0,0,0,0,0,0,1,1,1,0,0,0};
+        grid[2] = new int[] {0,1,1,0,1,0,0,0,0,0,0,0,0};
+        grid[3] = new int[] {0,1,0,0,1,1,0,0,1,0,1,0,0};
+        grid[4] = new int[] {0,1,0,0,1,1,0,0,1,1,1,0,0};
+        grid[5] = new int[] {0,0,0,0,0,0,0,0,0,0,1,0,0};
+        grid[6] = new int[] {0,0,0,0,0,0,0,1,1,1,0,0,0};
+        grid[7] = new int[] {0,0,0,0,0,0,0,1,1,0,0,0,0};
+
         */
         private static readonly int[][] directions2 = new int[][] {
         new int[] {1, 0}, new int[] {-1, 0},
