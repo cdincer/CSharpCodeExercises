@@ -461,9 +461,12 @@ namespace Neetcode150
 
         Extra Test Cases:
          [-1,4,-4,5,-2,-1,-1,-2,-3] Expected : 960
+         [-3,-1,-1] Expected: 3 41 /190 testcases passed
          [2,3,-2,4] Expected : 6 54 / 190 testcases passed
+         [0,2] Expected: 2 111 / 190 testcases passed
+         [3,-1,4] Expetec: 3 156 / 190 testcases passed
          [-2] Expected : -2 189 / 190 testcases passed
-        */
+        */ 
         public int MaxProduct(int[] nums)
         {
             int res = nums[0];
@@ -653,6 +656,7 @@ namespace Neetcode150
         nums = [1,2,5] Expected: false 127 / 144 testcases passed -- 2025-02-03 dated total cases
         nums = [1,5,10,6] Expected: true 140 / 142 testcases passed -- 2024-04-02 dated total cases
         https://leetcode.com/problems/partition-equal-subset-sum/
+        https://neetcode.io/solutions/partition-equal-subset-sum
         */
         //Neetcode: Dynamic Programming (Optimal), 6th option.
         public bool CanPartition(int[] nums)

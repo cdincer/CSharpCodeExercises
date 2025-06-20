@@ -109,14 +109,16 @@ namespace Neetcode150
         public int[][] Merge(int[][] intervals)
         {
             List<int[]> result = new();
-            Array.Sort(intervals, (a, b) => a[0].CompareTo(b[0]));
-            int[] lastInterval = intervals[0];//Track the large overlapping end
+            Array.Sort(intervals, (a, b) => a[0].CompareTo(b[0])); 
+
+            int[] lastInterval = intervals[0];
             result.Add(lastInterval);
+
             for (int i = 1; i < intervals.Length; i++)
             {
                 if (lastInterval[1] >= intervals[i][0])
                 {
-                    lastInterval[1] = Math.Max(intervals[i][1], lastInterval[1]);
+                    lastInterval[1] = Math.Max(intervals[i][1], lastInterval[1]); //Track the large overlapping end
                 }
                 else
                 {
@@ -167,7 +169,6 @@ namespace Neetcode150
         //Neetcode solution
         public int EraseOverlapIntervals(int[][] intervals)
         {
-            List<int[]> result = new();
             int counter = 0;
             Array.Sort(intervals, (a,b) => a[0].CompareTo(b[0]));
             //alternative way of above comparison Array.Sort(intervals, (a, b) => a[0] - b[0]);
@@ -242,6 +243,7 @@ namespace Neetcode150
             0 <= intervals[i].start < intervals[i].end <= 1,000,000
 
         intervals=[(0,8),(8,10)]  Expected output: true Passed test cases: 2 / 3 
+        https://neetcode.io/problems/meeting-schedule-ii
         */
         public class Interval
         {
@@ -274,7 +276,7 @@ namespace Neetcode150
             return true;
         }
         #endregion
-        #region Meeting Rooms II
+        #region Meeting Rooms II  (Premium question)
         /*
         Given an array of meeting time interval objects consisting of start and end times [[start_1,end_1],[start_2,end_2],...] (start_i < end_i), find the minimum number of days required to schedule all meetings without any conflicts.
 
