@@ -78,6 +78,7 @@ namespace Neetcode150
             0 <= nums[i] <= 105
 
         https://leetcode.com/problems/jump-game/
+        https://neetcode.io/solutions/jump-game
         */
         public bool CanJump(int[] nums)
         {

@@ -243,7 +243,6 @@ namespace Neetcode150
             0 <= intervals[i].start < intervals[i].end <= 1,000,000
 
         intervals=[(0,8),(8,10)]  Expected output: true Passed test cases: 2 / 3 
-        https://neetcode.io/problems/meeting-schedule-ii
         */
         public class Interval
         {
@@ -342,6 +341,7 @@ namespace Neetcode150
         *         this.end = end;
         *     }
         * }
+        https://neetcode.io/problems/meeting-schedule-ii
         */
         public int MinMeetingRooms(List<Interval> intervals)
         {
