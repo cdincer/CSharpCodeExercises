@@ -203,8 +203,10 @@ namespace Neetcode150
         14 / 28 testcases passed
         amount = 500
         [3,5,7,8,9,10,11]
+
+        https://leetcode.com/problems/coin-change-ii/
         */
-        
+
 
         //    This solution picked for following reasons:
         //    1-Clarity
@@ -215,25 +217,22 @@ namespace Neetcode150
         //    Time complexity: O(n∗a)
         //    Space complexity: O(a)
         //    Where n is the number of coins and a is the given amount. 
+
         public int Change(int amount, int[] coins)
         {
             int[] dp = new int[amount + 1];
-            //Required Base starting point
             dp[0] = 1;
-            //Operates on the similar logic of Coin Change 1
             foreach (int coin in coins)
             {
-                //Only difference we look for all of the valid
-                //combinations that make up the amount and sum them.
-
-                for (int j = 1; j <= amount; j++)
+                for (int i = coin; i <= amount; i++)
                 {
-                    dp[j] += j - coin >= 0 ? dp[j - coin] : 0;
+                    dp[i] += dp[i - coin];
                 }
             }
 
             return dp[amount];
         }
+
         #endregion
         #region Target Sum
         /*

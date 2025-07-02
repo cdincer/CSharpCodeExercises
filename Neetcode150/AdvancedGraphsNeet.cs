@@ -370,6 +370,7 @@ namespace Neetcode150
         words=["wrtkj","wrt"]. Expected output:"" Passed test cases: 4 / 24
         words=["abcdefgh","bdefghij","cghij","dfghij","efghij","fghij","ghij","hij","ij","j","abcdefghi","bdefghijk","cghijk","dfghijk","efghijk","fghijk","ghijk","hijk","ijk","jk","k"] Expected Output: "" Passed test cases 11 / 24
         https://leetcode.com/problems/alien-dictionary/
+        https://neetcode.io/problems/foreign-dictionary
         */
         //Neetcode's website is terrible for doing this problem, 
         //there will be irrelevant errors
