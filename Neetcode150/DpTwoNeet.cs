@@ -349,6 +349,10 @@ namespace Neetcode150
         s1 = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
         s2 = "aaaaaaabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
         s3 = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        92/106 test cases passed
+        s1 = "aabc"
+        s2 = "abad"
+        s3 = "aabcabad"
         */
         #region 2-D DP Bottom Up
         public bool IsInterleave1(string s1, string s2, string s3)
