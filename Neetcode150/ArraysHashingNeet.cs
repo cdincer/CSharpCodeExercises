@@ -402,6 +402,7 @@ namespace Neetcode150
 
         Follow up: Can you solve the problem in O(1) extra space complexity? (The output array does not count as extra space for space complexity analysis.)
         https://leetcode.com/problems/product-of-array-except-self/description/
+        https://youtu.be/bNvIQI2wAjk?t=657
         */
         //Neet code version for O(n) runtime and no division rule.
         public int[] ProductExceptSelf(int[] nums)
