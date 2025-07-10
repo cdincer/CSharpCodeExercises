@@ -232,14 +232,12 @@ namespace Neetcode150
         {
             int left = 0, right = nums.Length - 1;
             while (left <= right)
-            {                                  //TODO: WIP finish the relationship description between these two conditions
-                if (nums[left] <= nums[right]) //This condition and the (nums[left] <= nums[mid])
-                {                              //complement each other to find the actual min side of the array.
-                    return nums[left];         //if the second conditional is true,//our mid is larger than the right values to the right
-                                               //if the first conditional true then .....
-                                               
-                                               
+            {                                  
+                if (nums[left] <= nums[right]) //We are seeking the sorted side, only way to find the minimum
+                {                              
+                    return nums[left];                                           
                 }
+
                 int mid = (left + right) / 2;
                 if (nums[left] <= nums[mid])
                 {
@@ -292,6 +290,7 @@ namespace Neetcode150
         [3,1] target = 1 192 / 195 
 
         https://leetcode.com/problems/search-in-rotated-sorted-array/
+        https://youtu.be/U8XENwh8Oy8
         */
         public int SearchNeet(int[] nums, int target)
         {
