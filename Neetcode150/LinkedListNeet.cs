@@ -559,47 +559,47 @@ namespace Neetcode150
         */
         public class LRUCache
         {
-            private Dictionary<int, LinkedListNode<(int key, int value)>> _dict = new();
-            private LinkedList<(int key, int value)> _values = new();
+            private Dictionary<int, LinkedListNode<(int key, int value)>> dict = new();
+            private LinkedList<(int key, int value)> linkedList = new();
 
-            private int _capacity;
+            private int cap;
 
             public LRUCache(int capacity)
             {
-                _capacity = capacity;
+                cap = capacity;
             }
 
             public int Get(int key)
             {
-                if (!_dict.ContainsKey(key))
+                if (!dict.ContainsKey(key))
                 {
                     return -1;
                 }
 
-                var node = _dict[key];
-                _values.Remove(node);
-                _values.AddFirst(node);
+                var node = dict[key];
+                linkedList.Remove(node);
+                linkedList.AddFirst(node);
 
                 return node.Value.value;
             }
 
             public void Put(int key, int value)
             {
-                if (!_dict.ContainsKey(key) && _dict.Count >= _capacity)
-                {
-                    var node = _values.Last;
-                    _dict.Remove(node.Value.key);
-                    _values.Remove(node);
+                if (!dict.ContainsKey(key) && dict.Count >= cap)//Clean up over capacity,
+                {                                               //when there is no existing key.
+                    var node = linkedList.Last;
+                    dict.Remove(node.Value.key);
+                    linkedList.Remove(node);
                 }
 
-                var existingNode = _dict.GetValueOrDefault(key);
+                var existingNode = dict.GetValueOrDefault(key);
                 if (existingNode != null)
                 {
-                    _values.Remove(existingNode);
-                }
+                    linkedList.Remove(existingNode);//Remove the node from linked list for updating its position
+                }                                   //so it can be moved to a appropriate position for being recently used.
 
-                _values.AddFirst((key, value));
-                _dict[key] = _values.First;
+                linkedList.AddFirst((key, value));
+                dict[key] = linkedList.First;
             }
         }
         #endregion
