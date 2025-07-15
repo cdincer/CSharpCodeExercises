@@ -792,13 +792,13 @@ namespace Neetcode150
         //        ListNode head = new ListNode(1, new ListNode(2, new ListNode(3, new ListNode(4,new ListNode(5)))));
         public ListNode ReverseKGroup(ListNode head, int k)
         {
-            var dummy = new ListNode(0, head);
-            var groupPrev = dummy;
-            var groupNext = dummy;
+            ListNode dummy = new ListNode(0, head);
+            ListNode groupPrev = dummy;
+            ListNode groupNext;
 
             while (true)
             {
-                var kth = getKth(groupPrev, k);
+                ListNode kth = getKth(groupPrev, k);
                 if (kth == null)
                     break;
 
@@ -816,7 +816,7 @@ namespace Neetcode150
                     curr = temp;
                 }
 
-                var tmp = groupPrev.next;
+                ListNode tmp = groupPrev.next;
                 groupPrev.next = kth;
                 groupPrev = tmp;
             }
