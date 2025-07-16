@@ -386,8 +386,11 @@ namespace Neetcode150
             void Dfs(int row, int col, Node node)
             {
                 if (row < 0 || col < 0 || row == rl || col == cl) return;
+
                 char c = board[row][col];
+
                 if (c == '/' || node.Next[c] == null) return;
+                
                 node = node.Next[c];
 
                 if (node.Word is not null)
