@@ -563,8 +563,8 @@ namespace Neetcode150
                 result.Add(new StringBuilder(n));
                 result[i].Append('.', n);
             }
-            searcher(0, n, new HashSet<(int i, int j)>(), new HashSet<int>(), new HashSet<int>());
-            void searcher(int r, int n, HashSet<(int i, int j)> col, HashSet<int> posdiag, HashSet<int> negdiag)
+            searcher(0, n, new HashSet<int>(), new HashSet<int>(), new HashSet<int>());
+            void searcher(int r, int n, HashSet<int> col, HashSet<int> posdiag, HashSet<int> negdiag)
             {
                 if (n == 0)
                 {
@@ -576,7 +576,7 @@ namespace Neetcode150
 
                 for (int c = 0; c < result.Count; c++)
                 {
-                    (int i, int j) column = (0, c);
+                    int column = c;
                     int diag1 = (r - c);//Closing a diagonal spot for negative side.
                     int diag2 = (r + c);//Closing a diagonal spot for positive side.
                     //https://www.youtube.com/watch?v=Ph95IHmRp5M in this video these sides are shown.
