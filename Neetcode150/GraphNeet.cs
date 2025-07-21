@@ -331,6 +331,16 @@ namespace Neetcode150
             n == grid[i].length
             1 <= m, n <= 100
             grid[i][j] is one of {-1, 0, 2147483647}
+
+            C# Sample Test Case:
+            
+        int[][] gridGraph = new int[][]
+        {
+        new int[] {2147483647,-1,0,2147483647},
+        new int[] {2147483647,2147483647,2147483647,-1},
+        new int[]  {2147483647,-1,2147483647,-1},
+        new int[]  {0,-1,2147483647,2147483647}
+        };
         
         https://neetcode.io/problems/islands-and-treasure
         */
@@ -410,10 +420,13 @@ namespace Neetcode150
 
             if (q.Count == 0) return;
 
-            int[][] dirs = {
+            int[][] dirs = 
+            {
             new int[] { -1, 0 }, new int[] { 0, -1 },
             new int[] { 1, 0 }, new int[] { 0, 1 }
-        };
+            };
+
+            
             while (q.Count > 0)
             {
                 int[] cur = q.Dequeue();
