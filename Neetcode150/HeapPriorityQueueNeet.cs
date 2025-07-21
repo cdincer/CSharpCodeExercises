@@ -466,24 +466,27 @@ namespace Neetcode150
         public class MedianFinder
         {
             bool odd = false;
-            PriorityQueue<double, double> left = new();
-            PriorityQueue<double, double> right = new();
+            PriorityQueue<double, double> left;
+            PriorityQueue<double, double> right;
 
             public MedianFinder()
             {
-
+                left = new(Comparer<double>.Create(
+                    (a, b) => (b.CompareTo(a))
+                ));
+                right = new();
             }
 
             public void AddNum(int num)
             {
                 odd = !odd;
-                double m = left.EnqueueDequeue(num, -num);
+                double m = left.EnqueueDequeue(num, num);
                 right.Enqueue(m, m);
 
                 if (right.Count - 1 > left.Count)
                 {
                     double t = right.Dequeue();
-                    left.Enqueue(t, -t);
+                    left.Enqueue(t, t);
                 }
             }
 
@@ -492,6 +495,8 @@ namespace Neetcode150
                 return odd ? right.Peek() : (left.Peek() + right.Peek()) / 2.0;
             }
         }
+
+
         #endregion
     }
 }
