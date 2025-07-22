@@ -797,24 +797,24 @@ namespace Neetcode150
         */
         public bool CanFinish(int numCourses, int[][] prerequisites)
         {
-            Dictionary<int, List<int>> mdict = new();
+            Dictionary<int, List<int>> dict = new();
 
             for (int i = 0; i < numCourses; i++)
             {
-                mdict[i] = new List<int>();
+                dict[i] = new List<int>();
             }
 
             for (int i = 0; i < prerequisites.Length; i++)
             {
-                int ToTake = prerequisites[i][0];
-                int ToDepend = prerequisites[i][1];
+                int toTake = prerequisites[i][0];
+                int toDepend = prerequisites[i][1];
 
-                mdict[ToTake].Add(ToDepend);
+                dict[toTake].Add(toDepend);
             }
             HashSet<int> visited = new();
-            foreach (var item in mdict)
+            foreach (var kvp in dict)
             {
-                if (!dfs(mdict, visited, item.Key))
+                if (!dfs(dict, visited, kvp.Key))
                     return false;
             }
             return true;
@@ -828,7 +828,7 @@ namespace Neetcode150
                     return true;
 
                 vis.Add(curs);
-                foreach (var elo in preq[curs])
+                foreach (int elo in preq[curs])
                 {
                     if (!dfs(preq, vis, elo))
                         return false;
