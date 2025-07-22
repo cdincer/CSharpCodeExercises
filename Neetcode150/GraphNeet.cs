@@ -916,7 +916,7 @@ namespace Neetcode150
                 vis.Add(curs);
                 cycle.Add(curs);
 
-                foreach (var elo in preq[curs])
+                foreach (int elo in preq[curs])
                 {
                     if (!dfs(preq, vis, cycle, elo))
                         return false;
@@ -1222,42 +1222,54 @@ namespace Neetcode150
 
         */
         //https://neetcode.io/problems/count-connected-components        
-        public int CountComponents(int n, int[][] edges)
+    public int CountComponents(int n, int[][] edges)
         {
-            List<List<int>> adj = new List<List<int>>();
-            bool[] visit = new bool[n];
+            Dictionary<int, List<int>> dict = new();
+
             for (int i = 0; i < n; i++)
             {
-                adj.Add(new List<int>());
-            }
-            foreach (var edge in edges)
-            {
-                adj[edge[0]].Add(edge[1]);
-                adj[edge[1]].Add(edge[0]);
+                dict.TryAdd(i, new List<int>());
             }
 
-            int res = 0;
-            for (int node = 0; node < n; node++)
+            for (int i = 0; i < edges.Length; i++)
             {
-                if (!visit[node])
-                {
-                    Dfs(adj, visit, node);
-                    res++;
-                }
+                int toSource = edges[i][0];
+                int toDepend = edges[i][1];
+
+                dict[toSource].Add(toDepend);
+                dict[toDepend].Add(toSource);
+
             }
-            return res;
+
+            HashSet<int> visited = new();
+            int result = 0;
+            foreach (var kvp in dict)
+            {
+                if (!visited.Contains(kvp.Key))
+                {
+                    travel(dict, visited, kvp.Key);
+                    result++;
+                }
+
+            }
+
+            return result;
         }
 
-        private void Dfs(List<List<int>> adj, bool[] visit, int node)
+        public bool travel(Dictionary<int, List<int>> dict, HashSet<int> visited, int current)
         {
-            visit[node] = true;
-            foreach (var nei in adj[node])
+            if (visited.Contains(current))
+                return false;
+
+            visited.Add(current);
+
+            foreach (int item in dict[current])
             {
-                if (!visit[nei])
-                {
-                    Dfs(adj, visit, nei);
-                }
+                if (!visited.Contains(item))
+                    travel(dict, visited, item);
             }
+            
+            return true;
         }
         #endregion
     }
