@@ -294,30 +294,28 @@ namespace Neetcode150
 
         https://leetcode.com/problems/palindromic-substrings/
         */
+        int countSubstrings = 0;
         public int CountSubstrings(string s)
         {
-            var count = 0;
 
             for (var i = 0; i < s.Length; i++)
             {
-                count += getPalindromeCount(s, i, i);
-                count += getPalindromeCount(s, i, i + 1);
+                getPalindromeCount(s, i, i);
+                getPalindromeCount(s, i, i + 1);
             }
 
-            return count;
+            return countSubstrings;
         }
 
-        public int getPalindromeCount(string s, int l, int r)
+        public void getPalindromeCount(string s, int l, int r)
         {
-            var count = 0;
 
             while (l >= 0 && r < s.Length && s[l] == s[r])
             {
-                count++;
+                countSubstrings++;
                 l--;
                 r++;
             }
-            return count;
         }
         #endregion
         #region Decode Ways
