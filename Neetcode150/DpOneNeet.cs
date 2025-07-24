@@ -461,6 +461,7 @@ namespace Neetcode150
          [-1,4,-4,5,-2,-1,-1,-2,-3] Expected : 960
          [-3,-1,-1] Expected: 3 41 /190 testcases passed
          [2,3,-2,4] Expected : 6 54 / 190 testcases passed
+         [-2,3,-4] Expected : 24 101 / 190 testcases passed
          [0,2] Expected: 2 111 / 190 testcases passed
          [3,-1,4] Expetec: 3 156 / 190 testcases passed
          [-2] Expected : -2 189 / 190 testcases passed
