@@ -111,11 +111,15 @@ namespace Neetcode150
         */
         public int MinCostConnectPoints(int[][] points)
         {
-            int n = points.Length, node = 0;
+            int n = points.Length;
+            int node = 0;
+
             int[] dist = new int[n];
             bool[] visit = new bool[n];
             Array.Fill(dist, int.MaxValue);
-            int edges = 0, res = 0;
+            
+            int edges = 0;
+            int res = 0;
 
             while (edges < n - 1)
             {
