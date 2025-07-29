@@ -128,8 +128,9 @@ namespace Neetcode150
                 for (int i = 0; i < n; i++)
                 {
                     if (visit[i]) continue;
-                    int curDist = Math.Abs(points[i][0] - points[node][0]) +
-                                   Math.Abs(points[i][1] - points[node][1]);
+                    int curDist = Math.Abs(points[i][0] - points[node][0])+
+                                  Math.Abs(points[i][1] - points[node][1]);
+
                     dist[i] = Math.Min(dist[i], curDist);
                     if (nextNode == -1 || dist[i] < dist[nextNode])
                     {
