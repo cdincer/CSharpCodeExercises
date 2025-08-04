@@ -192,7 +192,7 @@ namespace Neetcode150
         */
         public IList<IList<int>> ThreeSum(int[] nums)
         {
-            List<IList<int>> res = new List<IList<int>>();
+            List<IList<int>> res = new();
             int left, right;
             Array.Sort(nums);
 

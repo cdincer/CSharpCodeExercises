@@ -246,6 +246,7 @@ namespace Neetcode150
         Extra Test Cases:
         a = -12 b = -8 Expected: -20 17 / 31 testcases passed
         https://leetcode.com/problems/sum-of-two-integers/
+        Solution video: https://youtu.be/gVUrDV4tZfY
         */
         public int GetSum(int a, int b)
         {

@@ -361,19 +361,19 @@ namespace Neetcode150
             public List<string> Decode(string s)
             {
                 List<string> res = new List<string>();
-                int i = 0;
-                while (i < s.Length)
+                int prevEnd = 0;
+                while (prevEnd < s.Length)
                 {
-                    int j = i;
-                    while (s[j] != '#')
+                    int newStart = prevEnd;
+                    while (s[newStart] != '#')
                     {
-                        j++;
+                        newStart++;
                     }
-                    int length = int.Parse(s.Substring(i, j - i));
-                    i = j + 1;
-                    j = i + length;
-                    res.Add(s.Substring(i, length));
-                    i = j;
+                    int length = int.Parse(s.Substring(prevEnd, newStart - prevEnd));
+                    prevEnd = newStart + 1;
+                    newStart = prevEnd + length;
+                    res.Add(s.Substring(prevEnd, length));
+                    prevEnd = newStart;
                 }
                 return res;
             }
