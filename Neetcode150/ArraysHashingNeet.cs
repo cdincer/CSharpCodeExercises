@@ -571,13 +571,13 @@ namespace Neetcode150
         {
             if (nums.Length < 2) return nums.Length;
 
-            var set = new HashSet<int>(nums);
-            var longest = 0;
+            HashSet<int> set = new (nums);
+            int longest = 0;
             foreach (var n in set)
             {
                 if (!set.Contains(n - 1))
                 {
-                    var length = 0;
+                    int length = 0;
                     while (set.Contains(n + length))
                     {
                         length++;
