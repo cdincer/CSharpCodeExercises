@@ -205,50 +205,29 @@ namespace Neetcode150
         */
         public int FindMin(int[] nums)
         {
-            int left = 0;
-            int right = nums.Length - 1;
-            int minValue = nums[0];
+            int l = 0, r = nums.Length - 1;
+            int res = nums[0];
 
-            if (nums[left] < nums[right])
-                return nums[left];
-
-            while (left <= right)
+            while (l <= r)
             {
-                int mid = left + ((right - left) / 2);
-                if (nums[mid] < minValue)
+                if (nums[l] < nums[r])
                 {
-                    right = mid - 1;
-                    minValue = nums[mid];
+                    res = Math.Min(res, nums[l]);
+                    break;
+                }
+
+                int m = l + (r - l) / 2;
+                res = Math.Min(res, nums[m]);
+                if (nums[m] >= nums[l])
+                {
+                    l = m + 1;
                 }
                 else
                 {
-                    left = mid + 1;
+                    r = m - 1;
                 }
             }
-
-            return minValue;
-        }
-        public int FindMinNeet(int[] nums)
-        {
-            int left = 0, right = nums.Length - 1;
-            while (left <= right)
-            {                                  
-                if (nums[left] <= nums[right]) //We are seeking the sorted side, only way to find the minimum
-                {                              
-                    return nums[left];                                           
-                }
-
-                int mid = (left + right) / 2;
-                if (nums[left] <= nums[mid])
-                {
-                    left = mid + 1;
-                }
-                else
-                {
-                    right = mid;
-                }
-            }
-            return 0;
+            return res;
         }
         #endregion
         #region Search in Rotated Sorted Array
