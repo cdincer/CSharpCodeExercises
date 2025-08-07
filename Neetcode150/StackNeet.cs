@@ -561,7 +561,7 @@ namespace Neetcode150
         */
         public int LargestRectangleArea(int[] heights)
         {
-            int maxA = 0;
+            int maxArea = 0;
             Stack<int> stack = new();
 
             for (int i = 0; i <= heights.Length; i++)
@@ -572,12 +572,12 @@ namespace Neetcode150
                 {
                     int height = heights[stack.Pop()];
                     int width = (stack.Count == 0) ? i : i - stack.Peek() - 1;
-                    maxA = Math.Max(maxA, height * width);
+                    maxArea = Math.Max(maxArea, height * width);
                 }
                 stack.Push(i);
             }
 
-            return maxA;
+            return maxArea;
         }
         #endregion
 
