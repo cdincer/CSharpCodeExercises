@@ -228,9 +228,9 @@ namespace Neetcode150
         */
         public ListNode RemoveNthFromEnd(ListNode head, int n)
         {
-            var dummy = new ListNode(0, head);
-            var left = dummy;
-            var right = head;
+            ListNode dummy = new ListNode(0, head);
+            ListNode left = dummy;
+            ListNode right = head;
 
             while (n > 0)
             {
