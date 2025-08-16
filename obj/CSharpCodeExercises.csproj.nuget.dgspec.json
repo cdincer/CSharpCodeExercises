@@ -1,27 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Can\\Documents\\Visual Studio Code\\CSharpCodeExercises\\CSharpCodeExercises.csproj": {}
+    "/home/deck/Documents/Repos/CSharpCodeExercises/CSharpCodeExercises.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Can\\Documents\\Visual Studio Code\\CSharpCodeExercises\\CSharpCodeExercises.csproj": {
+    "/home/deck/Documents/Repos/CSharpCodeExercises/CSharpCodeExercises.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Can\\Documents\\Visual Studio Code\\CSharpCodeExercises\\CSharpCodeExercises.csproj",
+        "projectUniqueName": "/home/deck/Documents/Repos/CSharpCodeExercises/CSharpCodeExercises.csproj",
         "projectName": "CSharpCodeExercises",
-        "projectPath": "C:\\Users\\Can\\Documents\\Visual Studio Code\\CSharpCodeExercises\\CSharpCodeExercises.csproj",
-        "packagesPath": "C:\\Users\\Can\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Can\\Documents\\Visual Studio Code\\CSharpCodeExercises\\obj\\",
+        "projectPath": "/home/deck/Documents/Repos/CSharpCodeExercises/CSharpCodeExercises.csproj",
+        "packagesPath": "/home/deck/.nuget/packages/",
+        "outputPath": "/home/deck/Documents/Repos/CSharpCodeExercises/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Can\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "/home/deck/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp8.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -50,12 +48,18 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[8.0.11, 8.0.11]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/8.0.111/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "5T6ApBFplwJDrWVZQ/+AJAFuWO7OWP/7bIaA4LdpnGvz4Pt4cfxT5Qp4BmJ1f0SLZSJSED87E0US4J2/w7qa/g==",
+  "dgSpecHash": "f/W56CH9/5/8cFFTcvwejRZLWhuT2WepCbFAnfKa4msXhxH+R6JIdoQCqEAwiMKPLH0PiJNB7VG1sRbMV8q3rw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Can\\Documents\\Visual Studio Code\\CSharpCodeExercises\\CSharpCodeExercises.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "/home/deck/Documents/Repos/CSharpCodeExercises/CSharpCodeExercises.csproj",
+  "expectedPackageFiles": [
+    "/home/deck/.nuget/packages/microsoft.aspnetcore.app.ref/8.0.11/microsoft.aspnetcore.app.ref.8.0.11.nupkg.sha512"
+  ],
   "logs": []
 }
