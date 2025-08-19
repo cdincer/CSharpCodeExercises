@@ -404,7 +404,7 @@ namespace Neetcode150
             }
             return INF;
         }
-        //3rd solution: Time complexity: O(m∗n)O(m∗n)
+        //3rd solution: Time complexity: O(m∗n) Memory Complexity: O(m∗n)
         public void islandsAndTreasureMultiSourceBfs(int[][] grid)
         {
             Queue<int[]> q = new Queue<int[]>();
@@ -502,16 +502,16 @@ namespace Neetcode150
             bool[,] atla = new bool[rl, cl];
             List<IList<int>> results = new();
             //top and bottom same loop one at the begin = 0 and the end  = rl-1 
-            for (int i = 0; i < heights[0].Length; i++)
+            for (int col = 0; col < heights[0].Length; col++)
             {
-                searcher(0, i, heights, pacf, heights[0][i]);
-                searcher(rl - 1, i, heights, atla, heights[rl - 1][i]);
+                searcher(0, col, heights, pacf, heights[0][col]);
+                searcher(rl - 1, col, heights, atla, heights[rl - 1][col]);
             }
 
-            for (int i = 0; i < heights.Length; i++)
+            for (int row = 0; row < heights.Length; row++)
             {
-                searcher(i, 0, heights, pacf, heights[i][0]);
-                searcher(i, cl - 1, heights, atla, heights[i][cl - 1]);
+                searcher(row, 0, heights, pacf, heights[row][0]);
+                searcher(row, cl - 1, heights, atla, heights[row][cl - 1]);
             }
 
             for (int i = 0; i < heights.Length; i++)
