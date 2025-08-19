@@ -572,24 +572,23 @@ namespace Neetcode150
             int rl = board.Length;
             int cl = board[0].Length;
 
-            for (int i = 0; i < rl; i++)
+            for (int r = 0; r < rl; r++)
             {
-                if (board[i][0] == 'O' || board[i][cl - 1] == 'O')
+                if (board[r][0] == 'O' || board[r][cl - 1] == 'O')
                 {
-                    searcher(i, 0, board);
-                    searcher(i, cl - 1, board);
+                    searcher(r, 0, board);
+                    searcher(r, cl - 1, board);
                 }
             }
 
-            for (int i = 0; i < cl; i++)
+            for (int c = 0; c < cl; c++)
             {
-                if (board[0][i] == 'O' || board[rl - 1][i] == 'O')
+                if (board[0][c] == 'O' || board[rl - 1][c] == 'O')
                 {
-                    searcher(0, i, board);
-                    searcher(rl - 1, i, board);
+                    searcher(0, c, board);
+                    searcher(rl - 1, c, board);
                 }
             }
-
 
             void searcher(int r, int c, char[][] board)
             {
@@ -606,21 +605,14 @@ namespace Neetcode150
                 searcher(r, c - 1, board);
             }
 
-            for (int i = 0; i < rl; i++)
+            for (int r = 0; r < rl; r++)
             {
-                for (int j = 0; j < cl; j++)
+                for (int c = 0; c < cl; c++)
                 {
-                    if (board[i][j] == 'O')
-                        board[i][j] = 'X';
-                }
-            }
-
-            for (int i = 0; i < rl; i++)
-            {
-                for (int j = 0; j < cl; j++)
-                {
-                    if (board[i][j] == 'T')
-                        board[i][j] = 'O';
+                    if (board[r][c] == 'O')
+                        board[r][c] = 'X';
+                    else if (board[r][c] == 'T')
+                        board[r][c] = 'O';
                 }
             }
         }
