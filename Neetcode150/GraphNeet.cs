@@ -545,7 +545,9 @@ namespace Neetcode150
         Given an m x n matrix board containing 'X' and 'O', capture all regions that are 4-directionally surrounded by 'X'.
         A region is captured by flipping all 'O's into 'X's in that surrounded region.
 
-        
+        Connect: A cell is connected to adjacent cells horizontally or vertically.
+        Region: To form a region connect every 'O' cell.
+        Surround: The region is surrounded with 'X' cells if you can connect the region with 'X' cells and none of the region cells are on the edge of the board.
 
         Example 1:
         Input: board = [["X","X","X","X"],["X","O","O","X"],["X","X","O","X"],["X","O","X","X"]]
