@@ -297,71 +297,9 @@ namespace Neetcode150
         https://leetcode.com/problems/generate-parentheses/
         https://neetcode.io/solutions/generate-parentheses
         */
-        /*
-        Solution Notes:
-        This is a custom solution. Same problem previously done in "iterative" approach on Recursion II card.
-        This solution copies the Combinations questions back tracking solution and adapts to parantheses.
-        Because it is not iterative, it is significantly faster. About 3 to 4 times. 
-        It still has the same verification for correct parantheses combination from stack card question.
-        */
-        // Note for the performance of the custom vs neet solution.
-        //Run time custom: 110 ms -- Neet run time:104 ms
-        //Memory custom:71.4 mb --  Neet memory: 48.9 mb
+
+
         public IList<string> GenerateParenthesis(int n)
-        {
-            List<string> tempList = new();
-            List<string> myList = generator("", tempList, n, 0);
-            return myList;
-        }
-        public List<string> generator(string prev, List<string> tempList, int n, int k)
-        {
-            if (prev.Length == n * 2 || k == n * 2)
-            {
-                if (ptv(prev))
-                {
-                    tempList.Add(prev);
-                    return tempList;
-                }
-                return tempList;
-            }
-            StringBuilder sb = new StringBuilder(prev);
-            sb.Append("(");
-            tempList = generator(sb.ToString(), tempList, n, k + 1);
-            sb.Length--;
-            sb.Append(")");
-            tempList = generator(sb.ToString(), tempList, n, k + 1);
-            return tempList;
-        }
-        public bool ptv(string model)
-        {
-            Stack<char> ms = new();
-            char counter = ')';
-
-            for (int i = 0; i < model.Length; i++)
-            {
-                if (model[i] == '(')
-                {
-                    ms.Push(counter);
-                }
-                else
-                {
-                    if (ms.Count > 0)
-                    {
-                        ms.Pop();
-                    }
-                    else
-                    {
-                        return false;
-                    }
-                }
-            }
-            if (ms.Count > 0)
-                return false;
-
-            return true;
-        }
-
-        public IList<string> GenerateParenthesisNeet(int n)
         {
             List<string> result = new();
             StringBuilder seq = new();
