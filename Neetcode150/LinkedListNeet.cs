@@ -638,148 +638,71 @@ namespace Neetcode150
             The sum of lists[i].length will not exceed 104.
 
         */
+        /**
+   * Definition for singly-linked list.
+   * public class ListNode {
+   *     public int val;
+   *     public ListNode next;
+   *     public ListNode(int val=0, ListNode next=null) {
+   *         this.val = val;
+   *         this.next = next;
+   *     }
+   * }
+   */
         public ListNode MergeKLists(ListNode[] lists)
         {
-            Stack<ListNode> items = new Stack<ListNode>();
-
-            for (int i = lists.Length - 1; i >= 0; i--)
-            {
-                items.Push(lists[i]);
-            }
-
-            if (items.Count == 0)
-                return null;
-
-            if (items.Count == 1)
-                return lists[0];
-
-            while (items.Count > 1)
-            {
-                ListNode temp1 = items.Pop();
-                ListNode temp2 = null;
-                if (items.Count != 0)
-                {
-                    temp2 = items.Pop();
-                }
-                else
-                {
-                    temp2 = null;
-                }
-                items.Push(merge2(temp1, temp2));
-            }
-
-            return items.Pop();
-        }
-
-        public ListNode merge2(ListNode l1, ListNode l2)
-        {
-            ListNode dummy = new ListNode(0, l1);
-            ListNode copy = dummy;
-            while (l1 != null && l2 != null)
-            {
-                if (l2.val >= l1.val)
-                {
-                    dummy.next = l1;
-                    l1 = l1.next;
-                }
-                else if (l1.val >= l2.val)
-                {
-                    dummy.next = l2;
-                    l2 = l2.next;
-                }
-                dummy = dummy.next;
-            }
-
-            if (l1 != null && l2 == null)
-            {
-                dummy.next = l1;
-            }
-            else if (l2 != null && l1 == null)
-            {
-                dummy.next = l2;
-            }
-
-            return copy.next;
-        }
-        
-        public ListNode MergeKListsNeet(ListNode[] lists)
-        {
-            if (lists.Length == 0)
+            if (lists == null || lists.Length == 0)
             {
                 return null;
             }
 
             while (lists.Length > 1)
             {
-                var mergedLists = new ListNode[(lists.Length + 1) / 2];
+                List<ListNode> mergedLists = new List<ListNode>();
                 for (int i = 0; i < lists.Length; i += 2)
                 {
-                    var l1 = lists[i];
-                    var l2 = (i + 1 < lists.Length) ? lists[i + 1] : null;
-                    mergedLists[i / 2] = (MergeListsNeet(l1, l2));
+                    ListNode l1 = lists[i];
+                    ListNode l2 = (i + 1) < lists.Length ? lists[i + 1] : null;
+                    mergedLists.Add(MergeList(l1, l2));
                 }
-                lists = mergedLists;
+                lists = mergedLists.ToArray();
             }
-
             return lists[0];
         }
 
-        public ListNode MergeListsNeet(ListNode l1, ListNode l2)
+        private ListNode MergeList(ListNode l1, ListNode l2)
         {
-            var sorted = new ListNode();
-            var current = sorted;
+            ListNode dummy = new ListNode();
+            ListNode tail = dummy;
 
             while (l1 != null && l2 != null)
             {
-                if (l1.val <= l2.val)
+                if (l1.val < l2.val)
                 {
-                    current.next = l1;
+                    tail.next = l1;
                     l1 = l1.next;
                 }
                 else
                 {
-                    current.next = l2;
+                    tail.next = l2;
                     l2 = l2.next;
                 }
-                current = current.next;
+                tail = tail.next;
             }
 
             if (l1 != null)
             {
-                current.next = l1;
+                tail.next = l1;
             }
-            else
+            
+            if (l2 != null)
             {
-                current.next = l2;
+                tail.next = l2;
             }
 
-            return sorted.next;
+            return dummy.next;
         }
 
-
-        public ListNode MergeKListsCustom(ListNode[] lists)
-        {
-            List<ListNode> items = new();
-            for (int i = 0; i < lists.Length; i++)
-            {
-                while (lists[i] != null)
-                {
-                    items.Add(lists[i]);
-                    lists[i] = lists[i].next;
-                }
-            }
-            items = items.OrderBy(x => x.val).ToList();
-
-            ListNode begin = new ListNode();
-            ListNode res = begin;
-            foreach (var item in items)
-            {
-                begin.next = item;
-                begin = begin.next;
-            }
-
-            return res.next;
-        }
         #endregion
         #region Reverse Nodes in k-Group
         /*
