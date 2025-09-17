@@ -149,6 +149,92 @@ namespace Neetcode150
         ["WordDictionary","addWord","addWord","addWord","addWord","search","search","addWord","search","search","search","search","search","search"] 15 / 29 testcases passed
         [[],["at"],["and"],["an"],["add"],["a"],[".at"],["bat"],[".at"],["an."],["a.d."],["b."],["a.d"],["."]]
         */
+
+        public class Node3
+        {
+            public Node3[] children;
+            public char val;
+            public bool isWord;
+
+            public Node3()
+            {
+                children = new Node3[26];
+                isWord = false;
+            }
+        }
+
+        public class WordDictionary
+        {
+            Node3 root3;
+            public WordDictionary()
+            {
+                root3 = new Node3();
+            }
+
+            public void AddWord(string word)
+            {
+                Node3 curr = root3;
+
+                foreach (char c in word)
+                {
+                    int let = c - 'a';
+                    if (curr.children[let] == null)
+                        curr.children[let] = new Node3();
+
+                    curr = curr.children[let];
+                }
+
+                curr.isWord = true;
+            }
+
+            public bool Search(string word)
+            {
+                return dfs(word, 0, root3);
+            }
+
+            public bool dfs(string word, int index, Node3 head)
+            {
+                Node3 curr = head;
+
+                if (head == null)
+                    return false;
+
+                for (int i = index; i < word.Length; i++)
+                {
+                    int let = word[i] - 'a';
+
+                    if (word[i] == '.')
+                    {
+
+                        foreach (Node3 item in curr.children)
+                        {
+                            if (dfs(word, i + 1, item))
+                                return true;
+                        }
+                        return false;
+                    }
+                    else
+                    {
+                        if (curr.children[let] == null)
+                            return false;
+                        else
+                        {
+                            curr = curr.children[let];
+                        }
+                    }
+                }
+
+                if (curr.isWord == true)
+                    return true;
+
+                return false;
+            }
+
+        }
+
+        /*Dictionary based solution keeping it as a alternative,it's slower 
+        so not a replacement for the array based one.
+        
         public class TrieNode2
         {
             public Dictionary<char, TrieNode2> childrenMap { get; set; }
@@ -218,88 +304,6 @@ namespace Neetcode150
                 return cur.isWord;
             }
         }
-
-
-        /*Array based solution that has a faster run time and smaller memory foot-print
-        
-        public class Node
-        {
-            public Node[] children;
-            public char val;
-            public bool isWord;
-
-            public Node()
-            {
-                children = new Node[26];
-                isWord = false;
-            }
-        }
-
-        public class WordDictionary {
-            Node root;
-            public WordDictionary() {
-                root = new Node();
-            }
-            
-            public void AddWord(string word) {
-                Node curr = root;
-
-                foreach(char c in word)
-                {
-                    int let = c - 'a';
-                    if(curr.children[let] == null)
-                    curr.children[let] = new Node();
-
-                    curr = curr.children[let];
-                }
-
-                curr.isWord = true;
-            }
-            
-            public bool Search(string word) {
-                return dfs(word,0,root);
-            }
-
-            public bool dfs(string word, int index,Node head)
-            {
-                Node curr = head;
-
-                if(head == null)
-                return false;
-
-                for(int i = index; i < word.Length; i++)
-                {
-                    int let = word[i] - 'a';
-
-                    if(word[i] == '.')
-                    {
-
-                        foreach(Node item in curr.children)
-                        {
-                            if(dfs(word,i + 1,item))
-                            return true;
-                        }
-                        return false;
-                    }
-                    else
-                    {
-                        if(curr.children[let] == null)
-                        return false;
-                        else
-                        {
-                            curr = curr.children[let];
-                        }
-                    }
-                }
-
-                if(curr.isWord == true)
-                return true;
-
-                return false;
-            }
-
-        }
-
         */
 
 
