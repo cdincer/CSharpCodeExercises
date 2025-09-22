@@ -461,6 +461,22 @@ namespace Neetcode150
             If 99% of all integer numbers from the stream are in the range [0, 100], how would you optimize your solution?
 
         https://leetcode.com/problems/find-median-from-data-stream/
+
+
+        C# Test Case:
+        HeapPriorityQueueNeet.MedianFinder medianFinder = new();
+        medianFinder.AddNum(1);     
+        medianFinder.AddNum(2);    
+        medianFinder.FindMedian(); 
+        medianFinder.AddNum(3);    
+        medianFinder.AddNum(4); 
+        medianFinder.AddNum(22); 
+        medianFinder.AddNum(33); 
+        medianFinder.AddNum(44); 
+        medianFinder.AddNum(10); 
+        medianFinder.FindMedian();
+        //Ends up with even because 8 members added to the data stream.
+
         */
 
         public class MedianFinder
@@ -480,13 +496,13 @@ namespace Neetcode150
             public void AddNum(int num)
             {
                 odd = !odd;
-                double m = left.EnqueueDequeue(num, num);
-                right.Enqueue(m, m);
+                double m = left.EnqueueDequeue(num, num);//Make sure that both sides of the
+                right.Enqueue(m, m);                     //stream is effected/sorted with new numbers coming in.
 
-                if (right.Count - 1 > left.Count)
-                {
-                    double t = right.Dequeue();
-                    left.Enqueue(t, t);
+                if (right.Count - 1 > left.Count)//Both sides can't have equal weight because of 
+                {                                //even case we need to single out left or right
+                    double t = right.Dequeue();  //with this block we have right singled out.
+                    left.Enqueue(t, t);          
                 }
             }
 
