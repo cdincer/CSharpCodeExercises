@@ -159,6 +159,50 @@ namespace Neetcode150
             }
             return res;
         }
+
+        int rl2 = 0;
+        int cl2 = 0;
+
+        int result = 0;
+        public int MaxAreaOfIsland2(int[][] grid)
+        {
+            rl2 = grid.Length;
+            cl2 = grid[0].Length;
+            bool[,] visited = new bool[rl2, cl2];
+            for (int r = 0; r < rl2; r++)
+            {
+                for (int c = 0; c < cl2; c++)
+                {
+                    if (grid[r][c] == 1 && !visited[r, c])
+                    {
+                        Dfs2(grid, r, c, visited, 0);
+                    }
+                }
+            }
+
+
+            return result;
+        }
+
+        public int Dfs2(int[][] grid, int r, int c, bool[,] visited, int current)
+        {
+            if (r >= rl2 || c >= cl2 || 0 > r || 0 > c || grid[r][c] == 0 || visited[r, c])
+                return current;
+
+            current++;
+
+            visited[r, c] = true;
+
+            current = Dfs2(grid, r + 1, c, visited, current);
+            current = Dfs2(grid, r - 1, c, visited, current);
+            current = Dfs2(grid, r, c + 1, visited, current);
+            current = Dfs2(grid, r, c - 1, visited, current);
+
+            result = Math.Max(current, result);
+
+            return current;
+        }
+
         #endregion
         #region Clone Graph
         /*
@@ -408,11 +452,11 @@ namespace Neetcode150
         public void islandsAndTreasureMultiSourceBfs(int[][] grid)
         {
             Queue<int[]> q = new Queue<int[]>();
-            int m = grid.Length;
-            int n = grid[0].Length;
-            for (int i = 0; i < m; i++)
+            int rl = grid.Length;
+            int cl = grid[0].Length;
+            for (int i = 0; i < rl; i++)
             {
-                for (int j = 0; j < n; j++)
+                for (int j = 0; j < cl; j++)
                 {
                     if (grid[i][j] == 0) q.Enqueue(new int[] { i, j });
                 }
@@ -436,7 +480,7 @@ namespace Neetcode150
                 {
                     int r = row + dir[0];
                     int c = col + dir[1];
-                    if (r >= m || c >= n || r < 0 ||
+                    if (r >= rl || c >= cl || r < 0 ||
                         c < 0 || grid[r][c] != int.MaxValue)
                     {
                         continue;
