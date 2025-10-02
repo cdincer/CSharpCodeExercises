@@ -583,10 +583,12 @@ namespace Neetcode150
             {
                 for (int c = wsl - 1; c >= 0; c--)
                 {
-                    if (s[r] == t[c])
+                    if (s[r] == t[c])//dp[r + 1,c + 1] newly matched sequence
+                                     //dp[r + 1,c] previously matched sequences
+                                     //both are ok to push on as a result.
                         dp[r, c] = dp[r + 1, c + 1] + dp[r + 1, c];
                     else
-                        dp[r, c] = dp[r + 1, c];
+                        dp[r, c] = dp[r + 1, c]; // only previously matched sequences
                 }
             }
             return dp[0, 0];
