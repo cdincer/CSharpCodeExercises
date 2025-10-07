@@ -581,8 +581,8 @@ namespace Neetcode150
                     while (set.Contains(n + length))
                     {
                         length++;
-                        longest = Math.Max(longest, length);
                     }
+                        longest = Math.Max(longest, length);
                 }
             }
 
