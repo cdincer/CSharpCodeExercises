@@ -310,31 +310,33 @@ namespace Neetcode150
         https://leetcode.com/problems/search-in-rotated-sorted-array/
         https://youtu.be/U8XENwh8Oy8
         */
-        public int SearchNeet(int[] nums, int target)
+        public int SearchInRotatedSortedArray(int[] nums, int target)
         {
             int left = 0;
             int right = nums.Length - 1;
 
             while (left <= right)
             {
-                var mid = left + ((right - left) / 2);
+                var mid = (left + right) / 2;
 
                 if (nums[mid] == target)
                     return mid;
 
-                if (nums[left] <= nums[mid]) // left sorted solution: meaning our mid value is in between nums[left] < nums[right]
+                //Decide which half is sorted
+
+                if (nums[left] <= nums[mid])//Left half is sorted
                 {
-                    if (target > nums[mid] || target < nums[left]) // Second conditional
-                        left = mid + 1;                            // is for steping over the boundary
-                    else                                           // to cross to other section
-                        right = mid - 1;                           
-                }
-                else
-                {
-                    if (target < nums[mid] || target > nums[right]) // Same as above for second conditional
-                        right = mid - 1;                            // Step over the boundary 
+                    if (nums[left] <= target && target < nums[mid])//If Between this range search left
+                        right = mid - 1;
                     else
+                        left = mid + 1; //Search right range
+                }
+                else//Right half is sorted
+                {
+                    if (nums[mid] < target && target <= nums[right])//If Between this range search right range
                         left = mid + 1;
+                    else
+                        right = mid - 1;//Search left range
                 }
             }
             return -1;
