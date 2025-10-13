@@ -694,7 +694,7 @@ namespace Neetcode150
             {
                 tail.next = l1;
             }
-            
+
             if (l2 != null)
             {
                 tail.next = l2;
@@ -702,6 +702,33 @@ namespace Neetcode150
 
             return dummy.next;
         }
+
+        //Added as a easy to write alternative to above Divide And Conquer(Iteration) version
+        //above same runtime about 1% higher in memory consumption but about the same run time.
+        public ListNode MergeKListsIteration(ListNode[] lists)
+        {
+            List<ListNode> gather = new();
+            foreach (ListNode node in lists)
+            {
+                ListNode iterator = node;
+                while (iterator != null)
+                {
+                    gather.Add(iterator);
+                    iterator = iterator.next;
+                }
+            }
+
+            ListNode mid = new();
+            ListNode result = mid;
+            gather.Sort((a, b) => a.val.CompareTo(b.val));
+            for (int i = 0; i < gather.Count; i++)
+            {
+                mid.next = new ListNode(gather[i].val);
+                mid = mid.next;
+            }
+            return result.next;
+        }
+
 
         #endregion
         #region Reverse Nodes in k-Group
