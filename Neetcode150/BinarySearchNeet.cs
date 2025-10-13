@@ -471,6 +471,7 @@ namespace Neetcode150
         nums1 = [1,3] nums2 = [2,7] 2057 / 2094 testcases passed
        nums1 = [100000] nums2 = [100001] 2088 / 2096 testcases passed
         https://leetcode.com/problems/median-of-two-sorted-arrays/
+        https://leetcode.com/problems/median-of-two-sorted-arrays/editorial/#approach-3-a-better-binary-search
         */
 
         public double FindMedianSortedArrays(int[] nums1, int[] nums2)
