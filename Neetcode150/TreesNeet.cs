@@ -447,34 +447,32 @@ namespace Neetcode150
         [9,null,3,6]
         [2,null,4,10,8,null,null,4] 11 / 63 testcases passed
         */
-        int answer2 = 0;
+        int goodNodesResult = 0;
         public int GoodNodes(TreeNode root)
         {
+            GoodNodesCounter(root.left, root.val);
+            GoodNodesCounter(root.right, root.val);
 
-            if (root.left == null && root.right == null)
-                return 1;
-
-            counter(root, root.val);
-
-            return answer2;
+            return goodNodesResult + 1;
         }
 
-        public int counter(TreeNode head, int max)
+        public void GoodNodesCounter(TreeNode root, int prev)
         {
-            if (head == null)
-                return 0;
 
+            if (root == null)
+                return;
 
-            if (head.val >= max)
+            if (root.val >= prev)
             {
-                answer2++;
-                max = head.val;
+                goodNodesResult++;
+                prev = root.val;
             }
-            counter(head.left, max);
-            counter(head.right, max);
 
-            return 0;
+            GoodNodesCounter(root.left, prev);
+            GoodNodesCounter(root.right, prev);
+
         }
+
         #endregion
         #region Validate Binary Search Tree
         /*
