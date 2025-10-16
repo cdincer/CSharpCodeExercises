@@ -255,9 +255,9 @@ namespace Neetcode150
             list.Add(new List<int>(curr));
             for (var i = start; i < nums.Length; i++)
             {
-                if (i > start && nums[i] == nums[i - 1])
-                    continue;
-                
+                if (i > start && nums[i] == nums[i - 1])//Previous item and their recursion already processed this 
+                    continue;                           //subset in their own recursive body/method because of that on 
+                                                        //this level of iteration, we will be skipping these items
                 curr.Add(nums[i]);
                 backTrack(list, curr, nums, i + 1);
                 curr.RemoveAt(curr.Count - 1);
@@ -323,9 +323,9 @@ namespace Neetcode150
 
             for (int i = index; i < candidates.Length; i++)
             {
-                if (i > index && candidates[i] == candidates[i - 1]) 
-                continue;
-
+                if (i > index && candidates[i] == candidates[i - 1])  //Previous item and their recursion already processed this 
+                continue;                                             //subset in their own recursive body/method because of that on
+                                                                      //this level of iteration, we will be skipping these items
                 keep.Add(candidates[i]);
                 csum2(i + 1, keep, candidates);
                 keep.Remove(candidates[i]);
@@ -435,7 +435,7 @@ namespace Neetcode150
             List<IList<string>> result = new List<IList<string>>();
             List<string> part = new List<string>();
             Dfs(0, s, part, result);
-            
+
             return result;
         }
 
