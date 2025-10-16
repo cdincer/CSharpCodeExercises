@@ -369,8 +369,10 @@ namespace Neetcode150
             {
                 Node node = root;
                 foreach (char c in word)
-                {
-                    if (node.Next[c] is null) node.Next[c] = new Node();
+                {  
+                    if (node.Next[c] is null)
+                        node.Next[c] = new Node();
+                    
                     node = node.Next[c];
                 }
                 node.Word = word;
