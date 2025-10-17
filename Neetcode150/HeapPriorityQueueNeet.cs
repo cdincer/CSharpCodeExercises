@@ -386,7 +386,9 @@ namespace Neetcode150
 
             public void PostTweet(int userId, int tweetId)
             {
-                if (!userDict.ContainsKey(userId)) userDict.Add(userId, new List<int>());
+                if (!userDict.ContainsKey(userId))
+                    userDict.Add(userId, new List<int>());
+
                 tweetList.Add((userId, tweetId));
             }
 
@@ -394,7 +396,8 @@ namespace Neetcode150
             {
                 List<int> result = new List<int>();
 
-                if (!userDict.ContainsKey(userId)) return result;
+                if (!userDict.ContainsKey(userId))
+                    return result;
 
                 List<int> providers = userDict[userId];
                 providers.Add(userId);
@@ -414,13 +417,17 @@ namespace Neetcode150
 
             public void Follow(int followerId, int followeeId)
             {
-                if (!userDict.ContainsKey(followerId)) userDict.Add(followerId, new List<int>());
-                if (!userDict[followerId].Contains(followeeId)) userDict[followerId].Add(followeeId);
+                if (!userDict.ContainsKey(followerId))
+                    userDict.Add(followerId, new List<int>());
+
+                if (!userDict[followerId].Contains(followeeId))
+                    userDict[followerId].Add(followeeId);
             }
 
             public void Unfollow(int followerId, int followeeId)
             {
-                if (userDict.ContainsKey(followerId)) userDict[followerId].Remove(followeeId);
+                if (userDict.ContainsKey(followerId))
+                    userDict[followerId].Remove(followeeId);
             }
         }
         #endregion
