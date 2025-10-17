@@ -448,7 +448,8 @@ namespace Neetcode150
             }
 
             for (int i = index; i < word.Length; i++)
-            {
+            {       //use index as a starting point for variations on partitioning
+                    //left is index,right is i.
                 if (IsPalindrome(word, index, i))
                 {
                     part.Add(word.Substring(index, i - index + 1));
@@ -500,10 +501,8 @@ namespace Neetcode150
         https://leetcode.com/problems/letter-combinations-of-a-phone-number/
         */
         //Keeping this solution in because it fits the other backtracking questions solution style.
-        List<string> resultLet = new();
-        public IList<string> LetterCombinations(string digits)
-        {
-            Dictionary<char, string> lettersMap = new()
+        List<string> resultComb = new();
+        Dictionary<char, string> lettersMap = new()
             {
                 {'2', "abc"},
                 {'3', "def"},
@@ -514,25 +513,27 @@ namespace Neetcode150
                 {'8', "tuv"},
                 {'9', "wxyz"}
             };
+            
+        public IList<string> LetterCombinations(string digits)
+        {
 
             if (!string.IsNullOrEmpty(digits))
-                Backtrack(resultLet, digits, lettersMap, "", 0);
+                Backtrack(digits, "", 0);
 
-
-            return resultLet;
+            return resultComb;
         }
 
-        public void Backtrack(List<string> result, string digits, Dictionary<char, string> lettersMap, string curString, int start)
+        public void Backtrack(string digits,string curString, int start)
         {
             if (curString.Length == digits.Length)
             {
-                result.Add(curString);
+                resultComb.Add(curString);
                 return;
             }
 
             foreach (char c in lettersMap[digits[start]])
             {
-                Backtrack(result, digits, lettersMap, curString + c, start + 1);
+                Backtrack(digits, curString + c, start + 1);
             }
         }
         #endregion
@@ -576,6 +577,7 @@ namespace Neetcode150
                     results.Add(result.Select(x => x.ToString()).ToList());
                     return;
                 }
+                
                 if (r == result.Count)
                     return;
 
