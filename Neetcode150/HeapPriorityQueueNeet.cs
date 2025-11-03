@@ -518,7 +518,42 @@ namespace Neetcode150
                 return odd ? right.Peek() : (left.Peek() + right.Peek()) / 2.0;
             }
         }
+        //Slightly refactored version
 
+        public class MedianFinder2
+        {
+
+            PriorityQueue<double,double> leftSide;
+            PriorityQueue<double,double> rightSide;
+
+            public MedianFinder() {
+                leftSide = new ( Comparer<double>.Create( (a,b) => b.CompareTo(a)) );
+                rightSide = new();
+            }
+       
+            public void AddNum(int num) {
+
+                double balance = leftSide.EnqueueDequeue(num,num);
+                rightSide.Enqueue(balance,balance);
+
+                if(rightSide.Count > leftSide.Count)
+                {
+                    double secondBalance = rightSide.Dequeue();
+                    leftSide.Enqueue(secondBalance,secondBalance);
+                }
+               
+            }
+           
+            public double FindMedian()
+            {
+                if(leftSide.Count == rightSide.Count)
+                {
+                    return (leftSide.Peek() + rightSide.Peek()) / 2;
+                }
+
+                return leftSide.Peek();
+            }
+        }
 
         #endregion
     }
