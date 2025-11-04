@@ -658,26 +658,25 @@ namespace Neetcode150
         //Neetcode: Dynamic Programming (Optimal), 6th option.
         public bool CanPartition(int[] nums)
         {
-            int arrSum = nums.Sum();
-            if (arrSum % 2 != 0)
-            {
+            if (nums.Sum() % 2 != 0)
                 return false;
-            }
 
-            int target = arrSum / 2;
+            int target = nums.Sum() / 2;
+
             bool[] dp = new bool[target + 1];
-
             dp[0] = true;
 
-            //Coin Change problem adjacent
-            for (int i = 0; i < nums.Length; i++)
+            foreach (int num in nums)
             {
-                for (int j = target; j >= nums[i]; j--)
+                for (int i = 1; i <= target; i++)
                 {
-                    dp[j] = dp[j] || dp[j - nums[i]];
+                        Console.WriteLine($"num {num} and i {i} and i - num {i- num}");
+                    if (i >= num)
+                    {
+                        dp[i] |= dp[i - num];
+                    }
                 }
             }
-
             return dp[target];
         }
 
