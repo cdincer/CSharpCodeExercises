@@ -803,7 +803,7 @@ namespace Neetcode150
 
             for (int r = sL; r >= 0; r--)
             {
-                for (int c = pL - 1; c >= 0; c--)
+                for (int c = pL - 1; c >= 0; c--) //pL - 1 because of c + 2
                 {
                     //'.' Matches any single character.​​​​
                     bool match = r < sL &&
