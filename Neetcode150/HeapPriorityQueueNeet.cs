@@ -526,7 +526,7 @@ namespace Neetcode150
             PriorityQueue<double,double> leftSide;
             PriorityQueue<double,double> rightSide;
 
-            public MedianFinder() {
+            public MedianFinder2() {
                 leftSide = new ( Comparer<double>.Create( (a,b) => b.CompareTo(a)) );
                 rightSide = new();
             }
