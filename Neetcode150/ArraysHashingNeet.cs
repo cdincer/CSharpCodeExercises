@@ -343,6 +343,7 @@ namespace Neetcode150
         Extra Test Cases:
         Input:[] Expected output:[]
         Input:[""] Expected output:[""]
+        Input:[["we","say",":","yes","!@#$%^&*()"]]  Expected output:["we","say",":","yes","!@#$%^&*()"]
         https://neetcode.io/problems/string-encode-and-decode
 
         Hint:Just translate original string to a list and make that list into a string again.
