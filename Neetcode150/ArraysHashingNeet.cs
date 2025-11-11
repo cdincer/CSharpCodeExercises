@@ -477,8 +477,8 @@ namespace Neetcode150
         //Neetcode version.
         public bool IsValidSudoku(char[][] board)
         {
-            Dictionary<int, HashSet<char>> rows = new ();
-            Dictionary<int, HashSet<char>> cols = new ();
+            Dictionary<int, HashSet<char>> rows = new();
+            Dictionary<int, HashSet<char>> cols = new();
             Dictionary<(int, int), HashSet<char>> squares = new();
 
             for (int r = 0; r < 9; r++)
@@ -533,61 +533,46 @@ namespace Neetcode150
         [1,2,0,1]
         []
         */
+        #region Explanation
+        /*Source:https://leetcode.com/problems/longest-consecutive-sequence/solutions/41055/my-really-simple-java-o-n-solution-accepted
+        We will use HashMap. The key thing is to keep track of the sequence length and store that in the boundary points of the sequence. 
+        For example, as a result, for sequence {1, 2, 3, 4, 5}, map.get(1) and map.get(5) should both return 5.
 
-        //Best time 152 ms
+        Whenever a new element n is inserted into the map, do two things:
+
+        1- See if n - 1 and n + 1 exist in the map, and if so, it means there is an existing sequence next to n. Variables left and right will be the length of those two sequences, 
+        while 0 means there is no sequence and n will be the boundary point later. Store (left + right + 1) as the associated value to key n into the map.
+        2- Use left and right to locate the other end of the sequences to the left and right of n respectively, and replace the value with the new length.
+
+        */
+        #endregion
         public int LongestConsecutive(int[] nums)
         {
-            HashSet<int> keeper = new HashSet<int>();
-            //Array.Sort(nums);
+            int res = 0;
+            Dictionary<int, int> map = new();
 
-            if (nums.Length < 2)
-                return nums.Length;
-
-            for (int i = 0; i < nums.Length; i++)
+            foreach (int num in nums)
             {
-                keeper.Add(nums[i]);
-            }
-
-            int longestChain = 0;
-            int currentChain = 1;
-            foreach (var element in keeper)
-            {
-                int itemToLookFor = element - 1;
-                if (keeper.Contains(itemToLookFor))
+                if (!map.ContainsKey(num))
                 {
-                    currentChain++;
+                    int left = map.ContainsKey(num - 1) ? map[num - 1] : 0;
+                    int right = map.ContainsKey(num + 1) ? map[num + 1] : 0;
+
+                    int sum = left + right + 1;
+                    map.TryAdd(num, sum);
+
+                    res = Math.Max(res, sum);
+
+                    map[num - left] = sum;
+                    map[num + right] = sum;
                 }
                 else
                 {
-                    longestChain = Math.Max(longestChain, currentChain);
-                    currentChain = 1;
-                }
-            }
-            longestChain = Math.Max(longestChain, currentChain);
-
-            return longestChain;
-        }
-        //Best time 139 ms
-        public int LongestConsecutiveNeet(int[] nums)
-        {
-            if (nums.Length < 2) return nums.Length;
-
-            HashSet<int> set = new (nums);
-            int longest = 0;
-            foreach (var n in set)
-            {
-                if (!set.Contains(n - 1))
-                {
-                    int length = 0;
-                    while (set.Contains(n + length))
-                    {
-                        length++;
-                    }
-                        longest = Math.Max(longest, length);
+                    continue;
                 }
             }
 
-            return longest;
+            return res;
         }
         #endregion
     }
