@@ -317,7 +317,7 @@ namespace Neetcode150
 
             while (left <= right)
             {
-                var mid = (left + right) / 2;
+                int mid = left + (right - left) / 2;
 
                 if (nums[mid] == target)
                     return mid;
