@@ -86,29 +86,32 @@ namespace Neetcode150
         */
         public int LengthOfLongestSubstring(string s)
         {
-            HashSet<char> check = new();
-            int maxCount = 0;
+            HashSet<char> calc = new();
+            int longest = 0;
 
             int left = 0;
-            for (int right = 0; right < s.Length; right++)
+            int right = 0;
+
+            while (right < s.Length)
             {
-                if (!check.Contains(s[right]))
+                if (!calc.Contains(s[right]))
                 {
-                    check.Add(s[right]);
-                    maxCount = Math.Max(check.Count, maxCount);
+                    calc.Add(s[right]);
+                    longest = Math.Max(longest, calc.Count);
                 }
                 else
                 {
-                    while (check.Contains(s[right]))
+                    while (calc.Contains(s[right]))
                     {
-                        check.Remove(s[left]);
+                        calc.Remove(s[left]);
                         left++;
                     }
-                    check.Add(s[right]);
+                    calc.Add(s[right]);
                 }
+                right++;
             }
 
-            return maxCount;
+            return longest;
         }
         public int LengthOfLongestSubstringNeet(string s)
         {
