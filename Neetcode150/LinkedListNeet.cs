@@ -169,14 +169,14 @@ namespace Neetcode150
 
         ListNode reverse(ListNode head)
         {
-            ListNode prev = null, curr = head, next = null;//Temp storage place for next value.
+            ListNode prev = null, curr = head;//Temp storage place for next value.
 
             while (curr != null)
             {
-                next = curr.next;
+                ListNode tempStorage = curr.next;
                 curr.next = prev;
                 prev = curr;
-                curr = next;
+                curr = tempStorage;
             }
 
             return prev;
