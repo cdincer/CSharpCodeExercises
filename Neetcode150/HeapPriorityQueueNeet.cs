@@ -488,59 +488,25 @@ namespace Neetcode150
 
         public class MedianFinder
         {
-            bool odd = false;
-            PriorityQueue<double, double> left;
-            PriorityQueue<double, double> right;
-
-            public MedianFinder()
-            {
-                left = new(Comparer<double>.Create(
-                    (a, b) => (b.CompareTo(a))
-                ));
-                right = new();
-            }
-
-            public void AddNum(int num)
-            {
-                odd = !odd;
-                double m = left.EnqueueDequeue(num, num);//Make sure that both sides of the
-                right.Enqueue(m, m);                     //stream is effected/sorted with new numbers coming in.
-
-                if (right.Count - 1 > left.Count)//Both sides can't have equal weight because of 
-                {                                //even case we need to single out left or right
-                    double t = right.Dequeue();  //with this block we have right singled out.
-                    left.Enqueue(t, t);          
-                }
-            }
-
-            public double FindMedian()
-            {
-                return odd ? right.Peek() : (left.Peek() + right.Peek()) / 2.0;
-            }
-        }
-        //Slightly refactored version
-
-        public class MedianFinder2
-        {
 
             PriorityQueue<double,double> leftSide;
             PriorityQueue<double,double> rightSide;
 
-            public MedianFinder2() {
+            public MedianFinder() {
                 leftSide = new ( Comparer<double>.Create( (a,b) => b.CompareTo(a)) );
                 rightSide = new();
             }
        
             public void AddNum(int num) {
 
-                double balance = leftSide.EnqueueDequeue(num,num);
-                rightSide.Enqueue(balance,balance);
+                double balance = leftSide.EnqueueDequeue(num,num);//Make sure that both sides of the
+                rightSide.Enqueue(balance,balance);               //stream is effected/sorted with new numbers coming in.
 
                 if(rightSide.Count > leftSide.Count)
                 {
-                    double secondBalance = rightSide.Dequeue();
-                    leftSide.Enqueue(secondBalance,secondBalance);
-                }
+                    double secondBalance = rightSide.Dequeue();   //Both sides can't have equal weight because of 
+                    leftSide.Enqueue(secondBalance,secondBalance);//even case we need to single out left or right
+                }                                                 //with this block we have left singled out.
                
             }
            
