@@ -1258,6 +1258,12 @@ namespace Neetcode150
             1 <= n <= 100
             0 <= edges.length <= n * (n - 1) / 2
 
+        Test Cases:
+        n=12
+        edges=[[0,1],[1,2],[2,3],[3,0],[4,5],[6,7],[7,4],[8,9],[10,11]]
+        
+        n=1
+        edges=[]
         */
         //https://neetcode.io/problems/count-connected-components        
     public int CountComponents(int n, int[][] edges)
