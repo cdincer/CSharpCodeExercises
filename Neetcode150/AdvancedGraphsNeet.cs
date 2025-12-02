@@ -292,10 +292,14 @@ namespace Neetcode150
             }
 
             int l = minH, r = maxH;
-
+            //We use lowest and highest values to search a way to end
+            //the time we are looking for has to be between this one
+            //binary search is the way to go about it, basically 
+            //every time we send in "m" we are trying to verify
+            //if we guessed the time correctly.
             while (l < r)
             {
-                int m = (l + r) / 2;
+                int m = l + (r -  l) / 2;
                 if (dfs(grid, visit, 0, 0, m))
                 {
                     r = m;
