@@ -648,6 +648,9 @@ namespace Neetcode150
             {
                 dp[w1l, c] = w2l - c;
             }
+            //r + 1, c + 1 stands for replace the character. replace the word1 character (r + 1) in with word2 (c + 1)
+            //r + 1, c     stands for delete the character. delete the word1 character at (r + 1)
+            //r,     c - 1 stands for insert the character 
 
             for (int r = w1l - 1; r >= 0; r--)
             {
