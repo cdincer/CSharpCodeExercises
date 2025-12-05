@@ -302,10 +302,10 @@ namespace Neetcode150
             {
                 int digit = x % 10;
 
-                if (result > int.MaxValue / 10 || (result == int.MaxValue && digit > 8))
+                if (result > int.MaxValue / 10)
                     return 0;
 
-                if (result < int.MinValue / 10 || (result == int.MinValue && digit < -7))
+                if (result < int.MinValue / 10)
                     return 0;
 
                 x = x / 10;
@@ -314,7 +314,6 @@ namespace Neetcode150
 
             return result;
         }
-
         #endregion
     }
 }
