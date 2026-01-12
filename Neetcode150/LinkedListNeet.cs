@@ -479,30 +479,33 @@ namespace Neetcode150
       
         https://leetcode.com/problems/find-the-duplicate-number/
         */
+        //Tortoise and the hare
+        //or
+        //A detailed explanation can be found here:
+        //https://leetcode.com/problems/find-the-duplicate-number/solutions/72846/my-easy-understood-solution-with-on-time-khwi
         public int FindDuplicate(int[] nums)
         {
-            int slow = 0;
-            int fast = 0;
+            int slow = nums[0];
+            int fast = nums[nums[0]];
 
-            while (true)
+            while (slow != fast)
             {
                 slow = nums[slow];
                 fast = nums[nums[fast]];
+
                 if (slow == fast)
                     break;
             }
-            int slow2 = 0;
 
-            while (true)
+            fast = 0;
+
+            while (slow != fast)
             {
                 slow = nums[slow];
-                slow2 = nums[slow2];
-
-                if (slow == slow2)
-                    return slow;
+                fast = nums[fast];
             }
 
-            return 0;
+            return slow;
         }
         #endregion
         #region LRU Cache
