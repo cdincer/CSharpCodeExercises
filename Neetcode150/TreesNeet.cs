@@ -548,6 +548,10 @@ namespace Neetcode150
         */
 
         //Custom Solution, runtime and memory consumption is really close to Neetcode's.
+        //Update for 2026-01-13:These solutions are nearly the same when it comes to runtime and memory
+        //when ran on leetcode platform
+        //neetcode is runtime 3 ms, memory is 47.1 MB
+        //custom is runtime 2 ms,. memory is 46.9 MB
         Stack<int> items = new();
         public int KthSmallest(TreeNode root, int k)
         {

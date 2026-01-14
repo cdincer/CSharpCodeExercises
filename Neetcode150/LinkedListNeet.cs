@@ -707,7 +707,8 @@ namespace Neetcode150
         }
 
         //Added as a easy to write alternative to above Divide And Conquer(Iteration) version
-        //above same runtime about 1% higher in memory consumption but about the same run time.
+        // above same runtime about this one has 1% higher in memory consumption 
+        // but seems to be running much faster.(old 14 ms, new 4 ms)
         public ListNode MergeKListsIteration(ListNode[] lists)
         {
             List<ListNode> gather = new();

@@ -399,10 +399,17 @@ namespace Neetcode150
                 
                 node = node.Next[c];
 
-                if (node.Word is not null)
+                if (node.Word != null)
                 {
+
                     res.Add(node.Word);
                     node.Word = null;
+
+                    if (res.Count == words.Length)
+
+                    {
+                        return;
+                    }
                 }
 
                 board[row][col] = '/';
