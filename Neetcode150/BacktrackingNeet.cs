@@ -495,7 +495,8 @@ namespace Neetcode150
         Output: ["a","b","c"]
 
         Constraints:
-            0 <= digits.length <= 4
+            0 <= digits.length <= 4 //since this question has been first added here this condition 
+            1 <= digits.length <= 4 //has been updated like this. As a result, example 2 displayed here doesn't need to be considered.
             digits[i] is a digit in the range ['2', '9'].
 
         https://leetcode.com/problems/letter-combinations-of-a-phone-number/
@@ -569,7 +570,9 @@ namespace Neetcode150
                 result.Add(new StringBuilder(n));
                 result[i].Append('.', n);
             }
+
             searcher(0, n, new HashSet<int>(), new HashSet<int>(), new HashSet<int>());
+            
             void searcher(int r, int n, HashSet<int> col, HashSet<int> posdiag, HashSet<int> negdiag)
             {
                 if (n == 0)
