@@ -1267,55 +1267,43 @@ namespace Neetcode150
         edges=[]
         */
         //https://neetcode.io/problems/count-connected-components        
-    public int CountComponents(int n, int[][] edges)
+        public int CountComponents(int n, int[][] edges) 
         {
-            Dictionary<int, List<int>> dict = new();
-
-            for (int i = 0; i < n; i++)
-            {
-                dict.TryAdd(i, new List<int>());
-            }
-
-            for (int i = 0; i < edges.Length; i++)
-            {
-                int toSource = edges[i][0];
-                int toDepend = edges[i][1];
-
-                dict[toSource].Add(toDepend);
-                dict[toDepend].Add(toSource);
-
-            }
-
-            HashSet<int> visited = new();
-            int result = 0;
-            foreach (var kvp in dict)
-            {
-                if (!visited.Contains(kvp.Key))
-                {
-                    travel(dict, visited, kvp.Key);
-                    result++;
-                }
-
-            }
-
-            return result;
+        List<List<int>> adj = new List<List<int>>();
+        bool[] visit = new bool[n];
+        
+        for (int i = 0; i < n; i++) 
+        {
+            adj.Add(new List<int>());
         }
-
-        public bool travel(Dictionary<int, List<int>> dict, HashSet<int> visited, int current)
-        {
-            if (visited.Contains(current))
-                return false;
-
-            visited.Add(current);
-
-            foreach (int item in dict[current])
-            {
-                if (!visited.Contains(item))
-                    travel(dict, visited, item);
-            }
             
-            return true;
+        foreach (var edge in edges) 
+        {
+            adj[edge[0]].Add(edge[1]);
+            adj[edge[1]].Add(edge[0]);
         }
+
+        int res = 0;
+        for (int node = 0; node < n; node++) 
+        {
+           if (!visit[node]) 
+           {
+            Dfs(adj, visit, node);
+            res++;
+           }
+         }
+        return res;
+        }
+
+    private void Dfs(List<List<int>> adj, bool[] visit, int node) {
+        visit[node] = true;
+        foreach (var nei in adj[node]) {
+            if (!visit[nei]) {
+                Dfs(adj, visit, nei);
+            }
+        }
+    }
+
         #endregion
     }
 }
