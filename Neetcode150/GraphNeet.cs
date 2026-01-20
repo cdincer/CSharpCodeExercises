@@ -918,7 +918,8 @@ namespace Neetcode150
 
             Dictionary<int, List<int>> mdict = new();
             HashSet<int> visited = new();
-            HashSet<int> cycle = new();
+            HashSet<int> cycle = new();//protection against redundant entries
+                                       //,not actual cycles in course schedule
             List<int> results = new();
 
             for (int i = 0; i < numCourses; i++)
