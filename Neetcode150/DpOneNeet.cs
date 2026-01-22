@@ -355,7 +355,7 @@ namespace Neetcode150
             s contains only digits and may contain leading zero(s).
 
         s = "2101" Expected = 1 166 / 269 testcases passed
-        s ="1201234" Expected = 3 258 / 269 testcases passed
+        s = "1201234" Expected = 3 258 / 269 testcases passed
         s = "1210210" Expected = 2
         s = "111111111111111111111111111111111111111111111" Expected = 1836311903
         s = "1101201101201101231020102010201020102011102220111022202222211121212021120121021201202120" Expected = 268416
@@ -366,26 +366,33 @@ namespace Neetcode150
 
         https://leetcode.com/problems/decode-ways/
         */
+
         public int NumDecodings(string s)
         {
+            int sl = s.Length;
+            int[] dp = new int[sl + 1];
+            dp[sl] = 1;
 
-            int[] dp = new int[s.Length + 1];
-            dp[s.Length] = 1;
-
-            for (int i = s.Length - 1; i >= 0; i--)
+            for (int i = sl - 1; i >= 0; i--)
             {
-                if (s[i] == '0')
-                    dp[i] = 0;
+                if (s[i] != '0')
+                {
+                    dp[i] += dp[i + 1];
+                }
                 else
-                    dp[i] = dp[i + 1];
+                {
+                    dp[i] = 0;
+                }
 
-                if (i + 1 < s.Length && (s[i] == '1' || (s[i] == '2' && s[i + 1] < '7')))
+                if (i + 1 < sl && ((s[i] == '1') || (s[i] == '2' && s[i + 1] < '7')))
+                {
                     dp[i] += dp[i + 2];
+                }
             }
-
 
             return dp[0];
         }
+
         #endregion
         #region Coin Change
         /*
