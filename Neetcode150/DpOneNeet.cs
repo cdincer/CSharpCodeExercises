@@ -377,8 +377,8 @@ namespace Neetcode150
             {
                 if (s[i] != '0')
                 {
-                    dp[i] += dp[i + 1];
-                }
+                    dp[i] += dp[i + 1];// explanation of variety for 
+                }                      // can be  dp[i] += dp[i + 1] and dp[i] = dp[i + 1] because it's one pass
                 else
                 {
                     dp[i] = 0;
@@ -672,28 +672,37 @@ namespace Neetcode150
         //Neetcode: Dynamic Programming (Optimal), 6th option.
         public bool CanPartition(int[] nums)
         {
-            if (nums.Sum() % 2 != 0)
-                return false;
+            int total = nums.Sum();
 
-            int target = nums.Sum() / 2;
+            if (total % 2 != 0) return false;
 
+            int target = total / 2;
             bool[] dp = new bool[target + 1];
             dp[0] = true;
 
-            foreach (int num in nums)
+            foreach (int n in nums)
             {
-                for (int i = 1; i <= target; i++)
+                for (int i = target; i >= n; i--)
                 {
-                        Console.WriteLine($"num {num} and i {i} and i - num {i- num}");
-                    if (i >= num)
+                    if (dp[i] == true)
                     {
-                        dp[i] |= dp[i - num];
+                        continue;
+                    }
+
+                    if (dp[i - n])
+                    {
+                        dp[i] = true;
+                    }
+
+                    if (dp[target])
+                    {
+                        return true;
                     }
                 }
             }
-            return dp[target];
-        }
 
+            return false;
+        }
         #endregion
     }
 }
