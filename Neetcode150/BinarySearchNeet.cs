@@ -317,7 +317,7 @@ namespace Neetcode150
 
             while (left <= right)
             {
-                int mid = (right + left) / 2;
+                int mid = left + (right - left) / 2;
 
                 if (nums[mid] == target)
                     return mid;
@@ -333,7 +333,7 @@ namespace Neetcode150
                 }
                 else//Right half is sorted
                 {
-                    if (nums[mid] < target && target <= nums[right])//If Between this range search right range
+                    if (target <= nums[right] && nums[mid] < target)//If Between this range search right range
                         left = mid + 1;
                     else
                         right = mid - 1;//Search left range
