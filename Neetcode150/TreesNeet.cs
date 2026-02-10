@@ -577,29 +577,26 @@ namespace Neetcode150
 
         public int KthSmallestNeet(TreeNode root, int k)
         {
-            var result = -1;
-            var inorderStack = new Stack<TreeNode>();
+            Stack<TreeNode> que = new();
 
-            var cur = root;
-
-            while (cur != null || inorderStack.Count > 0)
+            while (true)
             {
-                while (cur != null)
+                while (root != null)
                 {
-                    inorderStack.Push(cur);
-                    cur = cur.left;
+                    que.Push(root);
+                    root = root.left;
                 }
-                cur = inorderStack.Pop();
 
+                root = que.Pop();
                 k--;
+
                 if (k == 0)
                 {
-                    result = cur.val;
-                    break;
+                    return root.val;
                 }
-                cur = cur.right;
+
+                root = root.right;
             }
-            return result;
         }
         #endregion
         #region Construct Binary Tree from Preorder and Inorder Traversal
@@ -630,18 +627,18 @@ namespace Neetcode150
        preorder = [4,5,3,17,2,6,7,1,9,8,10,11,13,14,15,20,19], inorder = [3,2,6,17,1,7,5,9,8,4,10,14,13,11,20,15,19] Output:[1,2,3,4,6,null,7,null,null,5,null,8,10,null,null,null,9]
        */
 
-       /*
-       Intuition:
-       ** Preorder: The first element is always the root.
-       ** Inorder: The root splits the left and right subtrees.
-       Input: preorder = [3, 9, 20, 15, 7]
-              inorder  = [9, 3, 15, 20, 7]
+        /*
+        Intuition:
+        ** Preorder: The first element is always the root.
+        ** Inorder: The root splits the left and right subtrees.
+        Input: preorder = [3, 9, 20, 15, 7]
+               inorder  = [9, 3, 15, 20, 7]
 
-       1-The first element in preorder array is the root (3).
-       2-In inorder array, locate 3. Everything to the left (9) forms the left subtree. 
-       Everything to the right (15, 20, 7) forms the rightsubtree.
-       3-Use the lengths to partition the preorder array accordingly and recursively repeat.
-       */
+        1-The first element in preorder array is the root (3).
+        2-In inorder array, locate 3. Everything to the left (9) forms the left subtree. 
+        Everything to the right (15, 20, 7) forms the rightsubtree.
+        3-Use the lengths to partition the preorder array accordingly and recursively repeat.
+        */
         public TreeNode BuildTree(int[] preorder, int[] inorder)
         {
             if (preorder.Length == 0 || inorder.Length == 0)
