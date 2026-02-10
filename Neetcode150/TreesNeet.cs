@@ -446,6 +446,7 @@ namespace Neetcode150
         Extra Test Case: 10 / 63 testcases passed
         [9,null,3,6]
         [2,null,4,10,8,null,null,4] 11 / 63 testcases passed
+        [-1,5,-2,4,4,2,-2,null,null,-4,null,-2,3,null,-2,0,null,-1,null,-3,null,-4,-3,3,null,null,null,null,null,null,null,3,-3] 47 / 63 testcases passed
         */
         int goodNodesResult = 0;
         public int GoodNodes(TreeNode root)
