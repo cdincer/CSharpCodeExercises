@@ -577,17 +577,17 @@ namespace Neetcode150
 
         public int KthSmallestNeet(TreeNode root, int k)
         {
-            Stack<TreeNode> que = new();
+            Stack<TreeNode> stack = new();
 
             while (true)
             {
                 while (root != null)
                 {
-                    que.Push(root);
+                    stack.Push(root);
                     root = root.left;
                 }
 
-                root = que.Pop();
+                root = stack.Pop();
                 k--;
 
                 if (k == 0)
