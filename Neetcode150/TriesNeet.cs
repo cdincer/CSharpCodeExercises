@@ -350,12 +350,14 @@ namespace Neetcode150
         
         */
         //Neetcode answer to this problem times out at 64th test case.
-        //Solution below doesn't.
+        //Solution below doesn't. Reason for this is the removal of nodes
+        //that don't lead to anywhere, in the previous iterations it did.
 
         class TrieNode3
         {
             public TrieNode3[] children = new TrieNode3[26];
-            public int idx = -1;
+            public int idx = -1;//this variable replaces isWord bool
+                                //that exists in other Trie questions.
             public int refs = 0;
 
             public void AddWord(string word, int i)
@@ -412,7 +414,7 @@ namespace Neetcode150
             if (node.idx != -1)
             {
                 res.Add(words[node.idx]);
-                node.idx = -1;
+                node.idx = -1;//set isWord to false.
                 node.refs--;
                 if (node.refs == 0)
                 {
