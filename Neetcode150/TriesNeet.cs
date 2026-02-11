@@ -148,6 +148,10 @@ namespace Neetcode150
         [[],["a"],["a"],["."],["a"],["aa"],["a"],[".a"],["a."]] 
         ["WordDictionary","addWord","addWord","addWord","addWord","search","search","addWord","search","search","search","search","search","search"] 15 / 29 testcases passed
         [[],["at"],["and"],["an"],["add"],["a"],[".at"],["bat"],[".at"],["an."],["a.d."],["b."],["a.d"],["."]]
+
+        ["WordDictionary","addWord","addWord","addWord","addWord","search","search","addWord","search","search","search","search","search","search"]
+        [[],["at"],["and"],["an"],["add"],["a"],[".at"],["bat"],[".at"],["an."],["a.d."],["b."],["a.d"],["."]]
+        Expected:[null,null,null,null,null,false,false,null,true,true,false,false,true,false]
         */
 
         public class Node3
