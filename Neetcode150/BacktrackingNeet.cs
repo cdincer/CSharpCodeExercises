@@ -241,6 +241,8 @@ namespace Neetcode150
 
         */
         //T: O(N*2^N)
+        //Extra Test Cases:
+        //[4,4,4,1,4] Expected:[[],[1],[1,4],[1,4,4],[1,4,4,4],[1,4,4,4,4],[4],[4,4],[4,4,4],[4,4,4,4]] 15 / 20 test cases passed
         public IList<IList<int>> SubsetsWithDupNeet(int[] nums)
         {
             List<IList<int>> list = new();
