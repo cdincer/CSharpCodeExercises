@@ -539,6 +539,48 @@ namespace Neetcode150
                 Backtrack(digits, curString + c, start + 1);
             }
         }
+
+        //Alternative solution fits to a general template:
+        List<string> result2 = new();
+        Dictionary<int, string> dict = new();
+        public IList<string> LetterCombinationsGeneralized(string digits)
+        {
+            dict.TryAdd(2, "abc");
+            dict.TryAdd(3, "def");
+            dict.TryAdd(4, "ghi");
+            dict.TryAdd(5, "jkl");
+            dict.TryAdd(6, "mno");
+            dict.TryAdd(7, "pqrs");
+            dict.TryAdd(8, "tuv");
+            dict.TryAdd(9, "wxyz");
+
+
+            backtrack(digits, new StringBuilder(), 0);
+
+            return result2;
+        }
+
+        public void backtrack(string s, StringBuilder sb, int index)
+        {
+            if (sb.Length == s.Length)
+            {
+                result2.Add(sb.ToString());
+                return;
+            }
+
+            for (int i = index; i < s.Length; i++)
+            {
+                int cur = int.Parse(s[i].ToString());
+                foreach (char c in dict[cur])
+                {
+                    sb.Append(c);
+                    backtrack(s, sb, i + 1);
+                    sb.Remove(sb.Length - 1, 1);
+                }
+            }
+
+        }
+
         #endregion
         #region N-Queens
         /*
