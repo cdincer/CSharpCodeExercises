@@ -542,16 +542,19 @@ namespace Neetcode150
         {
             int rl = heights.Length;
             int cl = heights[0].Length;
+
             bool[,] pacf = new bool[rl, cl];
             bool[,] atla = new bool[rl, cl];
             List<IList<int>> results = new();
-            //top and bottom same loop one at the begin = 0 and the end  = rl-1 
+
+            //top and bottom rows for every column
             for (int col = 0; col < heights[0].Length; col++)
             {
                 searcher(0, col, heights, pacf, heights[0][col]);
                 searcher(rl - 1, col, heights, atla, heights[rl - 1][col]);
             }
 
+            //beginning and ending columns for every row
             for (int row = 0; row < heights.Length; row++)
             {
                 searcher(row, 0, heights, pacf, heights[row][0]);
@@ -731,8 +734,10 @@ namespace Neetcode150
         {
             int[] dr = { 0, 0, -1, 1 };
             int[] dc = { 1, -1, 0, 0 };
+
             int fresh = 0;
             int time = 0;
+
             if (grid == null || grid[0].Length == 0)
                 return 0;
 
@@ -809,9 +814,11 @@ namespace Neetcode150
         https://leetcode.com/problems/course-schedule/
         Test Cases:
         numCourses = 5
-        prerequisites = [[1,4],[2,4],[3,1],[3,2]]
+        prerequisites = [[1,4],[2,4],[3,1],[3,2]] Expected:true
+
         numCourses = 8   46 / 52 testcases passed
-        prerequisites = [[1,0],[2,6],[1,7],[6,4],[7,0],[0,5]]
+        prerequisites = [[1,0],[2,6],[1,7],[6,4],[7,0],[0,5]] Expected:true
+
         numCourses = 100 48 / 52 testcases passed
         prerequisites = [[1,0],[2,0],[2,1],[3,1],[3,2],[4,2],[4,3],[5,3],[5,4],[6,4],[6,5],
         [7,5],[7,6],[8,6],[8,7],[9,7],[9,8],[10,8],[10,9],[11,9],[11,10],[12,10],[12,11],
@@ -849,6 +856,7 @@ namespace Neetcode150
 
                 dict[toTake].Add(toDepend);
             }
+
             HashSet<int> visited = new();
             foreach (var kvp in dict)
             {
@@ -918,7 +926,7 @@ namespace Neetcode150
 
             Dictionary<int, List<int>> mdict = new();
             HashSet<int> visited = new();
-            HashSet<int> cycle = new();//protection against redundant entries
+            HashSet<int> takenPrev = new();//protection against redundant entries
                                        //,not actual cycles in course schedule
             List<int> results = new();
 
@@ -938,7 +946,7 @@ namespace Neetcode150
 
             foreach (var item in mdict)
             {
-                if (!dfs(mdict, visited, cycle, item.Key))
+                if (!dfs(mdict, visited, takenPrev, item.Key))
                     return new int[0];
             }
             bool dfs(Dictionary<int, List<int>> preq, HashSet<int> vis, HashSet<int> cycle, int curs)
@@ -960,6 +968,7 @@ namespace Neetcode150
                     if (!dfs(preq, vis, cycle, elo))
                         return false;
                 }
+                
                 vis.Remove(curs);
                 results.Add(curs);
                 preq[curs] = new List<int>();
@@ -1267,43 +1276,45 @@ namespace Neetcode150
         edges=[]
         */
         //https://neetcode.io/problems/count-connected-components        
-        public int CountComponents(int n, int[][] edges) 
+        public int CountComponents(int n, int[][] edges)
         {
-        List<List<int>> adj = new List<List<int>>();
-        bool[] visit = new bool[n];
-        
-        for (int i = 0; i < n; i++) 
-        {
-            adj.Add(new List<int>());
-        }
-            
-        foreach (var edge in edges) 
-        {
-            adj[edge[0]].Add(edge[1]);
-            adj[edge[1]].Add(edge[0]);
+            List<List<int>> adj = new List<List<int>>();
+            bool[] visit = new bool[n];
+
+            for (int i = 0; i < n; i++)
+            {
+                adj.Add(new List<int>());
+            }
+
+            foreach (var edge in edges)
+            {
+                adj[edge[0]].Add(edge[1]);
+                adj[edge[1]].Add(edge[0]);
+            }
+
+            int res = 0;
+            for (int node = 0; node < n; node++)
+            {
+                if (!visit[node])
+                {
+                    Dfs(adj, visit, node);
+                    res++;
+                }
+            }
+            return res;
         }
 
-        int res = 0;
-        for (int node = 0; node < n; node++) 
+        private void Dfs(List<List<int>> adj, bool[] visit, int node)
         {
-           if (!visit[node]) 
-           {
-            Dfs(adj, visit, node);
-            res++;
-           }
-         }
-        return res;
-        }
-
-    private void Dfs(List<List<int>> adj, bool[] visit, int node) {
-        visit[node] = true;
-        foreach (var nei in adj[node]) {
-            if (!visit[nei]) {
-                Dfs(adj, visit, nei);
+            visit[node] = true;
+            foreach (var nei in adj[node])
+            {
+                if (!visit[nei])
+                {
+                    Dfs(adj, visit, nei);
+                }
             }
         }
-    }
-
         #endregion
     }
 }
