@@ -3,7 +3,8 @@ Coin Change
 https://leetcode.com/problems/coin-change/
 Source:https://leetcode.com/problems/coin-change/solutions/778548/c-dp-solution-explained-100-time-100-space
 
-Let's assume we have a series of memory cells storing how many coins are needed as a minimum to get there, safely considering that for the first, matching the amount of 0, we actually have 0 options, while the initial value of all the others is going to be INT_MAX. Since we want to compute up to amount, and we have a 0 value for simplicity amount + 1 cells are how many we need.
+Let's assume we have a series of memory cells storing how many coins are needed as a minimum to get there, safely considering that for the first, matching the amount of 0, we actually have 0 options, 
+while the initial value of all the others is going to be INT_MAX. Since we want to compute up to amount, and we have a 0 value for simplicity amount + 1 cells are how many we need.
 
 It is much easier to go with an example and I am confident most people will find it more understandable as they proceed reading.
 
@@ -11,11 +12,14 @@ So, for our aforementioned example, let's assume having as coins [1, 2, 5] and w
 
 {0, INT_MAX, INT_MAX, INT_MAX, INT_MAX, INT_MAX, INT_MAX}
 
-And we move then with our loop to the second cell, with index i == 1, our first INT_MAX to parse: we loop through the coins and we see we can go back only with the first coin (c == 1, since in order to get there, we can make one move, plus what it took to get to i - c positions before. This is definitely less than INT_MAX, so we update our array, which now is:
+And we move then with our loop to the second cell, with index i == 1, our first INT_MAX to parse: we loop through the coins and we see we can go back only with the first coin c == 1, since in order to get there, 
+we can make one move, plus what it took to get to i - c positions before. This is definitely less than INT_MAX, so we update our array, which now is:
 
 {0, 1, INT_MAX, INT_MAX, INT_MAX, INT_MAX, INT_MAX}
 
-Not too clear? Okay, let's move to index i == 2 and things should possibly simplify a bit: this time we have two coins that are <= i, 1 and 2: we know that to get to a total of two coins, we can take either what is needed to make one coin (the cell we just computed to have value 1 in the previous iteration) plus one with c == 1 or what is needed to make zero coins (initially set to 0) plus one with c == 2. Again, we will not use c == 5 because, for now, we cannot go back 5 positions. Updated situation:
+Not too clear? Okay, let's move to index i == 2 and things should possibly simplify a bit: this time we have two coins that are <= i, 1 and 2: we know that to get to a total of two coins,
+ we can take either what is needed to make one coin (the cell we just computed to have value 1 in the previous iteration) plus one with c == 1 or what is needed to make zero coins (initially set to 0) plus one with c == 2. 
+ Again, we will not use c == 5 because, for now, we cannot go back 5 positions. Updated situation:
 
 {0, 1, 1, INT_MAX, INT_MAX, INT_MAX, INT_MAX}
 
@@ -27,7 +31,9 @@ Now: i == 4: we can go back again only by one cell or two, and we quickly notice
 
 {0, 1, 1, 2, 2, INT_MAX, INT_MAX}
 
-Finally with i == 5 we can also use the last and more "powerful" coin, going back up to five slots; if you followed me up to here, you will see probably soon that using this very coin is the most convenient option: to have a value of 5, we just need one coin (with the same value) plus the coins we needed to have a value of 0 (zero coins, indeed); definitely better than having a coin more than the one necessary to get either a value of 3 or 4 (that would be 3 coins in both cases), so we have now:
+Finally with i == 5 we can also use the last and more "powerful" coin, going back up to five slots; if you followed me up to here, 
+you will see probably soon that using this very coin is the most convenient option: to have a value of 5, we just need one coin (with the same value) plus the coins we needed to have a value of 0 (zero coins, indeed); 
+definitely better than having a coin more than the one necessary to get either a value of 3 or 4 (that would be 3 coins in both cases), so we have now:
 
 {0, 1, 1, 2, 2, 1, INT_MAX}
 

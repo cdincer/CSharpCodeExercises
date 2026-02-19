@@ -1007,7 +1007,7 @@ namespace Neetcode150
         [[1,5],[1,4],[3,4],[2,3],[1,2]]
         [[2,3],[2,5],[1,5],[2,4],[1,4]]
         */
-        public int[] FindRedundantConnection(int[][] edges)
+      public int[] FindRedundantConnection(int[][] edges)
         {
             int size = edges.Length;
             int[] roots = new int[size + 1];
@@ -1033,7 +1033,7 @@ namespace Neetcode150
 
                 return roots[x] = find(roots[x]);
             }
-
+            //https://en.wikipedia.org/wiki/Disjoint-set_data_structure#Union_by_rank
             bool union(int x, int y)
             {
                 int px = find(roots[x]);
@@ -1046,7 +1046,7 @@ namespace Neetcode150
                 {
                     roots[py] = px;
                 }
-                else if (ranks[y] > ranks[x])
+                else if (ranks[py] > ranks[px])
                 {
                     roots[px] = py;
                 }
