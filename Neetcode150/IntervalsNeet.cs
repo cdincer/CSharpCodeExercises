@@ -277,7 +277,8 @@ namespace Neetcode150
         #endregion
         #region Meeting Rooms II  (Premium question)
         /*
-        Given an array of meeting time interval objects consisting of start and end times [[start_1,end_1],[start_2,end_2],...] (start_i < end_i), find the minimum number of days required to schedule all meetings without any conflicts.
+        Given an array of meeting time interval objects consisting of start and end times [[start_1,end_1],[start_2,end_2],...] (start_i < end_i), 
+        find the minimum number of days required to schedule all meetings without any conflicts.
 
         Example 1:
         Input: intervals = [(0,40),(5,10),(15,20)]
@@ -300,6 +301,7 @@ namespace Neetcode150
             [] 6 / 22 cases passed
             [(0,10),(1,3),(2,6),(5,8),(7,12),(11,15),(13,18),(16,20),(19,25),(24,30)] 10 / 22 cases passed
             [(0,10),(10,20),(20,30),(30,40),(40,50),(50,60),(60,70),(70,80),(80,90),(90,100),(0,100),(10,90),(20,80),(30,70),(40,60)] 19 / 22 cases passed
+
             C# Test Cases:
             List<IntervalsNeet.Interval> times = new()
             {
@@ -363,14 +365,14 @@ namespace Neetcode150
             end.Sort();
 
             for (int s = 0, e = 0; s < start.Count; s++)
-            {
+            {   //Explanations end up being reversed
                 if (start[s] < end[e])
-                {
-                    result++;
+                {                     
+                    result++;     // Step 2: otherwise, we need a new room
                 }
-                else
-                {
-                    e++;
+                else     // Step 1: if a meeting starts after or at                                         
+                {        // the same time another meeting ends, 
+                    e++; // they can share the same room
                 }
             }
             return result;
