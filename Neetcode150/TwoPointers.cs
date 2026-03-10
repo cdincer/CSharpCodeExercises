@@ -302,26 +302,27 @@ namespace Neetcode150
         */
         public int Trap(int[] height)
         {
-
-            if (height is null || height.Length == 0) return 0;
-
-            int left = 0, right = height.Length - 1;
-            int leftMax = height[left], rightMax = height[right];
+            int left = 0;
+            int right = height.Length - 1;
             int result = 0;
+
+            int leftMax = height[left];
+            int rightMax = height[right];
 
             while (left < right)
             {
+                leftMax = Math.Max(height[left], leftMax);
+                rightMax = Math.Max(height[right], rightMax);
+
                 if (leftMax < rightMax)
                 {
-                    left++;//Because the leftMax is lower,this height can't carry water, we move one index ahead
-                    leftMax = Math.Max(leftMax, height[left]);
                     result += leftMax - height[left];
+                    left++;
                 }
                 else
                 {
-                    right--;//Because the rightMax is lower,this height can't carry water, we move one index ahead
-                    rightMax = Math.Max(rightMax, height[right]);
                     result += rightMax - height[right];
+                    right--;
                 }
             }
 
