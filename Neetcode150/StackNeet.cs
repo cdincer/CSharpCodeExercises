@@ -419,7 +419,8 @@ namespace Neetcode150
             0 < speed[i] <= 106
 
         Extra Test Cases:
-        target = 10 position = [6,8] speed = [3,2] 11 / 48 testcases passed
+        target = 10 position = [6,8] speed = [3,2] Expected: 2 11 / 48 testcases passed
+        target = 10 position = [0,4,2] speed = [2,1,3] Expected: 1 -- 12 / 48 testcases passed
         https://leetcode.com/problems/car-fleet/
         */
         public int CarFleetNeet(int target, int[] position, int[] speed)
