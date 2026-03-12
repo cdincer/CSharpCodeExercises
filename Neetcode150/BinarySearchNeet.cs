@@ -333,7 +333,7 @@ namespace Neetcode150
                 }
                 else//Right half is sorted
                 {
-                    if (target <= nums[right] && nums[mid] < target)//If Between this range search right range
+                    if (nums[mid] < target && target <= nums[right])//If Between this range search right range
                         left = mid + 1;
                     else
                         right = mid - 1;//Search left range
