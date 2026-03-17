@@ -640,17 +640,30 @@ namespace Neetcode150
         Everything to the right (15, 20, 7) forms the rightsubtree.
         3-Use the lengths to partition the preorder array accordingly and recursively repeat.
         */
+        int preIdx = 0;
+        int inIdx = 0;
+
         public TreeNode BuildTree(int[] preorder, int[] inorder)
         {
-            if (preorder.Length == 0 || inorder.Length == 0)
+            return Dfs(preorder, inorder, int.MaxValue);
+        }
+
+        private TreeNode Dfs(int[] preorder, int[] inorder, int limit)
+        {
+            if (preIdx >= preorder.Length)
             {
                 return null;
             }
 
-            TreeNode root = new TreeNode(preorder[0]);
-            int mid = Array.IndexOf(inorder, preorder[0]);
-            root.left = BuildTree(preorder.Skip(1).Take(mid).ToArray(), inorder.Take(mid).ToArray());
-            root.right = BuildTree(preorder.Skip(mid + 1).ToArray(), inorder.Skip(mid + 1).ToArray());
+            if (inorder[inIdx] == limit)
+            {
+                inIdx++;
+                return null;
+            }
+
+            TreeNode root = new TreeNode(preorder[preIdx++]);
+            root.left = Dfs(preorder, inorder, root.val);
+            root.right = Dfs(preorder, inorder, limit);
             return root;
         }
         #endregion

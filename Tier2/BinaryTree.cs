@@ -554,8 +554,7 @@ namespace Tier2
             https://leetcode.com/problems/construct-binary-tree-from-inorder-and-postorder-traversal/
         */
         public TreeNode BuildTree(int[] inorder, int[] postorder)
-        {//numbers[^1] is the same with numbers[length-1]
-         //https://learn.microsoft.com/en-us/dotnet/api/system.span-1?view=net-7.0
+        {
             TreeNode? Build(Span<int> inorder, Span<int> postorder)
             {
                 if (postorder.IsEmpty || inorder.IsEmpty)
