@@ -631,21 +631,21 @@ namespace Neetcode150
                 for (int c = 0; c < result.Count; c++)
                 {
                     int column = c;
-                    int diag1 = (r - c);//Closing a diagonal spot for negative side.
-                    int diag2 = (r + c);//Closing a diagonal spot for positive side.
+                    int diag1 = (r + c);//Closing a diagonal spot for positive side.
+                    int diag2 = (r - c);//Closing a diagonal spot for negative side.
                     //https://www.youtube.com/watch?v=Ph95IHmRp5M in this video these sides are shown.
                     
-                    if (col.Contains(column) || posdiag.Contains(diag2) || negdiag.Contains(diag1))
+                    if (col.Contains(column) || posdiag.Contains(diag1) || negdiag.Contains(diag2))
                         continue;
 
                     col.Add(column);
-                    posdiag.Add(diag2);
-                    negdiag.Add(diag1);
+                    posdiag.Add(diag1);
+                    negdiag.Add(diag2);
                     result[r][c] = 'Q';
                     searcher(r + 1, n - 1, col, posdiag, negdiag);
                     col.Remove(column);
-                    posdiag.Remove(diag2);
-                    negdiag.Remove(diag1);
+                    posdiag.Remove(diag1);
+                    negdiag.Remove(diag2);
                     result[r][c] = '.';
                 }
             }
