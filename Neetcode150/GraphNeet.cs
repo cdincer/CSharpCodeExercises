@@ -1186,8 +1186,16 @@ namespace Neetcode150
             0 <= edges.length <= n * (n - 1) / 2
 
 
+
          https://neetcode.io/problems/valid-tree
         */
+
+        //Criteria for validity 
+        //A graph is a valid tree if:
+
+        //It has no cycles
+        //It is fully connected
+        
         public bool ValidTree(int n, int[][] edges)
         {
             if (edges.Length > n - 1)
@@ -1220,7 +1228,9 @@ namespace Neetcode150
 
         private bool Dfs(int node, int parent, HashSet<int> visit,
         List<List<int>> adj)
-        {
+        {   
+            //Using DFS, we can detect cycles by checking 
+            //if we visit a node again from a path other than its parent.
             if (visit.Contains(node))
                 return false;
 
