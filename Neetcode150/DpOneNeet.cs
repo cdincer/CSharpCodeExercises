@@ -428,13 +428,13 @@ namespace Neetcode150
         public int CoinChange(int[] coins, int amount)
         {
             int[] dp = new int[amount + 1];
-            Array.Fill(dp,amount + 1);
+            Array.Fill(dp, amount + 1);
 
             dp[0] = 0;
 
-            for (int a = 1; a <= amount; a++)
+            foreach (int coin in coins)
             {
-                foreach (int coin in coins)
+                for (int a = 1; a <= amount; a++)
                 {
                     if (a - coin >= 0)
                     {
@@ -443,9 +443,7 @@ namespace Neetcode150
                 }
             }
 
-            return dp[amount] == amount + 1
-                ? -1
-                : dp[amount];
+            return dp[amount] == amount + 1 ? -1 : dp[amount];
         }
         #endregion
         #region Maximum Product Subarray
@@ -477,7 +475,7 @@ namespace Neetcode150
          [0,2] Expected: 2 111 / 190 testcases passed
          [3,-1,4] Expetec: 3 156 / 190 testcases passed
          [-2] Expected : -2 189 / 190 testcases passed
-        */ 
+        */
         public int MaxProduct(int[] nums)
         {
             int res = nums[0];
