@@ -131,25 +131,31 @@ namespace Neetcode150
         [1,2,1,1,1] Expected: 3 18 / 110 testcases passed
         https://leetcode.com/problems/jump-game-ii/
         */
-        //Prepletter psuedo code converted C#
+        //https://neetcode.io/solutions/jump-game-ii
+        //4th Solution BFS Greedy
+        //On Mar 30, 2026
+        //Runtime: 0ms Beats 100.00% Memory: 45.72MB Beats77.10%
+
         public int Jump(int[] nums)
         {
-            int jumps = 0;
-            int current_end = 0;
-            int farthest = 0;
+            int left = 0;
+            int right = 0;
+            int result = 0;
 
-            for (int i = 0; i < nums.Length - 1; i++)
+            while (right < nums.Length - 1)
             {
-                farthest = Math.Max(farthest, i + nums[i]);
-
-                if (i == current_end)
+                int maxJump = 0;
+                for (int i = left; i <= right; i++)
                 {
-                    jumps += 1;
-                    current_end = farthest;
+                    maxJump = Math.Max(i + nums[i], maxJump);
                 }
+
+                left = right + 1;
+                right = maxJump;
+                result++;
             }
 
-            return jumps;
+            return result;
         }
         #endregion
         #region Gas Station
