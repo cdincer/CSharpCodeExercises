@@ -366,8 +366,11 @@ namespace Neetcode150
             bool[,] dp = new bool[s1L + 1, s2L + 1];
             dp[s1L, s2L] = true;
 
-            for (int r = s1L; r >= 0; r--)
-            {
+            for (int r = s1L; r >= 0; r--)//s1L and s2L instead of s1L - 1 and s2L - 1 respectively 
+            {                             //this helps to check the full length of s3L properly
+                                          //for example: s1L 5 and s2L 5 and s3L 10, 
+                                          // s1[r] == s3[r + c] can be calculated only that way properly.
+                                          
                 for (int c = s2L; c >= 0; c--)
                 {
                     //dp[r + 1, c] and dp[r, c  +1] are for checking 
