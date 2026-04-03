@@ -253,8 +253,11 @@ namespace Neetcode150
             while (b != 0)
             {
                 int carry = (a & b) << 1;
+                //Console.WriteLine($"Before a:{a}--Binary Format:{Convert.ToString(a,2)} -- b:{b}--Binary Format:{Convert.ToString(b,2)} -- carry:{Convert.ToString(carry,2)}");
                 a ^= b;
                 b = carry;
+                //Console.WriteLine($"After  a:{a}--Binary Format:{Convert.ToString(a,2)} -- b:{b}--Binary Format:{Convert.ToString(b,2)} -- carry:{Convert.ToString(carry,2)}");
+                //Console.WriteLine("-----------------------------");
             }
             return a;
         }
