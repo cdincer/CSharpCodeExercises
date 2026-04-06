@@ -320,7 +320,7 @@ namespace Neetcode150
             return arr;
         }
         #endregion
-        #region String Encode And Decode
+        #region String Encode And Decode alternative name: Encode and Decode Strings
         /* Leetcode Premium Question
         Design an algorithm to encode a list of strings to a single string.
         The encoded string is then decoded back to the original list of strings.
