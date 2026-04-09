@@ -252,7 +252,7 @@ namespace Neetcode150
 
             while (left < right)
             {
-                 int mid = (right + left) / 2;
+                int mid = left + (right - left) / 2;
 
                 //If mid element is greater than the rightmost,min is in right half
                 if (nums[mid] > nums[right])
@@ -387,30 +387,27 @@ namespace Neetcode150
         //Sep 17, 2024 19:11 Passes at Runtime : 937 ms and Memory: 232.82 MB 
         public class TimeMap
         {
-            private Dictionary<string, List<(int timestamp, string value1)>> _dict;
+            Dictionary<string, List<(int, string)>> dict;
             public TimeMap()
             {
-                _dict = new Dictionary<string, List<(int, string)>>();
+                dict = new();
             }
 
             public void Set(string key, string value, int timestamp)
             {
-                var value1 = new List<(int, string)>();
-                if (!_dict.ContainsKey(key))
+                if (!dict.ContainsKey(key))
                 {
-                    _dict.Add(key, value1);
+                    dict.TryAdd(key, new List<(int, string)>());
                 }
-                _dict[key].Add((timestamp, value));
-
+                dict[key].Add((timestamp, value));
             }
 
             public string Get(string key, int timestamp)
             {
-                if (!_dict.ContainsKey(key))
-                {
+                if (!dict.ContainsKey(key))
                     return "";
-                }
-                List<(int timestamp,string value1)> timeStampList = _dict[key];
+
+                List<(int, string)> timeStampList = dict[key];
 
                 int left = 0;
                 int right = timeStampList.Count;
@@ -418,29 +415,27 @@ namespace Neetcode150
 
                 while (left < right)
                 {
-                    int mid = (left + right) / 2;
-                    if (timeStampList[mid].timestamp == timestamp)
+                    int mid = left + (right - left) / 2;
+
+                    if (timeStampList[mid].Item1 == timestamp)
                     {
-                        result = timeStampList[mid].value1;
-                        return result;
+                        return timeStampList[mid].Item2;
                     }
-                    else if (timeStampList[mid].timestamp < timestamp)
+
+                    if (timeStampList[mid].Item1 < timestamp)
                     {
+                        result = timeStampList[mid].Item2;
                         left = mid + 1;
-                        result = timeStampList[mid].value1;
                     }
                     else
                     {
                         right = mid;
                     }
-
                 }
 
                 return result;
             }
         }
-
-
         #endregion
         #region Median of Two Sorted Arrays  
         /*
