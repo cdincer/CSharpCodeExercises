@@ -639,6 +639,9 @@ namespace Neetcode150
         2-In inorder array, locate 3. Everything to the left (9) forms the left subtree. 
         Everything to the right (15, 20, 7) forms the rightsubtree.
         3-Use the lengths to partition the preorder array accordingly and recursively repeat.
+
+        //3. Depth First Search (Optimal)
+        https://neetcode.io/solutions/construct-binary-tree-from-preorder-and-inorder-traversal
         */
         int preIdx = 0;
         int inIdx = 0;
@@ -650,7 +653,7 @@ namespace Neetcode150
 
         private TreeNode Dfs(int[] preorder, int[] inorder, int limit)
         {
-            if (preIdx >= preorder.Length)
+            if (preIdx == preorder.Length)
             {
                 return null;
             }
@@ -660,7 +663,7 @@ namespace Neetcode150
                 inIdx++;
                 return null;
             }
-
+            
             TreeNode root = new TreeNode(preorder[preIdx++]);
             root.left = Dfs(preorder, inorder, root.val);
             root.right = Dfs(preorder, inorder, limit);
