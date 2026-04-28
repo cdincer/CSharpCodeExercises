@@ -548,26 +548,26 @@ namespace Neetcode150
             List<IList<int>> results = new();
 
             //top and bottom rows for every column
-            for (int col = 0; col < heights[0].Length; col++)
+            for (int col = 0; col < cl; col++)
             {
                 searcher(0, col, heights, pacf, heights[0][col]);
                 searcher(rl - 1, col, heights, atla, heights[rl - 1][col]);
             }
 
             //beginning and ending columns for every row
-            for (int row = 0; row < heights.Length; row++)
+            for (int row = 0; row < rl; row++)
             {
                 searcher(row, 0, heights, pacf, heights[row][0]);
                 searcher(row, cl - 1, heights, atla, heights[row][cl - 1]);
             }
 
-            for (int i = 0; i < heights.Length; i++)
+            for (int r = 0; r < rl; r++)
             {
-                for (int j = 0; j < heights[0].Length; j++)
+                for (int c = 0; c < cl; c++)
                 {
-                    if (pacf[i, j] && atla[i, j])
+                    if (pacf[r, c] && atla[r, c])
                     {
-                        results.Add(new List<int> { i, j });
+                        results.Add(new List<int> { r, c });
                     }
                 }
             }
