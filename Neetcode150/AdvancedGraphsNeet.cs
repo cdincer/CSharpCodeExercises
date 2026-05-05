@@ -294,6 +294,9 @@ namespace Neetcode150
             //binary search is the way to go about it, basically 
             //every time we send in "m" we are trying to verify
             //if we guessed the time correctly.
+
+            //m or time is the variable we use guide the path.
+            //This starting value never changes during the dfs process.
             while (l < r)
             {
                 int m = l + (r -  l) / 2;
