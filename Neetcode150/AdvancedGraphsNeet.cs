@@ -184,7 +184,6 @@ namespace Neetcode150
         ///Modified solution of Neetcode so it has a similar adjancency list and 
         ///dequeuing pattern.
 
-
         public int NetworkDelayTime(int[][] times, int n, int k)
         {
             int[] timeCosts = new int[n + 1];
@@ -198,9 +197,9 @@ namespace Neetcode150
                 dict.TryAdd(time[0], new List<(int, int)>());
                 dict[time[0]].Add((time[1], time[2]));
             }
-            Queue<(int, int)> que = new();
-            que.Enqueue((k, 0));
 
+            Queue<(int, int)> que = new();
+            que.Enqueue((k, 0)); 
             while (que.Count > 0)
             {
                 (int startPoint, int startCost) = que.Dequeue();
@@ -219,13 +218,11 @@ namespace Neetcode150
                         }
                     }
                 }
-
             }
 
             int result = 0;
             foreach (int timeCost in timeCosts)
-            {
-                //Console.WriteLine("timeCost " + timeCost);
+            {                
                 result = Math.Max(timeCost, result);
             }
 
