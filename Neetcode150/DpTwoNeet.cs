@@ -754,6 +754,8 @@ namespace Neetcode150
         Input: "mississippi" Pattern:"mis*is*p*."
         Input "a" Pattern:".*"
         Input:"ab" Pattern: ".*c" 10 /356 test cases.
+        Input:"mississippi" Pattern:"mis*is*p*." Expected: false 319/351 test cases.
+
         https://leetcode.com/problems/regular-expression-matching/
         https://neetcode.io/solutions/regular-expression-matching
         */
@@ -809,7 +811,7 @@ namespace Neetcode150
 
             for (int r = sL; r >= 0; r--)
             {
-                for (int c = pL - 1; c >= 0; c--) //pL - 1 because of c + 2
+                for (int c = pL - 1; c >= 0; c--) 
                 {
                     //'.' Matches any single character.​​​​
                     bool match = r < sL &&
