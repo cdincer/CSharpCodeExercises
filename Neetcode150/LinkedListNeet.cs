@@ -488,9 +488,9 @@ namespace Neetcode150
             int slow = nums[0];
             int fast = nums[nums[0]];
 
-            while (slow != fast)
-            {
-                slow = nums[slow];
+            while (slow != fast)  //This cycle will be guaranteed to end because of the duplicate number. 
+            {                      //It will be the point where they meet.
+                slow = nums[slow]; //For example index 4 for the first test case. Index 2 for the second test case.
                 fast = nums[nums[fast]];
 
                 if (slow == fast)
@@ -501,8 +501,8 @@ namespace Neetcode150
 
             while (slow != fast)
             {
-                slow = nums[slow];
-                fast = nums[fast];
+                slow = nums[slow];//This cycle will actually show the number that is duplicated.
+                fast = nums[fast];//For example 2 for the first test case. 3 for the second test case.
             }
 
             return slow;
