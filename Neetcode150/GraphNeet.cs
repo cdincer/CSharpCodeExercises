@@ -1230,6 +1230,10 @@ namespace Neetcode150
 
          https://neetcode.io/problems/valid-tree
         */
+        //Extra test cases:
+        //n=5
+        //edges=[[0,1],[2,0],[3,0],[1,4]] Expected output: true
+
 
         //Criteria for validity 
         //A graph is a valid tree if:
