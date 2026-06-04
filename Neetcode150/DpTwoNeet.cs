@@ -482,56 +482,57 @@ namespace Neetcode150
         //Variable:memo
         public int LongestIncreasingPath(int[][] matrix)
         {
-            int m = matrix.Length;
-            int n = matrix[0].Length;
+            int rl = matrix.Length;
+            int cl = matrix[0].Length;
 
-            memo = new int[m][];
-            for (int i = 0; i < m; i++)
+            memo = new int[rl][];
+            for (int i = 0; i < rl; i++)
             {
-                memo[i] = new int[n];
+                memo[i] = new int[cl];
             }
 
             int max = 0;
-            for (int i = 0; i < m; i++)
+            for (int r = 0; r < rl; r++)
             {
-                for (int j = 0; j < n; j++)
+                for (int c = 0; c < cl; c++)
                 {
-                    max = Math.Max(max, DFS(matrix, i, j));
+                    max = Math.Max(max, DFS(matrix, r, c));
                 }
             }
             return max;
         }
-        private int DFS(int[][] matrix, int i, int j)
+        
+        private int DFS(int[][] matrix, int r, int c)
         {
-            int m = matrix.Length;
-            int n = matrix[0].Length;
-            if (memo[i][j] != 0)
+            int rl = matrix.Length;
+            int cl = matrix[0].Length;
+            if (memo[r][c] != 0)
             {
-                return memo[i][j];
+                return memo[r][c];
             }
 
             int max = 1;
             // up
-            if (i - 1 >= 0 && matrix[i - 1][j] > matrix[i][j])
+            if (r - 1 >= 0 && matrix[r - 1][c] > matrix[r][c])
             {
-                max = Math.Max(max, 1 + DFS(matrix, i - 1, j));
+                max = Math.Max(max, 1 + DFS(matrix, r - 1, c));
             }
             // down
-            if (i + 1 < m && matrix[i + 1][j] > matrix[i][j])
+            if (r + 1 < rl && matrix[r + 1][c] > matrix[r][c])
             {
-                max = Math.Max(max, 1 + DFS(matrix, i + 1, j));
+                max = Math.Max(max, 1 + DFS(matrix, r + 1, c));
             }
             // left
-            if (j - 1 >= 0 && matrix[i][j - 1] > matrix[i][j])
+            if (c - 1 >= 0 && matrix[r][c - 1] > matrix[r][c])
             {
-                max = Math.Max(max, 1 + DFS(matrix, i, j - 1));
+                max = Math.Max(max, 1 + DFS(matrix, r, c - 1));
             }
             // right
-            if (j + 1 < n && matrix[i][j + 1] > matrix[i][j])
+            if (c + 1 < cl && matrix[r][c + 1] > matrix[r][c])
             {
-                max = Math.Max(max, 1 + DFS(matrix, i, j + 1));
+                max = Math.Max(max, 1 + DFS(matrix, r, c + 1));
             }
-            memo[i][j] = max;
+            memo[r][c] = max;
             return max;
         }
         #endregion
