@@ -376,6 +376,12 @@ namespace Neetcode150
                     //dp[r + 1, c] and dp[r, c  +1] are for checking 
                     //the interleaving works, this is done by checking the
                     //used up parts (remaining of both on 2-D array) are "valid"
+                    //Respectively of s1 and s2 have previously checked out correctly.
+
+                    //Both of these checks combined make up a chain of checks
+                    //they don't need to interact with each other because
+                    //if they don't work, dp[0,0] won't be true.
+                    //s1.Length + s2.Length == s3.Length makes sure of that.
                     if (r < s1L && s1[r] == s3[r + c] && dp[r + 1, c])
                     {
                         dp[r, c] = true;
