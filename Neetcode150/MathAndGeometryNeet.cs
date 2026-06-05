@@ -451,42 +451,41 @@ namespace Neetcode150
             if (string.Equals(num1, "0") || string.Equals(num2, "0"))
                 return "0";
 
-            char[] n1ar = num1.ToArray();
-            char[] n2ar = num2.ToArray();
-            int[] resultarr = new int[n1ar.Length + n2ar.Length];
+            char[] n1Ar = num1.ToArray();
+            char[] n2Ar = num2.ToArray();
+            int[] resultArr = new int[n1Ar.Length + n2Ar.Length];
 
             //reverse it and go from left to right
-            Array.Reverse(n1ar);
-            Array.Reverse(n2ar);
+            Array.Reverse(n1Ar);
+            Array.Reverse(n2Ar);
 
-            for (int ar1 = 0; ar1 < n1ar.Length; ar1++)
+            for (int ar1 = 0; ar1 < n1Ar.Length; ar1++)
             {
-                for (int ar2 = 0; ar2 < n2ar.Length; ar2++)
+                for (int ar2 = 0; ar2 < n2Ar.Length; ar2++)
                 {
-                    int n1num = n1ar[ar1] - '0';
-                    int n2num = n2ar[ar2] - '0';
-                    int digit = (n1num * n2num);
-                    resultarr[ar1 + ar2] += digit;
-                    resultarr[ar1 + ar2 + 1] += (resultarr[ar1 + ar2]) / 10;
-                    resultarr[ar1 + ar2] = (resultarr[ar1 + ar2]) % 10;
+                    int n1Num = n1Ar[ar1] - '0';
+                    int n2Num = n2Ar[ar2] - '0';
+                    int digit = (n1Num * n2Num);
+                    resultArr[ar1 + ar2] += digit;
+                    resultArr[ar1 + ar2 + 1] += (resultArr[ar1 + ar2]) / 10;
+                    resultArr[ar1 + ar2] = (resultArr[ar1 + ar2]) % 10;
                 }
             }
 
-            Array.Reverse(resultarr);
+            Array.Reverse(resultArr);
             StringBuilder results = new();
             int startPoint = 0;
 
-            for (int i = 0; i < resultarr.Length; i++)
+            for (int i = 0; i < resultArr.Length; i++)
             {
-                if (resultarr[i] != 0)
+                if (resultArr[i] != 0)
                     break;
                 startPoint++;
             }
 
-
-            for (int i = startPoint; i < resultarr.Length; i++)
+            for (int i = startPoint; i < resultArr.Length; i++)
             {
-                results.Append(resultarr[i]);
+                results.Append(resultArr[i]);
             }
 
             return results.ToString();
