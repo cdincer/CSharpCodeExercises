@@ -169,7 +169,8 @@ namespace Neetcode150
         */
         public int MinEatingSpeed(int[] piles, int h)
         {
-            int left = 1; int right = piles.Max();
+            int left = 1; 
+            int right = piles.Max();
             int result = right;
 
             while (left <= right)
@@ -179,9 +180,9 @@ namespace Neetcode150
 
                 foreach (int pile in piles)
                 {
-                    hours += (int)Math.Ceiling(pile / (double)mid);
-                }
-
+                    hours += (int)Math.Ceiling(pile / (double)mid);//Math.Ceiling because question description states,
+                }                                                  //even if the pile has less than eating speed, 
+                                                                   //we still have to count that hour.
                 if (hours <= h)
                 {
                     result = Math.Min(result, mid);
