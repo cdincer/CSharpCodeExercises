@@ -211,21 +211,15 @@ namespace Neetcode150
         A solution that runs in O(n) time is trivial, can you write an algorithm that runs in O(log n) time?
 
         Example 1:
-
         Input: nums = [3,4,5,6,1,2]
-
         Output: 1
 
         Example 2:
-
         Input: nums = [4,5,0,1,2,3]
-
         Output: 0
 
         Example 3:
-
         Input: nums = [4,5,6,7]
-
         Output: 4
 
         Constraints:
@@ -240,11 +234,9 @@ namespace Neetcode150
         */
 
         /*
-        Complete explanation
-        
-        At each step, check if the middle element is greater than the rightmost element.
-        If so, the minimum must be to the right.
-        Otherwise, the minimum is at mid or to the left.
+        Complete explanation:
+        https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/solutions/158940/beat-100-very-simple-python-very-detaile-pzak
+
         */
         public int FindMin(int[] nums)
         {
@@ -262,7 +254,7 @@ namespace Neetcode150
                 }
                 else
                 {
-                    //Min is at the mid or to the left
+                    //Min is at the mid or to the left and not mid - 1 because it's nums[mid] <= nums[right] and mid can be the minimum.
                     right = mid;
                 }
             }
