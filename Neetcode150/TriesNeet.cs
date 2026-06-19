@@ -404,9 +404,12 @@ namespace Neetcode150
 
         private void Dfs(char[][] board, TrieNode3 node, int r, int c, string[] words)
         {
-            if (r < 0 || c < 0 || r >= board.Length ||
-                c >= board[0].Length || board[r][c] == '*' ||
-                node.children[board[r][c] - 'a'] == null)
+            if
+            (
+            r < 0 || c < 0 ||
+            r >= board.Length || c >= board[0].Length ||
+             board[r][c] == '*' || node.children[board[r][c] - 'a'] == null
+            )
             {
                 return;
             }
@@ -415,11 +418,13 @@ namespace Neetcode150
             board[r][c] = '*';
             TrieNode3 prev = node;
             node = node.children[temp - 'a'];
+
             if (node.idx != -1)
             {
                 res.Add(words[node.idx]);
                 node.idx = -1;//set isWord to false.
                 node.refs--;
+
                 if (node.refs == 0)
                 {
                     node = null;
