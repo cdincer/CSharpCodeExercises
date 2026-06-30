@@ -990,27 +990,27 @@ namespace Neetcode150
                 if (!dfs(mdict, visited, takenPrev, item.Key))
                     return new int[0];
             }
-            bool dfs(Dictionary<int, List<int>> preq, HashSet<int> vis, HashSet<int> cycle, int curs)
+            bool dfs(Dictionary<int, List<int>> preq, HashSet<int> visBefore, HashSet<int> takenBefore, int curs)
             {
-                if (vis.Contains(curs))
+                if (visBefore.Contains(curs))
                     return false;
 
                 if (preq[curs] == new List<int>())
                     return true;
 
-                if (cycle.Contains(curs))
+                if (takenBefore.Contains(curs))
                     return true;
 
-                vis.Add(curs);
-                cycle.Add(curs);
+                visBefore.Add(curs);
+                takenBefore.Add(curs);
 
                 foreach (int elo in preq[curs])
                 {
-                    if (!dfs(preq, vis, cycle, elo))
+                    if (!dfs(preq, visBefore, takenBefore, elo))
                         return false;
                 }
                 
-                vis.Remove(curs);
+                visBefore.Remove(curs);
                 results.Add(curs);
                 preq[curs] = new List<int>();
                 return true;
