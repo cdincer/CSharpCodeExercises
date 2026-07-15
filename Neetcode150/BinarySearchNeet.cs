@@ -167,6 +167,43 @@ namespace Neetcode150
         448138536] h = 943223529 80 / 126 testcases passed
         piles = [805306368,805306368,805306368]  h = 1000000000 125 / 126 testcases passed
         */
+
+        //Slower but no casting and Math Ceiling required
+        public int MinEatingSpeed2(int[] piles, int h)
+        {
+            int left = 1;
+            int right = piles.Max();
+            int result = right;
+
+            while (left <= right)
+            {
+                int mid = left + (right - left) / 2;
+                long hours = 0;
+
+                foreach (int pile in piles)
+                {
+                    hours += pile / mid;
+                    if (pile % mid != 0)
+                    {
+                        hours++;
+                    }      
+                }                                                  
+                                                               
+                if (hours <= h)
+                {
+                    result = Math.Min(result, mid);
+                    right = mid - 1;
+                }
+                else
+                {
+                    left = mid + 1;
+                }
+            }
+
+            return result;
+        }
+
+        //Faster but requires casting and Math Ceiling
         public int MinEatingSpeed(int[] piles, int h)
         {
             int left = 1; 
