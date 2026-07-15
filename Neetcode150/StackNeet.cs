@@ -461,11 +461,8 @@ namespace Neetcode150
                 // if the duration is less than previously seen cars, then it will join a fleet
                 // if the duration is more than previously seen cars, it will be in it's own fleet
 
-                ////Console.Out.WriteLine($"({position[i]},{speed[i]}) ({distance},{duration})");
                 if (stack.Count == 0 || duration > stack.Peek().Duration)
                 {
-                    //var print = stack.Count > 0 ? stack.Peek().Duration.ToString() : "";
-                    ////Console.Out.WriteLine($"(PUSHING ({distance}>{print})");
                     stack.Push((position[i], duration));
                 }
             }
@@ -473,6 +470,33 @@ namespace Neetcode150
             return stack.Count;
         }
 
+        //No stack usage to save up on memory
+
+        public int CarFleetStackless(int target, int[] position, int[] speed)
+        {
+            (double, double)[] cars = new (double, double)[speed.Length];
+            int result = 0;
+
+            for (int i = 0; i < position.Length; i++)
+            {
+                cars[i] = (position[i], speed[i]);
+            }
+
+            //position //speed
+            Array.Sort(cars, (a, b) => a.Item1.CompareTo(b.Item1));
+            double baseLine = 0;
+            for (int i = cars.Length - 1; i >= 0; i--)
+            {
+                double curr = (target - cars[i].Item1) / cars[i].Item2;
+
+                if (baseLine < curr)
+                {
+                    result++;
+                    baseLine = curr;
+                }
+            }
+            return result;
+        }
         #endregion
         #region Largest Rectangle in Histogram
         /* Given an array of integers heights representing the histogram's bar height where the width of each bar is 1, return the area of the largest rectangle in the histogram.
