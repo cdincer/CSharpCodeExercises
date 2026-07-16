@@ -417,6 +417,7 @@ namespace Neetcode150
         //Sep 17, 2024 19:11 Passes at Runtime : 937 ms and Memory: 232.82 MB 
         public class TimeMap
         {
+
             Dictionary<string, List<(int, string)>> dict;
             public TimeMap()
             {
@@ -440,10 +441,9 @@ namespace Neetcode150
                 List<(int, string)> timeStampList = dict[key];
 
                 int left = 0;
-                int right = timeStampList.Count;
+                int right = timeStampList.Count - 1;
                 string result = "";
-
-                while (left < right)
+                while (left <= right)
                 {
                     int mid = left + (right - left) / 2;
 
@@ -459,7 +459,7 @@ namespace Neetcode150
                     }
                     else
                     {
-                        right = mid;
+                        right = mid - 1;
                     }
                 }
 
