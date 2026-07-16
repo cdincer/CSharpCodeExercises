@@ -8,24 +8,33 @@
     "net8.0": []
   },
   "packageFolders": {
-    "/home/deck/.nuget/packages/": {}
+    "C:\\Users\\Can\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {},
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/deck/Documents/Repos/CSharpCodeExercises/CSharpCodeExercises.csproj",
+      "projectUniqueName": "C:\\Users\\Can\\Source\\Repos\\CSharpCodeExercises\\CSharpCodeExercises.csproj",
       "projectName": "CSharpCodeExercises",
-      "projectPath": "/home/deck/Documents/Repos/CSharpCodeExercises/CSharpCodeExercises.csproj",
-      "packagesPath": "/home/deck/.nuget/packages/",
-      "outputPath": "/home/deck/Documents/Repos/CSharpCodeExercises/obj/",
+      "projectPath": "C:\\Users\\Can\\Source\\Repos\\CSharpCodeExercises\\CSharpCodeExercises.csproj",
+      "packagesPath": "C:\\Users\\Can\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Can\\Source\\Repos\\CSharpCodeExercises\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+      ],
       "configFilePaths": [
-        "/home/deck/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\Can\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp8.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -38,7 +47,13 @@
         "warnAsError": [
           "NU1605"
         ]
-      }
+      },
+      "restoreAuditProperties": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "direct"
+      },
+      "SdkAnalysisLevel": "9.0.300"
     },
     "frameworks": {
       "net8.0": {
@@ -54,18 +69,12 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
-        "downloadDependencies": [
-          {
-            "name": "Microsoft.AspNetCore.App.Ref",
-            "version": "[8.0.11, 8.0.11]"
-          }
-        ],
         "frameworkReferences": {
           "Microsoft.NETCore.App": {
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/8.0.111/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.306/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
