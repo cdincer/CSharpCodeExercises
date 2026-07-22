@@ -357,11 +357,12 @@ namespace Neetcode150
         //Solution below doesn't. Reason for this is the removal of nodes
         //that don't lead to anywhere, in the previous iterations it did.
 
+
         class TrieNode3
         {
             public TrieNode3[] children = new TrieNode3[26];
-            public int idx = -1;//this variable replaces isWord bool
-                                //that exists in other Trie questions.
+            public int idx = -1;//this is used to identify it's a word in words array
+                                //and replaces isWord bool in other Node implementations
             public int refs = 0;
 
             public void AddWord(string word, int i)
@@ -381,10 +382,16 @@ namespace Neetcode150
                 cur.idx = i;
             }
         }
+        
         private List<string> res = new List<string>();
+        int rl = 0;
+        int cl = 0;
 
         public List<string> FindWords(char[][] board, string[] words)
         {
+            rl = board.Length;
+            cl = board[0].Length;
+
             TrieNode3 root = new TrieNode3();
             for (int i = 0; i < words.Length; i++)
             {
@@ -404,20 +411,19 @@ namespace Neetcode150
 
         private void Dfs(char[][] board, TrieNode3 node, int r, int c, string[] words)
         {
-            if
-            (
-            r < 0 || c < 0 ||
-            r >= board.Length || c >= board[0].Length ||
-             board[r][c] == '*' || node.children[board[r][c] - 'a'] == null
-            )
-            {
+
+            if (r < 0 || c < 0 || r >= rl || c >= cl || board[r][c] == '*')
                 return;
-            }
+
+            int curLetter = board[r][c] - 'a';
+
+            if (node == null || node.children[curLetter] == null)
+                return;
 
             char temp = board[r][c];
             board[r][c] = '*';
             TrieNode3 prev = node;
-            node = node.children[temp - 'a'];
+            node = node.children[curLetter];
 
             if (node.idx != -1)
             {
@@ -428,7 +434,7 @@ namespace Neetcode150
                 if (node.refs == 0)
                 {
                     node = null;
-                    prev.children[temp - 'a'] = null;
+                    prev.children[curLetter] = null;
                     board[r][c] = temp;
                     return;
                 }
