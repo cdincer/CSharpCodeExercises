@@ -255,7 +255,7 @@ namespace Neetcode150
         private void backTrack(List<IList<int>> list, List<int> curr, int[] nums, int start)
         {
             list.Add(new List<int>(curr));
-            for (var i = start; i < nums.Length; i++)
+            for (int i = start; i < nums.Length; i++)
             {
                 if (i > start && nums[i] == nums[i - 1])//Previous item and their recursion already processed this 
                     continue;                           //subset in their own recursive body/method because of that on 

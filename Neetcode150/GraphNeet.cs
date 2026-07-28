@@ -1018,6 +1018,59 @@ namespace Neetcode150
 
             return results.ToArray();
         }
+
+        //Alternative solution based on Course Schedule I with some personal tweaks 
+        //Passes all of the tests and a successful submission on Leetcode on 2026-07-28 subject to change if there are edge cases
+        //This solution is based on the criteria of " If there are many valid answers, return any of them. If it is impossible to finish all courses, return an empty array."
+
+        HashSet<int> hResult;
+        Dictionary<int, List<int>> adj;
+        public int[] FindOrderII(int numCourses, int[][] preq)
+        {
+            adj = new();
+            hResult = new();
+
+            for (int i = 0; i < numCourses; i++)
+            {
+                adj.TryAdd(i, new List<int>());
+            }
+
+            for (int i = 0; i < preq.Length; i++)
+            {
+                adj[preq[i][0]].Add(preq[i][1]);
+            }
+
+            HashSet<int> visited = new();
+            foreach (var kvp in adj)
+            {
+                if (!Cycler(kvp.Key, visited))
+                    return new int[] { };
+            }
+
+            return hResult.ToArray();
+        }
+
+        public bool Cycler(int course, HashSet<int> visited)
+        {
+            if (visited.Contains(course))
+                return false;
+
+            visited.Add(course);
+
+            while (adj[course].Count > 0)
+            {
+                int les = adj[course][^1];
+                adj[course].RemoveAt(adj[course].Count - 1);
+
+                if (!Cycler(les, visited))
+                    return false;
+            }
+
+            visited.Remove(course);
+            hResult.Add(course);
+            return true;
+        }
+
         #endregion
         #region Redundant Connection
         /*
@@ -1048,7 +1101,7 @@ namespace Neetcode150
         [[1,5],[1,4],[3,4],[2,3],[1,2]]
         [[2,3],[2,5],[1,5],[2,4],[1,4]]
         */
-      public int[] FindRedundantConnection(int[][] edges)
+        public int[] FindRedundantConnection(int[][] edges)
         {
             int size = edges.Length;
             int[] roots = new int[size + 1];
