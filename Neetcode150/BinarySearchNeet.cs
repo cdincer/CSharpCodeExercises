@@ -267,6 +267,7 @@ namespace Neetcode150
         Extra Test Case:
         [3,1,2] 58 / 150 testcases
         [2,1] 108 / 150 testcases
+        [2,3,4,5,1] 10 / 150 test cases
         https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/description/
         */
 
@@ -297,6 +298,35 @@ namespace Neetcode150
             }
             //left == right is the index of the minimum
             return nums[left];
+        }
+        //Just to show that standard binary search instead of the one above.
+        public int FindMinAlt(int[] nums)
+        {
+
+            if (nums[0] < nums[^1])
+                return nums[0];
+
+            int left = 0;
+            int right = nums.Length - 1;
+            int res = int.MaxValue;
+
+            while (left <= right)
+            {
+                int m = left + (right - left) / 2;
+
+                res = Math.Min(res, nums[m]);
+
+                if (nums[m] > nums[right])
+                {
+                    left = m + 1;
+                }
+                else
+                {
+                    right = m - 1;
+                }
+            }
+
+            return res;
         }
         #endregion
         #region Search in Rotated Sorted Array

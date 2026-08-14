@@ -540,10 +540,10 @@ namespace Neetcode150
 
             for (int i = s.Length - 1; i >= 0; i--)
             {
-                foreach (var w in wordDict)
-                {
-                    if (i + w.Length <= s.Length && s.Substring(i, w.Length) == w)
-                        dp[i] = dp[i + w.Length];
+                foreach (string w in wordDict)
+                    {
+                        if (i + w.Length <= s.Length && s.Substring(i, w.Length) == w)
+                            dp[i] = dp[i + w.Length];
 
                     if (dp[i] == true)
                         break;
@@ -680,8 +680,9 @@ namespace Neetcode150
 
             foreach (int n in nums)
             {
-                for (int i = target; i >= n; i--)
-                {
+                for (int i = target; i >= n; i--)//Normally we would do it 0 to target but we need to go backwards to avoid using the same number twice
+                {                                //for an example like 1,2,3,5 could have been 1,5,3,2 and during that process we would have used 3 or 2 twice.
+                                                 //mix them into our DP array.  
                     if (dp[i] == true)
                     {
                         continue;
