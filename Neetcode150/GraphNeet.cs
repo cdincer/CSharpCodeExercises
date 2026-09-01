@@ -1394,13 +1394,15 @@ namespace Neetcode150
 
             for (int i = 0; i < n; i++)
             {
-                adj.Add(new List<int>());
+                adj.Add(new List<int>());//Guard against "not present" errors and checking for isolated nodes.
             }
 
             foreach (var edge in edges)
             {
                 adj[edge[0]].Add(edge[1]);
-                adj[edge[1]].Add(edge[0]);
+                adj[edge[1]].Add(edge[0]);//These additions make sure that 
+                                          //this node is connected to graph component 
+                                          //and not a disconnected isolated single node.
             }
 
             int res = 0;
