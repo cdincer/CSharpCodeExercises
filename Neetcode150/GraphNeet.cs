@@ -565,7 +565,10 @@ namespace Neetcode150
             {
                 for (int c = 0; c < cl; c++)
                 {
-                    if (pacf[r, c] && atla[r, c])
+                    if (pacf[r, c] && atla[r, c])//Because we are already moving between valid start points
+                                                //even without checking the rest of the steps are valid. We can just 
+                                                //assume this is a part of a valid path. You can't get to a middle,end of path
+                                                //without starting points being valid.
                     {
                         results.Add(new List<int> { r, c });
                     }
