@@ -683,7 +683,7 @@ namespace Neetcode150
                 for (int i = target; i >= n; i--)//We are moving from right to left which is not usually done.
                 {                                //This is not obvious on a 1D Array however this is a flattened solution to save memory,this 1D array can be 
                                                  //thought of carrying results from previous iterations. If we don't iterate in reverse, we are overriding them, erroneously.
-                    if (dp[i] == true)                                             
+                    if (dp[i] == true)           //Detailed explanation can be seen in DPOneNeet explanations.txt file in this repo.                                  
                     {
                         continue;
                     }

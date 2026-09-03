@@ -74,3 +74,26 @@ public:
 Partition Equal Subset Sum
 https://leetcode.com/problems/partition-equal-subset-sum/
 Source:https://leetcode.com/problems/partition-equal-subset-sum/solutions/6847382/video-detailed-explanation-with-dynamic-programming
+
+
+Reason we loop backwards is that we have to get dp[i] from its previous loop dp[i-1]
+
+dp[i][j] = dp[i-1][j] || dp[i-1][j-nums[i-1]]
+
+As for
+
+for (int num: nums){
+   for (int i = sum; i>0; i--){
+      if (i>=num)
+         dp[i] = dp[i] || dp[i-num]
+    }
+}
+
+Every loop of nums refreshes dp array. We might get dp[i] from dp[i-num] whose index is smaller than i. If we increase the index of sum from 0 to sum, we will get dp[i] from dp[i-num] , 
+while dp[i-num] has been updated in this loop. This dp[i-num] is not the number we got from the previous loop.
+
+So why would we do this? This is because the numbers in nums can only be used once. If we can choose each number several times, we have to increase i from 0 to sum. Which means,
+if we are going to choose dp[i], we have to consider the situation where dp[i] has been chosen before. In this case, dp[i] is updated from dp[i-num] which is in the same loop with dp[i]. 
+This dp[i-num] we use is a kind of result where dp[i] has been chosen.
+
+https://leetcode.com/problems/partition-equal-subset-sum/solutions/90592/01-knapsack-detailed-explanation-by-zhue-y5hc/comments/94996/?parent=95009
