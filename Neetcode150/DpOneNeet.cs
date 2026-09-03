@@ -680,10 +680,10 @@ namespace Neetcode150
 
             foreach (int n in nums)
             {
-                for (int i = target; i >= n; i--)//Normally we would do it 0 to target but we need to go backwards to avoid using the same number twice
-                {                                //for an example like 1,2,3,5 could have been 1,5,3,2 and during that process we would have used 3 or 2 twice.
-                                                 //mix them into our DP array.  
-                    if (dp[i] == true)
+                for (int i = target; i >= n; i--)//We are moving from right to left which is not usually done.
+                {                                //This is not obvious on a 1D Array however this is a flattened solution to save memory,this 1D array can be 
+                                                 //thought of carrying results from previous iterations. If we don't iterate in reverse, we are overriding them, erroneously.
+                    if (dp[i] == true)                                             
                     {
                         continue;
                     }
