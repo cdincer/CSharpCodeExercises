@@ -771,6 +771,7 @@ namespace Neetcode150
 
         https://leetcode.com/problems/rotting-oranges/
         grid = [[0]] Expected:0 304 / 306 testcases passed
+        grid = [[2,1,1],[1,1,1],[0,1,2]] Expected: 2 119 / 307 testcases passed 2026-09-28 count.
         */
         public int OrangesRotting(int[][] grid)
         {
