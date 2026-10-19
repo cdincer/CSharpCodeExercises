@@ -371,10 +371,9 @@ namespace Neetcode150
                         newStart++;
                     }
                     int length = int.Parse(s.Substring(prevEnd, newStart - prevEnd));
-                    prevEnd = newStart + 1;
-                    newStart = prevEnd + length;
-                    res.Add(s.Substring(prevEnd, length));
-                    prevEnd = newStart;
+                    prevEnd = newStart + length + 1;
+                    newStart++;
+                    res.Add(s.Substring(newStart, length));
                 }
                 return res;
             }
