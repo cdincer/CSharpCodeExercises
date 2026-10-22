@@ -276,30 +276,8 @@ namespace Neetcode150
         https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/solutions/158940/beat-100-very-simple-python-very-detaile-pzak
 
         */
-        public int FindMin(int[] nums)
-        {
-            int left = 0;
-            int right = nums.Length - 1;
 
-            while (left < right)
-            {
-                int mid = left + (right - left) / 2;
-
-                //If mid element is greater than the rightmost,min is in right half
-                if (nums[mid] > nums[right])
-                {
-                    left = mid + 1;
-                }
-                else
-                {
-                    //Min is at the mid or to the left and not mid - 1 because it's nums[mid] <= nums[right] and mid can be the minimum.
-                    right = mid;
-                }
-            }
-            //left == right is the index of the minimum
-            return nums[left];
-        }
-        //Just to show that standard binary search instead of the one above.
+        //Standard binary search version.
         public int FindMinAlt(int[] nums)
         {
 
@@ -315,13 +293,14 @@ namespace Neetcode150
                 int m = left + (right - left) / 2;
 
                 res = Math.Min(res, nums[m]);
-
+                //If mid element is greater than the rightmost,min is in right half
                 if (nums[m] > nums[right])
                 {
                     left = m + 1;
                 }
                 else
                 {
+                    //Min is at the mid or to the left and not mid - 1 because it's nums[mid] <= nums[right] and mid can be the minimum.
                     right = m - 1;
                 }
             }
