@@ -651,6 +651,8 @@ namespace Neetcode150
    *         this.next = next;
    *     }
    * }
+
+        //3. Merge Lists One By One
    */
         public ListNode MergeKLists(ListNode[] lists)
         {
@@ -706,30 +708,35 @@ namespace Neetcode150
             return dummy.next;
         }
 
-        //Similar memory usage but slower run time compared to solution above.
-        //Above 4 ms, this one is 14 ms.
-        public ListNode MergeKListsIteration(ListNode[] lists)
+        //4. Heap
+        public ListNode MergeKListsHeap(ListNode[] lists)
         {
-            List<ListNode> gather = new();
-            foreach (ListNode node in lists)
+            if (lists.Length == 0) return null;
+
+            var minHeap = new PriorityQueue<ListNode, int>();
+            foreach (var list in lists)
             {
-                ListNode iterator = node;
-                while (iterator != null)
+                if (list != null)
                 {
-                    gather.Add(iterator);
-                    iterator = iterator.next;
+                    minHeap.Enqueue(list, list.val);
                 }
             }
 
-            ListNode mid = new();
-            ListNode result = mid;
-            gather.Sort((a, b) => a.val.CompareTo(b.val));
-            for (int i = 0; i < gather.Count; i++)
+            var res = new ListNode(0);
+            var cur = res;
+            while (minHeap.Count > 0)
             {
-                mid.next = new ListNode(gather[i].val);
-                mid = mid.next;
+                var node = minHeap.Dequeue();
+                cur.next = node;
+                cur = cur.next;
+
+                node = node.next;
+                if (node != null)
+                {
+                    minHeap.Enqueue(node, node.val);
+                }
             }
-            return result.next;
+            return res.next;
         }
 
 
