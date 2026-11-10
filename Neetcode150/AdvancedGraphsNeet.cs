@@ -300,12 +300,12 @@ namespace Neetcode150
 
             //m or time is the variable we use guide the path.
             //This starting value never changes during the dfs process.
-            while (l < r)
+            while (l <= r)
             {
                 int m = l + (r -  l) / 2;
                 if (dfs(grid, visit, 0, 0, m))
                 {
-                    r = m;
+                    r = m - 1;
                 }
                 else
                 {
