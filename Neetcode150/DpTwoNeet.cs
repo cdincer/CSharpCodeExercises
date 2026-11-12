@@ -816,8 +816,9 @@ namespace Neetcode150
             bool[,] dp = new bool[sL + 1, pL + 1];
             dp[sL, pL] = true;
 
-            for (int r = sL; r >= 0; r--)
-            {
+            for (int r = sL; r >= 0; r--)//sL instead of sL - 1 because of * and . symbols requirement for reaching
+            {                            //+1 and +2 during those reaches sL can be hit only this way.
+                                         //Sample test cases 2 and 3 demonstrate the required reach.
                 for (int c = pL - 1; c >= 0; c--) 
                 {
                     //'.' Matches any single character.​​​​
