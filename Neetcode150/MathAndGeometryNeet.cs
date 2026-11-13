@@ -101,50 +101,54 @@ namespace Neetcode150
         */
         public IList<int> SpiralOrder(int[][] matrix)
         {
-            List<int> result = new List<int>();
-            int top = 0;
+            List<int> result = new();
+
             int left = 0;
             int right = matrix[0].Length - 1;
+
+            int top = 0;
             int bottom = matrix.Length - 1;
 
             while (true)
             {
-                //Left to Right
-                for (int i = left; i <= right; i++)
+                for (int c = left; c <= right; c++)
                 {
-                    result.Add(matrix[top][i]);
+                    result.Add(matrix[top][c]);
                 }
+                
                 top++;
-                if (left > right || top > bottom) break;
 
-                //Top to Bottom
-                for (int i = top; i <= bottom; i++)
+                for (int r = top; r <= bottom; r++)
                 {
-                    result.Add(matrix[i][right]);
+                    result.Add(matrix[r][right]);
                 }
+
                 right--;
-                if (left > right || top > bottom) break;
 
-                //Right to Left
-                for (int i = right; i >= left; i--)
+                if (top > bottom || left > right)
+                    break;
+
+                for (int c = right; c >= left; c--)
                 {
-                    result.Add(matrix[bottom][i]);
+                    result.Add(matrix[bottom][c]);
                 }
-                bottom--;
-                if (left > right || top > bottom) break;
 
-                //Bottom to Top
-                for (int i = bottom; i >= top; i--)
+                bottom--;
+
+                for (int r = bottom; r >= top; r--)
                 {
-                    result.Add(matrix[i][left]);
+                    result.Add(matrix[r][left]);
                 }
                 left++;
-                if (left > right || top > bottom) break;
-            }//Repeat
+                
+                if (top > bottom || left > right)
+                    break;
+            }
+
             return result;
         }
-       
-       #region Alternative
+
+        #region Alternative
         public IList<int> SpiralOrder2(int[][] matrix)
         {
             List<int> result = new List<int>();
